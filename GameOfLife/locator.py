@@ -1,4 +1,4 @@
-class Manipulator :
+class Locator :
     def __init__(self, grid):
         self.grid = grid
 
