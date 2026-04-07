@@ -6,6 +6,19 @@ class Grid :
         self.locator = locator
         self.grid = grid
 
+    def count_alive_neighbourgs(self, cell_number): 
+        cells_alive = 0
+        neighbourgs = self.locator.locate_neighbourgs(cell_number)
+        states = []
+        for neighbourg in neighbourgs :
+            content = self.__find_content_from_coordonnates(neighbourg[0], neighbourg[1])
+            state_cell = self.__convert_content_to_state_cell(content)
+            states.append(state_cell)
+        for state in states : 
+            if state == ALIVE : 
+                cells_alive += 1
+        return cells_alive
+
     def get_contents_cells(self,cells):
         states = []
         for cell in cells :
