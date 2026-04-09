@@ -4,17 +4,17 @@ class Locator :
 
     def locate_cell(self, cell_position): 
         coordonnates = []
-        for i, line in enumerate(self.grid) :
-            for j, column in enumerate(line) : 
-                if cell_position == 0 : 
-                    coordonnates.append(i)
-                    coordonnates.append(j)
-                    break
-                else : 
-                    cell_position =cell_position - 1
-            if cell_position == 0 : 
-                break         
+        if cell_position > 0 :
+            x_max = len(self.grid[0])
+            y = int(cell_position / x_max)
+            x = cell_position - y * x_max 
+            coordonnates.append(y)
+            coordonnates.append(x)
+        else : 
+            coordonnates.append(0)
+            coordonnates.append(0)
         return coordonnates
+    
     
     def locate_neighbourgs(self, cell_position) : 
         coordonnates = self.locate_cell(cell_position)
