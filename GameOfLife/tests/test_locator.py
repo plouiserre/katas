@@ -8,6 +8,9 @@ complexe_grid = ["........", "...**...", "...**...", "........"]
 def test_locate_first_case_small_grid():
     assert locate_me(0,simple_grid) == [0, 0]
 
+def test_locate_third_case_small_grid(): 
+    assert locate_me(3, simple_grid) == [1, 0]
+
 def test_locate_fourth_case_small_grid(): 
     assert locate_me(4, simple_grid) == [1, 1]
 
@@ -22,7 +25,6 @@ def test_locate_twelfth_case_small_grid():
 
 def test_locate_twenty_eighth_case_small_grid(): 
     assert locate_me(28, complexe_grid) == [3,4]
-
 
 def locate_me(cell_position, grid) :    
     locator = Locator(grid)

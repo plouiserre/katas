@@ -35,3 +35,18 @@ def count_alive_neighbourgs_cells(cell_number, grid_content):
     locator = Locator(grid_content)
     grid = Grid(locator, grid_content)
     return grid.count_alive_neighbourgs(cell_number)    
+
+def test_calculate_futur_simple_grid():
+    assert calculate_futur_grid(simple_grid) ==  [[ALIVE, ALIVE, DEAD], [ALIVE, ALIVE, DEAD], [DEAD,DEAD,DEAD]]
+
+def test_calculate_futur_complexe_grid():
+    assert calculate_futur_grid(complexe_grid) ==  [[DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD], 
+                                                  [DEAD, DEAD, DEAD, ALIVE, ALIVE, DEAD, DEAD, DEAD], 
+                                                  [DEAD, DEAD, DEAD, ALIVE, ALIVE, DEAD, DEAD, DEAD], 
+                                                  [DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD]]
+
+def calculate_futur_grid(grid_content): 
+    locator = Locator(grid_content)
+    grid = Grid(locator, grid_content)
+    news_state = grid.evolve_grid_next_round()
+    return news_state
