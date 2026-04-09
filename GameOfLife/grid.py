@@ -1,10 +1,29 @@
-from GameOfLife.cell import DEAD, ALIVE
+from GameOfLife.cell import DEAD, ALIVE, Cell
 
 
 class Grid : 
     def __init__(self, locator, grid):
         self.locator = locator
         self.grid = grid
+
+    def evolve_grid_next_round(self):
+        cell_number = 0
+        news_state = []
+        for idx_line, line in enumerate(self.grid) : 
+            all_new_cells_line = []
+            for idx_column, column in enumerate(line):
+                alive_neighbourgs = self.count_alive_neighbourgs(cell_number)
+                actual_state = ""
+                if column == "." :
+                    actual_state = DEAD
+                else : 
+                    actual_state = ALIVE
+                cell = Cell(actual_state, alive_neighbourgs)
+                cell.evolve()
+                all_new_cells_line.append(cell.status)
+                cell_number +=1
+            news_state.append(all_new_cells_line)
+        return news_state
 
     def count_alive_neighbourgs(self, cell_number): 
         cells_alive = 0

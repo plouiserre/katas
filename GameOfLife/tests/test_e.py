@@ -18,20 +18,21 @@ def test_2():
 def calculate_futur_grid(grid_content): 
     locator = Locator(grid_content)
     grid = Grid(locator, grid_content)
-    cell_number = 0
-    news_state = []
-    for idx_line, line in enumerate(grid_content) : 
-        all_new_cells_line = []
-        for idx_column, column in enumerate(line):
-            alive_neighbourgs = grid.count_alive_neighbourgs(cell_number)
-            actual_state = ""
-            if column == "." :
-                actual_state = DEAD
-            else : 
-                actual_state = ALIVE
-            cell = Cell(actual_state, alive_neighbourgs)
-            cell.evolve()
-            all_new_cells_line.append(cell.status)
-            cell_number +=1
-        news_state.append(all_new_cells_line)
+    # cell_number = 0
+    # news_state = []
+    # for idx_line, line in enumerate(grid_content) : 
+    #     all_new_cells_line = []
+    #     for idx_column, column in enumerate(line):
+    #         alive_neighbourgs = grid.count_alive_neighbourgs(cell_number)
+    #         actual_state = ""
+    #         if column == "." :
+    #             actual_state = DEAD
+    #         else : 
+    #             actual_state = ALIVE
+    #         cell = Cell(actual_state, alive_neighbourgs)
+    #         cell.evolve()
+    #         all_new_cells_line.append(cell.status)
+    #         cell_number +=1
+    #     news_state.append(all_new_cells_line)
+    news_state = grid.evolve_grid_next_round()
     return news_state
