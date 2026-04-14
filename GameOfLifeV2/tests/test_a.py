@@ -11,14 +11,4 @@ def test_2():
  
 def draw_next_grid_generation(grid_data):
     grid = Grid(grid_data)
-    next_status = grid.generate_next_generation_grid()
-    ihm = []
-    for status_row in next_status :
-        row_draw = ""            
-        for status_column in status_row :  
-            if status_column == DEAD : 
-                row_draw += "."
-            else : 
-                row_draw += "*"
-        ihm.append(row_draw)
-    return ihm
+    return grid.draw_next_generation()

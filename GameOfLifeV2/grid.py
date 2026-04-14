@@ -5,6 +5,19 @@ class Grid :
     def __init__(self, grid_data):
         self.grid_data = grid_data
 
+    def draw_next_generation(self) : 
+        next_status = self.generate_next_generation_grid()
+        ihm = []
+        for status_row in next_status :
+            row_draw = ""            
+            for status_column in status_row :  
+                if status_column == DEAD : 
+                    row_draw += "."
+                else : 
+                    row_draw += "*"
+            ihm.append(row_draw)
+        return ihm
+
     def generate_next_generation_grid(self) : 
         alive_cells = self.determinate_alive_cells()
         all_status =[]
