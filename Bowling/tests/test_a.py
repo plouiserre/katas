@@ -1,3 +1,5 @@
+from Bowling.player import Player
+
 def test_1(): 
     score = [5,2]
     assert(count_score(score) == 7)
@@ -8,4 +10,5 @@ def test_2():
 
 
 def count_score(points): 
-    return points[0]+points[1]
+    player = Player(points)
+    return player.calculate_score()
