@@ -1,7 +1,7 @@
 # Katas
 
 ## Sommaire 
-1. [But] (#but)
+1. [But](#but)
 2. [Game Of Life](#game-of-life)
 3. [Auteur](#auteur)
 4. [Licence](#licence)
