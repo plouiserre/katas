@@ -3,10 +3,11 @@ ALIVE = 1
 
 class Grid : 
     def __init__(self, grid_data):
-        self.grid_data = grid_data
+        self.__grid_data = grid_data
+        self.__alive_cells = []
 
     def draw_next_generation(self) : 
-        next_status = self.generate_next_generation_grid()
+        next_status = self.__generate_next_generation_grid()
         ihm = []
         for status_row in next_status :
             row_draw = ""            
@@ -18,15 +19,15 @@ class Grid :
             ihm.append(row_draw)
         return ihm
 
-    def generate_next_generation_grid(self) : 
-        alive_cells = self.determinate_alive_cells()
+    def __generate_next_generation_grid(self) : 
+        self.__alive_cells = self.__determinate_alive_cells()
         all_status =[]
-        for y, row in enumerate(self.grid_data) : 
+        for y, row in enumerate(self.__grid_data) : 
             status_row = []
-            for x, column in enumerate(self.grid_data[y]):
-                number_neighbors = self.count_alive_neighbors([y, x])
-                status_cell = self.__get_alive_cells(alive_cells, [y, x])
-                status_next_generation = self.get_status_cell_next_round(status_cell, number_neighbors)
+            for x, column in enumerate(self.__grid_data[y]):
+                number_neighbors = self.__count_alive_neighbors([y, x])
+                status_cell = self.__get_alive_cells(self.__alive_cells, [y, x])
+                status_next_generation = self.__get_status_cell_next_round(status_cell, number_neighbors)
                 status_row.append(status_next_generation)
             all_status.append(status_row)
         return all_status
@@ -42,10 +43,9 @@ class Grid :
         else : 
             return  DEAD
 
-    def count_alive_neighbors(self, coordonnates): 
+    def __count_alive_neighbors(self, coordonnates): 
         alive_neighbors = 0
-        alive_cells = self.determinate_alive_cells()
-        for cells in alive_cells : 
+        for cells in self.__alive_cells : 
             y = coordonnates[0]
             x = coordonnates[1]
             cell_y = cells[0]
@@ -57,7 +57,7 @@ class Grid :
                         alive_neighbors +=1  
         return alive_neighbors
         
-    def get_status_cell_next_round(self, actual_status, alive_neighbors): 
+    def __get_status_cell_next_round(self, actual_status, alive_neighbors): 
         if actual_status == ALIVE and alive_neighbors < 2 : 
             return DEAD
         elif actual_status == ALIVE and alive_neighbors > 3 : 
@@ -69,9 +69,9 @@ class Grid :
         else : 
             return DEAD
         
-    def determinate_alive_cells(self): 
+    def __determinate_alive_cells(self): 
         alive_cells = []
-        for y, row in enumerate(self.grid_data) : 
+        for y, row in enumerate(self.__grid_data) : 
             if ("*" in row) == False:
                 continue
             else : 
