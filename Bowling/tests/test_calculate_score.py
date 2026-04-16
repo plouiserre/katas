@@ -16,15 +16,12 @@ def test_eight_turns_with_spare():
     turns = [[5,2], [6,3], [4,1], [0,6], [5,3], [4,3], [4,6], [2,6]]
     assert (calculate_score(turns) == 62)
 
+def test_eight_turns_with_strike(): 
+    turns = [[5,2], [6,3], [4,1], [0,6], [5,3], [4,3], [10,0], [2,6]]
+    assert (calculate_score(turns) == 68)
+
+
+#Improve when code is finished
 def calculate_score(turns): 
-    score = 0
-    is_spare = False 
-    for turn in turns : 
-        if is_spare : 
-            score += turn[0]
-            is_spare = False
-        if turn[0]+turn[1] == 10 :            
-            is_spare = True
-        score += turn[0]
-        score += turn[1]        
-    return score
+    score = Score(turns)
+    return score.Calculate()
