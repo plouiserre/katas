@@ -1,10 +1,28 @@
 class Score : 
     def __init__(self, turns):
         self.turns = turns
+        self.score = 0
+        self.is_spare = False 
+        self.is_strike = False
 
-    def Calculate(self):
-        score = 0
-        for turn in self.turns : 
-            score += turn[0]
-            score += turn[1]
-        return score
+    def Calculate(self):        
+        for turn in self.turns :    
+            self.__manage_spare_or_strike(turn)        
+            self.__determinate_is_spare_or_strike(turn)
+            self.score += turn[0]
+            self.score += turn[1]        
+        return self.score
+    
+    def __manage_spare_or_strike(self, turn):
+        if self.is_spare : 
+            self.score += turn[0]
+            self.is_spare = False
+        elif self.is_strike : 
+            self.score += turn[0]+turn[1] 
+            self.is_strike= False
+
+    def __determinate_is_spare_or_strike(self, turn): 
+        if turn[0] == 10 : 
+            self.is_strike = True
+        elif turn[0]+turn[1] == 10 :            
+            self.is_spare = True
