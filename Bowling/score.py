@@ -3,4 +3,8 @@ class Score :
         self.turns = turns
 
     def Calculate(self):
-        return self.turns[0]+self.turns[1]
+        score = 0
+        for turn in self.turns : 
+            score += turn[0]
+            score += turn[1]
+        return score

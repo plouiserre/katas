@@ -12,10 +12,6 @@ def test_eight_turns_with_nothing_special():
     turns = [[5,2], [6,3], [4,1], [0,6], [5,3], [4,3], [4,4], [2,6]]
     assert (calculate_score(turns) == 58)
 
-
 def calculate_score(turns): 
-    score = 0
-    for turn in turns : 
-        score += turn[0]
-        score += turn[1]
-    return score
+    score = Score(turns)
+    return score.Calculate()
