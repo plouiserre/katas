@@ -12,7 +12,7 @@ class Score :
             self.score += turn[0]
             self.score += turn[1]   
             if number_turn == 9: 
-                self.score += turn[2]
+                self.__manage_last_turn(turn)
         return self.score
     
     def __manage_spare_or_strike(self, turn):
@@ -28,3 +28,7 @@ class Score :
             self.is_strike = True
         elif turn[0]+turn[1] == 10 :            
             self.is_spare = True
+
+    def __manage_last_turn(self, turn):
+        if self.is_spare : 
+            self.score += turn[2]
