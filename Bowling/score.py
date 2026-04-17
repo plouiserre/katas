@@ -6,11 +6,13 @@ class Score :
         self.is_strike = False
 
     def Calculate(self):        
-        for turn in self.turns :    
+        for number_turn, turn in enumerate(self.turns) :    
             self.__manage_spare_or_strike(turn)        
             self.__determinate_is_spare_or_strike(turn)
             self.score += turn[0]
-            self.score += turn[1]        
+            self.score += turn[1]   
+            if number_turn == 9: 
+                self.score += turn[2]
         return self.score
     
     def __manage_spare_or_strike(self, turn):
