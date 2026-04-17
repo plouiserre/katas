@@ -30,5 +30,5 @@ class Score :
             self.is_spare = True
 
     def __manage_last_turn(self, turn):
-        if self.is_spare : 
+        if self.is_spare or self.is_strike: 
             self.score += turn[2]

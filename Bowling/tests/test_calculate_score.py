@@ -24,8 +24,10 @@ def test_ten_turns_spare():
     turns = [[5,2], [6,3], [4,1], [0,6], [5,3], [4,3], [4,4], [2,6], [1,5], [8,2,6]]
     assert (calculate_score(turns) == 80)
 
+def test_ten_turns_strike(): 
+    turns = [[5,2], [6,3], [4,1], [0,6], [5,3], [4,3], [4,4], [2,6], [1,5], [10,2,6]]
+    assert (calculate_score(turns) == 82)
 
-#Improve when code is finished
 def calculate_score(turns): 
     score = Score(turns)
     return score.Calculate()
