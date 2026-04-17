@@ -20,9 +20,9 @@ def test_eight_turns_with_strike():
     turns = [[5,2], [6,3], [4,1], [0,6], [5,3], [4,3], [10,0], [2,6]]
     assert (calculate_score(turns) == 68)
 
-def test_ten_turns(): 
-    turns = [[5,2], [6,3], [4,1], [0,6], [5,3], [4,3], [4,4], [2,6], [1,5], [2,2,6]]
-    assert (calculate_score(turns) == 74)
+def test_ten_turns_spare(): 
+    turns = [[5,2], [6,3], [4,1], [0,6], [5,3], [4,3], [4,4], [2,6], [1,5], [8,2,6]]
+    assert (calculate_score(turns) == 80)
 
 
 #Improve when code is finished
