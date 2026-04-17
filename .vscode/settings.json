@@ -2,7 +2,8 @@
     "python.testing.pytestArgs": [
         "GameOfLife", 
         "GameOfLifeV2",
-        "Bowling"
+        "Bowling", 
+        "Tricount"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true
