@@ -8,7 +8,6 @@ class Slate:
         self.debtor = ""
         self.refunded_person = ""
         self.expenses_by_person = {}
-        self.amount_refund = 0
         self.average_expense = 0
         self.positifs_friends = {}
         self.negatifs_friends = {}
@@ -16,14 +15,10 @@ class Slate:
 
     def manage_expenses(self):
         self.__calculate_each_expense_by_friend() 
-        self.__identify_each_element_of_refund()   
         self.__calculate_average_expense()   
         self.__categorizes_friends_by_expenses()  
         self.__sorted_friends()
         refunds = self.__create_refunds()
-        # refunds = []
-        # refund = Refund(self.debtor, self.refunded_person, round(self.amount_refund, 2))
-        # refunds.append(refund)
         return refunds   
     
     def __calculate_each_expense_by_friend(self) : 
@@ -34,16 +29,6 @@ class Slate:
                 self.expenses_by_person[person] += value_expense
         return self.expenses_by_person
     
-    def __identify_each_element_of_refund(self) :
-        for person in self.expenses_by_person: 
-            if self.expenses_by_person[person] < self.less_expense or self.less_expense == 0: 
-                self.less_expense = self.expenses_by_person[person]
-                self.debtor = person
-            if self.expenses_by_person[person] >self. more_expense :
-                self.more_expense = self.expenses_by_person[person] 
-                self.refunded_person = person
-        self.amount_refund = (self.more_expense - self.less_expense) / 2
-
     def __calculate_average_expense(self): 
         all_expenses = 0
         for person in self.expenses_by_person :
@@ -67,17 +52,21 @@ class Slate:
             value_to_refund = round(self.positifs_friends[positif_friend] - self.average_expense, 2)
             turn = 0
             while(value_to_refund > 1 and turn < 20) :
-                first_negatif_friend = next(iter(self.negatifs_friends))
-                value_can_be_refund = round(self.average_expense - self.negatifs_friends[first_negatif_friend],2)
-                if value_can_be_refund < value_to_refund : 
-                    new_refund = Refund(first_negatif_friend, positif_friend, value_can_be_refund)
-                    self.refunds.append(new_refund)
-                    del self.negatifs_friends[first_negatif_friend]
-                    value_to_refund = round(value_to_refund - value_can_be_refund,2)
-                else : 
-                    new_refund = Refund(first_negatif_friend, positif_friend, value_to_refund)
-                    self.refunds.append(new_refund)
-                    self.negatifs_friends[first_negatif_friend] = round(self.negatifs_friends[first_negatif_friend] + value_to_refund,2)
-                    value_to_refund = 0
+                value_to_refund = self.__refund_positif_friend(positif_friend, value_to_refund)
                 turn += 1
         return self.refunds
+    
+    def __refund_positif_friend(self, positif_friend, value_to_refund):
+        first_negatif_friend = next(iter(self.negatifs_friends))
+        value_can_be_refund = round(self.average_expense - self.negatifs_friends[first_negatif_friend],2)
+        if value_can_be_refund < value_to_refund : 
+            new_refund = Refund(first_negatif_friend, positif_friend, value_can_be_refund)
+            self.refunds.append(new_refund)
+            del self.negatifs_friends[first_negatif_friend]
+            value_to_refund = round(value_to_refund - value_can_be_refund,2)
+        else : 
+            new_refund = Refund(first_negatif_friend, positif_friend, value_to_refund)
+            self.refunds.append(new_refund)
+            self.negatifs_friends[first_negatif_friend] = round(self.negatifs_friends[first_negatif_friend] + value_to_refund,2)
+            value_to_refund = 0
+        return value_to_refund
