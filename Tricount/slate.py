@@ -23,10 +23,10 @@ class Slate:
     
     def __calculate_each_expense_by_friend(self) : 
         self.expenses_by_person ={} 
-        for person in self.expenses: 
-            self.expenses_by_person[person] = 0
-            for value_expense in self.expenses[person] : 
-                self.expenses_by_person[person] += value_expense
+        for expense in self.expenses: 
+            if (expense.paymaster in self.expenses_by_person) == False : 
+                self.expenses_by_person[expense.paymaster] = 0
+            self.expenses_by_person[expense.paymaster] += expense.price
         return self.expenses_by_person
     
     def __calculate_average_expense(self): 
