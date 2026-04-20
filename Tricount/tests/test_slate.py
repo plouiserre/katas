@@ -13,6 +13,13 @@ def test_manage_amandhi_and_feng_expenses():
     refunds = [refund]
     are_refunds_equals(refunds, expenses)
 
+def test_manage_three_friends_expenses_simple(): 
+    expenses = { "Newton": [321.12,2.65,78.66], "Darwin": [466.98], "Einstein":[123.6,241.98,196.7]}
+    first_refund = Refund("Newton", "Einstein", 74.8)
+    second_refund = Refund("Darwin", "Einstein", 10.25)
+    refunds = [first_refund, second_refund]
+    are_refunds_equals(refunds, expenses)
+
 def test_manage_four_friends_expenses_simple(): 
     expenses = {"Léonardo": [65.2,22.4], "Raphaël":[24.2,13.6,9.1], "Donatello":[106], "Michelangelo":[3.4,6.8,14.99]}
     first_refund = Refund("Michelangelo", "Donatello", 39.58)
