@@ -63,6 +63,23 @@ def test_manage_four_friends_expenses_simple():
     refunds = [first_refund, second_refund, third_refund]
     are_refunds_equals(refunds, expenses)
 
+def test_manage_five_friends_complexes(): 
+    first_expense = Expense(12.3, "Jordan", ["Jordan, Johnson", "Bird", "Barkley", "98"])
+    second_expense = Expense(98.5, "Johnson", ["Jordan, Johnson", "Pippen"])
+    third_expense = Expense(146.9, "Bird", ["Jordan, Johnson", "Bird", "Barkley", "Pippen"])
+    fourth_expense = Expense(49.4, "Barkley",["Bird", "Barkley", "Pippen"])
+    fifth_expense = Expense(75.6, "Pippen", ["Jordan, Johnson", "Bird", "Barkley", "Pippen"])
+    sixth_expense = Expense(186.6, "Jordan", ["Jordan", "Barkley", "Pippen"])
+    expenses = [first_expense, second_expense, third_expense, fourth_expense, fifth_expense, 
+                sixth_expense]
+    first_refund = Refund("Pippen", "Bird", 82.87)
+    second_refund = Refund("Barkeley", "Bird", 0.6)
+    third_refund = Refund("Barkeley", "Jordan", 56.91)
+    fourth_refund = Refund("Barkeley", "Johnson", 18.71)
+    refunds = [first_refund, second_refund, third_refund, fourth_refund]
+    are_refunds_equals(refunds, expenses)
+    
+
 def are_refunds_equals(expected_refunds, expenses):
     refunds = manage_expense(expenses)
     for idx, refund in enumerate(refunds):
