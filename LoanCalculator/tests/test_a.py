@@ -1,15 +1,5 @@
+from LoanCalculator.capital_month import Capital_Month
 from LoanCalculator.credit import Credit
-
-class Capital_Month : 
-    def __init__(self, month_number, monthly_payment, interest, capital_repaid, capital_remaining):
-        self.month_number = month_number
-        self.monthly_payment = monthly_payment
-        self.interest = interest
-        self.capital_repaid = capital_repaid
-        self.capital_remaining = capital_remaining
-
-    def __eq__(self, other):
-        return self.month_number == other.month_number and self.monthly_payment == other.monthly_payment and self.interest == other.interest and self.capital_repaid == other.capital_repaid and self.capital_remaining == other.capital_remaining
 
 def test_calculate_montly_payment_for_200000_euros_25_year_credit_with_no_interest() : 
     sum_total = 200000
@@ -60,17 +50,6 @@ def test_calculate_paument_instalments_second_months_300000_euros_25_years_3_poi
     assert(capitals_month_calculated[month_number]== capital_month)
 
 def calculate_capital_month(capital, years, rate_interest):
-    capitals_month = []
     credit = Credit(capital, years, rate_interest)
-    total_months = years *12  
-    i = 0
-    monthly_payment = credit.calculate_montly_payment()
-    while(i < total_months):
-        interests = round(capital * (rate_interest /100/12),2)
-        capital_repaid = round(monthly_payment - interests,2)
-        capital_remaining = round(capital - capital_repaid,2)
-        capital = capital_remaining
-        capital_month = Capital_Month(i, monthly_payment, interests, capital_repaid, capital_remaining )
-        capitals_month.append(capital_month)
-        i += 1
+    capitals_month = credit.calculate_loan_repayment()
     return capitals_month
