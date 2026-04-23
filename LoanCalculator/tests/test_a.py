@@ -1,3 +1,5 @@
+from LoanCalculator.credit import Credit
+
 def test_calculate_montly_payment_for_200000_euros_25_year_credit_with_no_interest() : 
     sum_total = 200000
     years = 25
@@ -21,15 +23,8 @@ def test_calculate_montly_payment_for_300000_euros_25_year_credit_with_3_point_9
     assert(get_monthly_payment(sum_total, years, interests) == 1566.99)
 
 def get_monthly_payment(capital, years, interests):
-    if interests == 0 :
-        montly_payments = round(capital / (years*12) ,2) 
-        return montly_payments
-    else : 
-        interests_by_months = interests/100/12
-        total_months = years *12
-        montly_payments_no_round = (capital * interests_by_months) /(1-(1+interests_by_months)**-total_months)
-        montly_payments = round(montly_payments_no_round, 2)
-        return montly_payments    
+    credit = Credit(capital, years, interests)
+    return credit.calculate_montly_payment()
 
 def test_calculate_capital_remaining_after_first_month_with_100000_euros_10_years_with_2_point_3_percent_interest():
     assert(calculate_capital_remaining(100000, 10, 2.3) == 99258.04)    
@@ -38,8 +33,5 @@ def test_calculate_capital_remaining_after_first_month_with_300000_euros_25_year
     assert(calculate_capital_remaining(300000, 25, 3.9) == 299408.01)
 
 def calculate_capital_remaining(capital, years, rate_interest):
-    first_mensuality = get_monthly_payment(capital, years, rate_interest)
-    interests = capital * (rate_interest /100/12) 
-    capital_repaid = first_mensuality - interests
-    capital_remaining = round(capital - capital_repaid,2)
-    return capital_remaining
+    credit = Credit(capital, years, rate_interest)
+    return credit.calculate_capital_remaining()
