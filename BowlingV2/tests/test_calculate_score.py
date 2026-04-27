@@ -1,33 +1,35 @@
-from Bowling.score import Score
+from BowlingV2.bowling_parser import BowlingParser
+from BowlingV2.score import Score
 
 def test_one_turn_with_7_scores(): 
-    turns = [[5,2]]
-    assert(calculate_score(turns) == 7)
+    notation = "5 2"    
+    assert(calculate_score(notation) == 7)
 
 def test_one_turn_with_9_scores(): 
-    turns = [[6,3]]
-    assert(calculate_score(turns) == 9)
+    notation = "6 3"
+    assert(calculate_score(notation) == 9)
 
 def test_eight_turns_with_nothing_special(): 
-    turns = [[5,2], [6,3], [4,1], [0,6], [5,3], [4,3], [4,4], [2,6]]
-    assert (calculate_score(turns) == 58)
+    notation = "5 2|6 3|4 1|- 6|5 3|4 3|4 4|2 6"
+    assert (calculate_score(notation) == 58)
 
 def test_eight_turns_with_spare(): 
-    turns = [[5,2], [6,3], [4,1], [0,6], [5,3], [4,3], [4,6], [2,6]]
-    assert (calculate_score(turns) == 62)
+    notation = "5 2|6 3|4 1|- 6|5 3|4 3|4 /|2 6"
+    assert (calculate_score(notation) == 62)
 
 def test_eight_turns_with_strike(): 
-    turns = [[5,2], [6,3], [4,1], [0,6], [5,3], [4,3], [10,0], [2,6]]
-    assert (calculate_score(turns) == 68)
+    notation = "5 2|6 3|4 1|- 6|5 3|4 3|X |2 6"
+    assert (calculate_score(notation) == 68)
 
 def test_ten_turns_spare(): 
-    turns = [[5,2], [6,3], [4,1], [0,6], [5,3], [4,3], [4,4], [2,6], [1,5], [8,2,6]]
-    assert (calculate_score(turns) == 80)
+    notation = "5 2|6 3|4 1|- 6|5 3|4 3|4 4|2 6|1 5|8 / 6"
+    assert (calculate_score(notation) == 80)
 
 def test_ten_turns_strike(): 
-    turns = [[5,2], [6,3], [4,1], [0,6], [5,3], [4,3], [4,4], [2,6], [1,5], [10,2,6]]
-    assert (calculate_score(turns) == 82)
+    notation = "5 2|6 3|4 1|- 6|5 3|4 3|4 4|2 6|1 5|X 6"
+    assert (calculate_score(notation) == 80)
 
 def calculate_score(turns): 
-    score = Score(turns)
+    bowling_parser = BowlingParser()
+    score = Score(turns, bowling_parser)
     return score.Calculate()
