@@ -1,14 +1,14 @@
 DEAD = 0
 ALIVE = 1
 
-class Cell : 
+class CellEvolution : 
     def __init__(self, x, y, alive_cells, status_cell):
         self.x = x
         self.y = y
         self.alive_cells = alive_cells
         self.status_cell = status_cell
 
-    def evolve(self): 
+    def transform(self): 
         status_next_generation = ""
         number_neighbors = self.__count_alive_neighbors([self.y, self.x], self.alive_cells)
         status_next_generation = self.__get_status_cell_next_round(self.status_cell, number_neighbors)

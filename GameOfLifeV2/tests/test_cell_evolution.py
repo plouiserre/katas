@@ -1,4 +1,4 @@
-from GameOfLifeV2.cell import ALIVE, DEAD, Cell
+from GameOfLifeV2.cell_evolution import ALIVE, DEAD, CellEvolution
 
 def test_cell_alive_is_dying_because_underpopulation():
     alive_cells = [[0,1],[1,0],[1,1],[2,2]]
@@ -26,5 +26,5 @@ def test_cell_dead_is_alive_because_three_living_cells():
 
 
 def next_state_cell(x, y, alive_cells, status_cell):
-    cell = Cell(x, y, alive_cells, status_cell)
-    return cell.evolve()
+    cell = CellEvolution(x, y, alive_cells, status_cell)
+    return cell.transform()

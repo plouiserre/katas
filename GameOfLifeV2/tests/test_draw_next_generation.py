@@ -13,7 +13,6 @@ def test_draw_first_generation_medium_grid() :
 def test_draw_first_generation_complexe_grid(): 
     assert(draw_next_grid_generation(complexe_grid) == ["........", "...**...", "...**...", "........"])
 
-
 def draw_next_grid_generation(grid_data):
     grid = Grid(grid_data)
     return grid.draw_next_generation()

@@ -1,5 +1,4 @@
-DEAD = 0
-ALIVE = 1
+from GameOfLifeV2.cell_evolution import ALIVE, CellEvolution, DEAD
 
 class Grid : 
     def __init__(self, grid_data):
@@ -25,9 +24,9 @@ class Grid :
         for y, row in enumerate(self.__grid_data) : 
             status_row = []
             for x, column in enumerate(self.__grid_data[y]):
-                number_neighbors = self.__count_alive_neighbors([y, x])
                 status_cell = self.__get_alive_cells(self.__alive_cells, [y, x])
-                status_next_generation = self.__get_status_cell_next_round(status_cell, number_neighbors)
+                cell = CellEvolution(x, y, self.__alive_cells, status_cell)
+                status_next_generation = cell.transform()
                 status_row.append(status_next_generation)
             all_status.append(status_row)
         return all_status
@@ -41,33 +40,7 @@ class Grid :
         if is_alive :
             return ALIVE 
         else : 
-            return  DEAD
-
-    def __count_alive_neighbors(self, coordonnates): 
-        alive_neighbors = 0
-        for cells in self.__alive_cells : 
-            y = coordonnates[0]
-            x = coordonnates[1]
-            cell_y = cells[0]
-            cell_x = cells[1]
-            for i in range(y - 1, y + 2 ) : 
-                for j in range (x - 1 , x + 2 ) :
-                    same_coordonnates = y == i and x == j
-                    if i == cell_y and j == cell_x  and same_coordonnates == False: 
-                        alive_neighbors +=1  
-        return alive_neighbors
-        
-    def __get_status_cell_next_round(self, actual_status, alive_neighbors): 
-        if actual_status == ALIVE and alive_neighbors < 2 : 
-            return DEAD
-        elif actual_status == ALIVE and alive_neighbors > 3 : 
-            return DEAD
-        elif actual_status == ALIVE and (alive_neighbors == 2 or alive_neighbors == 3): 
-            return ALIVE
-        elif actual_status == DEAD and alive_neighbors == 3 : 
-            return ALIVE
-        else : 
-            return DEAD
+            return  DEAD    
         
     def __determinate_alive_cells(self): 
         alive_cells = []
