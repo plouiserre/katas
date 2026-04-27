@@ -1,6 +1,7 @@
 {
     "python.testing.pytestArgs": [
-        "Bowling", 
+        "Bowling",
+        "BowlingV2", 
         "GameOfLife", 
         "GameOfLifeV2",
         "LoanCalculator",
