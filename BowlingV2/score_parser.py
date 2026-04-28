@@ -1,4 +1,4 @@
-class BowlingParser : 
+class ScoreParser : 
     def __init__(self):
         pass
 

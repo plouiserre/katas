@@ -1,4 +1,4 @@
-from BowlingV2.bowling_parser import BowlingParser
+from BowlingV2.score_parser import ScoreParser
 
 def test_notation_simple(): 
     notation = "9 1|1 2|5 3|1 8|6 2|2 4|5 1|3 5|4 2|1 5"
@@ -26,6 +26,6 @@ def test_notation_with_spare_and_strike_and_last_frame_strike():
     assert(translate_notation(notation)==[[9,1],[1,2],[5,3],[1,9],[6,2],[2,4],[10,0],[3,5],[4,2],[10,3]])
 
 def translate_notation(notation):
-    parser = BowlingParser()
+    parser = ScoreParser()
     score = parser.parse_all_bowling_frames(notation)
     return score

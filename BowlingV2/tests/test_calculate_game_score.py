@@ -1,5 +1,5 @@
-from BowlingV2.bowling_parser import BowlingParser
-from BowlingV2.score import Score
+from BowlingV2.score_parser import BowlingParser
+from BowlingV2.game import Game
 
 def test_calculate_game_score_with_one_frame_with_7_points(): 
     notation = "5 2"    
@@ -31,5 +31,5 @@ def test_calculate_all_game_score_finishing_by_a_strike():
 
 def calculate_score(turns): 
     bowling_parser = BowlingParser()
-    score = Score(turns, bowling_parser)
-    return score.Calculate()
+    game = Game(turns, bowling_parser)
+    return game.Calculate()

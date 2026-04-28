@@ -1,4 +1,4 @@
-class Score : 
+class Game : 
     def __init__(self, notation, bowling_parser):
         self.notation = notation
         self.bowling_parser = bowling_parser
