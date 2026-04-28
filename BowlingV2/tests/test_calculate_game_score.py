@@ -1,4 +1,4 @@
-from BowlingV2.score_parser import BowlingParser
+from BowlingV2.score_parser import ScoreParser
 from BowlingV2.game import Game
 
 def test_calculate_game_score_with_one_frame_with_7_points(): 
@@ -30,6 +30,6 @@ def test_calculate_all_game_score_finishing_by_a_strike():
     assert (calculate_score(notation) == 80)
 
 def calculate_score(turns): 
-    bowling_parser = BowlingParser()
-    game = Game(turns, bowling_parser)
+    score_parser = ScoreParser()
+    game = Game(turns, score_parser)
     return game.Calculate()

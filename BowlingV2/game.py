@@ -7,31 +7,31 @@ class Game :
         self.is_strike = False
 
     def Calculate(self):     
-        turns = self.bowling_parser.parse_all_bowling_frames(self.notation)   
-        for number_turn, turn in enumerate(turns) :    
-            self.__manage_spare_or_strike(turn)        
-            self.__determinate_is_spare_or_strike(turn)
-            self.score += turn[0]
-            self.score += turn[1]   
-            if number_turn == 9: 
-                self.__manage_last_turn(turn)
+        frames = self.bowling_parser.parse_all_bowling_frames(self.notation)   
+        for number_frame, frame in enumerate(frames) :    
+            self.__manage_spare_or_strike(frame)        
+            self.__determinate_is_spare_or_strike(frame)
+            self.score += frame.shots[0].point
+            self.score += frame.shots[1].point   
+            if number_frame == 9: 
+                self.__manage_last_turn(frame)
         return self.score
     
-    def __manage_spare_or_strike(self, turn):
+    def __manage_spare_or_strike(self, frame):
         if self.is_spare : 
-            self.score += turn[0]
+            self.score += frame.shots[0].point
             self.is_spare = False
         elif self.is_strike : 
-            self.score += turn[0]+turn[1] 
+            self.score += frame.shots[0].point+frame.shots[1].point
             self.is_strike= False
 
-    def __determinate_is_spare_or_strike(self, turn): 
-        if turn[0] == 10 : 
+    def __determinate_is_spare_or_strike(self, frame): 
+        if frame.shots[0].point == 10 : 
             self.is_strike = True
-        elif turn[0]+turn[1] == 10 :            
+        elif frame.shots[0].point+frame.shots[1].point == 10 :            
             self.is_spare = True
 
     #rewriting this method
-    def __manage_last_turn(self, turn):
-        if self.is_spare or (self.is_strike and len(turn)==3): 
-            self.score += turn[2]        
+    def __manage_last_turn(self, frame):
+        if self.is_spare or (self.is_strike and len(frame.shots)==3): 
+            self.score += frame.shots[2].point        
