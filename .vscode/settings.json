@@ -5,7 +5,8 @@
         "GameOfLife", 
         "GameOfLifeV2",
         "LoanCalculator",
-        "Tricount"
+        "Tricount", 
+        "TricountV2"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true
