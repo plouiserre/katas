@@ -1,3 +1,5 @@
+from BowlingV2.frame import SPARE, STRIKE
+
 class Game : 
     def __init__(self, notation, bowling_parser):
         self.notation = notation
@@ -26,9 +28,10 @@ class Game :
             self.is_strike= False
 
     def __determinate_is_spare_or_strike(self, frame): 
-        if frame.shots[0].points == 10 : 
+        frame_type = frame.determine_frame_type()
+        if frame_type ==  STRIKE: 
             self.is_strike = True
-        elif frame.shots[0].points+frame.shots[1].points == 10 :            
+        elif frame_type ==  SPARE :            
             self.is_spare = True
 
     #rewriting this method
