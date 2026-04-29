@@ -26,8 +26,8 @@ def test_calculate_all_game_score_finishing_by_a_spare():
     assert (calculate_score(notation) == 80)
 
 def test_calculate_all_game_score_finishing_by_a_strike(): 
-    notation = "5 2|6 3|4 1|- 6|5 3|4 3|4 4|2 6|1 5|X 6"
-    assert (calculate_score(notation) == 80)
+    notation = "5 2|6 3|4 1|- 6|5 3|4 3|4 4|2 6|1 5|X 6 3"
+    assert (calculate_score(notation) == 83)
 
 def calculate_score(turns): 
     score_parser = ScoreParser()
