@@ -26,5 +26,5 @@ class ScoreParser :
     
     def __manage_spare_score(self, score_element_translate): 
         last_shot = score_element_translate[0]
-        point_value = 10 - last_shot.point
+        point_value = 10 - last_shot.points
         return point_value
