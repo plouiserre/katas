@@ -30,30 +30,43 @@ class Frame :
         if previous_frame == None : 
             return self.shots[0].points + self.shots[1].points
         elif self.position < 9 : 
-            last_frame_type = previous_frame.determine_frame_type()
-            if last_frame_type == NORMAL:
-                return self.shots[0].points + self.shots[1].points
-            elif last_frame_type == SPARE :
-                return (self.shots[0].points * 2) + self.shots[1].points
-            elif last_frame_type == STRIKE : 
-                return (self.shots[0].points + self.shots[1].points) * 2
+            return self.__count_frame_score_before_last_frame(previous_frame)
         else : 
             last_frame_type = previous_frame.determine_frame_type()
             if last_frame_type == NORMAL:
-                two_shots_score = self.shots[0].points + self.shots[1].points
-                if two_shots_score < 10 : 
-                    return two_shots_score
-                else : 
-                    return self.shots[0].points + self.shots[1].points + self.shots[2].points
+                return self.__count_last_frame_score_when_previous_frame_is_normal()
             elif last_frame_type == SPARE : 
-                normal_two_score = self.shots[0].points + self.shots[1].points
-                if normal_two_score < 10 : 
-                    return self.shots[0].points * 2 + self.shots[1].points
-                else : 
-                    return self.shots[0].points * 2 + self.shots[1].points + self.shots[2].points
+                return self.__count_last_frame_score_when_previous_frame_is_spare()
             elif last_frame_type == STRIKE : 
-                normal_two_score = self.shots[0].points + self.shots[1].points
-                if normal_two_score < 10 : 
-                    return (self.shots[0].points + self.shots[1].points ) *2 
-                else : 
-                    return (self.shots[0].points + self.shots[1].points) *2  + self.shots[2].points
+                return self.__count_last_frame_score_when_previous_frame_is_strike()
+
+    def __count_frame_score_before_last_frame(self, previous_frame): 
+        last_frame_type = previous_frame.determine_frame_type()
+        if last_frame_type == NORMAL:
+            return self.shots[0].points + self.shots[1].points
+        elif last_frame_type == SPARE :
+            return (self.shots[0].points * 2) + self.shots[1].points
+        elif last_frame_type == STRIKE : 
+            return (self.shots[0].points + self.shots[1].points) * 2
+        
+    def __count_last_frame_score_when_previous_frame_is_normal(self):
+        two_shots_score = self.shots[0].points + self.shots[1].points
+        if two_shots_score < 10 : 
+            return two_shots_score
+        else : 
+            return self.shots[0].points + self.shots[1].points + self.shots[2].points
+        
+    def __count_last_frame_score_when_previous_frame_is_spare(self): 
+        normal_two_score = self.shots[0].points + self.shots[1].points
+        if normal_two_score < 10 : 
+            return self.shots[0].points * 2 + self.shots[1].points
+        else : 
+            return self.shots[0].points * 2 + self.shots[1].points + self.shots[2].points
+        
+    def __count_last_frame_score_when_previous_frame_is_strike(self):
+        normal_two_score = self.shots[0].points + self.shots[1].points
+        if normal_two_score < 10 : 
+            return (self.shots[0].points + self.shots[1].points ) *2 
+        else : 
+            return (self.shots[0].points + self.shots[1].points) *2  + self.shots[2].points
+        
