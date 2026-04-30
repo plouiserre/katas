@@ -1,3 +1,4 @@
+from TricountV2.event import Event
 from TricountV2.expense import Expense
 from TricountV2.refund import Refund
 from TricountV2.slate import Slate
@@ -45,7 +46,8 @@ def test_manage_five_friends_complexes():
     
 
 def are_refunds_equals(expected_refunds, expenses):
-    slate = Slate(expenses)    
+    event = Event(expenses)
+    slate = Slate(expenses, event)    
     refunds = slate.manage_expenses()
     for idx, refund in enumerate(refunds):
         assert(refund == expected_refunds[idx])
