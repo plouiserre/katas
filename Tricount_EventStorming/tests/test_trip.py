@@ -1,5 +1,5 @@
 from Tricount_EventStorming.activity_event import ActivityEvent 
-from Tricount_EventStorming.participant import Participant
+from Tricount_EventStorming.participant import Participant, CREDITOR, DEBTOR
 from Tricount_EventStorming.trip import Trip
 
 def test_count_all_expenses_trip_ninja_turtles(): 
@@ -14,10 +14,10 @@ def test_count_all_expenses_trip_ninja_turtles():
     trip.add_activity(ActivityEvent("Sucettes", "Michelangelo", ["Donatello","Raphaël", "Léonardo", "Michelangelo"], 6.8))
     trip.add_activity(ActivityEvent("Achat ballon plages", "Michelangelo", ["Donatello", "Raphaël", "Léonardo", "Michelangelo"], 14.99))
 
-    assert(trip.participants[0] == Participant("Léonardo", 21.18))
-    assert(trip.participants[1] == Participant("Michelangelo", -41.23))
-    assert(trip.participants[2] == Participant("Donatello", 39.58))
-    assert(trip.participants[3] == Participant("Raphaël", -19.52))
+    assert(trip.participants[0] == Participant("Léonardo", 21.18, CREDITOR))
+    assert(trip.participants[1] == Participant("Michelangelo", -41.23, DEBTOR))
+    assert(trip.participants[2] == Participant("Donatello", 39.58, CREDITOR))
+    assert(trip.participants[3] == Participant("Raphaël", -19.52, DEBTOR))
 
 def test_count_all_expenses_trip_dream_team(): 
     trip = Trip()
@@ -28,11 +28,17 @@ def test_count_all_expenses_trip_dream_team():
     trip.add_activity(ActivityEvent("Uber", "Pippen", ["Jordan", "Johnson", "Bird", "Barkley", "Pippen"], 75.6))
     trip.add_activity(ActivityEvent("Second champagne bottle", "Jordan", ["Jordan", "Barkley", "Pippen"], 186.6))
 
-    assert(trip.participants[0] == Participant("Jordan", 56.91))
-    assert(trip.participants[1] == Participant("Johnson", 18.71))
-    assert(trip.participants[2] == Participant("Bird", 83.47))
-    assert(trip.participants[3] == Participant("Barkley", -76.23))
-    assert(trip.participants[4] == Participant("Pippen", -82.86))
+    assert(trip.participants[0] == Participant("Jordan", 56.91, CREDITOR))
+    assert(trip.participants[1] == Participant("Johnson", 18.71, CREDITOR))
+    assert(trip.participants[2] == Participant("Bird", 83.47, CREDITOR))
+    assert(trip.participants[3] == Participant("Barkley", -76.23, DEBTOR))
+    assert(trip.participants[4] == Participant("Pippen", -82.86, DEBTOR))
 
+class Refund : 
+    def __init__(self, debtor, refunded_person, amount):
+        self.debtor= debtor
+        self.refunded_person = refunded_person
+        self.amount = amount        
 
-
+    def __eq__(self, other):
+        return self.debtor == other.debtor and self.refunded_person == other.refunded_person and self.amount == other.amount

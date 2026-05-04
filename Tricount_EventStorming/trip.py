@@ -1,4 +1,4 @@
-from Tricount_EventStorming.participant import Participant
+from Tricount_EventStorming.participant import CREDITOR, DEBTOR, Participant
 
 class Trip : 
     def __init__(self):
@@ -8,15 +8,15 @@ class Trip :
         price_by_participant = round(activity.price / len(activity.participants), 2)
         participant_paymaster = self.__get_participant(activity.paymaster)
         if participant_paymaster == None : 
-            self.participants.append(Participant(activity.paymaster, activity.price))
+            self.participants.append(Participant(activity.paymaster, activity.price, CREDITOR))
         else : 
-            participant_paymaster.balance = round(participant_paymaster.balance + activity.price, 2)
+            participant_paymaster.add_activity_you_paid(activity)
         for participant_name in activity.participants : 
             participant_activity = self.__get_participant(participant_name)
             if participant_activity == None : 
-                self.participants.append(Participant(participant_name, - price_by_participant))
+                self.participants.append(Participant(participant_name, - price_by_participant, DEBTOR))
             else :
-                participant_activity.balance = round(participant_activity.balance - price_by_participant, 2)
+                participant_activity.add_activity_you_participe(activity)
 
     def __get_participant(self, name): 
         for participant in self.participants : 
