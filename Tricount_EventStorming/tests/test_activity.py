@@ -1,5 +1,6 @@
 import pytest
-from Tricount_EventStorming.activity import Activity
+from Tricount_EventStorming.activity_event import ActivityEvent
+from Tricount_EventStorming.tests.test_trip import Trip, Participant
 from dataclasses import FrozenInstanceError, dataclass
 # expenses = [Expense(65.2, "Léonardo", ["Michelangelo", "Donatello", "Raphaël", "Léonardo"]), Expense(22.4, "Léonardo", ["Michelangelo", "Donatello", "Raphaël", "Léonardo"]), 
 #                 Expense(24.2, "Raphaël", ["Léonardo","Michelangelo", "Donatello", "Raphaël"]), Expense(13.6, "Raphaël", ["Léonardo","Michelangelo", "Donatello", "Raphaël"]), 
@@ -16,17 +17,16 @@ from dataclasses import FrozenInstanceError, dataclass
 #                                              Participant("Barkley", -76.23, DEBTOR), Participant("Pippen", -82.86, DEBTOR)])  
 
 def test_init_good_restaurant_activity(): 
-    activity = Activity("restaurant", ["Michelangelo", "Donatello", "Raphaël", "Léonardo"], 65.2)
+    activity = ActivityEvent("restaurant", "Léonardo", ["Michelangelo", "Donatello", "Raphaël", "Léonardo"], 65.2)
     assert("restaurant" == activity.name)
+    assert("Léonardo" == activity.paymaster)
     assert(["Michelangelo", "Donatello", "Raphaël", "Léonardo"] == activity.participants)
     assert(65.2 == activity.price)
 
 def test_cannot_rename_activity(): 
-    activity = Activity("restaurant", ["Michelangelo", "Donatello", "Raphaël", "Léonardo"], 65.2)
+    activity = ActivityEvent("restaurant", "Léonardo", ["Michelangelo", "Donatello", "Raphaël", "Léonardo"], 65.2)
     with pytest.raises(FrozenInstanceError):
-        activity.name = "bowling"
-
-
+        activity.paymaster = "Raphaël"
 
 # class ExpenseEvent:
 #     def __init__(self, paymaster, activity) : 
