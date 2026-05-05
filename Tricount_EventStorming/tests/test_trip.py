@@ -1,4 +1,5 @@
 from Tricount_EventStorming.activity_event import ActivityEvent 
+from Tricount_EventStorming.refund import Refund
 from Tricount_EventStorming.participant import Participant, CREDITOR, DEBTOR
 from Tricount_EventStorming.trip import Trip
 
@@ -41,13 +42,25 @@ def test_count_all_expenses_trip_dream_team():
     assert(basket_ball_trip.participants[3] == Participant("Barkley", -76.23, DEBTOR))
     assert(basket_ball_trip.participants[4] == Participant("Pippen", -82.86, DEBTOR))
 
-# def test_calcul_all_refunds_for_trip_ninja_turtles():
-#     ninja_trip = __init_ninja_trip_and_add_many_activity()
-#     assert(ninja_trip.refunds[0] == Refund("Michelangelo", "Donatello", 39.58))
-#     assert(ninja_trip.refunds[1] == Refund("Michelangelo", "Léonardo", 1.65), Refund("Raphaël", "Léonardo", 19.52))
+def test_calcul_all_refunds_for_trip_ninja_turtles():
+    ninja_trip = __init_ninja_trip_and_add_many_activity()
+    refunds_expected = [
+        Refund("Michelangelo", "Donatello", 39.58),
+        Refund("Michelangelo", "Léonardo", 1.65),
+        Refund("Raphaël", "Léonardo", 19.52)
+    ]
+    refunds_calculated = ninja_trip.refunds
+    for idx, refund in enumerate(refunds_calculated) : 
+        assert(refunds_expected[idx] == refund)
 
-# def test_calcul_all_refunds_for_trip_dream_team():
-#     basket_ball_trip = __init_basket_ball_trip_and_add_many_activity()
-#     assert(basket_ball_trip.refunds[0] == Refund("Pippen", "Bird", 82.86))
-#     assert(basket_ball_trip.refunds[1] == Refund("Barkley", "Jordan", 56.91))
-#     assert(basket_ball_trip.refunds[2] == Refund("Barkley", "Johnson", 18.71))
+def test_calcul_all_refunds_for_trip_dream_team():
+    basket_ball_trip = __init_basket_ball_trip_and_add_many_activity()
+    refunds_expected = [
+        Refund("Pippen", "Bird", 82.86),
+        Refund("Barkley", "Bird", 0.61),
+        Refund("Barkley", "Jordan", 56.91),
+        Refund("Barkley", "Johnson", 18.71)
+    ]
+    refunds_calculated = basket_ball_trip.refunds
+    for idx, refund in enumerate(refunds_calculated) : 
+        assert(refunds_expected[idx] == refund)
