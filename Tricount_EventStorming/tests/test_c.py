@@ -1,4 +1,5 @@
 from Tricount_EventStorming.activity_event import ActivityEvent
+from Tricount_EventStorming.refund import Refund
 from Tricount_EventStorming.trip import Trip
 
 def test_1(): 
@@ -54,44 +55,10 @@ def test_3():
 
 
 def __get_refunds_from_trip(ninja_trip):
-    refunds = []
-    debt_participants = [] 
-    generous_participants = []
-    for participant in ninja_trip.participants : 
-        if participant.balance < 0 : 
-            debt_participants.append(participant)
-        else : 
-            generous_participants.append(participant)
-    debt_participants = sorted(debt_participants, key=lambda x:x.balance)
-    generous_participants = sorted(generous_participants, key=lambda x:x.balance, reverse= True )
-    for debt_participant in debt_participants :
-        idx = 0
-        while debt_participant.balance < 0 and idx < 20: 
-            value_to_refund = round(0 - debt_participant.balance, 2)
-            for generous_participant in generous_participants : 
-                if value_to_refund == 0 : 
-                    break
-                if generous_participant.balance == 0 :
-                    continue
-                if value_to_refund > generous_participant.balance : 
-                    value_to_refund = generous_participant.balance 
-                refunds.append(Refund(debt_participant, generous_participant, value_to_refund))
-                generous_participant.balance = round(generous_participant.balance - value_to_refund, 2)
-                debt_participant.balance = round(debt_participant.balance + value_to_refund, 2)
-                value_to_refund = round(0 - debt_participant.balance, 2)
-            idx += 1
+    refunds = ninja_trip.calculate_refunds_from_trip()
     return refunds
 
 def __get_participant_by_name(trip, name): 
     for participant in trip.participants : 
         if participant.name == name : 
             return participant
-
-class Refund : 
-    def __init__(self, debtor, refunded_person, amount):
-        self.debtor= debtor
-        self.refunded_person = refunded_person
-        self.amount = amount        
-
-    def __eq__(self, other):
-        return self.debtor == other.debtor and self.refunded_person == other.refunded_person and self.amount == other.amount
