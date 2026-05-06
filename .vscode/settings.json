@@ -6,6 +6,7 @@
         "GameOfLifeV2",
         "LoanCalculator",
         "Tricount", 
+        "Tricount_EventStorming",
         "TricountV2"
     ],
     "python.testing.unittestEnabled": false,

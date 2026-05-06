@@ -1,5 +1,5 @@
 DEBTOR = 0
-CREDITOR = 0
+CREDITOR = 1
 
 class Participant :
     def __init__(self, name, balance, participant_type):
