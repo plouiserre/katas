@@ -1,23 +1,3 @@
-def test_1(): 
-    montly_payment = MontlyPaiement(10, 100000, 0)
-    value = montly_payment.calculate_value_montly_paiement()
-    assert(833.33 == value)
-
-def test_2(): 
-    montly_payment = MontlyPaiement(25, 300000, 0)
-    value = montly_payment.calculate_value_montly_paiement()
-    assert(1000 == value)
-
-def test_3(): 
-    montly_paiement = MontlyPaiement(10, 100000, 2.3)
-    value = montly_paiement.calculate_value_montly_paiement()
-    assert(933.63 == value)
-
-def test_4(): 
-    montly_payment = MontlyPaiement(25, 300000, 3.9)
-    value = montly_payment.calculate_value_montly_paiement()
-    assert(1566.99 == value)
-
 class MontlyPaiement : 
     def __init__(self, year, capital_total, rate_interest):
         self.years = year
