@@ -1,5 +1,5 @@
-from BowlingV2.frame import Frame
-from BowlingV2.shot import Shot
+from Bowling.frame import Frame
+from Bowling.shot import Shot
 
 class ScoreParser : 
     def __init__(self):

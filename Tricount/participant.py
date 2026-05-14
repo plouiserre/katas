@@ -1,4 +1,4 @@
-from Tricount_EventStorming.refund import Refund
+from Tricount.refund import Refund
 DEBTOR = 0
 CREDITOR = 1
 

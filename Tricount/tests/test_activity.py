@@ -1,6 +1,6 @@
 import pytest
-from Tricount_EventStorming.activity_event import ActivityEvent
-from Tricount_EventStorming.tests.test_trip import Trip, Participant
+from Tricount.activity_event import ActivityEvent
+from Tricount.tests.test_trip import Trip, Participant
 from dataclasses import FrozenInstanceError, dataclass
 # expenses = [Expense(65.2, "Léonardo", ["Michelangelo", "Donatello", "Raphaël", "Léonardo"]), Expense(22.4, "Léonardo", ["Michelangelo", "Donatello", "Raphaël", "Léonardo"]), 
 #                 Expense(24.2, "Raphaël", ["Léonardo","Michelangelo", "Donatello", "Raphaël"]), Expense(13.6, "Raphaël", ["Léonardo","Michelangelo", "Donatello", "Raphaël"]), 

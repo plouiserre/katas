@@ -1,6 +1,6 @@
 import copy
-from Tricount_EventStorming.participant import CREDITOR, DEBTOR, Participant
-from Tricount_EventStorming.refund import Refund
+from Tricount.participant import CREDITOR, DEBTOR, Participant
+from Tricount.refund import Refund
 
 class Trip : 
     def __init__(self):
