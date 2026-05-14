@@ -1,6 +1,6 @@
-from BowlingV2.frame import Frame
-from BowlingV2.score_parser import ScoreParser
-from BowlingV2.shot import Shot
+from Bowling.frame import Frame
+from Bowling.score_parser import ScoreParser
+from Bowling.shot import Shot
 
 def test_notation_simple(): 
     notation = "9 1|1 2|5 3|1 8|6 2|2 4|5 1|3 5|4 2|1 5"

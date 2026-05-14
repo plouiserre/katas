@@ -1,5 +1,5 @@
-from BowlingV2.frame import Frame, NORMAL, SPARE, STRIKE
-from BowlingV2.shot import Shot
+from Bowling.frame import Frame, NORMAL, SPARE, STRIKE
+from Bowling.shot import Shot
 
 def test_identify_normal_frame():
     frame = Frame(4, [Shot(2, 1), Shot(6, 2)])

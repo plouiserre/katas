@@ -1,5 +1,5 @@
-from GameOfLifeV2.grid import Grid
-from GameOfLifeV2.status_cell import StatusCell
+from GameOfLife.grid import Grid
+from GameOfLife.status_cell import StatusCell
 
 simple_grid = [".*.", "**.", "..."]
 medium_grid = ["*.*", ".*.", "..*"]

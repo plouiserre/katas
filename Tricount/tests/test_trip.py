@@ -1,7 +1,7 @@
-from Tricount_EventStorming.activity_event import ActivityEvent 
-from Tricount_EventStorming.refund import Refund
-from Tricount_EventStorming.participant import Participant, CREDITOR, DEBTOR
-from Tricount_EventStorming.trip import Trip
+from Tricount.activity_event import ActivityEvent 
+from Tricount.refund import Refund
+from Tricount.participant import Participant, CREDITOR, DEBTOR
+from Tricount.trip import Trip
 
 def test_count_all_expenses_trip_ninja_turtles(): 
     ninja_trip = __init_ninja_trip_and_add_many_activity()

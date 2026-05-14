@@ -1,4 +1,4 @@
-from BowlingV2.frame import SPARE, STRIKE
+from Bowling.frame import SPARE, STRIKE
 
 class Game : 
     def __init__(self, notation, bowling_parser):

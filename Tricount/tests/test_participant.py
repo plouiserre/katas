@@ -1,5 +1,5 @@
-from Tricount_EventStorming.participant import Participant, CREDITOR, DEBTOR
-from Tricount_EventStorming.refund import Refund
+from Tricount.participant import Participant, CREDITOR, DEBTOR
+from Tricount.refund import Refund
 
 
 def test_with_only_one_refund_generous_friend(): 

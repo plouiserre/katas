@@ -1,4 +1,4 @@
-from GameOfLifeV2.status_cell import ALIVE, DEAD, StatusCell
+from GameOfLife.status_cell import ALIVE, DEAD, StatusCell
 
 def test_status_cell_alive_is_dying_because_underpopulation():
     alive_cells = [[0,1],[1,0],[1,1],[2,2]]
