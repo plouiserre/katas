@@ -3,6 +3,7 @@
         "Bowling",
         "GameOfLife", 
         "LoanCalculator",
+        "PokerHands",
         "Tricount"
     ],
     "python.testing.unittestEnabled": false,
