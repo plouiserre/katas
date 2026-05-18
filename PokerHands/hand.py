@@ -10,6 +10,7 @@ class Hand :
 
 class HandValue(Enum) : 
     HIGH_VALUE = 19
+    PAIR = 20
 
 class HandScore(IntEnum):
     TWO_SCORE = 38

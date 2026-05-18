@@ -33,7 +33,129 @@ def test_find_high_value_seven():
     cards =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.FIVE, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
     assert(return_high_hands(cards)==Hand(HandValue.HIGH_VALUE, HandScore.SEVEN_SCORE))
 
+def test_find_pair_two(): 
+    cards =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.TWO, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Hand(HandValue.PAIR, HandScore.TWO_SCORE))
+
+def test_find_pair_three(): 
+    cards =  [Card(CardValue.THREE, CardColor.CLUBS), Card(CardValue.THREE, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Hand(HandValue.PAIR, HandScore.THREE_SCORE))
+
+def test_find_pair_four(): 
+    cards =  [Card(CardValue.THREE, CardColor.CLUBS), Card(CardValue.FOUR, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Hand(HandValue.PAIR, HandScore.FOUR_SCORE))
+
+def test_find_pair_five(): 
+    cards =  [Card(CardValue.FIVE, CardColor.CLUBS), Card(CardValue.FIVE, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Hand(HandValue.PAIR, HandScore.FIVE_SCORE))
+
+def test_find_pair_six(): 
+    cards =  [Card(CardValue.FIVE, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Hand(HandValue.PAIR, HandScore.SIX_SCORE))
+
+def test_find_pair_seven(): 
+    cards =  [Card(CardValue.FIVE, CardColor.CLUBS), Card(CardValue.SEVEN, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Hand(HandValue.PAIR, HandScore.SEVEN_SCORE))
+
+def test_find_pair_eight(): 
+    cards =  [Card(CardValue.EIGHT, CardColor.CLUBS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Hand(HandValue.PAIR, HandScore.EIGHT_SCORE))
+
+def test_find_pair_nine(): 
+    cards =  [Card(CardValue.NINE, CardColor.CLUBS), Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Hand(HandValue.PAIR, HandScore.NINE_SCORE))
+
+def test_find_pair_ten(): 
+    cards =  [Card(CardValue.TEN, CardColor.CLUBS), Card(CardValue.TEN, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Hand(HandValue.PAIR, HandScore.TEN_SCORE))
+
+def test_find_pair_jack(): 
+    cards =  [Card(CardValue.JACK, CardColor.CLUBS), Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Hand(HandValue.PAIR, HandScore.JACK_SCORE))
+
+def test_find_pair_queen(): 
+    cards =  [Card(CardValue.QUEEN, CardColor.CLUBS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Hand(HandValue.PAIR, HandScore.QUEEN_SCORE))
+
+def test_find_pair_king(): 
+    cards =  [Card(CardValue.KING, CardColor.CLUBS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Hand(HandValue.PAIR, HandScore.KING_SCORE))
+
+def test_find_pair_ace(): 
+    cards =  [Card(CardValue.ACE, CardColor.CLUBS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Hand(HandValue.PAIR, HandScore.ACE_SCORE))
+
 def return_high_hands(cards):
+    count_two_cards = 0
+    count_three_cards = 0
+    count_four_cards = 0
+    count_five_cards = 0
+    count_six_cards = 0
+    count_seven_cards = 0
+    count_eight_cards = 0
+    count_nine_cards = 0
+    count_ten_cards = 0
+    count_jack_cards = 0
+    count_queen_cards = 0
+    count_king_cards = 0
+    count_ace_cards = 0
+    for card in cards : 
+        if card.value == CardValue.TWO : 
+            count_two_cards += 1
+        elif card.value == CardValue.THREE : 
+            count_three_cards += 1
+        elif card.value == CardValue.FOUR : 
+            count_four_cards += 1
+        elif card.value == CardValue.FIVE : 
+            count_five_cards += 1
+        elif card.value == CardValue.SIX : 
+            count_six_cards += 1
+        elif card.value == CardValue.SEVEN : 
+            count_seven_cards += 1
+        elif card.value == CardValue.EIGHT : 
+            count_eight_cards += 1
+        elif card.value == CardValue.NINE : 
+            count_nine_cards += 1
+        elif card.value == CardValue.TEN : 
+            count_ten_cards += 1
+        elif card.value == CardValue.JACK : 
+            count_jack_cards += 1
+        elif card.value == CardValue.QUEEN : 
+            count_queen_cards += 1
+        elif card.value == CardValue.KING : 
+            count_king_cards += 1
+        elif card.value == CardValue.ACE : 
+            count_ace_cards += 1
+    if count_two_cards == 2 : 
+        return Hand(HandValue.PAIR, HandScore.TWO_SCORE)
+    elif count_three_cards == 2 : 
+        return Hand(HandValue.PAIR, HandScore.THREE_SCORE)
+    elif count_four_cards == 2 : 
+        return Hand(HandValue.PAIR, HandScore.FOUR_SCORE)
+    elif count_five_cards == 2 : 
+        return Hand(HandValue.PAIR, HandScore.FIVE_SCORE)
+    elif count_six_cards == 2 : 
+        return Hand(HandValue.PAIR, HandScore.SIX_SCORE)
+    elif count_seven_cards == 2 : 
+        return Hand(HandValue.PAIR, HandScore.SEVEN_SCORE)
+    elif count_eight_cards == 2 :
+        return Hand(HandValue.PAIR, HandScore.EIGHT_SCORE)
+    elif count_nine_cards == 2 :
+        return Hand(HandValue.PAIR, HandScore.NINE_SCORE)
+    elif count_ten_cards == 2 :
+        return Hand(HandValue.PAIR, HandScore.TEN_SCORE)
+    elif count_jack_cards == 2 :
+        return Hand(HandValue.PAIR, HandScore.JACK_SCORE)
+    elif count_queen_cards == 2 :
+        return Hand(HandValue.PAIR, HandScore.QUEEN_SCORE)
+    elif count_king_cards == 2 :
+        return Hand(HandValue.PAIR, HandScore.KING_SCORE)
+    elif count_ace_cards == 2 :
+        return Hand(HandValue.PAIR, HandScore.ACE_SCORE)
+    else : 
+        return __manage_high_score_hand(cards)
+    
+def __manage_high_score_hand(cards):
     max_value = HandScore.TWO_SCORE
     for card in cards : 
         if card.value == CardValue.ACE : 
