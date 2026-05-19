@@ -73,4 +73,4 @@ def test_count_cards_with_two_ace_cards() :
 
 def __count_cards(content_hand) :
     hand = Hand(content_hand)
-    return hand.count_hand()
+    return hand.count_all_cards()

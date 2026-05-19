@@ -1,4 +1,5 @@
 from PokerHands.card import Card, CardColor, CardValue
+from PokerHands.hand import Hand
 from PokerHands.score import Score, HighFigure, FigureValue
 
 def test_find_high_value_ace():
@@ -86,71 +87,33 @@ def test_find_pair_ace():
     assert(return_high_hands(cards)==Score(HighFigure.PAIR, FigureValue.ACE_SCORE))
 
 def return_high_hands(cards):
-    count_two_cards = 0
-    count_three_cards = 0
-    count_four_cards = 0
-    count_five_cards = 0
-    count_six_cards = 0
-    count_seven_cards = 0
-    count_eight_cards = 0
-    count_nine_cards = 0
-    count_ten_cards = 0
-    count_jack_cards = 0
-    count_queen_cards = 0
-    count_king_cards = 0
-    count_ace_cards = 0
-    for card in cards : 
-        if card.value == CardValue.TWO : 
-            count_two_cards += 1
-        elif card.value == CardValue.THREE : 
-            count_three_cards += 1
-        elif card.value == CardValue.FOUR : 
-            count_four_cards += 1
-        elif card.value == CardValue.FIVE : 
-            count_five_cards += 1
-        elif card.value == CardValue.SIX : 
-            count_six_cards += 1
-        elif card.value == CardValue.SEVEN : 
-            count_seven_cards += 1
-        elif card.value == CardValue.EIGHT : 
-            count_eight_cards += 1
-        elif card.value == CardValue.NINE : 
-            count_nine_cards += 1
-        elif card.value == CardValue.TEN : 
-            count_ten_cards += 1
-        elif card.value == CardValue.JACK : 
-            count_jack_cards += 1
-        elif card.value == CardValue.QUEEN : 
-            count_queen_cards += 1
-        elif card.value == CardValue.KING : 
-            count_king_cards += 1
-        elif card.value == CardValue.ACE : 
-            count_ace_cards += 1
-    if count_two_cards == 2 : 
+    hand = Hand(cards)
+    cards_identified = hand.count_all_cards()
+    if CardValue.TWO in cards_identified and cards_identified[CardValue.TWO] == 2 : 
         return Score(HighFigure.PAIR, FigureValue.TWO_SCORE)
-    elif count_three_cards == 2 : 
+    elif CardValue.THREE in cards_identified and cards_identified[CardValue.THREE] == 2 == 2 : 
         return Score(HighFigure.PAIR, FigureValue.THREE_SCORE)
-    elif count_four_cards == 2 : 
+    elif CardValue.FOUR in cards_identified and cards_identified[CardValue.FOUR] == 2 == 2 : 
         return Score(HighFigure.PAIR, FigureValue.FOUR_SCORE)
-    elif count_five_cards == 2 : 
+    elif CardValue.FIVE in cards_identified and cards_identified[CardValue.FIVE] == 2 == 2 : 
         return Score(HighFigure.PAIR, FigureValue.FIVE_SCORE)
-    elif count_six_cards == 2 : 
+    elif CardValue.SIX in cards_identified and cards_identified[CardValue.SIX] == 2 == 2 : 
         return Score(HighFigure.PAIR, FigureValue.SIX_SCORE)
-    elif count_seven_cards == 2 : 
+    elif CardValue.SEVEN in cards_identified and cards_identified[CardValue.SEVEN] == 2 == 2 : 
         return Score(HighFigure.PAIR, FigureValue.SEVEN_SCORE)
-    elif count_eight_cards == 2 :
+    elif CardValue.EIGHT in cards_identified and cards_identified[CardValue.EIGHT] == 2 == 2 :
         return Score(HighFigure.PAIR, FigureValue.EIGHT_SCORE)
-    elif count_nine_cards == 2 :
+    elif CardValue.NINE in cards_identified and cards_identified[CardValue.NINE] == 2 == 2 :
         return Score(HighFigure.PAIR, FigureValue.NINE_SCORE)
-    elif count_ten_cards == 2 :
+    elif CardValue.TEN in cards_identified and cards_identified[CardValue.TEN] == 2 == 2 :
         return Score(HighFigure.PAIR, FigureValue.TEN_SCORE)
-    elif count_jack_cards == 2 :
+    elif CardValue.JACK in cards_identified and cards_identified[CardValue.JACK] == 2 == 2 :
         return Score(HighFigure.PAIR, FigureValue.JACK_SCORE)
-    elif count_queen_cards == 2 :
+    elif CardValue.QUEEN in cards_identified and cards_identified[CardValue.QUEEN] == 2 == 2 :
         return Score(HighFigure.PAIR, FigureValue.QUEEN_SCORE)
-    elif count_king_cards == 2 :
+    elif CardValue.KING in cards_identified and cards_identified[CardValue.KING] == 2 == 2 :
         return Score(HighFigure.PAIR, FigureValue.KING_SCORE)
-    elif count_ace_cards == 2 :
+    elif CardValue.ACE in cards_identified and cards_identified[CardValue.ACE] == 2 == 2 :
         return Score(HighFigure.PAIR, FigureValue.ACE_SCORE)
     else : 
         return __manage_high_score_Score(cards)
