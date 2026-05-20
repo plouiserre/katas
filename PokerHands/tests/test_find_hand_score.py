@@ -1,6 +1,6 @@
 from PokerHands.card import Card, CardColor, CardValue
-from PokerHands.hand import Hand
-from PokerHands.score import Score, HighFigure, FigureValue
+from PokerHands.hand import Hand, HighFigure
+from PokerHands.score import Score, FigureValue
 
 def test_find_high_value_ace():
     cards =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.THREE, CardColor.DIAMONDS), Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.ACE, CardColor.SPADES)]
@@ -139,63 +139,43 @@ def test_find_three_of_a_ace():
     assert(return_high_hands(cards)==Score(HighFigure.THREE_OF_A_KIND, FigureValue.ACE_SCORE))
 
 def return_high_hands(cards):
-    hand = Hand(cards)
-    cards_identified = hand.count_all_cards()
-    if CardValue.TWO in cards_identified and cards_identified[CardValue.TWO] == 2 : 
-        return Score(HighFigure.PAIR, FigureValue.TWO_SCORE)
-    elif CardValue.THREE in cards_identified and cards_identified[CardValue.THREE] == 2: 
-        return Score(HighFigure.PAIR, FigureValue.THREE_SCORE)
-    elif CardValue.FOUR in cards_identified and cards_identified[CardValue.FOUR] == 2: 
-        return Score(HighFigure.PAIR, FigureValue.FOUR_SCORE)
-    elif CardValue.FIVE in cards_identified and cards_identified[CardValue.FIVE] == 2: 
-        return Score(HighFigure.PAIR, FigureValue.FIVE_SCORE)
-    elif CardValue.SIX in cards_identified and cards_identified[CardValue.SIX] == 2: 
-        return Score(HighFigure.PAIR, FigureValue.SIX_SCORE)
-    elif CardValue.SEVEN in cards_identified and cards_identified[CardValue.SEVEN] == 2: 
-        return Score(HighFigure.PAIR, FigureValue.SEVEN_SCORE)
-    elif CardValue.EIGHT in cards_identified and cards_identified[CardValue.EIGHT] == 2:
-        return Score(HighFigure.PAIR, FigureValue.EIGHT_SCORE)
-    elif CardValue.NINE in cards_identified and cards_identified[CardValue.NINE] == 2:
-        return Score(HighFigure.PAIR, FigureValue.NINE_SCORE)
-    elif CardValue.TEN in cards_identified and cards_identified[CardValue.TEN] == 2:
-        return Score(HighFigure.PAIR, FigureValue.TEN_SCORE)
-    elif CardValue.JACK in cards_identified and cards_identified[CardValue.JACK] == 2:
-        return Score(HighFigure.PAIR, FigureValue.JACK_SCORE)
-    elif CardValue.QUEEN in cards_identified and cards_identified[CardValue.QUEEN] == 2:
-        return Score(HighFigure.PAIR, FigureValue.QUEEN_SCORE)
-    elif CardValue.KING in cards_identified and cards_identified[CardValue.KING] == 2 :
-        return Score(HighFigure.PAIR, FigureValue.KING_SCORE)
-    elif CardValue.ACE in cards_identified and cards_identified[CardValue.ACE] == 2:
-        return Score(HighFigure.PAIR, FigureValue.ACE_SCORE)
-    elif CardValue.TWO in cards_identified and cards_identified[CardValue.TWO] == 3:
-        return Score(HighFigure.THREE_OF_A_KIND, FigureValue.TWO_SCORE)
-    elif CardValue.THREE in cards_identified and cards_identified[CardValue.THREE] == 3:
-        return Score(HighFigure.THREE_OF_A_KIND, FigureValue.THREE_SCORE)
-    elif CardValue.FOUR in cards_identified and cards_identified[CardValue.FOUR] == 3:
-        return Score(HighFigure.THREE_OF_A_KIND, FigureValue.FOUR_SCORE)
-    elif CardValue.FIVE in cards_identified and cards_identified[CardValue.FIVE] == 3:
-        return Score(HighFigure.THREE_OF_A_KIND, FigureValue.FIVE_SCORE)
-    elif CardValue.SIX in cards_identified and cards_identified[CardValue.SIX] == 3:
-        return Score(HighFigure.THREE_OF_A_KIND, FigureValue.SIX_SCORE)
-    elif CardValue.SEVEN in cards_identified and cards_identified[CardValue.SEVEN] == 3:
-        return Score(HighFigure.THREE_OF_A_KIND, FigureValue.SEVEN_SCORE)
-    elif CardValue.EIGHT in cards_identified and cards_identified[CardValue.EIGHT] == 3:
-        return Score(HighFigure.THREE_OF_A_KIND, FigureValue.EIGHT_SCORE)
-    elif CardValue.NINE in cards_identified and cards_identified[CardValue.NINE] == 3:
-        return Score(HighFigure.THREE_OF_A_KIND, FigureValue.NINE_SCORE)
-    elif CardValue.TEN in cards_identified and cards_identified[CardValue.TEN] == 3:
-        return Score(HighFigure.THREE_OF_A_KIND, FigureValue.TEN_SCORE)
-    elif CardValue.JACK in cards_identified and cards_identified[CardValue.JACK] == 3:
-        return Score(HighFigure.THREE_OF_A_KIND, FigureValue.JACK_SCORE)
-    elif CardValue.QUEEN in cards_identified and cards_identified[CardValue.QUEEN] == 3:
-        return Score(HighFigure.THREE_OF_A_KIND, FigureValue.QUEEN_SCORE)
-    elif CardValue.KING in cards_identified and cards_identified[CardValue.KING] == 3:
-        return Score(HighFigure.THREE_OF_A_KIND, FigureValue.KING_SCORE)
-    elif CardValue.ACE in cards_identified and cards_identified[CardValue.ACE] == 3:
-        return Score(HighFigure.THREE_OF_A_KIND, FigureValue.ACE_SCORE)
+    hand = Hand()
+    cards_identified = hand.count_all_cards(cards)
+    high_figure = hand.determinate_high_figure(cards_identified)
+    if high_figure == HighFigure.PAIR : 
+        return __determinate_score(cards_identified, HighFigure.PAIR, 2)
+    elif high_figure == HighFigure.THREE_OF_A_KIND : 
+        return __determinate_score(cards_identified, HighFigure.THREE_OF_A_KIND, 3)
     else : 
         return __manage_high_score_Score(cards)
     
+def __determinate_score(cards_identified, high_figure, number_cards_implicated) : 
+    if CardValue.TWO in cards_identified and cards_identified[CardValue.TWO] == number_cards_implicated:
+        return Score(high_figure, FigureValue.TWO_SCORE)
+    elif CardValue.THREE in cards_identified and cards_identified[CardValue.THREE] == number_cards_implicated:
+        return Score(high_figure, FigureValue.THREE_SCORE)
+    elif CardValue.FOUR in cards_identified and cards_identified[CardValue.FOUR] == number_cards_implicated:
+        return Score(high_figure, FigureValue.FOUR_SCORE)
+    elif CardValue.FIVE in cards_identified and cards_identified[CardValue.FIVE] == number_cards_implicated:
+        return Score(high_figure, FigureValue.FIVE_SCORE)
+    elif CardValue.SIX in cards_identified and cards_identified[CardValue.SIX] == number_cards_implicated:
+        return Score(high_figure, FigureValue.SIX_SCORE)
+    elif CardValue.SEVEN in cards_identified and cards_identified[CardValue.SEVEN] == number_cards_implicated:
+        return Score(high_figure, FigureValue.SEVEN_SCORE)
+    elif CardValue.EIGHT in cards_identified and cards_identified[CardValue.EIGHT] == number_cards_implicated:
+        return Score(high_figure, FigureValue.EIGHT_SCORE)
+    elif CardValue.NINE in cards_identified and cards_identified[CardValue.NINE] == number_cards_implicated:
+        return Score(high_figure, FigureValue.NINE_SCORE)
+    elif CardValue.TEN in cards_identified and cards_identified[CardValue.TEN] == number_cards_implicated:
+        return Score(high_figure, FigureValue.TEN_SCORE)
+    elif CardValue.JACK in cards_identified and cards_identified[CardValue.JACK] == number_cards_implicated:
+        return Score(high_figure, FigureValue.JACK_SCORE)
+    elif CardValue.QUEEN in cards_identified and cards_identified[CardValue.QUEEN] == number_cards_implicated:
+        return Score(high_figure, FigureValue.QUEEN_SCORE)
+    elif CardValue.KING in cards_identified and cards_identified[CardValue.KING] == number_cards_implicated:
+        return Score(high_figure, FigureValue.KING_SCORE)
+    elif CardValue.ACE in cards_identified and cards_identified[CardValue.ACE] == number_cards_implicated:
+        return Score(high_figure, FigureValue.ACE_SCORE)
     
 def __manage_high_score_Score(cards):
     max_value = FigureValue.TWO_SCORE

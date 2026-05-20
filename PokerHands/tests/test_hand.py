@@ -1,5 +1,5 @@
 from PokerHands.card import Card, CardColor, CardValue
-from PokerHands.hand import Hand
+from PokerHands.hand import Hand, HighFigure
 
 def test_count_cards_with_each_cards_different() : 
     hand = [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.THREE, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FIVE, CardColor.SPADES)]
@@ -72,5 +72,21 @@ def test_count_cards_with_two_ace_cards() :
     assert(__count_cards(hand) == count_expected)
 
 def __count_cards(content_hand) :
-    hand = Hand(content_hand)
-    return hand.count_all_cards()
+    hand = Hand()
+    return hand.count_all_cards(content_hand)
+
+def test_find_one_pair_figure_first(): 
+    cards_sorted =  {CardValue.QUEEN : 2, CardValue.JACK : 1, CardValue.FOUR : 1, CardValue.SIX : 1}
+    assert(HighFigure.PAIR == __find_high_figure(cards_sorted))
+
+def test_find_one_pair_figure_second(): 
+    cards_sorted =  {CardValue.JACK : 2, CardValue.TEN : 1, CardValue.FOUR : 1, CardValue.SIX : 1}
+    assert(HighFigure.PAIR == __find_high_figure(cards_sorted))
+
+def test_find_one_three_of_kind_figure_first(): 
+    cards_sorted =  {CardValue.ACE : 3, CardValue.TEN : 1, CardValue.SIX : 1}
+    assert(HighFigure.THREE_OF_A_KIND == __find_high_figure(cards_sorted))
+
+def __find_high_figure(cards_sorted) : 
+    hand = Hand()
+    return hand.determinate_high_figure(cards_sorted)
