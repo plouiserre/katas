@@ -10,8 +10,9 @@ class Score:
 
 
 class HighFigure(Enum) : 
-    HIGH_VALUE = 19
-    PAIR = 20
+    HIGH_VALUE = 1
+    PAIR = 2
+    THREE_OF_A_KIND = 3
 
 class FigureValue(IntEnum):
     TWO_SCORE = 38
