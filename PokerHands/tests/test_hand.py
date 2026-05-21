@@ -90,3 +90,19 @@ def test_find_one_three_of_kind_figure_first():
 def __find_high_figure(cards_sorted) : 
     hand = Hand()
     return hand.determinate_high_figure(cards_sorted)
+
+def test_find_cards_two_times_and_most_presents() : 
+    cards_sorted =  {CardValue.ACE : 2, CardValue.TEN : 1, CardValue.SIX : 1, CardValue.JACK:1}
+    assert(find_more_presents_cards(cards_sorted) == CardValue.ACE)
+
+def test_find_cards_three_times_and_most_presents() : 
+    cards_sorted =  {CardValue.TEN : 1, CardValue.SIX : 1, CardValue.JACK:3}
+    assert(find_more_presents_cards(cards_sorted) == CardValue.JACK)
+
+def test_find_cards_four_times_and_most_presents() : 
+    cards_sorted =  {CardValue.KING : 4, CardValue.SIX : 1}
+    assert(find_more_presents_cards(cards_sorted) == CardValue.KING)
+
+def find_more_presents_cards(cards_sorted):
+    hand = Hand()
+    return hand.find_more_presents_cards(cards_sorted)

@@ -1,4 +1,5 @@
 from enum import Enum
+from PokerHands.card import CardValue
 
 class Hand :
     def __init__(self):
@@ -22,6 +23,15 @@ class Hand :
             elif number_cards == 3 : 
                 high_figure = HighFigure.THREE_OF_A_KIND
         return high_figure
+    
+    def find_more_presents_cards(self, cards_sorted) : 
+        card_max_times = 0
+        card_most_present = CardValue.ACE
+        for card in cards_sorted: 
+            if card_max_times < cards_sorted[card] : 
+                card_max_times = cards_sorted[card]
+                card_most_present = card
+        return card_most_present
 
 
 class HighFigure(Enum) : 
