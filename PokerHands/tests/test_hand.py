@@ -91,6 +91,14 @@ def test_find_one_three_of_kind_figure_first():
     cards_sorted =  {CardValue.ACE : 3, CardValue.TEN : 1, CardValue.SIX : 1}
     assert(HighFigure.THREE_OF_A_KIND == __find_high_figure(cards_sorted))
 
+def test_find_straight_finish_by_six(): 
+    cards_sorted =  {CardValue.TWO : 1, CardValue.THREE : 1, CardValue.FOUR : 1, CardValue.FIVE : 1, CardValue.SIX : 1}
+    assert(HighFigure.STRAIGHT == __find_high_figure(cards_sorted))
+
+def test_find_straight_finish_by_six(): 
+    cards_sorted =  {CardValue.THREE : 1, CardValue.TWO : 1, CardValue.FOUR : 1, CardValue.SIX : 1, CardValue.FIVE : 1, }
+    assert(HighFigure.STRAIGHT == __find_high_figure(cards_sorted))
+
 def __find_high_figure(cards_sorted) : 
     hand = Hand()
     return hand.determinate_high_figure(cards_sorted)

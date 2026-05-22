@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import IntEnum, Enum
 
 class Card: 
     def __init__(self, value, color):
@@ -11,7 +11,7 @@ class CardColor(Enum) :
     HEARTS = 17
     SPADES = 18
 
-class CardValue(Enum) : 
+class CardValue(IntEnum) : 
     TWO = 2
     THREE = 3
     FOUR = 4
