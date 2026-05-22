@@ -86,6 +86,34 @@ def test_find_pair_ace():
     cards =  [Card(CardValue.ACE, CardColor.CLUBS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
     assert(return_high_hands(cards)==Score(HighFigure.PAIR, CardValue.ACE))
 
+def test_find_two_pairs_two_three(): 
+    cards =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.THREE, CardColor.DIAMONDS), Card(CardValue.TWO, CardColor.HEARTS), Card(CardValue.THREE, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Score(HighFigure.TWO_PAIRS, CardValue.THREE))
+
+def test_find_two_pairs_four_five(): 
+    cards =  [Card(CardValue.FOUR, CardColor.CLUBS), Card(CardValue.THREE, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.HEARTS), Card(CardValue.FIVE, CardColor.SPADES), Card(CardValue.FIVE, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Score(HighFigure.TWO_PAIRS, CardValue.FIVE))
+
+def test_find_two_pairs_six_seven(): 
+    cards =  [Card(CardValue.SEVEN, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FIVE, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Score(HighFigure.TWO_PAIRS, CardValue.SEVEN))
+
+def test_find_two_pairs_eight_nine(): 
+    cards =  [Card(CardValue.EIGHT, CardColor.CLUBS), Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.NINE, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.EIGHT, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Score(HighFigure.TWO_PAIRS, CardValue.NINE))
+
+def test_find_two_pairs_ten_ace(): 
+    cards =  [Card(CardValue.ACE, CardColor.CLUBS), Card(CardValue.TEN, CardColor.DIAMONDS), Card(CardValue.NINE, CardColor.HEARTS), Card(CardValue.TEN, CardColor.SPADES), Card(CardValue.ACE, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Score(HighFigure.TWO_PAIRS, CardValue.ACE))
+
+def test_find_two_pairs_jack_queen(): 
+    cards =  [Card(CardValue.QUEEN, CardColor.CLUBS), Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.NINE, CardColor.HEARTS), Card(CardValue.JACK, CardColor.SPADES), Card(CardValue.QUEEN, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Score(HighFigure.TWO_PAIRS, CardValue.QUEEN))
+
+def test_find_two_pairs_king_six(): 
+    cards =  [Card(CardValue.QUEEN, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.SIX, CardColor.HEARTS), Card(CardValue.KING, CardColor.SPADES), Card(CardValue.KING, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Score(HighFigure.TWO_PAIRS, CardValue.KING))
+
 def test_find_three_of_a_two(): 
     cards =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.TWO, CardColor.HEARTS), Card(CardValue.TWO, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
     assert(return_high_hands(cards)==Score(HighFigure.THREE_OF_A_KIND, CardValue.TWO))
@@ -145,6 +173,8 @@ def return_high_hands(cards):
     card_most_representative = hand.find_more_presents_cards(cards_identified)
     if high_figure == HighFigure.PAIR : 
         return Score(HighFigure.PAIR, card_most_representative)
+    elif high_figure == HighFigure.TWO_PAIRS : 
+        return Score(HighFigure.TWO_PAIRS, card_most_representative)
     elif high_figure == HighFigure.THREE_OF_A_KIND : 
         return Score(HighFigure.THREE_OF_A_KIND, card_most_representative)
     else : 

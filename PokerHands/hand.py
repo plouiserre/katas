@@ -16,12 +16,20 @@ class Hand :
     
     def determinate_high_figure(self, cards_sorted):
         high_figure = HighFigure.HIGH_VALUE
+        number_pair = 0
+        number_three_of_kind = 0
         for card in cards_sorted : 
             number_cards = cards_sorted[card]
             if number_cards == 2 : 
-                high_figure = HighFigure.PAIR
+                number_pair += 1
             elif number_cards == 3 : 
-                high_figure = HighFigure.THREE_OF_A_KIND
+                number_three_of_kind += 1
+        if number_pair == 1 : 
+            high_figure = HighFigure.PAIR
+        elif number_pair == 2 :
+            high_figure = HighFigure.TWO_PAIRS
+        elif number_three_of_kind == 1: 
+            high_figure = HighFigure.THREE_OF_A_KIND
         return high_figure
     
     def find_more_presents_cards(self, cards_sorted) : 
@@ -31,10 +39,14 @@ class Hand :
             if card_max_times < cards_sorted[card] : 
                 card_max_times = cards_sorted[card]
                 card_most_present = card
+            elif card_max_times == cards_sorted[card] and card_most_present.value < card.value : 
+                card_max_times = cards_sorted[card]
+                card_most_present = card
         return card_most_present
 
 
 class HighFigure(Enum) : 
     HIGH_VALUE = 1
     PAIR = 2
-    THREE_OF_A_KIND = 3
+    TWO_PAIRS = 3
+    THREE_OF_A_KIND = 4

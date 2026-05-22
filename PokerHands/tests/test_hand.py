@@ -83,6 +83,10 @@ def test_find_one_pair_figure_second():
     cards_sorted =  {CardValue.JACK : 2, CardValue.TEN : 1, CardValue.FOUR : 1, CardValue.SIX : 1}
     assert(HighFigure.PAIR == __find_high_figure(cards_sorted))
 
+def test_find_two_pair_two_three(): 
+    cards_sorted =  {CardValue.TWO : 2, CardValue.THREE : 2, CardValue.FOUR : 1}
+    assert(HighFigure.TWO_PAIRS == __find_high_figure(cards_sorted))
+
 def test_find_one_three_of_kind_figure_first(): 
     cards_sorted =  {CardValue.ACE : 3, CardValue.TEN : 1, CardValue.SIX : 1}
     assert(HighFigure.THREE_OF_A_KIND == __find_high_figure(cards_sorted))
@@ -93,7 +97,11 @@ def __find_high_figure(cards_sorted) :
 
 def test_find_cards_two_times_and_most_presents() : 
     cards_sorted =  {CardValue.ACE : 2, CardValue.TEN : 1, CardValue.SIX : 1, CardValue.JACK:1}
-    assert(find_more_presents_cards(cards_sorted) == CardValue.ACE)
+    assert(find_more_presents_cards(cards_sorted) == CardValue.ACE)    
+
+def test_find_cards_the_most_value_two_times_present_cards() : 
+    cards_sorted =  {CardValue.JACK : 2, CardValue.QUEEN : 2, CardValue.SIX : 1}
+    assert(find_more_presents_cards(cards_sorted) == CardValue.QUEEN)
 
 def test_find_cards_three_times_and_most_presents() : 
     cards_sorted =  {CardValue.TEN : 1, CardValue.SIX : 1, CardValue.JACK:3}
