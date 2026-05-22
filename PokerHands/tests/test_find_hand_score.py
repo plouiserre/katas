@@ -166,6 +166,18 @@ def test_find_three_of_a_ace():
     cards =  [Card(CardValue.ACE, CardColor.CLUBS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES), Card(CardValue.KING, CardColor.SPADES)]
     assert(return_high_hands(cards)==Score(HighFigure.THREE_OF_A_KIND, CardValue.ACE))
 
+def test_find_straight_finish_six():
+    cards =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.HEARTS), Card(CardValue.FIVE, CardColor.SPADES), Card(CardValue.THREE, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Score(HighFigure.STRAIGHT, CardValue.SIX))
+
+def test_find_straight_finish_jack():
+    cards =  [Card(CardValue.JACK, CardColor.CLUBS), Card(CardValue.SEVEN, CardColor.DIAMONDS), Card(CardValue.EIGHT, CardColor.HEARTS), Card(CardValue.TEN, CardColor.SPADES), Card(CardValue.NINE, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Score(HighFigure.STRAIGHT, CardValue.JACK))
+
+def test_find_straight_finish_ace():
+    cards =  [Card(CardValue.ACE, CardColor.CLUBS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES), Card(CardValue.JACK, CardColor.SPADES)]
+    assert(return_high_hands(cards)==Score(HighFigure.STRAIGHT, CardValue.ACE))
+
 def return_high_hands(cards):
     hand = Hand()
     cards_identified = hand.count_all_cards(cards)
@@ -177,6 +189,8 @@ def return_high_hands(cards):
         return Score(HighFigure.TWO_PAIRS, card_most_representative)
     elif high_figure == HighFigure.THREE_OF_A_KIND : 
         return Score(HighFigure.THREE_OF_A_KIND, card_most_representative)
+    elif high_figure == HighFigure.STRAIGHT : 
+        return Score(HighFigure.STRAIGHT, card_most_representative)
     else : 
         return __manage_high_score_Score(cards)
     

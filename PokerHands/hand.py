@@ -18,19 +18,39 @@ class Hand :
         high_figure = HighFigure.HIGH_VALUE
         number_pair = 0
         number_three_of_kind = 0
-        for card in cards_sorted : 
-            number_cards = cards_sorted[card]
-            if number_cards == 2 : 
-                number_pair += 1
-            elif number_cards == 3 : 
-                number_three_of_kind += 1
-        if number_pair == 1 : 
-            high_figure = HighFigure.PAIR
-        elif number_pair == 2 :
-            high_figure = HighFigure.TWO_PAIRS
-        elif number_three_of_kind == 1: 
-            high_figure = HighFigure.THREE_OF_A_KIND
+        is_straight = self.__detect_straight(cards_sorted)
+        if is_straight == False : 
+            for card in cards_sorted : 
+                number_cards = cards_sorted[card]
+                if number_cards == 2 : 
+                    number_pair += 1
+                elif number_cards == 3 : 
+                    number_three_of_kind += 1
+            if number_pair == 1 : 
+                high_figure = HighFigure.PAIR
+            elif number_pair == 2 :
+                high_figure = HighFigure.TWO_PAIRS
+            elif number_three_of_kind == 1: 
+                high_figure = HighFigure.THREE_OF_A_KIND
+        else : 
+            high_figure = HighFigure.STRAIGHT
         return high_figure
+    
+    def __detect_straight(self, cards_sorted) : 
+        cards_ordered = dict(sorted(cards_sorted.items()))
+        if len(cards_ordered) == 5 :
+            #mettre les clés par ordre 
+            is_straight = True
+            last_value = 0
+            for card in cards_ordered : 
+                if last_value != 0 : 
+                    if card.value - last_value > 1 : 
+                        is_straight = False
+                        break
+                last_value = card.value
+            return is_straight
+        else : 
+            return False
     
     def find_more_presents_cards(self, cards_sorted) : 
         card_max_times = 0
@@ -48,5 +68,6 @@ class Hand :
 class HighFigure(Enum) : 
     HIGH_VALUE = 1
     PAIR = 2
-    TWO_PAIRS = 3
+    TWO_PAIRS = 3    
     THREE_OF_A_KIND = 4
+    STRAIGHT = 5
