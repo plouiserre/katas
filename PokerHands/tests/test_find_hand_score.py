@@ -1,5 +1,5 @@
 from PokerHands.card import Card, CardColor, CardValue
-from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure
+from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure
 from PokerHands.hand import Hand, HighCardFigure
 
 def test_find_high_value_ace():
@@ -178,8 +178,19 @@ def test_find_straight_finish_ace():
     cards =  [Card(CardValue.ACE, CardColor.CLUBS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES), Card(CardValue.JACK, CardColor.SPADES)]
     assert(return_high_hands(cards)==StraitFigure(CardValue.ACE))
 
+def test_find_flush_hearts_by_king():
+    hand = [Card(CardValue.KING, CardColor.HEARTS), Card(CardValue.THREE, CardColor.HEARTS), Card(CardValue.FOUR, CardColor.HEARTS), Card(CardValue.SIX, CardColor.HEARTS), Card(CardValue.FIVE, CardColor.HEARTS)]
+    assert(FlushFigure(CardColor.HEARTS, CardValue.KING) == return_high_hands(hand))
+
+def test_find_flush_clubs_by_queen():
+    hand = [Card(CardValue.SEVEN, CardColor.CLUBS), Card(CardValue.THREE, CardColor.CLUBS), Card(CardValue.FOUR, CardColor.CLUBS), Card(CardValue.QUEEN, CardColor.CLUBS), Card(CardValue.FIVE, CardColor.CLUBS)]
+    assert(FlushFigure(CardColor.CLUBS, CardValue.QUEEN) == return_high_hands(hand))
+
+def test_find_flush_spades_by_jack():
+    hand = [Card(CardValue.SEVEN, CardColor.SPADES), Card(CardValue.THREE, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.JACK, CardColor.SPADES)]
+    assert(FlushFigure(CardColor.SPADES, CardValue.JACK) == return_high_hands(hand))
+
 def return_high_hands(cards):
     hand = Hand()
-    cards_identified = hand.count_all_cards(cards)
-    card_most_representative = hand.determinate_high_figure(cards_identified)
+    card_most_representative = hand.determinate_high_figure(cards)
     return card_most_representative

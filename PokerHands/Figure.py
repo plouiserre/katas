@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from PokerHands.card import CardValue
+from PokerHands.card import CardValue, CardColor
 
 @dataclass(frozen=True)
 class HighCardFigure : 
@@ -24,6 +24,11 @@ class ThreeOfKindFigure :
 @dataclass(frozen=True)
 class StraitFigure:
     value : CardValue
+
+@dataclass(frozen=True)
+class FlushFigure : 
+        color : CardColor
+        high_value : CardValue
 
 Figure = HighCardFigure | PairFigure | TwoPairFigure | ThreeOfKindFigure | StraitFigure
 
