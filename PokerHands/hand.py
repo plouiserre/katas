@@ -1,6 +1,6 @@
 from enum import Enum
 from PokerHands.card import CardValue, CardColor
-from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure
+from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure
 
 class Hand :
     def __init__(self):
@@ -8,13 +8,16 @@ class Hand :
     
     def determinate_high_figure(self, hand):
         cards_sorted = self.__count_all_cards(hand)
+        full_figure = self.__detect_full(cards_sorted)
         flush_figure = self.__detect_flush(hand)
         strait_figure = self.__detect_straight(cards_sorted)
         three_of_kind = self.__detect_three_of_kind(cards_sorted)
         two_pairs = self.__detect_two_pairs(cards_sorted)
         pair = self.__detect_one_pair(cards_sorted)
         high_card_figure = self.__detect_high_card_figure(cards_sorted)
-        if flush_figure != None : 
+        if full_figure != None : 
+            return full_figure
+        elif flush_figure != None : 
             return flush_figure
         elif strait_figure != None : 
             return strait_figure
@@ -36,12 +39,29 @@ class Hand :
                 self.counting_cards[card.value] = 1
         return self.counting_cards
     
+    def __detect_full(self, cards_sorted):
+        card_two_times = CardValue.UNDEFINED
+        card_three_times = CardValue.UNDEFINED
+        for card in cards_sorted :
+            number_cards = cards_sorted[card]
+            if number_cards == 3 : 
+                card_three_times = card
+            elif number_cards == 2 : 
+                card_two_times = card
+            else : 
+                break
+        if card_two_times != CardValue.UNDEFINED and card_three_times != CardValue.UNDEFINED : 
+            return FullFigure(card_two_times, card_three_times)
+        else : 
+            return None
+
+    
     def __detect_flush(self, hand): 
         is_flush = True
-        last_color = CardColor.UNKNOWN
+        last_color = CardColor.UNDEFINED
         high_card_value = CardValue.TWO
         for card in hand : 
-            if last_color == CardColor.UNKNOWN : 
+            if last_color == CardColor.UNDEFINED : 
                 last_color = card.color 
             elif last_color != card.color : 
                 is_flush = False
