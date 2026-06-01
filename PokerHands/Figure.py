@@ -30,6 +30,11 @@ class FlushFigure :
         color : CardColor
         high_value : CardValue
 
+@dataclass(frozen=True)
+class FullFigure : 
+     two_times : CardValue
+     three_times : CardValue
+
 Figure = HighCardFigure | PairFigure | TwoPairFigure | ThreeOfKindFigure | StraitFigure
 
     
