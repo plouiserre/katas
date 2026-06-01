@@ -1,5 +1,6 @@
 from enum import Enum
 from PokerHands.card import CardValue
+from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure
 
 class Hand :
     def __init__(self):
@@ -15,59 +16,119 @@ class Hand :
         return self.counting_cards
     
     def determinate_high_figure(self, cards_sorted):
-        high_figure = HighFigure.HIGH_VALUE
-        number_pair = 0
-        number_three_of_kind = 0
-        is_straight = self.__detect_straight(cards_sorted)
-        if is_straight == False : 
-            for card in cards_sorted : 
-                number_cards = cards_sorted[card]
-                if number_cards == 2 : 
-                    number_pair += 1
-                elif number_cards == 3 : 
-                    number_three_of_kind += 1
-            if number_pair == 1 : 
-                high_figure = HighFigure.PAIR
-            elif number_pair == 2 :
-                high_figure = HighFigure.TWO_PAIRS
-            elif number_three_of_kind == 1: 
-                high_figure = HighFigure.THREE_OF_A_KIND
+        strait_figure = self.__detect_straight(cards_sorted)
+        three_of_kind = self.__detect_three_of_kind(cards_sorted)
+        two_pairs = self.__detect_two_pairs(cards_sorted)
+        pair = self.__detect_one_pair(cards_sorted)
+        high_card_figure = self.__detect_high_card_figure(cards_sorted)
+        if strait_figure != None : 
+            return strait_figure
+        elif three_of_kind != None : 
+            return three_of_kind
+        elif two_pairs != None : 
+            return two_pairs
+        elif pair != None : 
+            return pair
         else : 
-            high_figure = HighFigure.STRAIGHT
-        return high_figure
+            return high_card_figure
     
     def __detect_straight(self, cards_sorted) : 
         cards_ordered = dict(sorted(cards_sorted.items()))
+        high_card_value = CardValue.TWO
         if len(cards_ordered) == 5 :
-            #mettre les clés par ordre 
-            is_straight = True
             last_value = 0
             for card in cards_ordered : 
+                high_card_value = card
                 if last_value != 0 : 
                     if card.value - last_value > 1 : 
-                        is_straight = False
-                        break
+                        return None
                 last_value = card.value
-            return is_straight
+            return StraitFigure(high_card_value)
         else : 
-            return False
+            return None
+        
+    def __detect_three_of_kind(self, cards_sorted): 
+        is_three_cards = False
+        three_of_kind_value = CardValue.TWO
+        high_value_outside_three_of_kind = CardValue.TWO
+        for card in cards_sorted : 
+            number_cards = cards_sorted[card]
+            if number_cards == 3 : 
+                is_three_cards = True
+                three_of_kind_value = card
+            else : 
+                if card > high_value_outside_three_of_kind : 
+                    high_value_outside_three_of_kind = card
+        if is_three_cards : 
+            return ThreeOfKindFigure(three_of_kind_value, high_value_outside_three_of_kind)
+        else : 
+            return None
+        
+    def __detect_two_pairs(self, cards_sorted): 
+        is_two_pairs = False
+        first_value_pair = CardValue.TWO
+        second_value_pair = CardValue.TWO
+        high_value_outside_two_pair = CardValue.TWO
+        number_pair = 0
+        for card in cards_sorted : 
+            number_cards = cards_sorted[card]
+            if number_cards == 2 : 
+                number_pair = number_pair + 1 
+                if number_pair == 1 :
+                    first_value_pair = card
+                else : 
+                    is_two_pairs = True
+                    if card > first_value_pair : 
+                        second_value_pair = first_value_pair
+                        first_value_pair = card
+                    else : 
+                        second_value_pair = card
+            else : 
+                if card > high_value_outside_two_pair : 
+                    high_value_outside_two_pair = card
+        if is_two_pairs : 
+            return TwoPairFigure(first_value_pair, second_value_pair, high_value_outside_two_pair)
+        else : 
+            return None
+        
+    def __detect_one_pair(self, cards_sorted):
+        is_one_pair = False
+        value_pair = CardValue.TWO
+        high_value_outside_one_pair = CardValue.TWO
+        for card in cards_sorted : 
+            number_cards = cards_sorted[card]
+            if number_cards == 2 : 
+                is_one_pair = True
+                value_pair = card                
+            else : 
+                if card > high_value_outside_one_pair : 
+                    high_value_outside_one_pair = card
+        if is_one_pair : 
+            return PairFigure(value_pair, high_value_outside_one_pair)
+        
+    def __detect_high_card_figure(self, cards_sorted): 
+        high_value = CardValue.TWO
+        for card in cards_sorted : 
+            if high_value < card : 
+                high_value = card
+        return HighCardFigure(high_value)
     
-    def find_more_presents_cards(self, cards_sorted) : 
-        card_max_times = 0
-        card_most_present = CardValue.ACE
-        for card in cards_sorted: 
-            if card_max_times < cards_sorted[card] : 
-                card_max_times = cards_sorted[card]
-                card_most_present = card
-            elif card_max_times == cards_sorted[card] and card_most_present.value < card.value : 
-                card_max_times = cards_sorted[card]
-                card_most_present = card
-        return card_most_present
+    # def find_more_presents_cards(self, cards_sorted) : 
+    #     card_max_times = 0
+    #     card_most_present = CardValue.ACE
+    #     for card in cards_sorted: 
+    #         if card_max_times < cards_sorted[card] : 
+    #             card_max_times = cards_sorted[card]
+    #             card_most_present = card
+    #         elif card_max_times == cards_sorted[card] and card_most_present.value < card.value : 
+    #             card_max_times = cards_sorted[card]
+    #             card_most_present = card
+        # return card_most_present
 
 
-class HighFigure(Enum) : 
-    HIGH_VALUE = 1
-    PAIR = 2
-    TWO_PAIRS = 3    
-    THREE_OF_A_KIND = 4
-    STRAIGHT = 5
+# class HighFigure(Enum) : 
+#     HIGH_VALUE = 1
+#     PAIR = 2
+#     TWO_PAIRS = 3    
+#     THREE_OF_A_KIND = 4
+#     STRAIGHT = 5

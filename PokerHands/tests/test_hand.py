@@ -1,5 +1,6 @@
 from PokerHands.card import Card, CardColor, CardValue
-from PokerHands.hand import Hand, HighFigure
+from PokerHands.hand import Hand
+from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure
 
 def test_count_cards_with_each_cards_different() : 
     hand = [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.THREE, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FIVE, CardColor.SPADES)]
@@ -75,50 +76,55 @@ def __count_cards(content_hand) :
     hand = Hand()
     return hand.count_all_cards(content_hand)
 
+def test_find_high_figure_ace(): 
+    cards_sorted =  {CardValue.ACE : 1, CardValue.QUEEN : 1,  CardValue.JACK : 1, CardValue.FOUR : 1, CardValue.SIX : 1}
+    assert(HighCardFigure(CardValue.ACE) == __find_high_figure(cards_sorted))
+
 def test_find_one_pair_figure_first(): 
     cards_sorted =  {CardValue.QUEEN : 2, CardValue.JACK : 1, CardValue.FOUR : 1, CardValue.SIX : 1}
-    assert(HighFigure.PAIR == __find_high_figure(cards_sorted))
+    assert(PairFigure(CardValue.QUEEN, CardValue.JACK) == __find_high_figure(cards_sorted))
 
 def test_find_one_pair_figure_second(): 
     cards_sorted =  {CardValue.JACK : 2, CardValue.TEN : 1, CardValue.FOUR : 1, CardValue.SIX : 1}
-    assert(HighFigure.PAIR == __find_high_figure(cards_sorted))
+    assert(PairFigure(CardValue.JACK, CardValue.TEN) == __find_high_figure(cards_sorted))
 
 def test_find_two_pair_two_three(): 
     cards_sorted =  {CardValue.TWO : 2, CardValue.THREE : 2, CardValue.FOUR : 1}
-    assert(HighFigure.TWO_PAIRS == __find_high_figure(cards_sorted))
+    assert(TwoPairFigure(CardValue.THREE, CardValue.TWO, CardValue.FOUR) == __find_high_figure(cards_sorted))
 
 def test_find_one_three_of_kind_figure_first(): 
     cards_sorted =  {CardValue.ACE : 3, CardValue.TEN : 1, CardValue.SIX : 1}
-    assert(HighFigure.THREE_OF_A_KIND == __find_high_figure(cards_sorted))
+    assert(ThreeOfKindFigure(CardValue.ACE, CardValue.TEN) == __find_high_figure(cards_sorted))
 
-def test_find_straight_finish_by_six(): 
+def test_find_straight_six_finish_by_six(): 
     cards_sorted =  {CardValue.TWO : 1, CardValue.THREE : 1, CardValue.FOUR : 1, CardValue.FIVE : 1, CardValue.SIX : 1}
-    assert(HighFigure.STRAIGHT == __find_high_figure(cards_sorted))
+    assert(StraitFigure(CardValue.SIX) == __find_high_figure(cards_sorted))
 
-def test_find_straight_finish_by_six(): 
+def test_find_straight_six_finish_by_five(): 
     cards_sorted =  {CardValue.THREE : 1, CardValue.TWO : 1, CardValue.FOUR : 1, CardValue.SIX : 1, CardValue.FIVE : 1, }
-    assert(HighFigure.STRAIGHT == __find_high_figure(cards_sorted))
+    assert(StraitFigure(CardValue.SIX) == __find_high_figure(cards_sorted))
 
 def __find_high_figure(cards_sorted) : 
     hand = Hand()
-    return hand.determinate_high_figure(cards_sorted)
+    figure =  hand.determinate_high_figure(cards_sorted) 
+    return figure 
 
-def test_find_cards_two_times_and_most_presents() : 
-    cards_sorted =  {CardValue.ACE : 2, CardValue.TEN : 1, CardValue.SIX : 1, CardValue.JACK:1}
-    assert(find_more_presents_cards(cards_sorted) == CardValue.ACE)    
+# def test_find_cards_two_times_and_most_presents() : 
+#     cards_sorted =  {CardValue.ACE : 2, CardValue.TEN : 1, CardValue.SIX : 1, CardValue.JACK:1}
+#     assert(find_more_presents_cards(cards_sorted) == CardValue.ACE)    
 
-def test_find_cards_the_most_value_two_times_present_cards() : 
-    cards_sorted =  {CardValue.JACK : 2, CardValue.QUEEN : 2, CardValue.SIX : 1}
-    assert(find_more_presents_cards(cards_sorted) == CardValue.QUEEN)
+# def test_find_cards_the_most_value_two_times_present_cards() : 
+#     cards_sorted =  {CardValue.JACK : 2, CardValue.QUEEN : 2, CardValue.SIX : 1}
+#     assert(find_more_presents_cards(cards_sorted) == CardValue.QUEEN)
 
-def test_find_cards_three_times_and_most_presents() : 
-    cards_sorted =  {CardValue.TEN : 1, CardValue.SIX : 1, CardValue.JACK:3}
-    assert(find_more_presents_cards(cards_sorted) == CardValue.JACK)
+# def test_find_cards_three_times_and_most_presents() : 
+#     cards_sorted =  {CardValue.TEN : 1, CardValue.SIX : 1, CardValue.JACK:3}
+#     assert(find_more_presents_cards(cards_sorted) == CardValue.JACK)
 
-def test_find_cards_four_times_and_most_presents() : 
-    cards_sorted =  {CardValue.KING : 4, CardValue.SIX : 1}
-    assert(find_more_presents_cards(cards_sorted) == CardValue.KING)
+# def test_find_cards_four_times_and_most_presents() : 
+#     cards_sorted =  {CardValue.KING : 4, CardValue.SIX : 1}
+#     assert(find_more_presents_cards(cards_sorted) == CardValue.KING)
 
-def find_more_presents_cards(cards_sorted):
-    hand = Hand()
-    return hand.find_more_presents_cards(cards_sorted)
+# def find_more_presents_cards(cards_sorted):
+#     hand = Hand()
+#     return hand.find_more_presents_cards(cards_sorted)
