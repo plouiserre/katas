@@ -1,27 +1,22 @@
 from enum import Enum
-from PokerHands.card import CardValue
-from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure
+from PokerHands.card import CardValue, CardColor
+from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure
 
 class Hand :
     def __init__(self):
         self.counting_cards = {}
-
-    def count_all_cards(self, content) : 
-        self.counting_cards = {}
-        for card in content : 
-            if card.value in self.counting_cards : 
-                self.counting_cards[card.value] += 1
-            else : 
-                self.counting_cards[card.value] = 1
-        return self.counting_cards
     
-    def determinate_high_figure(self, cards_sorted):
+    def determinate_high_figure(self, hand):
+        cards_sorted = self.__count_all_cards(hand)
+        flush_figure = self.__detect_flush(hand)
         strait_figure = self.__detect_straight(cards_sorted)
         three_of_kind = self.__detect_three_of_kind(cards_sorted)
         two_pairs = self.__detect_two_pairs(cards_sorted)
         pair = self.__detect_one_pair(cards_sorted)
         high_card_figure = self.__detect_high_card_figure(cards_sorted)
-        if strait_figure != None : 
+        if flush_figure != None : 
+            return flush_figure
+        elif strait_figure != None : 
             return strait_figure
         elif three_of_kind != None : 
             return three_of_kind
@@ -30,7 +25,33 @@ class Hand :
         elif pair != None : 
             return pair
         else : 
-            return high_card_figure
+            return high_card_figure 
+
+    def __count_all_cards(self, content) : 
+        self.counting_cards = {}
+        for card in content : 
+            if card.value in self.counting_cards : 
+                self.counting_cards[card.value] += 1
+            else : 
+                self.counting_cards[card.value] = 1
+        return self.counting_cards
+    
+    def __detect_flush(self, hand): 
+        is_flush = True
+        last_color = CardColor.UNKNOWN
+        high_card_value = CardValue.TWO
+        for card in hand : 
+            if last_color == CardColor.UNKNOWN : 
+                last_color = card.color 
+            elif last_color != card.color : 
+                is_flush = False
+                break
+            if high_card_value < card.value : 
+                high_card_value = card.value
+        if is_flush:
+            return FlushFigure(last_color, high_card_value)
+        else : 
+            return None
     
     def __detect_straight(self, cards_sorted) : 
         cards_ordered = dict(sorted(cards_sorted.items()))
@@ -112,23 +133,3 @@ class Hand :
             if high_value < card : 
                 high_value = card
         return HighCardFigure(high_value)
-    
-    # def find_more_presents_cards(self, cards_sorted) : 
-    #     card_max_times = 0
-    #     card_most_present = CardValue.ACE
-    #     for card in cards_sorted: 
-    #         if card_max_times < cards_sorted[card] : 
-    #             card_max_times = cards_sorted[card]
-    #             card_most_present = card
-    #         elif card_max_times == cards_sorted[card] and card_most_present.value < card.value : 
-    #             card_max_times = cards_sorted[card]
-    #             card_most_present = card
-        # return card_most_present
-
-
-# class HighFigure(Enum) : 
-#     HIGH_VALUE = 1
-#     PAIR = 2
-#     TWO_PAIRS = 3    
-#     THREE_OF_A_KIND = 4
-#     STRAIGHT = 5

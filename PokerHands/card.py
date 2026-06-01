@@ -6,6 +6,7 @@ class Card:
         self.color = color
 
 class CardColor(Enum) : 
+    UNKNOWN = 0
     CLUBS = 15
     DIAMONDS = 16
     HEARTS = 17
