@@ -1,6 +1,6 @@
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.hand import Hand
-from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure
+from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
 
 def test_find_high_figure_ace(): 
     hand = [Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.ACE, CardColor.CLUBS), Card(CardValue.FOUR, CardColor.DIAMONDS)]
@@ -38,9 +38,13 @@ def test_find_full_ace_two_times_queen_three_times():
     hand = [Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS)]
     assert(FullFigure(CardValue.ACE, CardValue.QUEEN) == __find_high_figure(hand))   
 
-def test_find_four_of_kind_queen_with_ace_high_three_times():
+def test_find_four_of_kind_queen_with_ace_high_cards():
     hand = [Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS)]
     assert(FourOfKindFigure(CardValue.QUEEN, CardValue.ACE) == __find_high_figure(hand))
+
+def test_find_quinte_flush_spades_with_ace_value():
+    hand = [Card(CardValue.JACK, CardColor.SPADES), Card(CardValue.ACE, CardColor.SPADES), Card(CardValue.QUEEN, CardColor.SPADES), Card(CardValue.KING, CardColor.SPADES), Card(CardValue.TEN, CardColor.SPADES)]
+    assert(QuinteFlush(CardValue.ACE, CardColor.SPADES) == __find_high_figure(hand))
 
 def __find_high_figure(content) : 
     hand = Hand()
