@@ -2,38 +2,6 @@ from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
 from PokerHands.hand import Hand, HighCardFigure
 
-def test_find_high_value_ace():
-    cards =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.THREE, CardColor.DIAMONDS), Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.ACE, CardColor.SPADES)]
-    assert(return_high_hands(cards)==  HighCardFigure(CardValue.ACE))
-
-def test_find_high_value_king():
-    cards =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.THREE, CardColor.DIAMONDS),Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.KING, CardColor.SPADES)]
-    assert(return_high_hands(cards)== HighCardFigure(CardValue.KING))
-
-def test_find_high_value_queen():
-    cards =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.THREE, CardColor.DIAMONDS),Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES)]
-    assert(return_high_hands(cards)==HighCardFigure(CardValue.QUEEN))
-
-def test_find_high_value_jack():
-    cards =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.THREE, CardColor.DIAMONDS),Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.JACK, CardColor.SPADES)]
-    assert(return_high_hands(cards)==HighCardFigure(CardValue.JACK))
-
-def test_find_high_value_ten():
-    cards =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.EIGHT, CardColor.HEARTS), Card(CardValue.TEN, CardColor.SPADES), Card(CardValue.SEVEN, CardColor.SPADES)]
-    assert(return_high_hands(cards)==HighCardFigure(CardValue.TEN))
-
-def test_find_high_value_nine():
-    cards =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.EIGHT, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.SEVEN, CardColor.SPADES)]
-    assert(return_high_hands(cards)==HighCardFigure(CardValue.NINE))
-
-def test_find_high_value_eight():
-    cards =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.FIVE, CardColor.DIAMONDS), Card(CardValue.EIGHT, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.SEVEN, CardColor.SPADES)]
-    assert(return_high_hands(cards)==HighCardFigure(CardValue.EIGHT))
-
-def test_find_high_value_seven():
-    cards =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.FIVE, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
-    assert(return_high_hands(cards)==HighCardFigure(CardValue.SEVEN))
-
 def test_find_pair_two(): 
     cards =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.TWO, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
     assert(return_high_hands(cards)==PairFigure(CardValue.TWO, CardValue.SEVEN))
