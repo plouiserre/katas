@@ -40,4 +40,9 @@ class FourOfKindFigure :
     value : CardValue
     high_value_rest_of_cards: CardValue
 
+@dataclass(frozen=True)
+class QuinteFlush : 
+    value : CardValue
+    color : CardColor
+
 Figure = HighCardFigure | PairFigure | TwoPairFigure | ThreeOfKindFigure | StraitFigure | FullFigure | FourOfKindFigure    
