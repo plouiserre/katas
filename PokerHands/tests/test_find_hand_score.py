@@ -1,5 +1,5 @@
 from PokerHands.card import Card, CardColor, CardValue
-from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure
+from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure
 from PokerHands.hand import Hand, HighCardFigure
 
 def test_find_high_value_ace():
@@ -213,6 +213,50 @@ def test_find_full_four_two_times_three_three_times():
 def test_find_full_ace_two_times_SEVEN_three_times():
     hand = [Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.DIAMONDS)]
     assert(FullFigure(CardValue.ACE, CardValue.SEVEN) == return_high_hands(hand))
+
+def test_find_four_of_king_with_queen_high_cards():
+    hand = [Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS)]
+    assert(FourOfKindFigure(CardValue.KING, CardValue.QUEEN) == return_high_hands(hand))
+
+def test_find_four_of_ace_with_six_high_cards():
+    hand = [Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.DIAMONDS)]
+    assert(FourOfKindFigure(CardValue.ACE, CardValue.SIX) == return_high_hands(hand))
+
+def test_find_four_of_jack_with_king_high_cards():
+    hand = [Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.DIAMONDS)]
+    assert(FourOfKindFigure(CardValue.JACK, CardValue.KING) == return_high_hands(hand))
+
+def test_find_four_of_ten_with_jack_high_cards():
+    hand = [Card(CardValue.TEN, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.DIAMONDS)]
+    assert(FourOfKindFigure(CardValue.TEN, CardValue.JACK) == return_high_hands(hand))
+
+def test_find_four_of_nine_with_eight_high_cards():
+    hand = [Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.NINE, CardColor.DIAMONDS)]
+    assert(FourOfKindFigure(CardValue.NINE, CardValue.EIGHT) == return_high_hands(hand))
+
+def test_find_four_of_eight_with_seven_high_cards():
+    hand = [Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.DIAMONDS)]
+    assert(FourOfKindFigure(CardValue.EIGHT, CardValue.SEVEN) == return_high_hands(hand))
+
+def test_find_four_of_seven_with_five_high_cards():
+    hand = [Card(CardValue.FIVE, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.DIAMONDS)]
+    assert(FourOfKindFigure(CardValue.SEVEN, CardValue.FIVE) == return_high_hands(hand))
+
+def test_find_four_of_six_with_four_high_cards():
+    hand = [Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.DIAMONDS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.SIX, CardColor.DIAMONDS)]
+    assert(FourOfKindFigure(CardValue.SIX, CardValue.FOUR) == return_high_hands(hand))
+
+def test_find_four_of_five_with_three_high_cards():
+    hand = [Card(CardValue.FIVE, CardColor.DIAMONDS), Card(CardValue.FIVE, CardColor.DIAMONDS), Card(CardValue.THREE, CardColor.DIAMONDS), Card(CardValue.FIVE, CardColor.DIAMONDS), Card(CardValue.FIVE, CardColor.DIAMONDS)]
+    assert(FourOfKindFigure(CardValue.FIVE, CardValue.THREE) == return_high_hands(hand))
+
+def test_find_four_of_four_with_two_high_cards():
+    hand = [Card(CardValue.FOUR, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.DIAMONDS), Card(CardValue.TWO, CardColor.DIAMONDS)]
+    assert(FourOfKindFigure(CardValue.FOUR, CardValue.TWO) == return_high_hands(hand))
+
+def test_find_four_of_two_with_king_high_cards():
+    hand = [Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.TWO, CardColor.DIAMONDS), Card(CardValue.TWO, CardColor.DIAMONDS), Card(CardValue.TWO, CardColor.DIAMONDS), Card(CardValue.TWO, CardColor.DIAMONDS)]
+    assert(FourOfKindFigure(CardValue.TWO, CardValue.KING) == return_high_hands(hand))
 
 
 def return_high_hands(cards):

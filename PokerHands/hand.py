@@ -1,6 +1,6 @@
 from enum import Enum
 from PokerHands.card import CardValue, CardColor
-from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure
+from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure
 
 class Hand :
     def __init__(self):
@@ -8,6 +8,7 @@ class Hand :
     
     def determinate_high_figure(self, hand):
         cards_sorted = self.__count_all_cards(hand)
+        four_a_kind = self.__detect_four_a_kind(cards_sorted)
         full_figure = self.__detect_full(cards_sorted)
         flush_figure = self.__detect_flush(hand)
         strait_figure = self.__detect_straight(cards_sorted)
@@ -15,7 +16,9 @@ class Hand :
         two_pairs = self.__detect_two_pairs(cards_sorted)
         pair = self.__detect_one_pair(cards_sorted)
         high_card_figure = self.__detect_high_card_figure(cards_sorted)
-        if full_figure != None : 
+        if four_a_kind != None : 
+            return four_a_kind
+        elif full_figure != None : 
             return full_figure
         elif flush_figure != None : 
             return flush_figure
@@ -38,6 +41,20 @@ class Hand :
             else : 
                 self.counting_cards[card.value] = 1
         return self.counting_cards
+    
+    def __detect_four_a_kind(self, cards_sorted):
+        card_four_times = CardValue.UNDEFINED
+        high_card_value = CardValue.UNDEFINED
+        for card in cards_sorted : 
+            number_cards = cards_sorted[card]
+            if number_cards == 4 :
+                card_four_times = card
+            else :
+                high_card_value = card
+        if card_four_times != CardValue.UNDEFINED :
+            return FourOfKindFigure(card_four_times, high_card_value)
+        else : 
+            return None
     
     def __detect_full(self, cards_sorted):
         card_two_times = CardValue.UNDEFINED

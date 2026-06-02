@@ -27,14 +27,17 @@ class StraitFigure:
 
 @dataclass(frozen=True)
 class FlushFigure : 
-        color : CardColor
-        high_value : CardValue
+    color : CardColor
+    high_value : CardValue
 
 @dataclass(frozen=True)
 class FullFigure : 
-     two_times : CardValue
-     three_times : CardValue
+    two_times : CardValue
+    three_times : CardValue
 
-Figure = HighCardFigure | PairFigure | TwoPairFigure | ThreeOfKindFigure | StraitFigure
+@dataclass(frozen=True)
+class FourOfKindFigure : 
+    value : CardValue
+    high_value_rest_of_cards: CardValue
 
-    
+Figure = HighCardFigure | PairFigure | TwoPairFigure | ThreeOfKindFigure | StraitFigure | FullFigure | FourOfKindFigure    
