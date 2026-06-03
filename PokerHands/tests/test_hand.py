@@ -1,6 +1,10 @@
 from PokerHands.card import Card, CardColor, CardValue
+from PokerHands.counting_cards import CountingCards
 from PokerHands.hand import Hand
 from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
+from PokerHands.high_card_detector import HighCardDetector
+from PokerHands.pair_detector import PairDetector
+from PokerHands.two_pairs_detector import TwoPairsDetector
 
 def test_find_high_figure_ace(): 
     hand = [Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.ACE, CardColor.CLUBS), Card(CardValue.FOUR, CardColor.DIAMONDS)]
@@ -47,6 +51,10 @@ def test_find_quinte_flush_spades_started_by_ace_value():
     assert(QuinteFlush(CardValue.FIVE, CardColor.SPADES) == __find_high_figure(hand))
 
 def __find_high_figure(content) : 
-    hand = Hand()
+    counting_cards = CountingCards()
+    high_card_detector = HighCardDetector()
+    pair_detector = PairDetector(counting_cards)
+    two_pairs_detector = TwoPairsDetector(counting_cards)
+    hand = Hand(high_card_detector, pair_detector, two_pairs_detector)
     figure =  hand.determinate_high_figure(content) 
     return figure 

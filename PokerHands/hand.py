@@ -3,8 +3,11 @@ from PokerHands.card import CardValue, CardColor
 from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
 
 class Hand :
-    def __init__(self):
+    def __init__(self, high_cards_detector, pair_detector, two_pairs_detector):
         self.counting_cards = {}
+        self.high_cards_detector = high_cards_detector
+        self.pair_detector = pair_detector
+        self.two_pairs_detector = two_pairs_detector
     
     def determinate_high_figure(self, hand):
         cards_sorted = self.__count_all_cards(hand)
@@ -14,9 +17,9 @@ class Hand :
         flush_figure = self.__detect_flush(hand)
         strait_figure = self.__detect_straight(cards_sorted)
         three_of_kind = self.__detect_three_of_kind(cards_sorted)
-        two_pairs = self.__detect_two_pairs(cards_sorted)
-        pair = self.__detect_one_pair(cards_sorted)
-        high_card_figure = self.__detect_high_card_figure(cards_sorted)
+        two_pairs = self.__detect_two_pairs(hand)
+        pair = self.__detect_one_pair(hand)
+        high_card_figure = self.__detect_high_card_figure(hand)
         if quinte_flush != None : 
             return quinte_flush
         elif four_a_kind != None : 
@@ -170,51 +173,11 @@ class Hand :
         else : 
             return None
         
-    def __detect_two_pairs(self, cards_sorted): 
-        is_two_pairs = False
-        first_value_pair = CardValue.TWO
-        second_value_pair = CardValue.TWO
-        high_value_outside_two_pair = CardValue.TWO
-        number_pair = 0
-        for card in cards_sorted : 
-            number_cards = cards_sorted[card]
-            if number_cards == 2 : 
-                number_pair = number_pair + 1 
-                if number_pair == 1 :
-                    first_value_pair = card
-                else : 
-                    is_two_pairs = True
-                    if card > first_value_pair : 
-                        second_value_pair = first_value_pair
-                        first_value_pair = card
-                    else : 
-                        second_value_pair = card
-            else : 
-                if card > high_value_outside_two_pair : 
-                    high_value_outside_two_pair = card
-        if is_two_pairs : 
-            return TwoPairFigure(first_value_pair, second_value_pair, high_value_outside_two_pair)
-        else : 
-            return None
+    def __detect_two_pairs(self, hand): 
+        return self.two_pairs_detector.find_two_pairs(hand)
         
-    def __detect_one_pair(self, cards_sorted):
-        is_one_pair = False
-        value_pair = CardValue.TWO
-        high_value_outside_one_pair = CardValue.TWO
-        for card in cards_sorted : 
-            number_cards = cards_sorted[card]
-            if number_cards == 2 : 
-                is_one_pair = True
-                value_pair = card                
-            else : 
-                if card > high_value_outside_one_pair : 
-                    high_value_outside_one_pair = card
-        if is_one_pair : 
-            return PairFigure(value_pair, high_value_outside_one_pair)
+    def __detect_one_pair(self, hand):
+        return self.pair_detector.find_pair(hand)
         
-    def __detect_high_card_figure(self, cards_sorted): 
-        high_value = CardValue.TWO
-        for card in cards_sorted : 
-            if high_value < card : 
-                high_value = card
-        return HighCardFigure(high_value)
+    def __detect_high_card_figure(self, hand): 
+        return self.high_cards_detector.find_high_card(hand)
