@@ -3,12 +3,13 @@ from PokerHands.card import CardValue, CardColor
 from PokerHands.Figure import StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
 
 class Hand :
-    def __init__(self, high_cards_detector, pair_detector, two_pairs_detector, three_cards_detector):
+    def __init__(self, high_cards_detector, pair_detector, two_pairs_detector, three_cards_detector, straight_detector):
         self.counting_cards = {}
         self.high_cards_detector = high_cards_detector
         self.pair_detector = pair_detector
         self.two_pairs_detector = two_pairs_detector
         self.three_cards_detector = three_cards_detector
+        self.straight_detector = straight_detector
     
     def determinate_high_figure(self, hand):
         cards_sorted = self.__count_all_cards(hand)
@@ -16,7 +17,7 @@ class Hand :
         four_a_kind = self.__detect_four_a_kind(cards_sorted)
         full_figure = self.__detect_full(cards_sorted)
         flush_figure = self.__detect_flush(hand)
-        strait_figure = self.__detect_straight(cards_sorted)
+        strait_figure = self.__detect_straight(hand)
         three_of_kind = self.__detect_three_of_kind(hand)
         two_pairs = self.__detect_two_pairs(hand)
         pair = self.__detect_one_pair(hand)
@@ -133,29 +134,8 @@ class Hand :
         else : 
             return None
     
-    def __detect_straight(self, cards_sorted) : 
-        cards_ordered = dict(sorted(cards_sorted.items()))
-        high_card_value = CardValue.TWO
-        is_ace_present = False
-        if len(cards_ordered) == 5 :
-            last_value = CardValue.UNDEFINED
-            for card in cards_ordered :
-                if card.value == CardValue.ACE :
-                    is_ace_present = True
-                    continue 
-                high_card_value = card
-                if last_value != CardValue.UNDEFINED : 
-                    if card.value - last_value > 1 : 
-                        return None
-                last_value = card.value
-            if is_ace_present == False or (is_ace_present and CardValue.TWO in cards_ordered): 
-                return StraitFigure(high_card_value)
-            elif is_ace_present and CardValue.KING in cards_ordered : 
-                return StraitFigure(CardValue.ACE)
-            else :
-                return None
-        else : 
-            return None
+    def __detect_straight(self, hand) : 
+        return self.straight_detector.find_straight(hand)
         
     def __detect_three_of_kind(self, hand): 
         return self.three_cards_detector.find_three_of_kind(hand)
