@@ -2,18 +2,6 @@
 # from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
 # from PokerHands.hand import Hand, HighCardFigure
 
-# def test_find_straight_finish_six():
-#     cards =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.HEARTS), Card(CardValue.FIVE, CardColor.SPADES), Card(CardValue.THREE, CardColor.SPADES)]
-#     assert(return_high_hands(cards)==StraitFigure(CardValue.SIX))
-
-# def test_find_straight_finish_jack():
-#     cards =  [Card(CardValue.JACK, CardColor.CLUBS), Card(CardValue.SEVEN, CardColor.DIAMONDS), Card(CardValue.EIGHT, CardColor.HEARTS), Card(CardValue.TEN, CardColor.SPADES), Card(CardValue.NINE, CardColor.SPADES)]
-#     assert(return_high_hands(cards)==StraitFigure(CardValue.JACK))
-
-# def test_find_straight_finish_ace():
-#     cards =  [Card(CardValue.ACE, CardColor.CLUBS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES), Card(CardValue.JACK, CardColor.SPADES)]
-#     assert(return_high_hands(cards)==StraitFigure(CardValue.ACE))
-
 # def test_find_flush_hearts_by_king():
 #     hand = [Card(CardValue.KING, CardColor.HEARTS), Card(CardValue.THREE, CardColor.HEARTS), Card(CardValue.FOUR, CardColor.HEARTS), Card(CardValue.SIX, CardColor.HEARTS), Card(CardValue.FIVE, CardColor.HEARTS)]
 #     assert(FlushFigure(CardColor.HEARTS, CardValue.KING) == return_high_hands(hand))

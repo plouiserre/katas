@@ -3,13 +3,14 @@ from PokerHands.card import CardValue, CardColor
 from PokerHands.Figure import StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
 
 class Hand :
-    def __init__(self, high_cards_detector, pair_detector, two_pairs_detector, three_cards_detector, straight_detector):
+    def __init__(self, high_cards_detector, pair_detector, two_pairs_detector, three_cards_detector, straight_detector, flush_detector):
         self.counting_cards = {}
         self.high_cards_detector = high_cards_detector
         self.pair_detector = pair_detector
         self.two_pairs_detector = two_pairs_detector
         self.three_cards_detector = three_cards_detector
         self.straight_detector = straight_detector
+        self.flush_detector = flush_detector
     
     def determinate_high_figure(self, hand):
         cards_sorted = self.__count_all_cards(hand)
@@ -118,21 +119,7 @@ class Hand :
             return None
     
     def __detect_flush(self, hand): 
-        is_flush = True
-        last_color = CardColor.UNDEFINED
-        high_card_value = CardValue.TWO
-        for card in hand : 
-            if last_color == CardColor.UNDEFINED : 
-                last_color = card.color 
-            elif last_color != card.color : 
-                is_flush = False
-                break
-            if high_card_value < card.value : 
-                high_card_value = card.value
-        if is_flush:
-            return FlushFigure(last_color, high_card_value)
-        else : 
-            return None
+        return self.flush_detector.find_flush(hand)
     
     def __detect_straight(self, hand) : 
         return self.straight_detector.find_straight(hand)
