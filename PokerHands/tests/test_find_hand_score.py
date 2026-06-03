@@ -2,41 +2,6 @@
 # from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
 # from PokerHands.hand import Hand, HighCardFigure
 
-# def test_find_flush_hearts_by_king():
-#     hand = [Card(CardValue.KING, CardColor.HEARTS), Card(CardValue.THREE, CardColor.HEARTS), Card(CardValue.FOUR, CardColor.HEARTS), Card(CardValue.SIX, CardColor.HEARTS), Card(CardValue.FIVE, CardColor.HEARTS)]
-#     assert(FlushFigure(CardColor.HEARTS, CardValue.KING) == return_high_hands(hand))
-
-# def test_find_flush_clubs_by_queen():
-#     hand = [Card(CardValue.SEVEN, CardColor.CLUBS), Card(CardValue.THREE, CardColor.CLUBS), Card(CardValue.FOUR, CardColor.CLUBS), Card(CardValue.QUEEN, CardColor.CLUBS), Card(CardValue.FIVE, CardColor.CLUBS)]
-#     assert(FlushFigure(CardColor.CLUBS, CardValue.QUEEN) == return_high_hands(hand))
-
-# def test_find_flush_spades_by_jack():
-#     hand = [Card(CardValue.SEVEN, CardColor.SPADES), Card(CardValue.THREE, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.JACK, CardColor.SPADES)]
-#     assert(FlushFigure(CardColor.SPADES, CardValue.JACK) == return_high_hands(hand))
-
-# def test_find_full_king_two_times_jack_three_times():
-#     hand = [Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.DIAMONDS)]
-#     assert(FullFigure(CardValue.KING, CardValue.JACK) == return_high_hands(hand))
-
-# def test_find_full_ten_two_times_nine_three_times():
-#     hand = [Card(CardValue.TEN, CardColor.DIAMONDS), Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.DIAMONDS), Card(CardValue.NINE, CardColor.DIAMONDS)]
-#     assert(FullFigure(CardValue.TEN, CardValue.NINE) == return_high_hands(hand))
-
-# def test_find_full_eight_two_times_seven_three_times():
-#     hand = [Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.DIAMONDS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.DIAMONDS)]
-#     assert(FullFigure(CardValue.EIGHT, CardValue.SEVEN) == return_high_hands(hand))
-
-# def test_find_full_six_two_times_five_three_times():
-#     hand = [Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.FIVE, CardColor.DIAMONDS), Card(CardValue.FIVE, CardColor.DIAMONDS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.FIVE, CardColor.DIAMONDS)]
-#     assert(FullFigure(CardValue.SIX, CardValue.FIVE) == return_high_hands(hand))
-
-# def test_find_full_four_two_times_three_three_times():
-#     hand = [Card(CardValue.FOUR, CardColor.DIAMONDS), Card(CardValue.THREE, CardColor.DIAMONDS), Card(CardValue.THREE, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.DIAMONDS), Card(CardValue.THREE, CardColor.DIAMONDS)]
-#     assert(FullFigure(CardValue.FOUR, CardValue.THREE) == return_high_hands(hand))
-
-# def test_find_full_ace_two_times_SEVEN_three_times():
-#     hand = [Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.DIAMONDS)]
-#     assert(FullFigure(CardValue.ACE, CardValue.SEVEN) == return_high_hands(hand))
 
 # def test_find_four_of_king_with_queen_high_cards():
 #     hand = [Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS)]

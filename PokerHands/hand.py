@@ -1,9 +1,9 @@
 from enum import Enum
 from PokerHands.card import CardValue, CardColor
-from PokerHands.Figure import StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
+from PokerHands.Figure import FullFigure, FourOfKindFigure, QuinteFlush
 
 class Hand :
-    def __init__(self, high_cards_detector, pair_detector, two_pairs_detector, three_cards_detector, straight_detector, flush_detector):
+    def __init__(self, high_cards_detector, pair_detector, two_pairs_detector, three_cards_detector, straight_detector, flush_detector, full_detector):
         self.counting_cards = {}
         self.high_cards_detector = high_cards_detector
         self.pair_detector = pair_detector
@@ -11,12 +11,13 @@ class Hand :
         self.three_cards_detector = three_cards_detector
         self.straight_detector = straight_detector
         self.flush_detector = flush_detector
+        self.full_detector = full_detector
     
     def determinate_high_figure(self, hand):
         cards_sorted = self.__count_all_cards(hand)
         quinte_flush = self.__detect_quinte_flush(hand)
         four_a_kind = self.__detect_four_a_kind(cards_sorted)
-        full_figure = self.__detect_full(cards_sorted)
+        full_figure = self.__detect_full(hand)
         flush_figure = self.__detect_flush(hand)
         strait_figure = self.__detect_straight(hand)
         three_of_kind = self.__detect_three_of_kind(hand)
@@ -102,21 +103,8 @@ class Hand :
         else : 
             return None
     
-    def __detect_full(self, cards_sorted):
-        card_two_times = CardValue.UNDEFINED
-        card_three_times = CardValue.UNDEFINED
-        for card in cards_sorted :
-            number_cards = cards_sorted[card]
-            if number_cards == 3 : 
-                card_three_times = card
-            elif number_cards == 2 : 
-                card_two_times = card
-            else : 
-                break
-        if card_two_times != CardValue.UNDEFINED and card_three_times != CardValue.UNDEFINED : 
-            return FullFigure(card_two_times, card_three_times)
-        else : 
-            return None
+    def __detect_full(self, hand):
+        return self.full_detector.find_full(hand)
     
     def __detect_flush(self, hand): 
         return self.flush_detector.find_flush(hand)
