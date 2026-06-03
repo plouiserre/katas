@@ -3,7 +3,7 @@ from PokerHands.card import CardValue, CardColor
 from PokerHands.Figure import FullFigure, FourOfKindFigure, QuinteFlush
 
 class Hand :
-    def __init__(self, high_cards_detector, pair_detector, two_pairs_detector, three_cards_detector, straight_detector, flush_detector, full_detector):
+    def __init__(self, high_cards_detector, pair_detector, two_pairs_detector, three_cards_detector, straight_detector, flush_detector, full_detector, four_cards_detector):
         self.counting_cards = {}
         self.high_cards_detector = high_cards_detector
         self.pair_detector = pair_detector
@@ -12,11 +12,11 @@ class Hand :
         self.straight_detector = straight_detector
         self.flush_detector = flush_detector
         self.full_detector = full_detector
+        self.four_cards_detector = four_cards_detector
     
     def determinate_high_figure(self, hand):
-        cards_sorted = self.__count_all_cards(hand)
         quinte_flush = self.__detect_quinte_flush(hand)
-        four_a_kind = self.__detect_four_a_kind(cards_sorted)
+        four_a_kind = self.__detect_four_a_kind(hand)
         full_figure = self.__detect_full(hand)
         flush_figure = self.__detect_flush(hand)
         strait_figure = self.__detect_straight(hand)
@@ -89,19 +89,8 @@ class Hand :
         else : 
             return None            
     
-    def __detect_four_a_kind(self, cards_sorted):
-        card_four_times = CardValue.UNDEFINED
-        high_card_value = CardValue.UNDEFINED
-        for card in cards_sorted : 
-            number_cards = cards_sorted[card]
-            if number_cards == 4 :
-                card_four_times = card
-            else :
-                high_card_value = card
-        if card_four_times != CardValue.UNDEFINED :
-            return FourOfKindFigure(card_four_times, high_card_value)
-        else : 
-            return None
+    def __detect_four_a_kind(self, hand):
+        return self.four_cards_detector.find_four_cards(hand)
     
     def __detect_full(self, hand):
         return self.full_detector.find_full(hand)

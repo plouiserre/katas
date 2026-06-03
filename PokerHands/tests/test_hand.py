@@ -4,6 +4,7 @@ from PokerHands.hand import Hand
 from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
 from PokerHands.full_detector import FullDetector
 from PokerHands.flush_detector import FlushDetector
+from PokerHands.four_cards_detector import FourCardsDetector
 from PokerHands.high_card_detector import HighCardDetector
 from PokerHands.pair_detector import PairDetector
 from PokerHands.straight_detector import StraightDetector
@@ -63,6 +64,7 @@ def __find_high_figure(content) :
     straight_detector = StraightDetector(counting_cards)
     flush_detector = FlushDetector()
     full_detector = FullDetector(counting_cards)
-    hand = Hand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, straight_detector, flush_detector, full_detector)
+    four_cards_detector = FourCardsDetector(counting_cards)
+    hand = Hand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, straight_detector, flush_detector, full_detector, four_cards_detector)
     figure =  hand.determinate_high_figure(content) 
     return figure 
