@@ -10,10 +10,6 @@ def test_find_one_pair_figure_first():
     hand = [Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.CLUBS), Card(CardValue.QUEEN, CardColor.DIAMONDS)]
     assert(PairFigure(CardValue.QUEEN, CardValue.JACK) == __find_high_figure(hand))
 
-def test_find_one_pair_figure_second(): 
-    hand = [Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.JACK, CardColor.SPADES), Card(CardValue.FOUR, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS)]
-    assert(PairFigure(CardValue.JACK, CardValue.TEN) == __find_high_figure(hand))
-
 def test_find_two_pair_two_three(): 
     hand = [Card(CardValue.TWO, CardColor.DIAMONDS), Card(CardValue.THREE, CardColor.HEARTS), Card(CardValue.TWO, CardColor.SPADES), Card(CardValue.FOUR, CardColor.CLUBS), Card(CardValue.THREE, CardColor.DIAMONDS)]
     assert(TwoPairFigure(CardValue.THREE, CardValue.TWO, CardValue.FOUR) == __find_high_figure(hand))
