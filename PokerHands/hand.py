@@ -1,9 +1,8 @@
 from enum import Enum
 from PokerHands.card import CardValue, CardColor
-from PokerHands.Figure import FullFigure, FourOfKindFigure, QuinteFlush
 
 class Hand :
-    def __init__(self, high_cards_detector, pair_detector, two_pairs_detector, three_cards_detector, straight_detector, flush_detector, full_detector, four_cards_detector):
+    def __init__(self, high_cards_detector, pair_detector, two_pairs_detector, three_cards_detector, straight_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector):
         self.counting_cards = {}
         self.high_cards_detector = high_cards_detector
         self.pair_detector = pair_detector
@@ -13,6 +12,7 @@ class Hand :
         self.flush_detector = flush_detector
         self.full_detector = full_detector
         self.four_cards_detector = four_cards_detector
+        self.quinte_flush_detector = quinte_flush_detector
     
     def determinate_high_figure(self, hand):
         quinte_flush = self.__detect_quinte_flush(hand)
@@ -43,51 +43,8 @@ class Hand :
         else : 
             return high_card_figure 
 
-    def __count_all_cards(self, content) : 
-        self.counting_cards = {}
-        for card in content : 
-            if card.value in self.counting_cards : 
-                self.counting_cards[card.value] += 1
-            else : 
-                self.counting_cards[card.value] = 1
-        return self.counting_cards
-    
     def __detect_quinte_flush(self, hand):
-        is_quinte_flush = True 
-        last_card_color = CardColor.UNDEFINED
-        last_card_value = CardValue.UNDEFINED
-        is_ace_present = False
-        card_value_hand = []
-        hand_sorted = sorted(hand, key=lambda o : o.value)
-        for card in hand_sorted : 
-            if card.value == CardValue.ACE : 
-                is_ace_present = True
-            if last_card_color == CardColor.UNDEFINED  and last_card_value == CardValue.UNDEFINED:
-                last_card_color = card.color
-                last_card_value = card.value
-                card_value_hand.append(card.value)
-                continue
-            elif last_card_color != card.color : 
-                is_quinte_flush = False
-                break
-            elif is_ace_present and (CardValue.KING not in card_value_hand and CardValue.TWO not in card_value_hand): 
-                is_quinte_flush = False
-                break
-            elif card.value != CardValue.ACE and (card.value - last_card_value > 1 or card.value in card_value_hand): 
-                is_quinte_flush = False
-                break
-            else : 
-                last_card_value = card.value
-            card_value_hand.append(card.value)
-        if is_quinte_flush : 
-            if is_ace_present == False : 
-                return QuinteFlush(last_card_value, last_card_color)
-            elif is_ace_present and CardValue.TWO in card_value_hand : 
-                return QuinteFlush(CardValue.FIVE, last_card_color)
-            elif is_ace_present and CardValue.KING in card_value_hand : 
-                return QuinteFlush(CardValue.ACE, last_card_color)
-        else : 
-            return None            
+        return self.quinte_flush_detector.find_quinte_flush(hand)
     
     def __detect_four_a_kind(self, hand):
         return self.four_cards_detector.find_four_cards(hand)

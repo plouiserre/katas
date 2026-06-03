@@ -7,23 +7,24 @@ from PokerHands.flush_detector import FlushDetector
 from PokerHands.four_cards_detector import FourCardsDetector
 from PokerHands.high_card_detector import HighCardDetector
 from PokerHands.pair_detector import PairDetector
+from PokerHands.quinte_flush_detector import QuinteFlushDetector
 from PokerHands.straight_detector import StraightDetector
 from PokerHands.two_pairs_detector import TwoPairsDetector
 from PokerHands.three_cards_detector import ThreeCardsDetector
 
-def test_find_high_figure_ace(): 
+def test_find_high_card_ace(): 
     hand = [Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.ACE, CardColor.CLUBS), Card(CardValue.FOUR, CardColor.DIAMONDS)]
     assert(HighCardFigure(CardValue.ACE) == __find_high_figure(hand))
 
-def test_find_one_pair_figure_first(): 
+def test_find_one_pair_figure_before_high_card(): 
     hand = [Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.CLUBS), Card(CardValue.QUEEN, CardColor.DIAMONDS)]
     assert(PairFigure(CardValue.QUEEN, CardValue.JACK) == __find_high_figure(hand))
 
-def test_find_two_pair_two_three(): 
+def test_find_two_pair_two_three_before_one_pair(): 
     hand = [Card(CardValue.TWO, CardColor.DIAMONDS), Card(CardValue.THREE, CardColor.HEARTS), Card(CardValue.TWO, CardColor.SPADES), Card(CardValue.FOUR, CardColor.CLUBS), Card(CardValue.THREE, CardColor.DIAMONDS)]
     assert(TwoPairFigure(CardValue.THREE, CardValue.TWO, CardValue.FOUR) == __find_high_figure(hand))
 
-def test_find_one_three_of_kind_figure_first(): 
+def test_find_one_three_of_kind_figure_before_one_pair(): 
     hand = [Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.ACE, CardColor.SPADES), Card(CardValue.ACE, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS)]
     assert(ThreeOfKindFigure(CardValue.ACE, CardValue.TEN) == __find_high_figure(hand))
 
@@ -39,11 +40,11 @@ def test_find_flush_diamonds_by_ace():
     hand = [Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.THREE, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.DIAMONDS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.FIVE, CardColor.DIAMONDS)]
     assert(FlushFigure(CardColor.DIAMONDS, CardValue.ACE) == __find_high_figure(hand))    
 
-def test_find_full_ace_two_times_queen_three_times():
+def test_find_full_ace_two_times_queen_three_times_before_find_one_pair_or_three_kind_of_card():
     hand = [Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS)]
     assert(FullFigure(CardValue.ACE, CardValue.QUEEN) == __find_high_figure(hand))   
 
-def test_find_four_of_kind_queen_with_ace_high_cards():
+def test_find_four_of_kind_queen_with_ace_high_cards_before_two_pairs():
     hand = [Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS)]
     assert(FourOfKindFigure(CardValue.QUEEN, CardValue.ACE) == __find_high_figure(hand))
 
@@ -65,6 +66,7 @@ def __find_high_figure(content) :
     flush_detector = FlushDetector()
     full_detector = FullDetector(counting_cards)
     four_cards_detector = FourCardsDetector(counting_cards)
-    hand = Hand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, straight_detector, flush_detector, full_detector, four_cards_detector)
+    quinte_flush_detector = QuinteFlushDetector()
+    hand = Hand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, straight_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
     figure =  hand.determinate_high_figure(content) 
     return figure 
