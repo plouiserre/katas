@@ -1,13 +1,14 @@
 from enum import Enum
 from PokerHands.card import CardValue, CardColor
-from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
+from PokerHands.Figure import StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
 
 class Hand :
-    def __init__(self, high_cards_detector, pair_detector, two_pairs_detector):
+    def __init__(self, high_cards_detector, pair_detector, two_pairs_detector, three_cards_detector):
         self.counting_cards = {}
         self.high_cards_detector = high_cards_detector
         self.pair_detector = pair_detector
         self.two_pairs_detector = two_pairs_detector
+        self.three_cards_detector = three_cards_detector
     
     def determinate_high_figure(self, hand):
         cards_sorted = self.__count_all_cards(hand)
@@ -16,7 +17,7 @@ class Hand :
         full_figure = self.__detect_full(cards_sorted)
         flush_figure = self.__detect_flush(hand)
         strait_figure = self.__detect_straight(cards_sorted)
-        three_of_kind = self.__detect_three_of_kind(cards_sorted)
+        three_of_kind = self.__detect_three_of_kind(hand)
         two_pairs = self.__detect_two_pairs(hand)
         pair = self.__detect_one_pair(hand)
         high_card_figure = self.__detect_high_card_figure(hand)
@@ -156,22 +157,8 @@ class Hand :
         else : 
             return None
         
-    def __detect_three_of_kind(self, cards_sorted): 
-        is_three_cards = False
-        three_of_kind_value = CardValue.TWO
-        high_value_outside_three_of_kind = CardValue.TWO
-        for card in cards_sorted : 
-            number_cards = cards_sorted[card]
-            if number_cards == 3 : 
-                is_three_cards = True
-                three_of_kind_value = card
-            else : 
-                if card > high_value_outside_three_of_kind : 
-                    high_value_outside_three_of_kind = card
-        if is_three_cards : 
-            return ThreeOfKindFigure(three_of_kind_value, high_value_outside_three_of_kind)
-        else : 
-            return None
+    def __detect_three_of_kind(self, hand): 
+        return self.three_cards_detector.find_three_of_kind(hand)
         
     def __detect_two_pairs(self, hand): 
         return self.two_pairs_detector.find_two_pairs(hand)

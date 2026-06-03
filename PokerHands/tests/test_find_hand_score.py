@@ -2,58 +2,6 @@
 # from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
 # from PokerHands.hand import Hand, HighCardFigure
 
-# def test_find_three_of_a_two(): 
-#     cards =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.TWO, CardColor.HEARTS), Card(CardValue.TWO, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
-#     assert(return_high_hands(cards)==ThreeOfKindFigure(CardValue.TWO, CardValue.ACE))
-
-# def test_find_three_of_a_three(): 
-#     cards =  [Card(CardValue.THREE, CardColor.CLUBS), Card(CardValue.THREE, CardColor.DIAMONDS), Card(CardValue.THREE, CardColor.HEARTS), Card(CardValue.TWO, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
-#     assert(return_high_hands(cards)==ThreeOfKindFigure(CardValue.THREE, CardValue.FOUR))
-
-# def test_find_three_of_a_four(): 
-#     cards =  [Card(CardValue.FOUR, CardColor.CLUBS), Card(CardValue.FOUR, CardColor.DIAMONDS), Card(CardValue.THREE, CardColor.HEARTS), Card(CardValue.TWO, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
-#     assert(return_high_hands(cards)==ThreeOfKindFigure(CardValue.FOUR, CardValue.THREE))
-
-# def test_find_three_of_a_five(): 
-#     cards =  [Card(CardValue.FIVE, CardColor.CLUBS), Card(CardValue.FIVE, CardColor.DIAMONDS), Card(CardValue.FIVE, CardColor.HEARTS), Card(CardValue.TWO, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
-#     assert(return_high_hands(cards)==ThreeOfKindFigure(CardValue.FIVE, CardValue.FOUR))
-
-# def test_find_three_of_a_six(): 
-#     cards =  [Card(CardValue.SIX, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.SIX, CardColor.HEARTS), Card(CardValue.TWO, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
-#     assert(return_high_hands(cards)==ThreeOfKindFigure(CardValue.SIX, CardValue.FOUR))
-
-# def test_find_three_of_a_seven(): 
-#     cards =  [Card(CardValue.SEVEN, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.TWO, CardColor.SPADES), Card(CardValue.SEVEN, CardColor.SPADES)]
-#     assert(return_high_hands(cards)==ThreeOfKindFigure(CardValue.SEVEN, CardValue.SIX))
-
-# def test_find_three_of_a_eight(): 
-#     cards =  [Card(CardValue.EIGHT, CardColor.CLUBS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.TWO, CardColor.SPADES), Card(CardValue.EIGHT, CardColor.SPADES)]
-#     assert(return_high_hands(cards)==ThreeOfKindFigure(CardValue.EIGHT, CardValue.SEVEN))
-
-# def test_find_three_of_a_nine(): 
-#     cards =  [Card(CardValue.NINE, CardColor.CLUBS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.NINE, CardColor.SPADES), Card(CardValue.NINE, CardColor.SPADES)]
-#     assert(return_high_hands(cards)==ThreeOfKindFigure(CardValue.NINE, CardValue.EIGHT))
-
-# def test_find_three_of_a_ten(): 
-#     cards =  [Card(CardValue.TEN, CardColor.CLUBS), Card(CardValue.TEN, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES), Card(CardValue.NINE, CardColor.SPADES)]
-#     assert(return_high_hands(cards)==ThreeOfKindFigure(CardValue.TEN, CardValue.QUEEN))
-
-# def test_find_three_of_a_jack(): 
-#     cards =  [Card(CardValue.JACK, CardColor.CLUBS), Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES), Card(CardValue.NINE, CardColor.SPADES)]
-#     assert(return_high_hands(cards)==ThreeOfKindFigure(CardValue.JACK, CardValue.QUEEN))
-
-# def test_find_three_of_a_queen(): 
-#     cards =  [Card(CardValue.QUEEN, CardColor.CLUBS), Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES), Card(CardValue.NINE, CardColor.SPADES)]
-#     assert(return_high_hands(cards)==ThreeOfKindFigure(CardValue.QUEEN, CardValue.JACK))
-
-# def test_find_three_of_a_king(): 
-#     cards =  [Card(CardValue.KING, CardColor.CLUBS), Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES), Card(CardValue.KING, CardColor.SPADES)]
-#     assert(return_high_hands(cards)==ThreeOfKindFigure(CardValue.KING, CardValue.QUEEN))
-
-# def test_find_three_of_a_ace(): 
-#     cards =  [Card(CardValue.ACE, CardColor.CLUBS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES), Card(CardValue.KING, CardColor.SPADES)]
-#     assert(return_high_hands(cards)==ThreeOfKindFigure(CardValue.ACE, CardValue.KING))
-
 # def test_find_straight_finish_six():
 #     cards =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.HEARTS), Card(CardValue.FIVE, CardColor.SPADES), Card(CardValue.THREE, CardColor.SPADES)]
 #     assert(return_high_hands(cards)==StraitFigure(CardValue.SIX))

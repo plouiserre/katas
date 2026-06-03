@@ -5,6 +5,7 @@ from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOf
 from PokerHands.high_card_detector import HighCardDetector
 from PokerHands.pair_detector import PairDetector
 from PokerHands.two_pairs_detector import TwoPairsDetector
+from PokerHands.three_cards_detector import ThreeCardsDetector
 
 def test_find_high_figure_ace(): 
     hand = [Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.ACE, CardColor.CLUBS), Card(CardValue.FOUR, CardColor.DIAMONDS)]
@@ -55,6 +56,7 @@ def __find_high_figure(content) :
     high_card_detector = HighCardDetector()
     pair_detector = PairDetector(counting_cards)
     two_pairs_detector = TwoPairsDetector(counting_cards)
-    hand = Hand(high_card_detector, pair_detector, two_pairs_detector)
+    three_cards_detector = ThreeCardsDetector(counting_cards)
+    hand = Hand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector)
     figure =  hand.determinate_high_figure(content) 
     return figure 
