@@ -1,7 +1,7 @@
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.counting_cards import CountingCards
 from PokerHands.Figure import FullFigure
-from PokerHands.full_detector import FullDetector
+from PokerHands.detector.full_detector import FullDetector
 
 def test_find_full_king_two_times_jack_three_times():
     hand = [Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.DIAMONDS)]

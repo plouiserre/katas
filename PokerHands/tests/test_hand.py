@@ -2,15 +2,15 @@ from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.counting_cards import CountingCards
 from PokerHands.hand import Hand
 from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
-from PokerHands.full_detector import FullDetector
-from PokerHands.flush_detector import FlushDetector
-from PokerHands.four_cards_detector import FourCardsDetector
-from PokerHands.high_card_detector import HighCardDetector
-from PokerHands.pair_detector import PairDetector
-from PokerHands.quinte_flush_detector import QuinteFlushDetector
-from PokerHands.straight_detector import StraightDetector
-from PokerHands.two_pairs_detector import TwoPairsDetector
-from PokerHands.three_cards_detector import ThreeCardsDetector
+from PokerHands.detector.full_detector import FullDetector
+from PokerHands.detector.flush_detector import FlushDetector
+from PokerHands.detector.four_cards_detector import FourCardsDetector
+from PokerHands.detector.high_card_detector import HighCardDetector
+from PokerHands.detector.pair_detector import PairDetector
+from PokerHands.detector.quinte_flush_detector import QuinteFlushDetector
+from PokerHands.detector.straight_detector import StraightDetector
+from PokerHands.detector.two_pairs_detector import TwoPairsDetector
+from PokerHands.detector.three_cards_detector import ThreeCardsDetector
 
 def test_find_high_card_ace(): 
     hand = [Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.ACE, CardColor.CLUBS), Card(CardValue.FOUR, CardColor.DIAMONDS)]

@@ -1,7 +1,7 @@
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.counting_cards import CountingCards
 from PokerHands.Figure import ThreeOfKindFigure
-from PokerHands.three_cards_detector import ThreeCardsDetector
+from PokerHands.detector.three_cards_detector import ThreeCardsDetector
 
 def test_find_three_of_a_two(): 
     hand =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.TWO, CardColor.HEARTS), Card(CardValue.TWO, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]

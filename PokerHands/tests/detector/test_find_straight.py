@@ -1,7 +1,7 @@
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.counting_cards import CountingCards
 from PokerHands.Figure import StraitFigure
-from PokerHands.straight_detector import StraightDetector
+from PokerHands.detector.straight_detector import StraightDetector
 
 def test_find_straight_finish_six():
     hand =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.HEARTS), Card(CardValue.FIVE, CardColor.SPADES), Card(CardValue.THREE, CardColor.SPADES)]

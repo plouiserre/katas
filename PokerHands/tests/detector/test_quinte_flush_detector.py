@@ -1,6 +1,6 @@
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.Figure import QuinteFlush
-from PokerHands.quinte_flush_detector import QuinteFlushDetector
+from PokerHands.detector.quinte_flush_detector import QuinteFlushDetector
 
 def test_find_quinte_flush_diamonds_with_nine_value():
     hand = [Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.DIAMONDS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.FIVE, CardColor.DIAMONDS)]
