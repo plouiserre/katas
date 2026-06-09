@@ -1,7 +1,7 @@
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.counting_cards import CountingCards
 from PokerHands.Figure import FourOfKindFigure
-from PokerHands.four_cards_detector import FourCardsDetector
+from PokerHands.detector.four_cards_detector import FourCardsDetector
 
 def test_find_four_of_king_with_queen_high_cards():
     hand = [Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS)]

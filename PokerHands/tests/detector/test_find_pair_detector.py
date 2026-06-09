@@ -1,7 +1,7 @@
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.counting_cards import CountingCards
 from PokerHands.Figure import PairFigure
-from PokerHands.pair_detector import PairDetector
+from PokerHands.detector.pair_detector import PairDetector
 
 def test_find_one_pair_figure_second(): 
     hand = [Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.JACK, CardColor.SPADES), Card(CardValue.FOUR, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS)]

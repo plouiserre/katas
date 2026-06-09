@@ -1,6 +1,6 @@
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.Figure import FlushFigure
-from PokerHands.flush_detector import FlushDetector
+from PokerHands.detector.flush_detector import FlushDetector
 
 def test_find_flush_hearts_by_king():
     hand = [Card(CardValue.KING, CardColor.HEARTS), Card(CardValue.THREE, CardColor.HEARTS), Card(CardValue.FOUR, CardColor.HEARTS), Card(CardValue.SIX, CardColor.HEARTS), Card(CardValue.FIVE, CardColor.HEARTS)]

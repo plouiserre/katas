@@ -1,5 +1,5 @@
 from PokerHands.card import Card, CardColor, CardValue
-from PokerHands.high_card_detector import HighCardDetector
+from PokerHands.detector.high_card_detector import HighCardDetector
 from PokerHands.Figure import HighCardFigure
 
 def test_find_high_card_king():
