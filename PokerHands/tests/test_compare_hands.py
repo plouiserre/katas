@@ -56,8 +56,16 @@ def test_compare_two_pairs_with_king_pairs_in_each_hand_and_second_pair_highter_
     assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
 #two hands with each have two pairs same values but different other cards
+def test_compare_two_pairs_exactly_with_different_high_cards():
+    first_hand = TwoPairFigure(CardValue.KING, CardValue.TWO, CardValue.THREE)
+    second_hand = TwoPairFigure(CardValue.KING, CardValue.TWO, CardValue.ACE)
+    assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
 #two hands with each have two pairs same values with same other cards
+def test_compare_two_pairs_exactly_with_same_high_cards():
+    first_hand = TwoPairFigure(CardValue.KING, CardValue.TWO, CardValue.THREE)
+    second_hand = TwoPairFigure(CardValue.KING, CardValue.TWO, CardValue.THREE)
+    assert(EQUALITY == compare_two_hands(first_hand, second_hand))
 
 #two hands with two pairs and one three of kind
 
@@ -125,37 +133,35 @@ def compare_two_hands(first_hand, second_hand):
         return compare_two_hands_with_two_pairs(first_hand, second_hand)
         
 def compare_two_hands_with_two_pairs(first_hand, second_hand):
-    first_hand_pairs = []
-    first_hand_pairs.append(first_hand.first_pair_value)
-    first_hand_pairs.append(first_hand.second_pair_value)
-    second_hand_pairs = []
-    second_hand_pairs.append(second_hand.first_pair_value)
-    second_hand_pairs.append(second_hand.second_pair_value)
-    high_pair = CardValue.UNDEFINED
-    is_first_hand = False
-    is_second_hand = False
-    for first_pair_card in first_hand_pairs : 
-        for second_pair_card in second_hand_pairs : 
-            if high_pair == CardValue.UNDEFINED : 
-                if first_pair_card < second_pair_card :
-                    high_pair = second_pair_card
-                elif second_pair_card < first_pair_card: 
-                    high_pair = first_pair_card
-            else : 
-                if high_pair < first_pair_card : 
-                    high_pair = first_pair_card
-                elif high_pair < second_pair_card : 
-                    high_pair = second_pair_card
-    for first_pair_card in first_hand_pairs : 
-        if high_pair == first_pair_card : 
-            is_first_hand = True
-            break
-    if is_first_hand : 
-        return FIRST_HAND
-    for second_pair_card in second_hand_pairs : 
-        if high_pair == second_pair_card : 
-            is_second_hand = True
-            break
-    if is_second_hand : 
+    high_first_pair = __get_high_pair(first_hand)
+    high_second_pair = __get_high_pair(second_hand)
+    if high_first_pair < high_second_pair : 
         return SECOND_HAND
-        
+    elif high_second_pair < high_first_pair : 
+        return FIRST_HAND
+    else : 
+        lower_first_pair = __get_lower_pair(first_hand)
+        lower_second_pair = __get_lower_pair(second_hand)
+        if lower_first_pair < lower_second_pair :
+            return SECOND_HAND
+        elif lower_second_pair < lower_first_pair :
+            return FIRST_HAND
+        else : 
+            if first_hand.high_value_rest_of_cards < second_hand.high_value_rest_of_cards :
+                return SECOND_HAND
+            elif second_hand.high_value_rest_of_cards < first_hand.high_value_rest_of_cards : 
+                return FIRST_HAND
+            else : 
+                return EQUALITY
+
+def __get_high_pair(hand) : 
+    if hand.first_pair_value < hand.second_pair_value :
+        return hand.second_pair_value
+    else : 
+        return hand.first_pair_value
+    
+def __get_lower_pair(hand): 
+    if hand.first_pair_value < hand.second_pair_value :
+        return hand.first_pair_value
+    else : 
+        return hand.second_pair_value    
