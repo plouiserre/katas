@@ -1,5 +1,5 @@
 from PokerHands.card import CardValue
-from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure
+from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure
 
 #two hands with high cards differents values
 def test_compare_one_hand_with_jack_and_with_ace(): 
@@ -67,15 +67,41 @@ def test_compare_two_pairs_exactly_with_same_high_cards():
     second_hand = TwoPairFigure(CardValue.KING, CardValue.TWO, CardValue.THREE)
     assert(EQUALITY == compare_two_hands(first_hand, second_hand))
 
-#two hands with two pairs and one three of kind
+#two hands with second_hand two pairs and first_hand one three of kind
+def test_compare_second_hand_two_pairs_and_first_hand_three_of_kinds(): 
+    first_hand = ThreeOfKindFigure(CardValue.QUEEN, CardValue.SIX)
+    second_hand = TwoPairFigure(CardValue.ACE, CardValue.KING, CardValue.FOUR)
+    assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
+
+ #two hands with first_hand two pairs and second_hand one three of kind
+def test_compare_first_hand_two_pairs_and_second_hand_three_of_kinds(): 
+    first_hand = TwoPairFigure(CardValue.ACE, CardValue.KING, CardValue.FOUR)
+    second_hand = ThreeOfKindFigure(CardValue.QUEEN, CardValue.SIX)
+    assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
 #two hands with each have one three of kind different values
+def test_compare_where_two_hands_have_differents_three_of_kinds():
+    first_hand = ThreeOfKindFigure(CardValue.JACK, CardValue.FIVE)
+    second_hand = ThreeOfKindFigure(CardValue.TEN, CardValue.ACE)
+    assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
 #two hands with each have one three of kind same values but different other cards
+def test_compare_where_two_hands_have_same_three_of_kinds_but_differents_high_cards():
+    first_hand = ThreeOfKindFigure(CardValue.JACK, CardValue.FIVE)
+    second_hand = ThreeOfKindFigure(CardValue.JACK, CardValue.ACE)
+    assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
 #two hands with each have one three of kind same values with same other cards
+def test_compare_where_two_hands_have_same_three_of_kinds_and_same_high_cards():
+    first_hand = ThreeOfKindFigure(CardValue.JACK, CardValue.ACE)
+    second_hand = ThreeOfKindFigure(CardValue.JACK, CardValue.ACE)
+    assert(EQUALITY == compare_two_hands(first_hand, second_hand))
 
 #two hands with one three of kind and one straight
+def test_compare_where_one_hand_have_straight_and_one_have_three_of_kinds():
+    first_hand = StraitFigure(CardValue.QUEEN)
+    second_hand = ThreeOfKindFigure(CardValue.ACE, CardValue.KING)
+    assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
 #two hands with each have one straight values
 
@@ -100,6 +126,7 @@ def test_compare_two_pairs_exactly_with_same_high_cards():
 EQUALITY = 0
 FIRST_HAND = 1
 SECOND_HAND = 2
+UNDETERMINATED = -9999
 
 def compare_two_hands(first_hand, second_hand):
     if type(first_hand) is HighCardFigure and type(second_hand) is HighCardFigure : 
@@ -131,7 +158,19 @@ def compare_two_hands(first_hand, second_hand):
         return SECOND_HAND
     elif type(first_hand) is TwoPairFigure and type(second_hand) is TwoPairFigure :
         return compare_two_hands_with_two_pairs(first_hand, second_hand)
-        
+    elif type(first_hand) is ThreeOfKindFigure and type(second_hand) is TwoPairFigure :
+        return FIRST_HAND
+    elif type(second_hand) is ThreeOfKindFigure and type(first_hand) is TwoPairFigure :    
+        return SECOND_HAND
+    elif type(first_hand) is ThreeOfKindFigure and type(second_hand) is ThreeOfKindFigure : 
+        return compare_two_hands_with_three_of_kinds(first_hand, second_hand)
+    elif type(first_hand) is StraitFigure and type(second_hand) is ThreeOfKindFigure :
+        return FIRST_HAND
+    elif type(second_hand) is StraitFigure and type(first_hand) is ThreeOfKindFigure :    
+        return SECOND_HAND
+    else : 
+        return UNDETERMINATED
+    
 def compare_two_hands_with_two_pairs(first_hand, second_hand):
     high_first_pair = __get_high_pair(first_hand)
     high_second_pair = __get_high_pair(second_hand)
@@ -165,3 +204,16 @@ def __get_lower_pair(hand):
         return hand.first_pair_value
     else : 
         return hand.second_pair_value    
+    
+def compare_two_hands_with_three_of_kinds(first_hand, second_hand): 
+    if first_hand.value < second_hand.value :
+        return SECOND_HAND
+    elif second_hand.value < first_hand.value : 
+        return FIRST_HAND
+    else : 
+        if first_hand.high_value_rest_of_cards < second_hand.high_value_rest_of_cards : 
+            return SECOND_HAND 
+        elif second_hand.high_value_rest_of_cards < first_hand.high_value_rest_of_cards : 
+            return FIRST_HAND
+        else : 
+            return EQUALITY
