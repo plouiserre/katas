@@ -1,5 +1,5 @@
 from PokerHands.card import CardColor, CardValue
-from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure
+from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure
 
 #two hands with high cards differents values
 def test_compare_one_hand_with_jack_and_with_ace(): 
@@ -122,8 +122,22 @@ def test_compare_where_one_flush_and_one_straight():
     assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
 #two hands with each have one flush differents values
+def test_compare_where_each_hand_have_differents_flush(): 
+    first_hand = FlushFigure(CardColor.SPADES, CardValue.EIGHT)
+    second_hand = FlushFigure(CardColor.CLUBS, CardValue.SEVEN)
+    assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
+
+#two hands with each have same flush
+def test_compare_where_each_hand_have_same_flush(): 
+    first_hand = FlushFigure(CardColor.HEARTS, CardValue.ACE)
+    second_hand = FlushFigure(CardColor.DIAMONDS, CardValue.ACE)
+    assert(EQUALITY == compare_two_hands(first_hand, second_hand))
 
 #two hands with one flush and one full
+def test_compare_where_one_hand_have_flush_and_other_have_full():
+    first_hand = FlushFigure(CardColor.SPADES, CardValue.ACE)
+    second_hand = FullFigure(CardValue.THREE, CardValue.TWO)
+    assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
 #two hands with two fulls with differents values
 
@@ -192,6 +206,17 @@ def compare_two_hands(first_hand, second_hand):
     elif type(first_hand) is FlushFigure and type(second_hand) is StraitFigure : 
         return FIRST_HAND
     elif type(first_hand) is StraitFigure and type(second_hand) is FlushFigure :
+        return SECOND_HAND
+    elif type(first_hand) is FlushFigure and type(second_hand) is FlushFigure : 
+        if first_hand.high_value < second_hand.high_value : 
+            return SECOND_HAND
+        elif second_hand.high_value < first_hand.high_value :
+            return FIRST_HAND
+        else : 
+            return EQUALITY
+    elif type(first_hand) is FullFigure and type(second_hand) is FlushFigure : 
+        return FIRST_HAND
+    elif type(first_hand) is FlushFigure and type(second_hand) is FullFigure : 
         return SECOND_HAND
     else : 
         return UNDETERMINATED
