@@ -1,5 +1,5 @@
-from PokerHands.card import CardValue
-from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure
+from PokerHands.card import CardColor, CardValue
+from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure
 
 #two hands with high cards differents values
 def test_compare_one_hand_with_jack_and_with_ace(): 
@@ -103,11 +103,23 @@ def test_compare_where_one_hand_have_straight_and_one_have_three_of_kinds():
     second_hand = ThreeOfKindFigure(CardValue.ACE, CardValue.KING)
     assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with each have one straight values
+#two hands with each have differents straight
+def test_compare_where_each_hand_have_differents_straights():
+    first_hand = StraitFigure(CardValue.QUEEN)
+    second_hand = StraitFigure(CardValue.KING)
+    assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with each have one straight but different other cards
+#two hands with each have same straight
+def test_compare_where_each_hand_have_same_straights():
+    first_hand = StraitFigure(CardValue.QUEEN)
+    second_hand = StraitFigure(CardValue.QUEEN)
+    assert(EQUALITY == compare_two_hands(first_hand, second_hand))
 
-#two hands with one flush
+#two hands with one flush and one straight
+def test_compare_where_one_flush_and_one_straight():
+    first_hand = FlushFigure(CardColor.DIAMONDS, CardValue.NINE)
+    second_hand = StraitFigure(CardValue.QUEEN)
+    assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
 #two hands with each have one flush differents values
 
@@ -167,6 +179,19 @@ def compare_two_hands(first_hand, second_hand):
     elif type(first_hand) is StraitFigure and type(second_hand) is ThreeOfKindFigure :
         return FIRST_HAND
     elif type(second_hand) is StraitFigure and type(first_hand) is ThreeOfKindFigure :    
+        return SECOND_HAND
+    elif type(first_hand) is StraitFigure and type(second_hand) is StraitFigure : 
+        if first_hand.value < second_hand.value : 
+            return SECOND_HAND 
+        elif second_hand.value < first_hand.value : 
+            return FIRST_HAND
+        elif first_hand.value == second_hand.value :
+            return EQUALITY
+        else : 
+            return UNDETERMINATED
+    elif type(first_hand) is FlushFigure and type(second_hand) is StraitFigure : 
+        return FIRST_HAND
+    elif type(first_hand) is StraitFigure and type(second_hand) is FlushFigure :
         return SECOND_HAND
     else : 
         return UNDETERMINATED
