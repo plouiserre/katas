@@ -1,5 +1,5 @@
 from PokerHands.card import CardColor, CardValue
-from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure
+from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
 
 #two hands with high cards differents values
 def test_compare_one_hand_with_jack_and_with_ace(): 
@@ -182,8 +182,16 @@ def test_compare_one_hand_have_four_a_kind_and_second_hand_have_fulls():
     assert(EQUALITY == compare_two_hands(first_hand, second_hand))
 
 #two hands with one a four of kind and a quinte flush
+def test_compare_one_hand_have_four_a_kind_and_one_quinte_flush():
+    first_hand = FourOfKindFigure(CardValue.QUEEN, CardValue.JACK)
+    second_hand = QuinteFlush(CardValue.SEVEN, CardColor.CLUBS)
+    assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
 #two hands with two quinte flush with differents cards
+def test_compare_two_quinte_flush():
+    first_hand = QuinteFlush(CardValue.QUEEN, CardColor.DIAMONDS)
+    second_hand = QuinteFlush(CardValue.JACK, CardColor.HEARTS)
+    assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
 EQUALITY = 0
 FIRST_HAND = 1
@@ -275,6 +283,17 @@ def compare_two_hands(first_hand, second_hand):
                     return FIRST_HAND
                 else : 
                     return EQUALITY
+    elif type(first_hand) is FourOfKindFigure and type(second_hand) is QuinteFlush : 
+        return SECOND_HAND
+    elif type(first_hand) is QuinteFlush and type(second_hand) is FourOfKindFigure : 
+        return FIRST_HAND
+    elif type(first_hand) is QuinteFlush and type(second_hand) is QuinteFlush : 
+        if first_hand.value < second_hand.value :
+            return SECOND_HAND
+        elif second_hand.value < first_hand.value :
+            return FIRST_HAND
+        else : 
+            return UNDETERMINATED
     else : 
         return UNDETERMINATED
     
