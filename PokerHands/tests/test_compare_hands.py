@@ -164,6 +164,22 @@ def test_compare_one_hand_have_four_a_kind_and_second_hand_have_fulls():
     assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
 #two hands with two fours of kind with differents values
+def test_compare_two_four_a_kind():
+    first_hand = FourOfKindFigure(CardValue.QUEEN, CardValue.JACK)
+    second_hand = FourOfKindFigure(CardValue.ACE, CardValue.KING)
+    assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
+
+#two hands with two fours of kind with same cards but differents high cards
+def test_compare_two_four_a_kind_exactly_with_ifferents():
+    first_hand = FourOfKindFigure(CardValue.QUEEN, CardValue.ACE)
+    second_hand = FourOfKindFigure(CardValue.QUEEN, CardValue.KING)
+    assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
+
+#two hands with two fours of kind with same cards and same high cards
+def test_compare_one_hand_have_four_a_kind_and_second_hand_have_fulls():
+    first_hand = FourOfKindFigure(CardValue.QUEEN, CardValue.JACK)
+    second_hand = FourOfKindFigure(CardValue.QUEEN, CardValue.JACK)
+    assert(EQUALITY == compare_two_hands(first_hand, second_hand))
 
 #two hands with one a four of kind and a quinte flush
 
@@ -246,6 +262,19 @@ def compare_two_hands(first_hand, second_hand):
         return FIRST_HAND
     elif type(first_hand) is FourOfKindFigure and type(second_hand) is FullFigure : 
         return SECOND_HAND
+    elif type(first_hand) is FourOfKindFigure and type(second_hand) is FourOfKindFigure : 
+        if first_hand.value < second_hand.value : 
+            return SECOND_HAND
+        elif second_hand.value < first_hand.value :
+            return FIRST_HAND
+        else : 
+            if first_hand.value == second_hand.value :
+                if first_hand.high_value_rest_of_cards < second_hand.high_value_rest_of_cards : 
+                    return SECOND_HAND
+                elif second_hand.high_value_rest_of_cards < first_hand.high_value_rest_of_cards : 
+                    return FIRST_HAND
+                else : 
+                    return EQUALITY
     else : 
         return UNDETERMINATED
     
