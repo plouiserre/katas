@@ -1,358 +1,213 @@
 from PokerHands.card import CardColor, CardValue
 from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
+from PokerHands.score import Score, FIRST_HAND, SECOND_HAND, EQUALITY
 
-#two hands with high cards differents values
 def test_compare_one_hand_with_jack_and_with_ace(): 
     first_hand = HighCardFigure(CardValue.JACK)
     second_hand = HighCardFigure(CardValue.ACE)
     assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with high cards same values
 def test_compare_two_hands_with_high_cards_queen():
     first_hand = HighCardFigure(CardValue.QUEEN)
     second_hand = HighCardFigure(CardValue.QUEEN)
     assert(EQUALITY == compare_two_hands(first_hand, second_hand))
 
-#two hands with high cards and a pair
 def test_compare_one_hand_with_high_card_ace_and_one_pair_of_nine() : 
     first_hand = PairFigure(CardValue.NINE, CardValue.KING)
     second_hand = HighCardFigure(CardValue.ACE)
     assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with each have one pair different value
+def test_compare_one_hand_with_high_card_ace_and_three_of_kind_of_queen() : 
+    first_hand = HighCardFigure(CardValue.ACE)
+    second_hand = ThreeOfKindFigure(CardValue.QUEEN, CardValue.TWO)
+    assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
+
 def test_compare_one_hand_one_pair_two_second_hand_one_pair_three() :
     first_hand = PairFigure(CardValue.TWO, CardValue.QUEEN)
     second_hand = PairFigure(CardValue.THREE, CardValue.EIGHT)
     assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with each have one pair same value but different other cards
 def test_compare_two_hands_with_one_same_pair_but_different_high_cards() : 
     first_hand = PairFigure(CardValue.FOUR, CardValue.QUEEN)
     second_hand = PairFigure(CardValue.FOUR, CardValue.EIGHT)
     assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with each have one pair same value with same other cards
 def test_compare_two_hands_with_same_pair_and_same_high_cards():
     first_hand = PairFigure(CardValue.FOUR, CardValue.QUEEN)
     second_hand = PairFigure(CardValue.FOUR, CardValue.QUEEN)
     assert(EQUALITY == compare_two_hands(first_hand, second_hand))
 
-#two hands with a pair and a two pairs
 def test_compare_one_hand_with_one_pair_and_second_hand_with_two_pairs():
     first_hand = PairFigure(CardValue.ACE, CardValue.QUEEN)
     second_hand = TwoPairFigure(CardValue.KING, CardValue.QUEEN, CardValue.JACK)
     assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with each have two pairs different values
+def test_compare_one_hand_with_straight_and_second_hand_one_pair():
+    first_hand = StraitFigure(CardValue.EIGHT)
+    second_hand = PairFigure(CardValue.ACE, CardValue.QUEEN)
+    assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
+
 def test_compare_two_pairs_with_king_and_two_and_two_pairs_with_queen_and_jack():
     first_hand = TwoPairFigure(CardValue.KING, CardValue.TWO, CardValue.THREE)
     second_hand = TwoPairFigure(CardValue.QUEEN, CardValue.JACK, CardValue.ACE)
     assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with each have two pairs one is the same the other is different
 def test_compare_two_pairs_with_king_pairs_in_each_hand_and_second_pair_highter_in_second_hand():
     first_hand = TwoPairFigure(CardValue.KING, CardValue.TWO, CardValue.THREE)
     second_hand = TwoPairFigure(CardValue.KING, CardValue.JACK, CardValue.ACE)
     assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with each have two pairs same values but different other cards
 def test_compare_two_pairs_exactly_with_different_high_cards():
     first_hand = TwoPairFigure(CardValue.KING, CardValue.TWO, CardValue.THREE)
     second_hand = TwoPairFigure(CardValue.KING, CardValue.TWO, CardValue.ACE)
     assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with each have two pairs same values with same other cards
 def test_compare_two_pairs_exactly_with_same_high_cards():
     first_hand = TwoPairFigure(CardValue.KING, CardValue.TWO, CardValue.THREE)
     second_hand = TwoPairFigure(CardValue.KING, CardValue.TWO, CardValue.THREE)
     assert(EQUALITY == compare_two_hands(first_hand, second_hand))
 
-#two hands with second_hand two pairs and first_hand one three of kind
 def test_compare_second_hand_two_pairs_and_first_hand_three_of_kinds(): 
     first_hand = ThreeOfKindFigure(CardValue.QUEEN, CardValue.SIX)
     second_hand = TwoPairFigure(CardValue.ACE, CardValue.KING, CardValue.FOUR)
     assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
- #two hands with first_hand two pairs and second_hand one three of kind
+def test_compare_first_hand_two_pairs_and_second_hand_flush(): 
+    first_hand = TwoPairFigure(CardValue.ACE, CardValue.KING, CardValue.FOUR)
+    second_hand = FlushFigure(CardColor.DIAMONDS, CardValue.ACE)
+    assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
+
 def test_compare_first_hand_two_pairs_and_second_hand_three_of_kinds(): 
     first_hand = TwoPairFigure(CardValue.ACE, CardValue.KING, CardValue.FOUR)
     second_hand = ThreeOfKindFigure(CardValue.QUEEN, CardValue.SIX)
     assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with each have one three of kind different values
 def test_compare_where_two_hands_have_differents_three_of_kinds():
     first_hand = ThreeOfKindFigure(CardValue.JACK, CardValue.FIVE)
     second_hand = ThreeOfKindFigure(CardValue.TEN, CardValue.ACE)
     assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with each have one three of kind same values but different other cards
 def test_compare_where_two_hands_have_same_three_of_kinds_but_differents_high_cards():
     first_hand = ThreeOfKindFigure(CardValue.JACK, CardValue.FIVE)
     second_hand = ThreeOfKindFigure(CardValue.JACK, CardValue.ACE)
     assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with each have one three of kind same values with same other cards
 def test_compare_where_two_hands_have_same_three_of_kinds_and_same_high_cards():
     first_hand = ThreeOfKindFigure(CardValue.JACK, CardValue.ACE)
     second_hand = ThreeOfKindFigure(CardValue.JACK, CardValue.ACE)
     assert(EQUALITY == compare_two_hands(first_hand, second_hand))
 
-#two hands with one three of kind and one straight
 def test_compare_where_one_hand_have_straight_and_one_have_three_of_kinds():
     first_hand = StraitFigure(CardValue.QUEEN)
     second_hand = ThreeOfKindFigure(CardValue.ACE, CardValue.KING)
     assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with each have differents straight
+def test_compare_where_one_hand_have_three_of_kinds_and_one_have_full():
+    first_hand = ThreeOfKindFigure(CardValue.ACE, CardValue.KING)
+    second_hand = FullFigure(CardValue.THREE, CardValue.TWO)
+    assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
+
 def test_compare_where_each_hand_have_differents_straights():
     first_hand = StraitFigure(CardValue.QUEEN)
     second_hand = StraitFigure(CardValue.KING)
     assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with each have same straight
 def test_compare_where_each_hand_have_same_straights():
     first_hand = StraitFigure(CardValue.QUEEN)
     second_hand = StraitFigure(CardValue.QUEEN)
     assert(EQUALITY == compare_two_hands(first_hand, second_hand))
 
-#two hands with one flush and one straight
 def test_compare_where_one_flush_and_one_straight():
     first_hand = FlushFigure(CardColor.DIAMONDS, CardValue.NINE)
     second_hand = StraitFigure(CardValue.QUEEN)
     assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with each have one flush differents values
+def test_compare_where_one_straight_and_one_four_of_kind():
+    first_hand = StraitFigure(CardValue.QUEEN)
+    second_hand = FourOfKindFigure(CardValue.TWO, CardValue.THREE)
+    assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
+
 def test_compare_where_each_hand_have_differents_flush(): 
     first_hand = FlushFigure(CardColor.SPADES, CardValue.EIGHT)
     second_hand = FlushFigure(CardColor.CLUBS, CardValue.SEVEN)
     assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with each have same flush
 def test_compare_where_each_hand_have_same_flush(): 
     first_hand = FlushFigure(CardColor.HEARTS, CardValue.ACE)
     second_hand = FlushFigure(CardColor.DIAMONDS, CardValue.ACE)
     assert(EQUALITY == compare_two_hands(first_hand, second_hand))
 
-#two hands with one flush and one full
 def test_compare_where_one_hand_have_flush_and_other_have_full():
     first_hand = FlushFigure(CardColor.SPADES, CardValue.ACE)
     second_hand = FullFigure(CardValue.THREE, CardValue.TWO)
     assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with two fulls with differents values
+def test_compare_where_one_hand_have_flush_and_other_have_quinte_flush():
+    first_hand = QuinteFlush(CardValue.NINE, CardColor.DIAMONDS)
+    second_hand = FlushFigure(CardColor.SPADES, CardValue.ACE)
+    assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
+
 def test_compare_two_hands_with_differents_fulls():
     first_hand = FullFigure(CardValue.FIVE, CardValue.ACE)
     second_hand = FullFigure(CardValue.THREE, CardValue.TWO)
     assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with two fulls with three same cards are the same
 def test_compare_two_hands_with_full_and_three_same_cards():
     first_hand = FullFigure(CardValue.QUEEN, CardValue.KING)
     second_hand = FullFigure(CardValue.QUEEN, CardValue.ACE)
     assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with two fulls with same fulls
 def test_compare_two_hands_with_same_fulls():
     first_hand = FullFigure(CardValue.QUEEN, CardValue.KING)
     second_hand = FullFigure(CardValue.QUEEN, CardValue.KING)
     assert(EQUALITY == compare_two_hands(first_hand, second_hand))
 
-#two hands with one full and one a four of kind
 def test_compare_one_hand_have_four_a_kind_and_second_hand_have_fulls():
     first_hand = FourOfKindFigure(CardValue.TWO, CardValue.ACE)
     second_hand = FullFigure(CardValue.QUEEN, CardValue.KING)
     assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with two fours of kind with differents values
+def test_compare_one_have_fulls_and_one_have_high_card():
+    first_hand = HighCardFigure(CardValue.ACE)
+    second_hand = FullFigure(CardValue.QUEEN, CardValue.KING)
+    assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
+
 def test_compare_two_four_a_kind():
     first_hand = FourOfKindFigure(CardValue.QUEEN, CardValue.JACK)
     second_hand = FourOfKindFigure(CardValue.ACE, CardValue.KING)
     assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with two fours of kind with same cards but differents high cards
-def test_compare_two_four_a_kind_exactly_with_ifferents():
+def test_compare_two_four_a_kind_exactly_with_differents_high_cards():
     first_hand = FourOfKindFigure(CardValue.QUEEN, CardValue.ACE)
     second_hand = FourOfKindFigure(CardValue.QUEEN, CardValue.KING)
     assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with two fours of kind with same cards and same high cards
-def test_compare_one_hand_have_four_a_kind_and_second_hand_have_fulls():
+def test_compare_two_four_a_kind_with_same_cards():
     first_hand = FourOfKindFigure(CardValue.QUEEN, CardValue.JACK)
     second_hand = FourOfKindFigure(CardValue.QUEEN, CardValue.JACK)
     assert(EQUALITY == compare_two_hands(first_hand, second_hand))
 
-#two hands with one a four of kind and a quinte flush
 def test_compare_one_hand_have_four_a_kind_and_one_quinte_flush():
     first_hand = FourOfKindFigure(CardValue.QUEEN, CardValue.JACK)
     second_hand = QuinteFlush(CardValue.SEVEN, CardColor.CLUBS)
     assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
-#two hands with two quinte flush with differents cards
+def test_compare_one_hand_have_four_a_kind_and_one_pair():
+    first_hand = FourOfKindFigure(CardValue.QUEEN, CardValue.JACK)
+    second_hand = PairFigure(CardValue.ACE, CardValue.KING)
+    assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
+
 def test_compare_two_quinte_flush():
     first_hand = QuinteFlush(CardValue.QUEEN, CardColor.DIAMONDS)
     second_hand = QuinteFlush(CardValue.JACK, CardColor.HEARTS)
     assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
-EQUALITY = 0
-FIRST_HAND = 1
-SECOND_HAND = 2
-UNDETERMINATED = -9999
+def test_compare_one_quinte_flush_with_two_pairs():
+    first_hand = TwoPairFigure(CardValue.QUEEN, CardValue.KING, CardValue.ACE)
+    second_hand = QuinteFlush(CardValue.JACK, CardColor.HEARTS)
+    assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
 def compare_two_hands(first_hand, second_hand):
-    if type(first_hand) is HighCardFigure and type(second_hand) is HighCardFigure : 
-        if first_hand.value < second_hand.value : 
-            return SECOND_HAND
-        elif second_hand.value < first_hand.value : 
-            return FIRST_HAND 
-        else :
-            return EQUALITY
-    elif type(first_hand) is PairFigure and type(second_hand) is HighCardFigure : 
-        return FIRST_HAND
-    elif type(second_hand) is PairFigure and type(first_hand) is HighCardFigure : 
-        return SECOND_HAND
-    elif type(first_hand) is PairFigure and type(second_hand) is PairFigure : 
-        if first_hand.value < second_hand.value : 
-            return SECOND_HAND
-        elif second_hand.value < first_hand.value : 
-            return FIRST_HAND
-        else : 
-            if first_hand.high_value_rest_of_cards < second_hand.high_value_rest_of_cards : 
-                return SECOND_HAND
-            elif second_hand.high_value_rest_of_cards < first_hand.high_value_rest_of_cards :
-                return FIRST_HAND
-            else : 
-                return EQUALITY
-    elif type(first_hand) is TwoPairFigure and type(second_hand) is PairFigure : 
-        return FIRST_HAND 
-    elif type(first_hand) is PairFigure and type(second_hand) is TwoPairFigure : 
-        return SECOND_HAND
-    elif type(first_hand) is TwoPairFigure and type(second_hand) is TwoPairFigure :
-        return compare_two_hands_with_two_pairs(first_hand, second_hand)
-    elif type(first_hand) is ThreeOfKindFigure and type(second_hand) is TwoPairFigure :
-        return FIRST_HAND
-    elif type(second_hand) is ThreeOfKindFigure and type(first_hand) is TwoPairFigure :    
-        return SECOND_HAND
-    elif type(first_hand) is ThreeOfKindFigure and type(second_hand) is ThreeOfKindFigure : 
-        return compare_two_hands_with_three_of_kinds(first_hand, second_hand)
-    elif type(first_hand) is StraitFigure and type(second_hand) is ThreeOfKindFigure :
-        return FIRST_HAND
-    elif type(second_hand) is StraitFigure and type(first_hand) is ThreeOfKindFigure :    
-        return SECOND_HAND
-    elif type(first_hand) is StraitFigure and type(second_hand) is StraitFigure : 
-        if first_hand.value < second_hand.value : 
-            return SECOND_HAND 
-        elif second_hand.value < first_hand.value : 
-            return FIRST_HAND
-        elif first_hand.value == second_hand.value :
-            return EQUALITY
-        else : 
-            return UNDETERMINATED
-    elif type(first_hand) is FlushFigure and type(second_hand) is StraitFigure : 
-        return FIRST_HAND
-    elif type(first_hand) is StraitFigure and type(second_hand) is FlushFigure :
-        return SECOND_HAND
-    elif type(first_hand) is FlushFigure and type(second_hand) is FlushFigure : 
-        if first_hand.high_value < second_hand.high_value : 
-            return SECOND_HAND
-        elif second_hand.high_value < first_hand.high_value :
-            return FIRST_HAND
-        else : 
-            return EQUALITY
-    elif type(first_hand) is FullFigure and type(second_hand) is FlushFigure : 
-        return FIRST_HAND
-    elif type(first_hand) is FlushFigure and type(second_hand) is FullFigure : 
-        return SECOND_HAND
-    elif type(first_hand) is FullFigure and type(second_hand) is FullFigure : 
-        return compare_full_hands(first_hand, second_hand)
-    elif type(first_hand) is FourOfKindFigure and type(second_hand) is FullFigure : 
-        return FIRST_HAND
-    elif type(first_hand) is FullFigure and type(second_hand) is FourOfKindFigure : 
-        return FIRST_HAND
-    elif type(first_hand) is FourOfKindFigure and type(second_hand) is FullFigure : 
-        return SECOND_HAND
-    elif type(first_hand) is FourOfKindFigure and type(second_hand) is FourOfKindFigure : 
-        if first_hand.value < second_hand.value : 
-            return SECOND_HAND
-        elif second_hand.value < first_hand.value :
-            return FIRST_HAND
-        else : 
-            if first_hand.value == second_hand.value :
-                if first_hand.high_value_rest_of_cards < second_hand.high_value_rest_of_cards : 
-                    return SECOND_HAND
-                elif second_hand.high_value_rest_of_cards < first_hand.high_value_rest_of_cards : 
-                    return FIRST_HAND
-                else : 
-                    return EQUALITY
-    elif type(first_hand) is FourOfKindFigure and type(second_hand) is QuinteFlush : 
-        return SECOND_HAND
-    elif type(first_hand) is QuinteFlush and type(second_hand) is FourOfKindFigure : 
-        return FIRST_HAND
-    elif type(first_hand) is QuinteFlush and type(second_hand) is QuinteFlush : 
-        if first_hand.value < second_hand.value :
-            return SECOND_HAND
-        elif second_hand.value < first_hand.value :
-            return FIRST_HAND
-        else : 
-            return UNDETERMINATED
-    else : 
-        return UNDETERMINATED
-    
-def compare_two_hands_with_two_pairs(first_hand, second_hand):
-    high_first_pair = __get_high_pair(first_hand)
-    high_second_pair = __get_high_pair(second_hand)
-    if high_first_pair < high_second_pair : 
-        return SECOND_HAND
-    elif high_second_pair < high_first_pair : 
-        return FIRST_HAND
-    else : 
-        lower_first_pair = __get_lower_pair(first_hand)
-        lower_second_pair = __get_lower_pair(second_hand)
-        if lower_first_pair < lower_second_pair :
-            return SECOND_HAND
-        elif lower_second_pair < lower_first_pair :
-            return FIRST_HAND
-        else : 
-            if first_hand.high_value_rest_of_cards < second_hand.high_value_rest_of_cards :
-                return SECOND_HAND
-            elif second_hand.high_value_rest_of_cards < first_hand.high_value_rest_of_cards : 
-                return FIRST_HAND
-            else : 
-                return EQUALITY
+    score = Score(first_hand, second_hand)
+    return score.determinate_winner()
 
-def __get_high_pair(hand) : 
-    if hand.first_pair_value < hand.second_pair_value :
-        return hand.second_pair_value
-    else : 
-        return hand.first_pair_value
-    
-def __get_lower_pair(hand): 
-    if hand.first_pair_value < hand.second_pair_value :
-        return hand.first_pair_value
-    else : 
-        return hand.second_pair_value    
-    
-def compare_two_hands_with_three_of_kinds(first_hand, second_hand): 
-    if first_hand.value < second_hand.value :
-        return SECOND_HAND
-    elif second_hand.value < first_hand.value : 
-        return FIRST_HAND
-    else : 
-        if first_hand.high_value_rest_of_cards < second_hand.high_value_rest_of_cards : 
-            return SECOND_HAND 
-        elif second_hand.high_value_rest_of_cards < first_hand.high_value_rest_of_cards : 
-            return FIRST_HAND
-        else : 
-            return EQUALITY
-        
-def compare_full_hands(first_hand, second_hand) :
-    if first_hand.three_times < second_hand.three_times : 
-        return SECOND_HAND
-    elif second_hand.three_times < first_hand.three_times : 
-        return FIRST_HAND
-    else : 
-        if first_hand.two_times < second_hand.two_times : 
-            return SECOND_HAND
-        elif second_hand.two_times < first_hand.two_times: 
-            return FIRST_HAND
-        else : 
-            return EQUALITY
