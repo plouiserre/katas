@@ -1,5 +1,5 @@
 from PokerHands.card import CardValue
-from PokerHands.Figure import ThreeOfKindFigure
+from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 
 class ThreeCardsDetector: 
     def __init__(self, counting_cards):

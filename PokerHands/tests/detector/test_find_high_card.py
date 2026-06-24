@@ -1,6 +1,6 @@
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.detector.high_card_detector import HighCardDetector
-from PokerHands.Figure import HighCardFigure
+from PokerHands.AllFigures.HighCardFigure import HighCardFigure
 
 def test_find_high_card_king():
     hand =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.THREE, CardColor.DIAMONDS),Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.KING, CardColor.SPADES)]

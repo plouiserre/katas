@@ -1,6 +1,6 @@
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.counting_cards import CountingCards
-from PokerHands.Figure import TwoPairFigure
+from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 from PokerHands.detector.two_pairs_detector import TwoPairsDetector
 
 def test_find_two_pairs_two_three(): 

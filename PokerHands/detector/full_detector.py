@@ -1,5 +1,5 @@
 from PokerHands.card import CardValue
-from PokerHands.Figure import FullFigure
+from PokerHands.AllFigures.FullFigure import FullFigure
 
 class FullDetector : 
     def __init__(self, counting_cards):

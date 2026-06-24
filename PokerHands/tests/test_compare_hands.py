@@ -1,5 +1,13 @@
 from PokerHands.card import CardColor, CardValue
-from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
+from PokerHands.AllFigures.FlushFigure import FlushFigure
+from PokerHands.AllFigures.FourOfKindFigure import FourOfKindFigure 
+from PokerHands.AllFigures.FullFigure import FullFigure 
+from PokerHands.AllFigures.HighCardFigure import HighCardFigure 
+from PokerHands.AllFigures.PairFigure import PairFigure 
+from PokerHands.AllFigures.QuinteFlushFigure import QuinteFlushFigure
+from PokerHands.AllFigures.StraitFigure import StraitFigure
+from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure 
+from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 from PokerHands.score import Score, FIRST_HAND, SECOND_HAND, EQUALITY
 
 def test_compare_one_hand_with_jack_and_with_ace(): 
@@ -143,7 +151,7 @@ def test_compare_where_one_hand_have_flush_and_other_have_full():
     assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
 def test_compare_where_one_hand_have_flush_and_other_have_quinte_flush():
-    first_hand = QuinteFlush(CardValue.NINE, CardColor.DIAMONDS)
+    first_hand = QuinteFlushFigure(CardValue.NINE, CardColor.DIAMONDS)
     second_hand = FlushFigure(CardColor.SPADES, CardValue.ACE)
     assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
@@ -189,7 +197,7 @@ def test_compare_two_four_a_kind_with_same_cards():
 
 def test_compare_one_hand_have_four_a_kind_and_one_quinte_flush():
     first_hand = FourOfKindFigure(CardValue.QUEEN, CardValue.JACK)
-    second_hand = QuinteFlush(CardValue.SEVEN, CardColor.CLUBS)
+    second_hand = QuinteFlushFigure(CardValue.SEVEN, CardColor.CLUBS)
     assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
 def test_compare_one_hand_have_four_a_kind_and_one_pair():
@@ -198,13 +206,13 @@ def test_compare_one_hand_have_four_a_kind_and_one_pair():
     assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
 def test_compare_two_quinte_flush():
-    first_hand = QuinteFlush(CardValue.QUEEN, CardColor.DIAMONDS)
-    second_hand = QuinteFlush(CardValue.JACK, CardColor.HEARTS)
+    first_hand = QuinteFlushFigure(CardValue.QUEEN, CardColor.DIAMONDS)
+    second_hand = QuinteFlushFigure(CardValue.JACK, CardColor.HEARTS)
     assert(FIRST_HAND == compare_two_hands(first_hand, second_hand))
 
 def test_compare_one_quinte_flush_with_two_pairs():
     first_hand = TwoPairFigure(CardValue.QUEEN, CardValue.KING, CardValue.ACE)
-    second_hand = QuinteFlush(CardValue.JACK, CardColor.HEARTS)
+    second_hand = QuinteFlushFigure(CardValue.JACK, CardColor.HEARTS)
     assert(SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
 def compare_two_hands(first_hand, second_hand):

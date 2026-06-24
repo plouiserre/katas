@@ -1,7 +1,15 @@
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.counting_cards import CountingCards
 from PokerHands.hand import Hand
-from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
+from PokerHands.AllFigures.FlushFigure import FlushFigure
+from PokerHands.AllFigures.FourOfKindFigure import FourOfKindFigure 
+from PokerHands.AllFigures.FullFigure import FullFigure 
+from PokerHands.AllFigures.HighCardFigure import HighCardFigure 
+from PokerHands.AllFigures.PairFigure import PairFigure 
+from PokerHands.AllFigures.QuinteFlushFigure import QuinteFlushFigure
+from PokerHands.AllFigures.StraitFigure import StraitFigure
+from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure 
+from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 from PokerHands.detector.full_detector import FullDetector
 from PokerHands.detector.flush_detector import FlushDetector
 from PokerHands.detector.four_cards_detector import FourCardsDetector
@@ -50,11 +58,11 @@ def test_find_four_of_kind_queen_with_ace_high_cards_before_two_pairs():
 
 def test_find_quinte_flush_spades_finished_by_ace_value():
     hand = [Card(CardValue.JACK, CardColor.SPADES), Card(CardValue.ACE, CardColor.SPADES), Card(CardValue.QUEEN, CardColor.SPADES), Card(CardValue.KING, CardColor.SPADES), Card(CardValue.TEN, CardColor.SPADES)]
-    assert(QuinteFlush(CardValue.ACE, CardColor.SPADES) == __find_high_figure(hand))
+    assert(QuinteFlushFigure(CardValue.ACE, CardColor.SPADES) == __find_high_figure(hand))
 
 def test_find_quinte_flush_spades_started_by_ace_value():
     hand = [Card(CardValue.TWO, CardColor.SPADES), Card(CardValue.ACE, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES), Card(CardValue.FIVE, CardColor.SPADES), Card(CardValue.THREE, CardColor.SPADES)]
-    assert(QuinteFlush(CardValue.FIVE, CardColor.SPADES) == __find_high_figure(hand))
+    assert(QuinteFlushFigure(CardValue.FIVE, CardColor.SPADES) == __find_high_figure(hand))
 
 def __find_high_figure(content) : 
     counting_cards = CountingCards()

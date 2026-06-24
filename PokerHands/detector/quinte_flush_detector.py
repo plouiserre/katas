@@ -1,5 +1,5 @@
 from PokerHands.card import CardColor, CardValue
-from PokerHands.Figure import QuinteFlush
+from PokerHands.AllFigures.QuinteFlushFigure import QuinteFlushFigure
 
 class QuinteFlushDetector : 
     def __init__(self):
@@ -19,11 +19,11 @@ class QuinteFlushDetector :
         
     def __construct_quinte_flush(self): 
         if self.is_ace_present == False : 
-            return QuinteFlush(self.last_card_value, self.last_card_color)
+            return QuinteFlushFigure(self.last_card_value, self.last_card_color)
         elif self.is_ace_present and CardValue.TWO in self.card_value_hand : 
-            return QuinteFlush(CardValue.FIVE, self.last_card_color)
+            return QuinteFlushFigure(CardValue.FIVE, self.last_card_color)
         elif self.is_ace_present and CardValue.KING in self.card_value_hand : 
-            return QuinteFlush(CardValue.ACE, self.last_card_color)
+            return QuinteFlushFigure(CardValue.ACE, self.last_card_color)
         
     def __determine_if_hand_contains_quinte_flush(self, hand_sorted):
         for card in hand_sorted : 
