@@ -1,5 +1,5 @@
 from PokerHands.card import CardValue
-from PokerHands.Figure import TwoPairFigure
+from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 
 class TwoPairsDetector: 
     def __init__(self, counting_cards):

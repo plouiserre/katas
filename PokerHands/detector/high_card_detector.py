@@ -1,5 +1,5 @@
 from PokerHands.card import CardValue
-from PokerHands.Figure import HighCardFigure
+from PokerHands.AllFigures.HighCardFigure import HighCardFigure
 
 class HighCardDetector:
     def __init__(self):

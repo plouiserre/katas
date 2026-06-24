@@ -1,5 +1,5 @@
 from PokerHands.card import CardValue
-from PokerHands.Figure import StraitFigure
+from PokerHands.AllFigures.StraitFigure import StraitFigure
 
 class StraightDetector : 
     def __init__(self, counting_cards):

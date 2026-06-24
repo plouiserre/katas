@@ -1,5 +1,5 @@
 from PokerHands.card import CardColor, CardValue
-from PokerHands.Figure import FlushFigure
+from PokerHands.AllFigures.FlushFigure import FlushFigure
 
 class FlushDetector : 
     def __init__(self):

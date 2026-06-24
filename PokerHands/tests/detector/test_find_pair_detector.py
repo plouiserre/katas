@@ -1,6 +1,6 @@
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.counting_cards import CountingCards
-from PokerHands.Figure import PairFigure
+from PokerHands.AllFigures.PairFigure import PairFigure
 from PokerHands.detector.pair_detector import PairDetector
 
 def test_find_one_pair_figure_second(): 

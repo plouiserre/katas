@@ -1,6 +1,3 @@
-from enum import Enum
-from PokerHands.card import CardValue, CardColor
-
 class Hand :
     def __init__(self, high_cards_detector, pair_detector, two_pairs_detector, three_cards_detector, straight_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector):
         self.counting_cards = {}
@@ -15,6 +12,13 @@ class Hand :
         self.quinte_flush_detector = quinte_flush_detector
     
     def determinate_high_figure(self, hand):
+
+        # detectors = [self.__detect_quinte_flush, self.__detect_four_a_kind, ]
+        # for detector in detectors : 
+        #     result = detector(hand)
+        #     if result != None : 
+        #         return result
+
         quinte_flush = self.__detect_quinte_flush(hand)
         four_a_kind = self.__detect_four_a_kind(hand)
         full_figure = self.__detect_full(hand)

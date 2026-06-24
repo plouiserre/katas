@@ -1,6 +1,12 @@
-from PokerHands.card import CardColor, CardValue
-from PokerHands.Figure import HighCardFigure, PairFigure, TwoPairFigure, ThreeOfKindFigure, StraitFigure, FlushFigure, FullFigure, FourOfKindFigure, QuinteFlush
-
+from PokerHands.AllFigures.FlushFigure import FlushFigure
+from PokerHands.AllFigures.FourOfKindFigure import FourOfKindFigure 
+from PokerHands.AllFigures.FullFigure import FullFigure 
+from PokerHands.AllFigures.HighCardFigure import HighCardFigure 
+from PokerHands.AllFigures.PairFigure import PairFigure 
+from PokerHands.AllFigures.QuinteFlushFigure import QuinteFlushFigure
+from PokerHands.AllFigures.StraitFigure import StraitFigure
+from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure 
+from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 EQUALITY = 0
 FIRST_HAND = 1
 SECOND_HAND = 2
@@ -32,7 +38,7 @@ class Score:
             return self.__compare_full_hands()
         elif type(self.first_hand) is FourOfKindFigure and type(self.second_hand) is FourOfKindFigure: 
             return self.__compare_four_kind_figure()
-        elif type(self.first_hand) is QuinteFlush and type(self.second_hand) is QuinteFlush: 
+        elif type(self.first_hand) is QuinteFlushFigure and type(self.second_hand) is QuinteFlushFigure: 
             return self.__compare_quinte_flush()
         else : 
             return UNDETERMINATED
