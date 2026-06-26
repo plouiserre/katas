@@ -5,6 +5,9 @@ class Card:
         self.value = value
         self.color = color
 
+    def __eq__(self, other):
+        return self.value == other.value and self.color == other.color
+
 class CardColor(Enum) : 
     UNDEFINED = 0
     CLUBS = 15
