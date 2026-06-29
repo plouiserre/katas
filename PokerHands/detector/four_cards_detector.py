@@ -1,5 +1,7 @@
-from PokerHands.card import CardValue
+from PokerHands.card import Card, CardValue
 from PokerHands.AllFigures.FourOfKindFigure import FourOfKindFigure
+
+from typing import Iterator
 
 class FourCardsDetector: 
     def __init__(self, counting_cards):
@@ -7,7 +9,7 @@ class FourCardsDetector:
         self.card_four_times = CardValue.UNDEFINED
         self.high_card_value = CardValue.UNDEFINED    
 
-    def find_four_cards(self, hand):
+    def find_four_cards(self,  hand: Iterator[Card]) -> FourOfKindFigure:
         cards_sorted = self.counting_cards.Count(hand)
         for card in cards_sorted : 
             number_cards = cards_sorted[card]

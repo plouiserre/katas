@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from PokerHands.card import CardValue
 from PokerHands.score_tmp import FIRST_HAND, SECOND_HAND, EQUALITY
-from typing import ClassVar
+from typing import ClassVar, Self
 
 @dataclass(frozen=True)
 class TwoPairFigure: 
@@ -10,7 +10,7 @@ class TwoPairFigure:
     high_value_rest_of_cards: CardValue
     points : ClassVar[int] = 30
 
-    def compare_with_other_two_pairs_hands(self, other_hand): 
+    def compare_with_other_two_pairs_hands(self, other_hand: type[Self]): 
         high_first_pair = self.__get_high_pair(self)
         high_second_pair = self.__get_high_pair(other_hand)
         if high_first_pair < high_second_pair : 

@@ -1,3 +1,6 @@
+from PokerHands.card import Card
+from typing import Iterator
+
 class Hand :
     def __init__(self, high_cards_detector, pair_detector, two_pairs_detector, three_cards_detector, straight_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector):
         self.counting_cards = {}
@@ -11,7 +14,7 @@ class Hand :
         self.four_cards_detector = four_cards_detector
         self.quinte_flush_detector = quinte_flush_detector
     
-    def determinate_high_figure(self, hand):
+    def determinate_high_figure(self, hand : Iterator[Card]):
 
         # detectors = [self.__detect_quinte_flush, self.__detect_four_a_kind, ]
         # for detector in detectors : 
@@ -47,29 +50,29 @@ class Hand :
         else : 
             return high_card_figure 
 
-    def __detect_quinte_flush(self, hand):
+    def __detect_quinte_flush(self, hand: Iterator[Card]):
         return self.quinte_flush_detector.find_quinte_flush(hand)
     
-    def __detect_four_a_kind(self, hand):
+    def __detect_four_a_kind(self, hand: Iterator[Card]):
         return self.four_cards_detector.find_four_cards(hand)
     
-    def __detect_full(self, hand):
+    def __detect_full(self, hand: Iterator[Card]):
         return self.full_detector.find_full(hand)
     
-    def __detect_flush(self, hand): 
+    def __detect_flush(self, hand: Iterator[Card]): 
         return self.flush_detector.find_flush(hand)
     
-    def __detect_straight(self, hand) : 
+    def __detect_straight(self, hand: Iterator[Card]) : 
         return self.straight_detector.find_straight(hand)
         
-    def __detect_three_of_kind(self, hand): 
+    def __detect_three_of_kind(self, hand: Iterator[Card]): 
         return self.three_cards_detector.find_three_of_kind(hand)
         
-    def __detect_two_pairs(self, hand): 
+    def __detect_two_pairs(self, hand: Iterator[Card]): 
         return self.two_pairs_detector.find_two_pairs(hand)
         
-    def __detect_one_pair(self, hand):
+    def __detect_one_pair(self, hand: Iterator[Card]):
         return self.pair_detector.find_pair(hand)
         
-    def __detect_high_card_figure(self, hand): 
+    def __detect_high_card_figure(self, hand: Iterator[Card]): 
         return self.high_cards_detector.find_high_card(hand)

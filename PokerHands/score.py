@@ -1,3 +1,4 @@
+from PokerHands.AllFigures.Figure import Figure
 from PokerHands.AllFigures.FlushFigure import FlushFigure
 from PokerHands.AllFigures.FourOfKindFigure import FourOfKindFigure 
 from PokerHands.AllFigures.FullFigure import FullFigure 
@@ -13,7 +14,7 @@ SECOND_HAND = 2
 UNDETERMINATED = -9999
 
 class Score: 
-    def __init__(self, first_hand, second_hand):
+    def __init__(self, first_hand : Figure, second_hand : Figure):
         self.first_hand = first_hand
         self.second_hand = second_hand
 
@@ -42,7 +43,7 @@ class Score:
             return self.__compare_quinte_flush()
         else : 
             return UNDETERMINATED
-             
+              
     def __compare_two_hands_with_high_cards(self): 
         if self.first_hand.value < self.second_hand.value : 
             return SECOND_HAND

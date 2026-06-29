@@ -1,11 +1,13 @@
-from PokerHands.card import CardValue
+from PokerHands.card import Card, CardValue
 from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
+
+from typing import Iterator
 
 class TwoPairsDetector: 
     def __init__(self, counting_cards):
         self.counting_cards = counting_cards
 
-    def find_two_pairs(self, hand):
+    def find_two_pairs(self, hand: Iterator[Card]) -> TwoPairFigure:
         cards_sorted = self.counting_cards.Count(hand)
         is_two_pairs = False
         first_value_pair = CardValue.TWO
