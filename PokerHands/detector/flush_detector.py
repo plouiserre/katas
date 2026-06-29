@@ -1,11 +1,13 @@
-from PokerHands.card import CardColor, CardValue
+from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.AllFigures.FlushFigure import FlushFigure
+
+from typing import Iterator
 
 class FlushDetector : 
     def __init__(self):
         pass
 
-    def find_flush(self, hand):
+    def find_flush(self, hand : Iterator[Card]) -> FlushFigure:
         is_flush = True
         last_color = CardColor.UNDEFINED
         high_card_value = CardValue.TWO

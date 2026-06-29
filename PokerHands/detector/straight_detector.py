@@ -1,5 +1,6 @@
-from PokerHands.card import CardValue
+from PokerHands.card import Card, CardValue
 from PokerHands.AllFigures.StraitFigure import StraitFigure
+from typing import Iterator
 
 class StraightDetector : 
     def __init__(self, counting_cards):
@@ -7,7 +8,7 @@ class StraightDetector :
         self.high_card_value = CardValue.TWO
         self.is_ace_present = False
 
-    def find_straight(self, hand):
+    def find_straight(self, hand: Iterator[Card]) -> StraitFigure:
         cards_sorted = self.counting_cards.Count(hand)
         cards_ordered = dict(sorted(cards_sorted.items())) 
         if len(cards_ordered) == 5 :

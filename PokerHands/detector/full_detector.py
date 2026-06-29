@@ -1,5 +1,7 @@
-from PokerHands.card import CardValue
+from PokerHands.card import Card, CardValue
 from PokerHands.AllFigures.FullFigure import FullFigure
+
+from typing import Iterator
 
 class FullDetector : 
     def __init__(self, counting_cards):
@@ -7,7 +9,7 @@ class FullDetector :
         self.card_two_times = CardValue.UNDEFINED
         self.card_three_times = CardValue.UNDEFINED
 
-    def find_full(self, hand): 
+    def find_full(self, hand: Iterator[Card]) -> FullFigure: 
         cards_sorted = self.counting_cards.Count(hand)
         for card in cards_sorted :
             number_cards = cards_sorted[card]
