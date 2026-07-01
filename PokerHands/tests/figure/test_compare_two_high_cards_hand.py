@@ -6,7 +6,7 @@ from PokerHands.AllFigures.HighCardFigure import HighCardFigure
 from PokerHands.score_tmp import FIRST_HAND, SECOND_HAND, EQUALITY
 
 def test_compare_one_hand_with_random_values_but_second_hand_better(): 
-    all_cards_values = [CardValue.THREE, CardValue.FOUR,CardValue.FIVE,CardValue.SIX,
+    all_cards_values = [CardValue.TWO, CardValue.THREE, CardValue.FOUR,CardValue.FIVE,CardValue.SIX,
                         CardValue.SEVEN, CardValue.EIGHT, CardValue.NINE, CardValue.TEN, CardValue.JACK, CardValue.QUEEN, CardValue.KING, CardValue.ACE]    
     high_card = __get_high_card(all_cards_values)
     lower_card = __get_second_card(all_cards_values, high_card)
@@ -15,7 +15,7 @@ def test_compare_one_hand_with_random_values_but_second_hand_better():
     assert(SECOND_HAND == compare_two_high_cards_hands(first_hand, second_hand))
 
 def test_compare_one_hand_with_random_values_but_first_hand_better(): 
-    all_cards_values = [CardValue.THREE, CardValue.FOUR,CardValue.FIVE,CardValue.SIX,
+    all_cards_values = [CardValue.TWO, CardValue.THREE, CardValue.FOUR,CardValue.FIVE,CardValue.SIX,
                         CardValue.SEVEN, CardValue.EIGHT, CardValue.NINE, CardValue.TEN, CardValue.JACK, CardValue.QUEEN, CardValue.KING, CardValue.ACE]    
     high_card = __get_high_card(all_cards_values)
     lower_card = __get_second_card(all_cards_values, high_card)
