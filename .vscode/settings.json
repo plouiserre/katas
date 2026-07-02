@@ -4,8 +4,9 @@
         "GameOfLife", 
         "LoanCalculator",
         "PokerHands",
-        "Tricount"
+        "Tricount",
+        "-s"
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true    
 }
