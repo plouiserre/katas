@@ -17,16 +17,15 @@ def test_compare_where_two_hands_have_differents_three_of_kinds_with_first_hand_
     assert(FIRST_HAND == compare_two_three_of_kind_hands(first_hand, second_hand))
 
 def test_compare_where_two_hands_have_differents_three_of_kinds_with_second_hand_wininng():
-    all_cards_values = [CardValue.TWO, CardValue.THREE, CardValue.FOUR,CardValue.FIVE,CardValue.SIX,
+    all_cards_values = [CardValue.FOUR,CardValue.FIVE,CardValue.SIX,
                         CardValue.SEVEN, CardValue.EIGHT, CardValue.NINE, CardValue.TEN, CardValue.JACK, CardValue.QUEEN, CardValue.KING, CardValue.ACE]    
     high_three_of_cards = __get_high_card(all_cards_values)
     low_three_of_cards = __get_second_card(all_cards_values, high_three_of_cards)
+    all_cards_values.extend([CardValue.TWO, CardValue.THREE])
     random_first_hand = __get_random_card(all_cards_values)
     random_second_hand = __get_random_card(all_cards_values)
     first_hand = ThreeOfKindFigure(low_three_of_cards, random_first_hand)
     second_hand = ThreeOfKindFigure(high_three_of_cards, random_second_hand)
-    #TODO ce test ne fonctionne pas tout le temps
-    assert(1==2)
     assert(SECOND_HAND == compare_two_three_of_kind_hands(first_hand, second_hand))
 
 def test_compare_where_two_hands_have_same_three_of_kinds_but_differents_high_cards_with_first_hand_winning():
