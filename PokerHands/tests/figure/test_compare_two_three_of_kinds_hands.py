@@ -25,6 +25,8 @@ def test_compare_where_two_hands_have_differents_three_of_kinds_with_second_hand
     random_second_hand = __get_random_card(all_cards_values)
     first_hand = ThreeOfKindFigure(low_three_of_cards, random_first_hand)
     second_hand = ThreeOfKindFigure(high_three_of_cards, random_second_hand)
+    #TODO ce test ne fonctionne pas tout le temps
+    assert(1==2)
     assert(SECOND_HAND == compare_two_three_of_kind_hands(first_hand, second_hand))
 
 def test_compare_where_two_hands_have_same_three_of_kinds_but_differents_high_cards_with_first_hand_winning():
