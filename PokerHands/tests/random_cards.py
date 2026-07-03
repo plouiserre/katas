@@ -8,11 +8,18 @@ def get_all_values():
                         CardValue.SEVEN, CardValue.EIGHT, CardValue.NINE, CardValue.TEN, CardValue.JACK, CardValue.QUEEN, CardValue.KING, CardValue.ACE]
     return all_cards_values
 
+def add_cards(all_cards_value, values_to_add):
+    all_cards_value.extend(values_to_add)
+
+def remove_cards(all_cards_value, values_to_remove): 
+    for value in values_to_remove :
+        all_cards_value.remove(value)
+
 def get_all_colors(): 
     all_colors = [CardColor.CLUBS, CardColor.DIAMONDS, CardColor.HEARTS, CardColor.SPADES]
     return all_colors
 
-def get_all_high_cards(all_cards_values):
+def get_high_cards(all_cards_values):
     high_card = CardValue.UNDEFINED
     if CardValue.TWO in all_cards_values :
         all_cards_values.remove(CardValue.TWO)

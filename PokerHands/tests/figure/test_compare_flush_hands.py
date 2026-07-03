@@ -1,10 +1,7 @@
-import copy
-import random 
-
 from PokerHands.AllFigures.FlushFigure import FlushFigure 
 from PokerHands.card import CardValue, CardColor
 from PokerHands.score_tmp import FIRST_HAND, SECOND_HAND, EQUALITY
-from PokerHands.tests.random_cards import get_all_colors, get_all_high_cards, get_all_values, get_colors_random, get_lower_card
+from PokerHands.tests.random_cards import get_high_cards, get_all_values, get_colors_random, get_lower_card
 
 def test_compare_where_each_hand_have_differents_flush(): 
     first_hand = FlushFigure(CardColor.SPADES, CardValue.EIGHT)
@@ -18,7 +15,7 @@ def test_compare_where_each_hand_have_same_flush():
 
 def test_compare_randomise_flush_with_first_hand_win(): 
     all_cards_values = get_all_values()
-    high_card  = get_all_high_cards(all_cards_values)
+    high_card  = get_high_cards(all_cards_values)
     lower_card_value = get_lower_card(all_cards_values, high_card)
     high_card_color = get_colors_random()
     lower_card_color = get_colors_random()
@@ -28,7 +25,7 @@ def test_compare_randomise_flush_with_first_hand_win():
 
 def test_compare_randomise_flush_with_second_hand_win(): 
     all_cards_values = get_all_values()
-    high_card  = get_all_high_cards(all_cards_values)
+    high_card  = get_high_cards(all_cards_values)
     lower_card_value = get_lower_card(all_cards_values, high_card)
     high_card_color = get_colors_random()
     lower_card_color = get_colors_random()
@@ -38,7 +35,7 @@ def test_compare_randomise_flush_with_second_hand_win():
 
 def test_compare_randomise_flush_with_equality(): 
     all_cards_values = get_all_values()
-    high_card  = get_all_high_cards(all_cards_values)
+    high_card  = get_high_cards(all_cards_values)
     high_card_color = get_colors_random()
     lower_card_color = get_colors_random()
     first_hand = FlushFigure(lower_card_color, high_card) 

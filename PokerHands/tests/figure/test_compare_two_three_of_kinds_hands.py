@@ -6,9 +6,9 @@ from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from PokerHands.score_tmp import FIRST_HAND, SECOND_HAND, EQUALITY
 
 def test_compare_where_two_hands_have_differents_three_of_kinds_with_first_hand_wininng():
-    all_cards_values = [CardValue.TWO, CardValue.THREE, CardValue.FOUR,CardValue.FIVE,CardValue.SIX,
-                        CardValue.SEVEN, CardValue.EIGHT, CardValue.NINE, CardValue.TEN, CardValue.JACK, CardValue.QUEEN, CardValue.KING, CardValue.ACE]    
+    all_cards_values = [CardValue.TWO,  CardValue.SIX,  CardValue.SEVEN, CardValue.EIGHT, CardValue.NINE, CardValue.TEN, CardValue.JACK, CardValue.QUEEN, CardValue.KING, CardValue.ACE]    
     high_three_of_cards = __get_high_card(all_cards_values)
+    all_cards_values.extend([CardValue.THREE, CardValue.FOUR, CardValue.FIVE])
     low_three_of_cards = __get_second_card(all_cards_values, high_three_of_cards)
     random_first_hand = __get_random_card(all_cards_values)
     random_second_hand = __get_random_card(all_cards_values)
