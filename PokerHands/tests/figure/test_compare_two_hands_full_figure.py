@@ -1,6 +1,3 @@
-import copy
-import random
-
 from PokerHands.card import CardValue
 from PokerHands.AllFigures.FullFigure import FullFigure 
 from PokerHands.score_tmp import FIRST_HAND, SECOND_HAND, EQUALITY
