@@ -9,7 +9,8 @@ def get_all_values():
     return all_cards_values
 
 def add_cards(all_cards_value, values_to_add):
-    all_cards_value.extend(values_to_add)
+    for value in values_to_add :
+        all_cards_value.append(value)
 
 def remove_cards(all_cards_value, values_to_remove): 
     for value in values_to_remove :
