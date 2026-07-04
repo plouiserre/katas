@@ -56,6 +56,11 @@ def get_lower_card(all_cards_values, high_card):
     second_card = get_random_card(all_cards_values)
     return second_card
 
+def get_lower_card_complete(all_cards_values, high_card): 
+    card_value = get_lower_card(all_cards_values, high_card.value)
+    card_color = get_colors_random_without_remove()
+    return Card(card_value, card_color)
+
 def get_shuffle_hand(hands):
     return random.shuffle(hands)
 
