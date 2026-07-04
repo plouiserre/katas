@@ -14,7 +14,8 @@ def add_cards(all_cards_value, values_to_add):
 
 def remove_cards(all_cards_value, values_to_remove): 
     for value in values_to_remove :
-        all_cards_value.remove(value)
+        if value in all_cards_value :
+            all_cards_value.remove(value)
 
 def get_all_colors(): 
     all_colors = [CardColor.CLUBS, CardColor.DIAMONDS, CardColor.HEARTS, CardColor.SPADES]

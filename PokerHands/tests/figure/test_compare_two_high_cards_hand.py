@@ -1,7 +1,3 @@
-import copy
-import random
-
-from PokerHands.card import CardValue
 from PokerHands.AllFigures.HighCardFigure import HighCardFigure 
 from PokerHands.score_tmp import FIRST_HAND, SECOND_HAND, EQUALITY
 from PokerHands.tests.random_cards import get_all_values, get_high_cards, get_lower_card
