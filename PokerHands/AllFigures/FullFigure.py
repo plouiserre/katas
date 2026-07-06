@@ -9,7 +9,7 @@ class FullFigure :
     three_times : CardValue
     points : ClassVar[int] = 70
 
-    def compare_with_other_full_figure_hands(self, other_hand: type[Self]):
+    def compare_with_other_full_figure_hands(self, other_hand: type[Self]) -> Winner:
         if self.three_times < other_hand.three_times : 
             return Winner.SECOND_HAND
         elif other_hand.three_times < self.three_times : 

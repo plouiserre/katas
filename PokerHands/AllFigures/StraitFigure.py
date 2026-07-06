@@ -8,7 +8,7 @@ class StraitFigure:
     value : CardValue
     points : ClassVar[int] = 50
 
-    def compare_with_other_straight_hand(self, other_hand: type[Self]):
+    def compare_with_other_straight_hand(self, other_hand: type[Self]) -> Winner:
         if self.value < other_hand.value : 
             return Winner.SECOND_HAND 
         elif other_hand.value < self.value : 

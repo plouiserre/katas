@@ -15,7 +15,7 @@ class Score:
         self.first_hand = first_hand
         self.second_hand = second_hand
 
-    def determinate_winner(self):
+    def determinate_winner(self) -> Winner:
         if self.first_hand.points < self.second_hand.points : 
             return Winner.SECOND_HAND
         elif self.second_hand.points < self.first_hand.points : 
@@ -41,7 +41,7 @@ class Score:
         else : 
             return Winner.UNDETERMINATED
               
-    def __compare_two_hands_with_high_cards(self): 
+    def __compare_two_hands_with_high_cards(self) -> Winner: 
         if self.first_hand.value < self.second_hand.value : 
             return Winner.SECOND_HAND
         elif self.second_hand.value < self.first_hand.value : 
@@ -49,7 +49,7 @@ class Score:
         else :
             return Winner.EQUALITY
         
-    def __compare_two_hands_with_pairs(self):
+    def __compare_two_hands_with_pairs(self) -> Winner:
         if self.first_hand.value < self.second_hand.value : 
             return Winner.SECOND_HAND
         elif self.second_hand.value < self.first_hand.value : 
@@ -62,7 +62,7 @@ class Score:
             else : 
                 return Winner.EQUALITY
 
-    def __compare_two_hands_with_two_pairs(self):
+    def __compare_two_hands_with_two_pairs(self) -> Winner:
         high_first_pair = self.__get_high_pair(self.first_hand)
         high_second_pair = self.__get_high_pair(self.second_hand)
         if high_first_pair < high_second_pair : 
@@ -84,19 +84,19 @@ class Score:
                 else : 
                     return Winner.EQUALITY
                 
-    def __get_high_pair(self, hand) : 
+    def __get_high_pair(self, hand) -> Winner: 
         if hand.first_pair_value < hand.second_pair_value :
             return hand.second_pair_value
         else : 
             return hand.first_pair_value
         
-    def __get_lower_pair(self, hand): 
+    def __get_lower_pair(self, hand) -> Winner: 
         if hand.first_pair_value < hand.second_pair_value :
             return hand.first_pair_value
         else : 
             return hand.second_pair_value    
         
-    def __compare_two_hands_with_three_of_kinds(self): 
+    def __compare_two_hands_with_three_of_kinds(self) -> Winner: 
         if self.first_hand.value < self.second_hand.value :
             return Winner.SECOND_HAND
         elif self.second_hand.value < self.first_hand.value : 
@@ -109,7 +109,7 @@ class Score:
             else : 
                 return Winner.EQUALITY
             
-    def __compare_two_hands_with_straight_figure(self):
+    def __compare_two_hands_with_straight_figure(self) -> Winner:
         if self.first_hand.value < self.second_hand.value : 
             return Winner.SECOND_HAND 
         elif self.second_hand.value < self.first_hand.value : 
@@ -119,7 +119,7 @@ class Score:
         else : 
             return Winner.UNDETERMINATED
         
-    def __compare_two_hands_with_flush_figure(self): 
+    def __compare_two_hands_with_flush_figure(self) -> Winner: 
         if self.first_hand.high_value < self.second_hand.high_value : 
             return Winner.SECOND_HAND
         elif self.second_hand.high_value < self.first_hand.high_value :
@@ -127,7 +127,7 @@ class Score:
         else : 
             return Winner.EQUALITY
             
-    def __compare_full_hands(self) :
+    def __compare_full_hands(self) -> Winner:
         if self.first_hand.three_times < self.second_hand.three_times : 
             return Winner.SECOND_HAND
         elif self.second_hand.three_times < self.first_hand.three_times : 
@@ -140,7 +140,7 @@ class Score:
             else : 
                 return Winner.EQUALITY
             
-    def __compare_four_kind_figure(self):
+    def __compare_four_kind_figure(self) -> Winner:
         if self.first_hand.value < self.second_hand.value : 
             return Winner.SECOND_HAND
         elif self.second_hand.value < self.first_hand.value :
@@ -153,7 +153,7 @@ class Score:
             else : 
                 return Winner.EQUALITY
             
-    def __compare_quinte_flush(self):
+    def __compare_quinte_flush(self) -> Winner:
         if self.first_hand.value < self.second_hand.value :
             return Winner.SECOND_HAND
         elif self.second_hand.value < self.first_hand.value :

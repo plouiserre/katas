@@ -9,7 +9,7 @@ class ThreeOfKindFigure :
     high_value_rest_of_cards: CardValue
     points : ClassVar[int] = 40
 
-    def compare_with_other_three_of_kinds_hands(self, other_hand: type[Self]):
+    def compare_with_other_three_of_kinds_hands(self, other_hand: type[Self]) -> Winner:
         if self.value < other_hand.value :
             return Winner.SECOND_HAND
         elif other_hand.value < self.value : 

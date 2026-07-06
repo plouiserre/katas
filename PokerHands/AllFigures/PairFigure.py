@@ -9,7 +9,7 @@ class PairFigure :
     high_value_rest_of_cards: CardValue
     points : ClassVar[int] = 20
 
-    def compare_with_onther_one_pair_hand(self, other_pair: type[Self]): 
+    def compare_with_onther_one_pair_hand(self, other_pair: type[Self]) -> Winner: 
         if self.value < other_pair.value : 
             return Winner.SECOND_HAND
         elif other_pair.value < self.value : 

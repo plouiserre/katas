@@ -10,7 +10,7 @@ class TwoPairFigure:
     high_value_rest_of_cards: CardValue
     points : ClassVar[int] = 30
 
-    def compare_with_other_two_pairs_hands(self, other_hand: type[Self]): 
+    def compare_with_other_two_pairs_hands(self, other_hand: type[Self]) -> Winner: 
         high_first_pair = self.__get_high_pair(self)
         high_second_pair = self.__get_high_pair(other_hand)
         if high_first_pair < high_second_pair : 
@@ -32,13 +32,13 @@ class TwoPairFigure:
                 else : 
                     return Winner.EQUALITY
                 
-    def __get_high_pair(self, hand) : 
+    def __get_high_pair(self, hand) -> Winner: 
         if hand.first_pair_value < hand.second_pair_value :
             return hand.second_pair_value
         else : 
             return hand.first_pair_value
         
-    def __get_lower_pair(self, hand): 
+    def __get_lower_pair(self, hand) -> Winner: 
         if hand.first_pair_value < hand.second_pair_value :
             return hand.first_pair_value
         else : 

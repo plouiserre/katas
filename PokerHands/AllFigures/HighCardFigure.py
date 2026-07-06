@@ -8,7 +8,7 @@ class HighCardFigure :
     value : CardValue
     points : ClassVar[int] = 10
 
-    def compare_with_other_high_cards_hands(self, other_hand: type[Self]) : 
+    def compare_with_other_high_cards_hands(self, other_hand: type[Self]) -> Winner: 
         if self.value < other_hand.value : 
             return Winner.SECOND_HAND
         elif other_hand.value < self.value : 
