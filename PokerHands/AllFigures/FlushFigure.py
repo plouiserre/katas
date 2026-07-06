@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import ClassVar, Self
 from PokerHands.card import CardValue, CardColor
-from PokerHands.score_tmp import FIRST_HAND, SECOND_HAND, EQUALITY
+from PokerHands.winner import FIRST_HAND, SECOND_HAND, EQUALITY
 
 @dataclass(frozen=True)
 class FlushFigure : 

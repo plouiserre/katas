@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from PokerHands.card import CardValue
 from typing import ClassVar, Self
-from PokerHands.score_tmp import FIRST_HAND, SECOND_HAND, EQUALITY
+from PokerHands.winner import FIRST_HAND, SECOND_HAND, EQUALITY
 
 @dataclass(frozen=True)
 class HighCardFigure : 

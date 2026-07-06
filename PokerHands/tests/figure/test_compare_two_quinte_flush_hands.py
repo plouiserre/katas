@@ -1,6 +1,6 @@
 from PokerHands.card import CardValue, CardColor
 from PokerHands.AllFigures.QuinteFlushFigure import QuinteFlushFigure 
-from PokerHands.score_tmp import FIRST_HAND, SECOND_HAND
+from PokerHands.winner import FIRST_HAND, SECOND_HAND
 from PokerHands.tests.random_cards import get_all_values, get_colors_random, get_high_cards, get_lower_card
 
 def test_compare_two_quinte_flush_first_hand_win():

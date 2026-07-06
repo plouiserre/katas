@@ -1,6 +1,6 @@
 from PokerHands.card import CardValue
 from PokerHands.AllFigures.FourOfKindFigure import FourOfKindFigure 
-from PokerHands.score_tmp import FIRST_HAND, SECOND_HAND, EQUALITY
+from PokerHands.winner import FIRST_HAND, SECOND_HAND, EQUALITY
 from PokerHands.tests.random_cards import get_all_values, get_high_cards, get_lower_card, get_random_card, remove_cards
 
 def test_compare_two_four_a_kind():

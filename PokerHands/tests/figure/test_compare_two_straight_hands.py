@@ -1,5 +1,5 @@
 from PokerHands.AllFigures.StraitFigure import StraitFigure 
-from PokerHands.score_tmp import FIRST_HAND, SECOND_HAND, EQUALITY
+from PokerHands.winner import FIRST_HAND, SECOND_HAND, EQUALITY
 from PokerHands.tests.random_cards import get_all_values, get_high_cards, get_lower_card, get_random_card
 
 def test_compare_where_each_hand_have_differents_straights_with_second_hand_win():

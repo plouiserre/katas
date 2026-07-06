@@ -8,10 +8,7 @@ from PokerHands.AllFigures.QuinteFlushFigure import QuinteFlushFigure
 from PokerHands.AllFigures.StraitFigure import StraitFigure
 from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure 
 from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
-EQUALITY = 0
-FIRST_HAND = 1
-SECOND_HAND = 2
-UNDETERMINATED = -9999
+from PokerHands.winner import FIRST_HAND, SECOND_HAND, EQUALITY, UNDETERMINATED
 
 class Score: 
     def __init__(self, first_hand : Figure, second_hand : Figure):

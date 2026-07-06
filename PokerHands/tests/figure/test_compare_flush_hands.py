@@ -1,6 +1,6 @@
 from PokerHands.AllFigures.FlushFigure import FlushFigure 
 from PokerHands.card import CardValue, CardColor
-from PokerHands.score_tmp import FIRST_HAND, SECOND_HAND, EQUALITY
+from PokerHands.winner import FIRST_HAND, SECOND_HAND, EQUALITY
 from PokerHands.tests.random_cards import get_high_cards, get_all_values, get_colors_random, get_lower_card
 
 def test_compare_where_each_hand_have_differents_flush(): 

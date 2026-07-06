@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from PokerHands.card import CardValue
-from PokerHands.score_tmp import EQUALITY, FIRST_HAND, SECOND_HAND
+from PokerHands.winner import EQUALITY, FIRST_HAND, SECOND_HAND
 from typing import ClassVar, Self
 
 @dataclass(frozen=True)

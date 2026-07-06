@@ -1,6 +1,6 @@
 from PokerHands.card import CardValue
 from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure 
-from PokerHands.score_tmp import FIRST_HAND, SECOND_HAND, EQUALITY
+from PokerHands.winner import FIRST_HAND, SECOND_HAND, EQUALITY
 from PokerHands.tests.random_cards import add_cards, get_all_values, get_high_cards, get_lower_card, get_random_card, remove_cards
 
 def test_compare_where_two_hands_have_differents_three_of_kinds_with_first_hand_wininng():

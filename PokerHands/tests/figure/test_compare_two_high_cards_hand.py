@@ -1,5 +1,5 @@
 from PokerHands.AllFigures.HighCardFigure import HighCardFigure 
-from PokerHands.score_tmp import FIRST_HAND, SECOND_HAND, EQUALITY
+from PokerHands.winner import FIRST_HAND, SECOND_HAND, EQUALITY
 from PokerHands.tests.random_cards import get_all_values, get_high_cards, get_lower_card
 
 def test_compare_one_hand_with_random_values_but_second_hand_better(): 
