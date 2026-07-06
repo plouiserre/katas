@@ -1,4 +1,5 @@
 from enum import IntEnum, Enum
+from typing import Self
 
 class Card: 
     def __init__(self, value, color):
@@ -8,7 +9,7 @@ class Card:
     def __eq__(self, other):
         return self.value == other.value and self.color == other.color
     
-    def render(self): 
+    def render(self) -> str: 
         transcription = ""
         number = ""
         color = ""
@@ -35,7 +36,7 @@ class Card:
         
     
     @staticmethod
-    def parse(str):
+    def parse(str) -> Self:
         card_color = CardColor.UNDEFINED
         card_value = CardValue.UNDEFINED
         value = ""

@@ -1,17 +1,17 @@
 from dataclasses import dataclass
 from PokerHands.card import CardValue
 from typing import ClassVar, Self
-from PokerHands.score_tmp import FIRST_HAND, SECOND_HAND, EQUALITY
+from PokerHands.winner import Winner
 
 @dataclass(frozen=True)
 class HighCardFigure : 
     value : CardValue
     points : ClassVar[int] = 10
 
-    def compare_with_other_high_cards_hands(self, other_hand: type[Self]) : 
+    def compare_with_other_high_cards_hands(self, other_hand: type[Self]) -> Winner: 
         if self.value < other_hand.value : 
-            return SECOND_HAND
+            return Winner.SECOND_HAND
         elif other_hand.value < self.value : 
-            return FIRST_HAND 
+            return Winner.FIRST_HAND 
         else :
-            return EQUALITY
+            return Winner.EQUALITY
