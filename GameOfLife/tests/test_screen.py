@@ -1,15 +1,15 @@
 from GameOfLife.game import Game
 from GameOfLife.screen import Screen
 
-def test_1():
+def test_draw_simple_grid_in_screen():
     simple_grid = [".*.", "**.", "..."]
     assert(draw_grid(simple_grid, 3)==[".*.\n**.\n...", "**.\n**.\n...","**.\n**.\n..."])
 
-def test_2():
+def test_draw_medium_grid_in_screen():
     medium_grid = ["*.*", ".*.", "..*"]
     assert(draw_grid(medium_grid, 3)==["*.*\n.*.\n..*",".*.\n.**\n...",".**\n.**\n..."]) 
     
-def test_3():
+def test_draw_complexe_grid_in_screen():
     complexe_grid = ["...**...", "..*.*...", "...**...", ".*......"]
     assert(draw_grid(complexe_grid, 3)==["...**...\n..*.*...\n...**...\n.*......", "...**...\n..*..*..\n..***...\n........", "...**...\n..*..*..\n..***...\n...*...."])
     
