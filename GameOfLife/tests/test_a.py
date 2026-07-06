@@ -1,4 +1,5 @@
 from GameOfLife.game import Game
+from GameOfLife.screen import Screen
 
 def test_1():
     simple_grid = [".*.", "**.", "..."]
@@ -14,15 +15,5 @@ def test_3():
     
 def draw_grid(grid_departure, max_turn):
     game = Game(grid_departure, max_turn)
-    evolutions = game.Throw()
-    texts = []
-    for grid in evolutions : 
-        text = ""
-        counter = 0
-        for counter, line in enumerate(grid) : 
-            if counter != len(grid) - 1:
-                text += line+"\n"
-            else :
-                text+= line
-        texts.append(text)
-    return texts
+    screen = Screen(game)
+    return screen.draw()
