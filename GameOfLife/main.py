@@ -1,6 +1,14 @@
-# grid_data = ["...*", "***.", "*.*.", "****"]
-# grid = Grid(grid_data)
-# new_generation_grid = grid.draw_next_generation()
-# print(new_generation_grid)
+from GameOfLife.game import Game
+from GameOfLife.screen import Screen
 
-print("**.\n**.\n...")
+
+grid_data = ["...*", "***.", "*.*.", "****"]
+
+game = Game(grid_data, 5)
+screen = Screen(game)
+
+displays = screen.draw()
+
+for display in displays : 
+    print(display)
+    print("\n")
