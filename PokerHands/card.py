@@ -1,5 +1,30 @@
 from enum import IntEnum, Enum
 from typing import Self
+#TODO separate in folder card_entities this three entities
+
+
+class CardColor(Enum) : 
+    UNDEFINED = 0
+    CLUBS = 15
+    DIAMONDS = 16
+    HEARTS = 17
+    SPADES = 18
+
+class CardValue(IntEnum) : 
+    UNDEFINED = 0
+    TWO = 2
+    THREE = 3
+    FOUR = 4
+    FIVE = 5
+    SIX = 6
+    SEVEN = 7
+    EIGHT = 8
+    NINE = 9
+    TEN = 10
+    JACK = 11
+    QUEEN = 12
+    KING = 13
+    ACE = 14
 
 class Card: 
     def __init__(self, value, color):
@@ -32,27 +57,50 @@ class Card:
         else : 
             color = "♣"
         transcription = number+color
-        return transcription
-        
+        return transcription        
     
     @staticmethod
     def parse(str) -> Self:
         card_color = CardColor.UNDEFINED
         card_value = CardValue.UNDEFINED
-        value = ""
+        card_color = Card.__parse_color(str)
+        card_value = Card.__parse_value(str)
+        return Card(card_value, card_color)
+    
+    @staticmethod
+    def __parse_color(str) -> CardColor :
+        card_color = CardColor.UNDEFINED
         if "♠" in str : 
             card_color = CardColor.SPADES
-            value = str.replace("♠", "")
         elif "♥" in str : 
             card_color = CardColor.HEARTS
-            value = str.replace("♥", "")
         elif "♦" in str :
             card_color = CardColor.DIAMONDS
-            value = str.replace("♦", "")
         elif "♣" in str : 
             card_color = CardColor.CLUBS
-            value = str.replace("♣", "")
-        if "J" in str : 
+        return card_color
+    
+    @staticmethod
+    def __parse_value(str) -> CardValue : 
+        if "2" in str : 
+            card_value = CardValue.TWO
+        elif "3" in str : 
+            card_value = CardValue.THREE
+        elif "4" in str : 
+            card_value = CardValue.FOUR
+        elif "5" in str : 
+            card_value = CardValue.FIVE
+        elif "6" in str : 
+            card_value = CardValue.SIX
+        elif "7" in str : 
+            card_value = CardValue.SEVEN
+        elif "8" in str : 
+            card_value = CardValue.EIGHT
+        elif "9" in str : 
+            card_value = CardValue.NINE
+        elif "10" in str : 
+            card_value = CardValue.TEN
+        elif "J" in str : 
             card_value = CardValue.JACK
         elif "Q" in str : 
             card_value = CardValue.QUEEN
@@ -61,29 +109,5 @@ class Card:
         elif "A" in str : 
             card_value = CardValue.ACE
         else : 
-            number = int(value)
-            card_value = number
-        return Card(card_value, card_color)
-
-class CardColor(Enum) : 
-    UNDEFINED = 0
-    CLUBS = 15
-    DIAMONDS = 16
-    HEARTS = 17
-    SPADES = 18
-
-class CardValue(IntEnum) : 
-    UNDEFINED = 0
-    TWO = 2
-    THREE = 3
-    FOUR = 4
-    FIVE = 5
-    SIX = 6
-    SEVEN = 7
-    EIGHT = 8
-    NINE = 9
-    TEN = 10
-    JACK = 11
-    QUEEN = 12
-    KING = 13
-    ACE = 14
+            card_value = CardValue.UNDEFINED
+        return card_value
