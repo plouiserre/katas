@@ -13,6 +13,7 @@ from PokerHands.detector.full_detector import FullDetector
 from PokerHands.detector.four_cards_detector import FourCardsDetector
 from PokerHands.detector.quinte_flush_detector import QuinteFlushDetector
 from PokerHands.hand import Hand
+from PokerHands.player import Player
 
 def test_1():
     hand_content = "7♠ K♥ 3♦ K♦ K♠"
@@ -32,11 +33,6 @@ def test_3():
 
 
 def read_hand(hand_content):
-    cards_signs = hand_content.split(" ")
-    all_cards = []
-    for card_sign in cards_signs :
-        new_card = Card.parse(card_sign)
-        all_cards.append(new_card)
     counting_cards = CountingCards()
     high_card_detector = HighCardDetector()
     pair_detector = PairDetector(counting_cards)
@@ -48,5 +44,6 @@ def read_hand(hand_content):
     four_cards_detector = FourCardsDetector(counting_cards)
     quinte_flush_detector = QuinteFlushDetector()
     hand = Hand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, straight_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
-    figure =  hand.determinate_high_figure(all_cards) 
-    return figure
+    player = Player(hand)
+    high_figure = player.calculate_hand(hand_content)
+    return high_figure
