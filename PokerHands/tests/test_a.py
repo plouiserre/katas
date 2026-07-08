@@ -4,19 +4,32 @@ import random
 def test_1() : 
     all_colors = ["♠", "♥", "♦", "♣"]
     all_values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
-    all_combinaisons = __calculate_all_combinaisons(all_colors, all_values)
-
-    assert(drawn_randomly_card(all_values, all_colors, []) in all_combinaisons)
+    
+    all_cards_drawned = drawn_randomly_five_cards(all_values, all_colors)
+    
+    assert(len(all_cards_drawned) == 5)
+    assert(len(all_cards_drawned) == len(set(all_cards_drawned)))
 
 def test_2() : 
-    final_card = "Q♥"
     all_colors = ["♠", "♥", "♦", "♣"]
     all_values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
-    all_combinaisons = __calculate_all_combinaisons(all_colors, all_values)
-    all_last_pickus_cards = copy.deepcopy(all_combinaisons)
-    all_last_pickus_cards.remove(final_card)
+    attempt = 0
 
-    assert(final_card == drawn_randomly_card(all_values, all_colors, all_last_pickus_cards))
+    while attempt < 5000 :
+        all_cards_drawned = drawn_randomly_five_cards(all_values, all_colors)
+        
+        assert(len(all_cards_drawned) == 5)
+        assert(len(all_cards_drawned) == len(set(all_cards_drawned)))
+        attempt += 1
+
+def drawn_randomly_five_cards(all_values, all_colors):
+    hand = []
+    all_cards_pickups = []
+    while len(hand) < 5 :
+        card_drawned = drawn_randomly_card(all_values, all_colors, all_cards_pickups)
+        hand.append(card_drawned)
+        all_cards_pickups.append(card_drawned)
+    return hand
 
 
 def drawn_randomly_card(all_values, all_colors, all_last_pickus_cards):
