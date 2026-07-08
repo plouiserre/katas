@@ -1,4 +1,3 @@
-import copy
 import random
 
 class Deck :
@@ -7,15 +6,21 @@ class Deck :
         self.all_values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 
     def drawn_five_cards(self): 
+        first_hand = self.__drawn_five_cards_for_one_player()
+        second_hand = self.__drawn_five_cards_for_one_player()
+        all_hands = [first_hand, second_hand]
+        return all_hands
+    
+    def __drawn_five_cards_for_one_player(self) : 
         hand = []
         all_cards_pickups = []
         while len(hand) < 5 :
-            card_drawned = self.drawn_randomly_card(all_cards_pickups)
+            card_drawned = self.__drawn_randomly_card(all_cards_pickups)
             hand.append(card_drawned)
             all_cards_pickups.append(card_drawned)
         return hand
     
-    def drawn_randomly_card(self, all_last_pickus_cards):
+    def __drawn_randomly_card(self, all_last_pickus_cards):
         is_ok_card = False 
         card_value = ""
         while is_ok_card == False :
