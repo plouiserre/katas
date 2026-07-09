@@ -15,13 +15,13 @@ from PokerHands.player import Player
 from PokerHands.winner import Winner
 from unittest.mock import Mock
 
-def test_1(): 
+def test_launch_simple_game(): 
     deck = Deck()
     result_poker_game = __launched_poker_game(deck)
     assert( result_poker_game == Winner.FIRST_HAND or result_poker_game == Winner.SECOND_HAND
            or result_poker_game == Winner.EQUALITY)
     
-def test_2(): 
+def test_launch_game_when_first_player_must_win(): 
     deck = Mock()
     deck.drawn_five_cards_for_the_two_players.return_value = [["9♠", "10♠", "J♠","Q♠","K♠"], ["3♥", "3♠", "3♦","7♠","8♠"]]
 
@@ -29,14 +29,14 @@ def test_2():
     assert (Winner.FIRST_HAND, result_poker_game)
 
 
-def test_3(): 
+def test_launch_game_when_second_player_must_win(): 
     deck = Mock()
     deck.drawn_five_cards_for_the_two_players.return_value = [["3♥", "3♠", "3♦","7♠","8♠"],["9♠", "10♠", "J♠","Q♠","K♠"]]
 
     result_poker_game = __launched_poker_game(deck)
     assert (Winner.SECOND_HAND, result_poker_game)
 
-def test_4(): 
+def test_launch_game_when_nobody_win(): 
     deck = Mock()
     deck.drawn_five_cards_for_the_two_players.return_value = [["3♥", "3♠", "6♦","7♠","8♠"],["9♠", "10♠", "3♣","3♠","K♠"]]
 
@@ -50,9 +50,7 @@ def __launched_poker_game(deck):
     player_two = Player(second_hand)
 
     game = Game(deck, player_one, player_two)
-    return game.launch()
-
-    
+    return game.launch()    
 
 def __initiate_hand():
     counting_cards = CountingCards()
