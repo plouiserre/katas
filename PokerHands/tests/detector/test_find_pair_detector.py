@@ -26,6 +26,8 @@ def test_find_pair_random():
     hand = [pair_card, pair_card, high_card, fourth_card, fifth_card]
     get_shuffle_hand(hand)
     assert(_find_pair(hand)==PairFigure(pair_card.value, high_card.value))
+    #TODO this test can break so launch him 1000 times and understand why he can break!!!!
+    assert(1 == 2)
             
 def _find_pair(hand):
     counting_cards = CountingCards()

@@ -5,7 +5,7 @@ class Deck :
         self.all_colors = ["♠", "♥", "♦", "♣"]
         self.all_values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 
-    def drawn_five_cards(self): 
+    def drawn_five_cards_for_the_two_players(self): 
         first_hand = self.__drawn_five_cards_for_one_player()
         second_hand = self.__drawn_five_cards_for_one_player()
         all_hands = [first_hand, second_hand]

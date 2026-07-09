@@ -15,7 +15,7 @@ def test_check_in_one_tousand_time_you_drawn_randownly_five_cards_uniques() :
 
 def drawn_randomly_five_cards():
     deck = Deck()
-    return deck.drawn_five_cards()
+    return deck.drawn_five_cards_for_the_two_players()
 
 def _assert_all_cards_drawned_for_one_player_are_ok(all_cards_drawned_all_players) : 
     all_cards_drawned_first_player = all_cards_drawned_all_players[0]
