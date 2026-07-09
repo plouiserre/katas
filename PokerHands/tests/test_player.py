@@ -16,17 +16,17 @@ from PokerHands.hand import Hand
 from PokerHands.player import Player
 
 def test_calculate_hand_player_with_three_of_kind_figure():
-    hand_content = "7♠ K♥ 3♦ K♦ K♠"
+    hand_content = ["7♠", "K♥", "3♦", "K♦", "K♠"]
 
     assert(ThreeOfKindFigure(CardValue.KING, CardValue.SEVEN) == read_hand(hand_content))
 
 def test_calculate_hand_player_with_flush_figure():
-    hand_content = "K♣ 7♣ 3♣ A♣ 2♣"
+    hand_content = ["K♣", "7♣", "3♣", "A♣", "2♣"]
 
     assert(FlushFigure(CardColor.CLUBS, CardValue.ACE) == read_hand(hand_content))
 
 def test_calculate_hand_player_with_two_pairs(): 
-    hand_content = "Q♣ 6♦ K♦ 6♠ Q♠"
+    hand_content = ["Q♣", "6♦", "K♦", "6♠", "Q♠"]
 
     assert(TwoPairFigure(CardValue.QUEEN, CardValue.SIX, CardValue.KING) == read_hand(hand_content)
            or TwoPairFigure(CardValue.SIX, CardValue.QUEEN, CardValue.KING) == read_hand(hand_content))
