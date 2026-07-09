@@ -16,19 +16,21 @@ def test_find_pair_random():
     all_cards_values = get_all_values()
     pair_card = get_random_card_complete(all_cards_values)
     remove_cards(all_cards_values, [CardValue.THREE])
-    high_card = get_high_card_complete(all_cards_values)
+    if pair_card.value == CardValue.TWO or pair_card.value == CardValue.THREE : 
+        remove_cards(all_cards_values, [CardValue.FOUR])
+    high_card = get_high_card_complete(all_cards_values)  
+    if pair_card.value == CardValue.TWO :
+        remove_cards(all_cards_values, [CardValue.TWO])     
     if pair_card.value != CardValue.THREE :
         add_cards(all_cards_values, [CardValue.THREE])
-    if pair_card.value == CardValue.TWO : 
-        remove_cards(all_cards_values, [CardValue.TWO])
+    if pair_card.value == CardValue.TWO or pair_card.value == CardValue.THREE : 
+        add_cards(all_cards_values, [CardValue.FOUR])
     fourth_card = get_random_card_complete(all_cards_values)
     fifth_card = get_random_card_complete(all_cards_values)
     hand = [pair_card, pair_card, high_card, fourth_card, fifth_card]
     get_shuffle_hand(hand)
-    assert(_find_pair(hand)==PairFigure(pair_card.value, high_card.value))
-    #TODO this test can break so launch him 1000 times and understand why he can break!!!!
-    assert(1 == 2)
-            
+    assert(_find_pair(hand)==PairFigure(pair_card.value, high_card.value))   
+                    
 def _find_pair(hand):
     counting_cards = CountingCards()
     pair_detector = PairDetector(counting_cards)
