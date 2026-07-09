@@ -9,15 +9,12 @@ from PokerHands.detector.quinte_flush_detector import QuinteFlushDetector
 from PokerHands.detector.straight_detector import StraightDetector
 from PokerHands.detector.three_cards_detector import ThreeCardsDetector
 from PokerHands.detector.two_pairs_detector import TwoPairsDetector
+from PokerHands.game import Game
 from PokerHands.hand import Hand  
 from PokerHands.player import Player
-from PokerHands.score import Score
 from PokerHands.winner import Winner
 from unittest.mock import Mock
 
-#  self.all_colors = ["♠", "♥", "♦", "♣"]
-#     self.all_values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
-    
 def test_1(): 
     deck = Deck()
     result_poker_game = __launched_poker_game(deck)
@@ -52,11 +49,10 @@ def __launched_poker_game(deck):
     player_one = Player(first_hand)
     player_two = Player(second_hand)
 
-    all_hands_cards = deck.drawn_five_cards_for_the_two_players()
-    high_figure_first_hand = player_one.calculate_hand(all_hands_cards[0])
-    high_figure_second_hand = player_two.calculate_hand(all_hands_cards[1])
-    score = Score(high_figure_first_hand, high_figure_second_hand)
-    return score.determinate_winner()
+    game = Game(deck, player_one, player_two)
+    return game.launch()
+
+    
 
 def __initiate_hand():
     counting_cards = CountingCards()
