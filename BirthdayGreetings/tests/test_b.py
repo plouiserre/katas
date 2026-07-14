@@ -1,6 +1,7 @@
 from typing import Iterator
 from BirthdayGreetings.Contact import Contact
 from BirthdayGreetings.Template import Template
+from BirthdayGreetings.WishingBirthday import WishingBirthday
 
 def test_1():
     contacts = [Contact("Matthew", "McConaughey", "1969/07/14"), 
@@ -28,8 +29,5 @@ def test_2():
     assert("Happy birthday, dear Tom!", messages[2])
 
 def wish_birthdays(contacts: Iterator[Contact], template : Template) -> list[str]:
-    all_messages = []
-    for contact in contacts : 
-        message = template.message.replace(template.code_to_replace, contact.first_name)
-        all_messages.append(message)
-    return all_messages
+    wishing_birthday = WishingBirthday(contacts, template)
+    return wishing_birthday.formate_message()
