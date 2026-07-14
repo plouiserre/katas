@@ -1,6 +1,7 @@
 {
     "python.envFile": "${workspaceFolder}/.env",
     "python.testing.pytestArgs": [
+        "BirthdayGreetings",
         "Bowling",
         "GameOfLife", 
         "LoanCalculator",
