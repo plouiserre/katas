@@ -1,0 +1,12 @@
+Matt|Damon|1970/10/8
+Tom|Holland|1996/6/1
+Anne|Hathaway|1982/11/12
+Robert|Pattinson|1986/5/13
+Lupita|Nyong'o|1983/3/1
+Samantha|Morton|1977/5/13
+Zendaya|Coleman|1996/9/1
+Charlize|Theron|1975/8/7
+Benny|Safdie|1986/2/24
+Jon|Bernthal|1976/9/20
+John|Leguizamo|1960/7/22
+Bill|Irwin|1950/4/11
