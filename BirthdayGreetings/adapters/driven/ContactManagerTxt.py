@@ -5,7 +5,7 @@ from typing import Iterator
 from BirthdayGreetings.domain.Contact import Contact
 
 class ContactManagerTxt(ContactManager):
-    def get_all_contacts() ->Iterator[Contact]:
+    def get_all_contacts(self) ->Iterator[Contact]:
         all_contacts = []
         with open("BirthdayGreetings/data/contacts.txt", "r") as file : 
             content = file.read()
