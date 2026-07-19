@@ -5,7 +5,7 @@ from BirthdayGreetings.Contact import Contact
 from BirthdayGreetings.DateOfTheDay import DateOfTheDay
 from BirthdayGreetings.Template import Template
 
-def test_1(): 
+def test_greetings_harry_potter_cast_birthday(): 
     message_birthdays = ["Happy Birthday, dear Daniel !", "Happy Birthday, dear Emma !","Happy Birthday, dear Rupert !"]
     assert(message_birthdays == greetings_birthdays())
 
