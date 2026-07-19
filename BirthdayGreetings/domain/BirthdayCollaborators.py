@@ -7,9 +7,9 @@ class BirthdayCollaborators :
         self.date_of_the_day = date_of_the_day
         self.template_manager = template_manager
 
-    def GreetingsBirthday(self): 
+    def GreetingsBirthday(self, date_of_the_day): 
         address_book = AddressBook(self.contact_manager, self.date_of_the_day)
-        persons_to_greet = address_book.search_birthday_persons_in_this_date("2026/07/19")
+        persons_to_greet = address_book.search_birthday_persons_in_this_date(date_of_the_day)
 
         template = self.template_manager.get_template_message()
 

@@ -10,17 +10,18 @@ def test_greetings_harry_potter_cast_birthday():
     assert(message_birthdays == greetings_birthdays())
 
 def greetings_birthdays():    
+    date_studied = "2026/07/19"
     contact_manager = Mock()
     contact_manager.get_all_contacts.return_value = [Contact("Daniel", "Radcliffe", "1989/07/19"), 
-     Contact("Emma", "Watson", "1992/07/19"),
-     Contact("Coltrane", "Robbie", "1950/03/30"),
-     Contact("Maggie", "Smith", "1934/12/28"),
-     Contact("Rupert", "Grint", "1988/07/19")]
+    Contact("Emma", "Watson", "1992/07/19"),
+    Contact("Coltrane", "Robbie", "1950/03/30"),
+    Contact("Maggie", "Smith", "1934/12/28"),
+    Contact("Rupert", "Grint", "1988/07/19")]
     
     template_manager = Mock()
     template_manager.get_template_message.return_value = Template("Happy Birthday, dear <first_name> !", "<first_name>")    
 
-    date_of_the_day = DateOfTheDay("2026/07/19")
+    date_of_the_day = DateOfTheDay(date_studied)
     
     birthday_collaborators = BirthdayCollaborators(contact_manager, date_of_the_day, template_manager)
-    return birthday_collaborators.GreetingsBirthday()
+    return birthday_collaborators.GreetingsBirthday(date_studied)

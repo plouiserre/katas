@@ -1,20 +1,21 @@
-from BirthdayGreetings.domain.BirthdayCollaborators import BirthdayCollaborators
-from BirthdayGreetings.domain.DateOfTheDay import DateOfTheDay
+from BirthdayGreetings.adapters.driving.cli import greetings_birthday_employees
 
-birthday_collaborators = BirthdayCollaborators()
+greetings_birthday_employees("2026/9/1")
 
-with open("BirthdayGreetings/data/contacts.txt", "r") as file : 
-    content = file.read()
-    print(content)
+# birthday_collaborators = BirthdayCollaborators()
 
-with open("BirthdayGreetings/data/contacts.json", "r") as file : 
-    content = file.read()
-    print(content)
+# with open("BirthdayGreetings/data/contacts.txt", "r") as file : 
+#     content = file.read()
+#     print(content)
 
-with open("BirthdayGreetings/data/template.txt", "r") as file : 
-    content = file.read()
-    print(content)
+# with open("BirthdayGreetings/data/contacts.json", "r") as file : 
+#     content = file.read()
+#     print(content)
 
-with open("BirthdayGreetings/data/template.json", "r") as file : 
-    content = file.read()
-    print(content)
+# with open("BirthdayGreetings/data/template.txt", "r") as file : 
+#     content = file.read()
+#     print(content)
+
+# with open("BirthdayGreetings/data/template.json", "r") as file : 
+#     content = file.read()
+#     print(content)
