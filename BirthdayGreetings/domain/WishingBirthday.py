@@ -1,6 +1,6 @@
 from typing import Iterator
-from BirthdayGreetings.Contact import Contact
-from BirthdayGreetings.Template import Template
+from BirthdayGreetings.domain.Contact import Contact
+from BirthdayGreetings.domain.Template import Template
 
 class WishingBirthday : 
     def __init__(self, contacts : Iterator[Contact], template : Template):

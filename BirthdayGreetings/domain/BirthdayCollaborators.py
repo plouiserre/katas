@@ -1,5 +1,5 @@
-from BirthdayGreetings.AddressBook import AddressBook
-from BirthdayGreetings.WishingBirthday import WishingBirthday
+from BirthdayGreetings.domain.AddressBook import AddressBook
+from BirthdayGreetings.domain.WishingBirthday import WishingBirthday
 
 class BirthdayCollaborators : 
     def __init__(self, contact_manager, date_of_the_day, template_manager):

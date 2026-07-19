@@ -1,7 +1,7 @@
 import json
 from typing import Iterator
 
-from BirthdayGreetings.Contact import Contact
+from BirthdayGreetings.domain.Contact import Contact
 
 def json_to_contacts(json_contacts :str) ->Iterator[Contact]:
     contacts = []

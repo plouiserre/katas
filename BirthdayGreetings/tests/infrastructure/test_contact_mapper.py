@@ -1,5 +1,5 @@
-from BirthdayGreetings.Contact import Contact
-from BirthdayGreetings.ContactMapper import json_to_contacts, txt_to_contacts
+from BirthdayGreetings.domain.Contact import Contact
+from BirthdayGreetings.infrastructure.Mapper.ContactMapper import json_to_contacts, txt_to_contacts
 
 def test_map_contacts_from_txt_file_to_list_contact():
     text = "Matt|Damon|1970/10/8\nTom|Holland|1996/6/1\nAnne|Hathaway|1982/11/12\nRobert|Pattinson|1986/5/13\nLupita|Nyong'o|1983/3/1\nSamantha|Morton|1977/5/13\n"

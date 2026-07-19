@@ -1,7 +1,7 @@
 from typing import Iterator
-from BirthdayGreetings.Contact import Contact
-from BirthdayGreetings.Template import Template
-from BirthdayGreetings.WishingBirthday import WishingBirthday
+from BirthdayGreetings.domain.Contact import Contact
+from BirthdayGreetings.domain.Template import Template
+from BirthdayGreetings.domain.WishingBirthday import WishingBirthday
 
 def test_wishing_birthday_for_three_interstellar_actors():
     contacts = [Contact("Matthew", "McConaughey", "1969/07/14"), 

@@ -1,6 +1,6 @@
 import json
 
-from BirthdayGreetings.Template import Template
+from BirthdayGreetings.domain.Template import Template
 
 def json_to_template(template_json : str) -> Template:
     datas = json.loads(template_json)

@@ -1,4 +1,4 @@
-from BirthdayGreetings.DateOfTheDay import DateOfTheDay
+from BirthdayGreetings.domain.DateOfTheDay import DateOfTheDay
 
 def test_evaluate_2026_is_not_a_leap_year_because_it_is_not_divisible_by_4():
     date_to_evaluate = "2026/07/15"

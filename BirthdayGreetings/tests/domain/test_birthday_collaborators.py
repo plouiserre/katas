@@ -1,9 +1,9 @@
 from unittest.mock import Mock
 
-from BirthdayGreetings.BirthdayCollaborators import BirthdayCollaborators
-from BirthdayGreetings.Contact import Contact
-from BirthdayGreetings.DateOfTheDay import DateOfTheDay
-from BirthdayGreetings.Template import Template
+from BirthdayGreetings.domain.BirthdayCollaborators import BirthdayCollaborators
+from BirthdayGreetings.domain.Contact import Contact
+from BirthdayGreetings.domain.DateOfTheDay import DateOfTheDay
+from BirthdayGreetings.domain.Template import Template
 
 def test_greetings_harry_potter_cast_birthday(): 
     message_birthdays = ["Happy Birthday, dear Daniel !", "Happy Birthday, dear Emma !","Happy Birthday, dear Rupert !"]
