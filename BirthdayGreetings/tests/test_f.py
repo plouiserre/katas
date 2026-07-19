@@ -1,10 +1,9 @@
 from unittest.mock import Mock
 
-from BirthdayGreetings.AddressBook import AddressBook
+from BirthdayGreetings.BirthdayCollaborators import BirthdayCollaborators
 from BirthdayGreetings.Contact import Contact
 from BirthdayGreetings.DateOfTheDay import DateOfTheDay
 from BirthdayGreetings.Template import Template
-from BirthdayGreetings.WishingBirthday import WishingBirthday
 
 def test_1(): 
     message_birthdays = ["Happy Birthday, dear Daniel !", "Happy Birthday, dear Emma !","Happy Birthday, dear Rupert !"]
@@ -18,14 +17,10 @@ def greetings_birthdays():
      Contact("Maggie", "Smith", "1934/12/28"),
      Contact("Rupert", "Grint", "1988/07/19")]
     
-    # template_manager = Mock()
-    # template_manager.get_template_message.return_value = Template("Happy birthday, dear <first_name>!", "<first_name>")
-    template = Template("Happy Birthday, dear <first_name> !", "<first_name>")
+    template_manager = Mock()
+    template_manager.get_template_message.return_value = Template("Happy Birthday, dear <first_name> !", "<first_name>")    
 
     date_of_the_day = DateOfTheDay("2026/07/19")
-    address_book = AddressBook(contact_manager, date_of_the_day)
-    persons_to_greet = address_book.search_birthday_persons_in_this_date("2026/07/19")
-
-    wishing_birthday = WishingBirthday(persons_to_greet, template)
-    messages = wishing_birthday.formate_message()
-    return messages
+    
+    birthday_collaborators = BirthdayCollaborators(contact_manager, date_of_the_day, template_manager)
+    return birthday_collaborators.GreetingsBirthday()
