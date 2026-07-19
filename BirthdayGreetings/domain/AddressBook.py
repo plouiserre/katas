@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from BirthdayGreetings.ContactManager import ContactManager
+from BirthdayGreetings.domain.ContactManager import ContactManager
 
 class AddressBook : 
     def __init__(self, contact_manager : ContactManager, date_of_the_day : str):

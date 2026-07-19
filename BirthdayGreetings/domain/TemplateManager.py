@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from BirthdayGreetings.Template import Template
+from BirthdayGreetings.domain.Template import Template
 
 class TemplateManager(ABC) : 
     @abstractmethod

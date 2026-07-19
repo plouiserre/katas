@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Iterator
 
-from BirthdayGreetings.Contact import Contact
+from BirthdayGreetings.domain.Contact import Contact
 
 class ContactManager(ABC):
     @abstractmethod

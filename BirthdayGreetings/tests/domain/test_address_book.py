@@ -1,9 +1,9 @@
 from unittest.mock import Mock
 
-from BirthdayGreetings.AddressBook import AddressBook
-from BirthdayGreetings.Contact import Contact
-from BirthdayGreetings.ContactManager import ContactManager
-from BirthdayGreetings.DateOfTheDay import DateOfTheDay
+from BirthdayGreetings.domain.AddressBook import AddressBook
+from BirthdayGreetings.domain.Contact import Contact
+from BirthdayGreetings.domain.ContactManager import ContactManager
+from BirthdayGreetings.domain.DateOfTheDay import DateOfTheDay
 
 def test_search_contact_with_11_12_birthday_and_return_anne_hathaway():  
     contact_manager = Mock()
