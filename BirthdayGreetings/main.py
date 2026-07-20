@@ -1,21 +1,13 @@
+from fastapi import FastAPI
 from BirthdayGreetings.adapters.driving.cli import greetings_birthday_employees
+from BirthdayGreetings.adapters.driving.controllers import greetings
 
-greetings_birthday_employees("2026/9/1")
+#greetings_birthday_employees("2026/9/1")
 
-# birthday_collaborators = BirthdayCollaborators()
+app = FastAPI()
 
-# with open("BirthdayGreetings/data/contacts.txt", "r") as file : 
-#     content = file.read()
-#     print(content)
+app.include_router(greetings.router)
 
-# with open("BirthdayGreetings/data/contacts.json", "r") as file : 
-#     content = file.read()
-#     print(content)
-
-# with open("BirthdayGreetings/data/template.txt", "r") as file : 
-#     content = file.read()
-#     print(content)
-
-# with open("BirthdayGreetings/data/template.json", "r") as file : 
-#     content = file.read()
-#     print(content)
+@app.get("/")
+async def root():
+    return {"Welcome in this API"}
