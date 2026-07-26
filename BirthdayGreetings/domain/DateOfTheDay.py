@@ -13,3 +13,6 @@ class DateOfTheDay :
             return True
         else :
             return False
+
+    def get_date_of_the_day(self): 
+        return self.date_to_evaluate_str

@@ -1,4 +1,5 @@
 from BirthdayGreetings.domain.AddressBook import AddressBook
+from BirthdayGreetings.domain.DateOfTheDay import DateOfTheDay
 from BirthdayGreetings.domain.WishingBirthday import WishingBirthday
 
 class BirthdayCollaborators : 
@@ -7,9 +8,9 @@ class BirthdayCollaborators :
         self.date_of_the_day = date_of_the_day
         self.template_manager = template_manager
 
-    def GreetingsBirthday(self, date_of_the_day): 
+    def GreetingsBirthday(self): 
         address_book = AddressBook(self.contact_manager, self.date_of_the_day)
-        persons_to_greet = address_book.search_birthday_persons_in_this_date(date_of_the_day)
+        persons_to_greet = address_book.search_birthday_persons_in_this_date()
 
         template = self.template_manager.get_template_message()
 
