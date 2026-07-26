@@ -1,13 +1,15 @@
 from datetime import datetime
 
 from BirthdayGreetings.domain.ContactManager import ContactManager
+from BirthdayGreetings.domain.DateOfTheDay import DateOfTheDay
 
 class AddressBook : 
-    def __init__(self, contact_manager : ContactManager, date_of_the_day : str):
+    def __init__(self, contact_manager : ContactManager, date_of_the_day : DateOfTheDay):
         self.contact_manager = contact_manager
         self.date_of_the_day = date_of_the_day
 
-    def search_birthday_persons_in_this_date(self, date_str : str) -> list: 
+    def search_birthday_persons_in_this_date(self) -> list: 
+        date_str = self.date_of_the_day.get_date_of_the_day()
         date_to_celebrate = datetime.strptime(date_str, '%Y/%m/%d').date()
         is_leap_year_problem = self.__is_a_leap_year()
         birthday_contacts = []
