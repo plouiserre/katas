@@ -4,6 +4,8 @@ from BirthdayGreetings.domain.BirthdayCollaborators import BirthdayCollaborators
 from BirthdayGreetings.domain.Contact import Contact
 from BirthdayGreetings.domain.DateOfTheDay import DateOfTheDay
 from BirthdayGreetings.domain.Template import Template
+from BirthdayGreetings.tests.fake.contact_manager_fake import ContactManagerFake
+from BirthdayGreetings.tests.fake.template_manager_fake import TemplateManagerFake
 
 def test_greetings_harry_potter_cast_birthday(): 
     message_birthdays = ["Happy Birthday, dear Daniel !", "Happy Birthday, dear Emma !","Happy Birthday, dear Rupert !"]
@@ -11,15 +13,13 @@ def test_greetings_harry_potter_cast_birthday():
 
 def greetings_birthdays():    
     date_studied = "2026/07/19"
-    contact_manager = Mock()
-    contact_manager.get_all_contacts.return_value = [Contact("Daniel", "Radcliffe", "1989/07/19"), 
+    contact_manager = ContactManagerFake([Contact("Daniel", "Radcliffe", "1989/07/19"), 
     Contact("Emma", "Watson", "1992/07/19"),
     Contact("Coltrane", "Robbie", "1950/03/30"),
     Contact("Maggie", "Smith", "1934/12/28"),
-    Contact("Rupert", "Grint", "1988/07/19")]
+    Contact("Rupert", "Grint", "1988/07/19")])
     
-    template_manager = Mock()
-    template_manager.get_template_message.return_value = Template("Happy Birthday, dear <first_name> !", "<first_name>")    
+    template_manager = TemplateManagerFake("Happy Birthday, dear <first_name> !", "<first_name>")
 
     date_of_the_day = DateOfTheDay(date_studied)
     
