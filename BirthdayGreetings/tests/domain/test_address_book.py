@@ -1,6 +1,5 @@
 from BirthdayGreetings.domain.AddressBook import AddressBook
 from BirthdayGreetings.domain.Contact import Contact
-from BirthdayGreetings.domain.DateOfTheDay import DateOfTheDay
 from BirthdayGreetings.tests.fake.contact_manager_fake import ContactManagerFake
 
 def test_search_contact_with_11_12_birthday_and_return_anne_hathaway():  
@@ -100,6 +99,5 @@ class AddressBookDriver :
     
     def search_birthdays_persons(self) -> list[Contact]: 
         contact_manager = ContactManagerFake(self.contacts)
-        date_of_the_year = DateOfTheDay(self.date_to_study)
-        address_book = AddressBook(contact_manager, date_of_the_year)
-        return address_book.search_birthday_persons_in_this_date()
+        address_book = AddressBook(contact_manager)
+        return address_book.search_birthday_persons_in_this_date(self.date_to_study)
