@@ -3,14 +3,13 @@ from BirthdayGreetings.domain.DateOfTheDay import DateOfTheDay
 from BirthdayGreetings.domain.WishingBirthday import WishingBirthday
 
 class BirthdayCollaborators : 
-    def __init__(self, contact_manager, date_of_the_day, template_manager):
+    def __init__(self, contact_manager, template_manager):
         self.contact_manager = contact_manager
-        self.date_of_the_day = date_of_the_day
         self.template_manager = template_manager
 
-    def GreetingsBirthday(self): 
-        address_book = AddressBook(self.contact_manager, self.date_of_the_day)
-        persons_to_greet = address_book.search_birthday_persons_in_this_date()
+    def GreetingsBirthday(self, date_str): 
+        address_book = AddressBook(self.contact_manager)
+        persons_to_greet = address_book.search_birthday_persons_in_this_date(date_str)
 
         template = self.template_manager.get_template_message()
 

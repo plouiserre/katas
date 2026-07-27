@@ -1,6 +1,5 @@
 from BirthdayGreetings.domain.BirthdayCollaborators import BirthdayCollaborators
 from BirthdayGreetings.domain.Contact import Contact
-from BirthdayGreetings.domain.DateOfTheDay import DateOfTheDay
 from BirthdayGreetings.domain.Template import Template
 from BirthdayGreetings.tests.fake.contact_manager_fake import ContactManagerFake
 from BirthdayGreetings.tests.fake.template_manager_fake import TemplateManagerFake
@@ -38,6 +37,5 @@ class BirthdayCollaboratorsDriver :
     def birthday_messages_send(self) -> list[str]:
         contact_manager = ContactManagerFake(self.contacts)
         template_manager = TemplateManagerFake(self.template)
-        date_of_the_day = DateOfTheDay(self.date_to_study)
-        birthday_collaborators = BirthdayCollaborators(contact_manager, date_of_the_day, template_manager)
-        return birthday_collaborators.GreetingsBirthday()
+        birthday_collaborators = BirthdayCollaborators(contact_manager, template_manager)
+        return birthday_collaborators.GreetingsBirthday(self.date_to_study)

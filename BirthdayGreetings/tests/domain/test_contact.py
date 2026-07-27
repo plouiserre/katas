@@ -32,6 +32,4 @@ def test_find_it_is_not_birthday_for_john_doe_during_a_leap_year():
     assert(is_birthday == True)
 
 def __it_is_birthday_contact(contact : Contact, date_to_study_str : str): 
-    date_of_the_day = DateOfTheDay(date_to_study_str)
-    is_leap_year = date_of_the_day.is_date_belongs_to_a_leap_of_year()
-    return contact.is_birthday_today(date_to_study_str, is_leap_year)
+    return contact.is_birthday_today(date_to_study_str)
