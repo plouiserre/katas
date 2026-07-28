@@ -1,8 +1,16 @@
-class Search : 
-    def __init__(self, all_accounts):
-        self.accounts = all_accounts
+from abc import ABC, abstractmethod
 
+class SearchPort(ABC):
+    @abstractmethod
     def all_messages_from_specific_accounts(self, account_name):
+        pass
+
+class Search(SearchPort) : 
+    def __init__(self):
+        self.accounts = []
+
+    def all_messages_from_specific_accounts(self, all_accounts, account_name):
+        self.accounts = all_accounts
         messages = []
         for key_account_name in self.accounts :
             if key_account_name == account_name : 

@@ -1,8 +1,26 @@
+from abc import ABC, abstractmethod
 from SocialNetwork.domain.account import Account
 
-class Wall :
-    def __init__(self, accounts):
-        self.accounts = accounts
+class WallPort(ABC):
+    @abstractmethod
+    def post_messages(self, account_name, message): 
+        pass
+
+    @abstractmethod
+    def get_all_messages_from_account(self, account_name): 
+        pass
+
+    @abstractmethod
+    def get_all_messages_from_all_accounts(self): 
+        pass
+
+    @abstractmethod
+    def get_all_accounts(self): 
+        pass
+
+class Wall(WallPort) :
+    def __init__(self):
+        self.accounts = {}
 
     def post_messages(self, account_name, message): 
         if account_name not in self.accounts : 
@@ -23,9 +41,6 @@ class Wall :
         for account_name in self.accounts : 
             messages[account_name] = self.accounts[account_name].messages
         return messages
-
-    def get_all_accounts(self): 
-        return self.accounts
 
     def get_all_accounts(self): 
         return self.accounts

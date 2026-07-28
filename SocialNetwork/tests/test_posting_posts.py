@@ -28,12 +28,13 @@ def test_three_friends_post():
 
 class PostingDriver :
     def __init__(self):
-        self.wall = Wall({})
+        self.wall = Wall()
 
     def post_message(self, account_name, message):       
         self.wall.post_messages(account_name, message)
         return self
-    
+
+    #TODO revoir ca !!!!!
     def check_messages(self):
         all_messages = {}
         for account_name in self.wall.get_all_accounts() : 
