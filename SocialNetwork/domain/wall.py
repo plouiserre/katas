@@ -21,8 +21,5 @@ class Wall :
     def get_all_accounts(self): 
         return self.accounts
 
-    def get_messages_from_accounts(self, account_name): 
-        return self.accounts[account_name].messages
-
     def get_all_accounts(self): 
         return self.accounts

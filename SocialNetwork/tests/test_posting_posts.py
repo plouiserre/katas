@@ -37,5 +37,5 @@ class PostingDriver :
     def check_messages(self):
         all_messages = {}
         for account_name in self.wall.get_all_accounts() : 
-            all_messages[account_name] = self.wall.get_messages_from_accounts(account_name)
+            all_messages[account_name] = self.wall.get_all_messages_from_account(account_name)
         return all_messages
