@@ -6,7 +6,7 @@ class Wall :
 
     def post_messages(self, account_name, message): 
         if account_name not in self.accounts : 
-            self.accounts[account_name] = Account(account_name)
+            self.accounts[account_name] = Account(account_name, [])
         self.accounts[account_name].post_messages(message)
         return self
 
