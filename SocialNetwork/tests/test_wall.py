@@ -31,11 +31,11 @@ class PostingDriver :
         self.wall = Wall()
 
     def post_message(self, account_name, message):       
-        self.wall.posts_messages(account_name, message)
+        self.wall.post_messages(account_name, message)
         return self
     
     def check_messages(self):
         all_messages = {}
-        for account_name in self.wall.accounts : 
+        for account_name in self.wall.get_all_accounts() : 
             all_messages[account_name] = self.wall.get_messages_from_accounts(account_name)
         return all_messages
