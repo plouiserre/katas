@@ -18,6 +18,12 @@ class Wall :
                     messages.append(message)
         return messages
 
+    def get_all_messages_from_all_accounts(self): 
+        messages = {}
+        for account_name in self.accounts : 
+            messages[account_name] = self.accounts[account_name].messages
+        return messages
+
     def get_all_accounts(self): 
         return self.accounts
 
