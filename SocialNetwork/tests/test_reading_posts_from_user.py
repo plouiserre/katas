@@ -1,5 +1,5 @@
 from SocialNetwork.domain.account import Account
-from SocialNetwork.domain.wall import Wall
+from SocialNetwork.domain.search import Search
 
 def test_get_messages_from_peter_unique_user():
     all_accounts = {"Peter" : Account("Peter", ["Hello every body", "Some one is here", "I will enjoy this meal!!!", "Why my soccer team is bad?"])}
@@ -35,9 +35,5 @@ class ReadingDriver :
         self.accounts = all_accounts              
 
     def read_all_messages_from_specific_user(self, account_name): 
-        messages = []
-        for key_account_name in self.accounts :
-            if key_account_name == account_name : 
-                for message in self.accounts[key_account_name].messages :
-                    messages.append(message)
-        return messages
+        search = Search(self.accounts)
+        return search.all_messages_from_specific_accounts(account_name)
