@@ -28,7 +28,7 @@ def test_three_friends_post():
 
 class PostingDriver :
     def __init__(self):
-        self.wall = Wall()
+        self.wall = Wall({})
 
     def post_message(self, account_name, message):       
         self.wall.post_messages(account_name, message)
