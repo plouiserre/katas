@@ -1,4 +1,4 @@
-from SocialNetwork.domain.account import Account
+from SocialNetwork.domain.search_service import SearchService
 from SocialNetwork.domain.wall import Wall
 
 def test_one_person_post_alone(): 
@@ -38,16 +38,11 @@ def test_three_friends_post():
 class SearchDriver: 
     def __init__(self):
         self.wall = Wall()
+        self.search_service = SearchService(self.wall)
 
     def post_message(self, account_name :str , message : str): 
         self.wall.post_messages(account_name, message)
         return self
 
     def search_message(self, account_name):
-        all_accounts = self.wall.get_all_accounts()
-        messages = []
-        for key_account_name in all_accounts : 
-            if key_account_name == account_name :
-                messages = all_accounts[key_account_name].messages
-                break
-        return messages
+        return self.search_service.load_wall_and_run_search_posts_from_specific_user(account_name)
