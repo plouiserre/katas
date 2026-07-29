@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 class SearchPort(ABC):
     @abstractmethod
-    def all_messages_from_specific_accounts(self, account_name):
+    def all_messages_from_specific_accounts(self, all_accounts, account_name):
         pass
 
 class Search(SearchPort) : 
