@@ -1,4 +1,4 @@
-from SocialNetwork.domain.search import SearchPort
+from SocialNetwork.domain.search_service import SearchServicePort
 from SocialNetwork.domain.wall import WallPort
 
 class cliApp : 
@@ -7,21 +7,18 @@ class cliApp :
 
     #TODO 
         # -> gérer les commandes quand tout est OK 
-        #   -> POSTS
-        #   -> Read all 
-        #   -> Read one
         #   -> Read all when nothing
         #   -> Read one when nothing
         # -> si y len(indexs) > 2 -> erreurs 
         # -> si indexs == 0
-    def run(self, search : SearchPort, wall : WallPort) -> None : 
+    def run(self, search : SearchServicePort, wall : WallPort) -> None : 
         while True : 
             raw = input("> ")
             command, arguments = self.__get_commands_and_arguments(raw)
             if raw == "stop":
                 break
             elif command == "search":
-                messages_from_specific_user =  search.all_messages_from_specific_accounts(arguments[0])
+                messages_from_specific_user =  search.load_wall_and_run_search_posts_from_specific_user(arguments[0])
                 print ("messages de "+arguments[0])
                 for message in messages_from_specific_user : 
                     print(message + "\n")
