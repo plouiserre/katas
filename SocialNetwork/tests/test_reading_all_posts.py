@@ -1,13 +1,9 @@
-from SocialNetwork.domain.account import Account
-from SocialNetwork.domain.wall import Wall
+from SocialNetwork.tests.driver_test import DriverTest
 
 def test_get_messages_from_peter_unique_user():
     reading_driver = ReadingDriver()
     all_messages = (reading_driver
-                        .post_message("Peter", "Hello every body")
-                        .post_message("Peter", "Some one is here")
-                        .post_message("Peter", "I will enjoy this meal!!!")
-                        .post_message("Peter", "Why my soccer team is bad?")
+                        .posts_messages_peter_alone()
                         .read_all_messages())
     assert(len(all_messages) == 1)
     assert(len(all_messages["Peter"]) == 4)
@@ -19,11 +15,7 @@ def test_get_messages_from_peter_unique_user():
 def test_get_messages_from_three_friends_separate():
     reading_driver = ReadingDriver()
     all_messages_harry = (reading_driver
-                        .post_message("Harry", "Some one want to go eat some Pizza?")
-                        .post_message("Ron", "Yes me!!!")
-                        .post_message("Hermione", "Harry, Ron go back to study for the exams!!!!")
-                        .post_message("Harry", "Hermione be nice we do not stop to study")
-                        .post_message("Ron", "Stop to be boring!!!!")
+                        .posts_messages_harry_ron_hermione()
                         .read_all_messages())
 
     all_messages = reading_driver.read_all_messages()
@@ -43,13 +35,18 @@ def test_get_messages_from_three_friends_separate():
     assert(len(all_messages_hermione) == 1)
     assert(all_messages_hermione[0] == "Harry, Ron go back to study for the exams!!!!")
 
-class ReadingDriver : 
+class ReadingDriver(DriverTest): 
     def __init__(self):
-        self.wall = Wall() 
+        super().__init__()
 
     def post_message(self, account_name :str , message : str): 
-            self.wall.post_messages(account_name, message)
-            return self
+        return super().post_message(account_name, message)
+
+    def posts_messages_peter_alone(self):
+        return super().posts_messages_peter_alone()
+
+    def posts_messages_harry_ron_hermione(self):
+        return super().posts_messages_harry_ron_hermione()
 
     def read_all_messages(self): 
         messages = self.wall.get_all_messages_from_all_accounts()

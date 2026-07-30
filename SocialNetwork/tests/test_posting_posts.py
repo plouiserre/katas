@@ -1,13 +1,9 @@
-from SocialNetwork.domain.account import Account
-from SocialNetwork.domain.wall import Wall
+from SocialNetwork.tests.driver_test import DriverTest
 
 def test_one_person_post_alone(): 
     posting_driver = PostingDriver()
     all_messages = (posting_driver
-                    .post_message("Peter", "Hello every body")
-                    .post_message("Peter", "Some one is here")
-                    .post_message("Peter", "I will enjoy this meal!!!")
-                    .post_message("Peter", "Why my soccer team is bad?")
+                    .posts_messages_peter_alone()
                     .check_messages())
     assert(len(all_messages) == 1)
     assert(len(all_messages["Peter"]) == 4)
@@ -15,24 +11,25 @@ def test_one_person_post_alone():
 def test_three_friends_post():
     posting_driver = PostingDriver()
     all_messages = (posting_driver
-                    .post_message("Harry", "Some one want to go eat some Pizza?")
-                    .post_message("Ron", "Yes me!!!")
-                    .post_message("Hermione", "Harry, Ron go back to study for the exams!!!!")
-                    .post_message("Harry", "Hermione be nice we do not stop to study")
-                    .post_message("Ron", "Stop to be boring!!!!")
+                    .posts_messages_harry_ron_hermione()
                     .check_messages())
     assert(len(all_messages) == 3)
     assert(len(all_messages["Harry"]) == 2)
     assert(len(all_messages["Ron"]) == 2)
     assert(len(all_messages["Hermione"]) == 1)
 
-class PostingDriver :
+class PostingDriver(DriverTest) :
     def __init__(self):
-        self.wall = Wall()
+        super().__init__()
 
     def post_message(self, account_name, message):       
-        self.wall.post_messages(account_name, message)
-        return self
+        return super().post_message(account_name, message)
+
+    def posts_messages_harry_ron_hermione(self):
+        return super().posts_messages_harry_ron_hermione()
+
+    def posts_messages_peter_alone(self):
+        return super().posts_messages_peter_alone()
 
     #TODO revoir ca !!!!!
     def check_messages(self):

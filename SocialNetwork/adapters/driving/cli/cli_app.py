@@ -24,3 +24,5 @@ class cliApp :
             elif command == "posts_messages" : 
                 wall.post_messages(arguments[0], arguments[1])
                 print("message posté")
+            else : 
+                print("commande inconnu")
