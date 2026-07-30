@@ -31,6 +31,12 @@ class PostingDriver(DriverTest) :
     def posts_messages_peter_alone(self):
         return super().posts_messages_peter_alone()
 
+    def assert_tests_with_peter_alone(self, all_messages):
+        pass
+
+    def assert_tests_with_harry_ron_hermione(self, all_messages):
+        pass
+
     #TODO revoir ca !!!!!
     def check_messages(self):
         all_messages = {}
