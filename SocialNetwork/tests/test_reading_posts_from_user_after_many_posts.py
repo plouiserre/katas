@@ -20,6 +20,7 @@ def test_three_friends_post():
     
     all_messages_ron = search_driver.search_message("Ron")
     all_messages_hermione = search_driver.search_message("Hermione")
+    
     all_messages = {"Harry" : all_messages_harry, "Ron" : all_messages_ron, "Hermione" : all_messages_hermione}
     search_driver.assert_tests_with_harry_ron_hermione(all_messages)
 
