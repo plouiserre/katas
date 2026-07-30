@@ -1,55 +1,40 @@
-from SocialNetwork.domain.account import Account
-from SocialNetwork.domain.wall import Wall
+from SocialNetwork.tests.driver_test import DriverTest
 
 def test_get_messages_from_peter_unique_user():
     reading_driver = ReadingDriver()
     all_messages = (reading_driver
-                        .post_message("Peter", "Hello every body")
-                        .post_message("Peter", "Some one is here")
-                        .post_message("Peter", "I will enjoy this meal!!!")
-                        .post_message("Peter", "Why my soccer team is bad?")
+                        .posts_messages_peter_alone()
                         .read_all_messages())
-    assert(len(all_messages) == 1)
-    assert(len(all_messages["Peter"]) == 4)
-    assert(all_messages["Peter"][0] == "Hello every body")
-    assert(all_messages["Peter"][1] == "Some one is here")
-    assert(all_messages["Peter"][2] == "I will enjoy this meal!!!")
-    assert(all_messages["Peter"][3] == "Why my soccer team is bad?")
+    reading_driver.assert_tests_with_peter_alone(all_messages)
 
 def test_get_messages_from_three_friends_separate():
     reading_driver = ReadingDriver()
     all_messages_harry = (reading_driver
-                        .post_message("Harry", "Some one want to go eat some Pizza?")
-                        .post_message("Ron", "Yes me!!!")
-                        .post_message("Hermione", "Harry, Ron go back to study for the exams!!!!")
-                        .post_message("Harry", "Hermione be nice we do not stop to study")
-                        .post_message("Ron", "Stop to be boring!!!!")
+                        .posts_messages_harry_ron_hermione()
                         .read_all_messages())
 
     all_messages = reading_driver.read_all_messages()
 
-    all_messages_harry = all_messages["Harry"]
-    all_messages_ron = all_messages["Ron"]
-    all_messages_hermione = all_messages["Hermione"]
+    reading_driver.assert_tests_with_harry_ron_hermione(all_messages)
 
-    assert(len(all_messages) == 3)
-
-    assert(len(all_messages_harry) == 2)
-    assert(all_messages_harry[0] == "Some one want to go eat some Pizza?")
-    assert(all_messages_harry[1] == "Hermione be nice we do not stop to study")
-    assert(len(all_messages_ron) == 2)
-    assert(all_messages_ron[0] == "Yes me!!!")
-    assert(all_messages_ron[1] == "Stop to be boring!!!!")
-    assert(len(all_messages_hermione) == 1)
-    assert(all_messages_hermione[0] == "Harry, Ron go back to study for the exams!!!!")
-
-class ReadingDriver : 
+class ReadingDriver(DriverTest): 
     def __init__(self):
-        self.wall = Wall() 
+        super().__init__()
 
     def post_message(self, account_name :str , message : str): 
-            self.wall.post_messages(account_name, message)
-            return self
+        return super().post_message(account_name, message)
+
+    def posts_messages_peter_alone(self):
+        return super().posts_messages_peter_alone()
+
+    def posts_messages_harry_ron_hermione(self):
+        return super().posts_messages_harry_ron_hermione()
+
+    def assert_tests_with_peter_alone(self, peter_messages):
+        return super().assert_tests_with_peter_alone(peter_messages)
+
+    def assert_tests_with_harry_ron_hermione(self, all_messages):
+        return super().assert_tests_with_harry_ron_hermione(all_messages)
 
     def read_all_messages(self): 
         messages = self.wall.get_all_messages_from_all_accounts()
