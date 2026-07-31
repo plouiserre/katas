@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from SocialNetwork.adapters.driving.cli.cli_app import cliApp
-from SocialNetwork.adapters.driving.controllers import wall_controllers
+from SocialNetwork.adapters.driving.controllers import wall_controllers, search_controllers
 from SocialNetwork.domain.search_service import SearchService
 from SocialNetwork.domain.wall import Wall
 
@@ -11,6 +11,7 @@ from SocialNetwork.domain.wall import Wall
 
 app = FastAPI()
 
+app.include_router(search_controllers.router)
 app.include_router(wall_controllers.router)
 
 @app.get("/")
