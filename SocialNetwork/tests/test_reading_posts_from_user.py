@@ -1,4 +1,4 @@
-from SocialNetwork.domain.account import Account
+from SocialNetwork.domain.models.account import Account
 from SocialNetwork.domain.search import Search
 
 def test_get_messages_from_peter_unique_user():

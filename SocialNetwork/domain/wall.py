@@ -1,4 +1,4 @@
-from SocialNetwork.domain.account import Account
+from SocialNetwork.domain.models.account import Account
 from SocialNetwork.domain.ports.inbound.wall_port import WallPort
 
 class Wall(WallPort) :
