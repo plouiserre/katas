@@ -9,11 +9,9 @@ def test_get_messages_from_peter_unique_user():
 
 def test_get_messages_from_three_friends_separate():
     reading_driver = ReadingDriver()
-    all_messages_harry = (reading_driver
+    all_messages = (reading_driver
                         .posts_messages_harry_ron_hermione()
                         .read_all_messages())
-
-    all_messages = reading_driver.read_all_messages()
 
     reading_driver.assert_tests_with_harry_ron_hermione(all_messages)
 
