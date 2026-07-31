@@ -1,13 +1,15 @@
 from SocialNetwork.domain.models.account import Account
+from SocialNetwork.domain.models.message import Message
 from SocialNetwork.domain.ports.inbound.wall_port import WallPort
 
 class Wall(WallPort) :
     def __init__(self):
         self.accounts = {}
 
-    def post_messages(self, account_name, message): 
+    def post_messages(self, account_name, content_message): 
         if account_name not in self.accounts : 
             self.accounts[account_name] = Account(account_name, [])
+        message = Message(account_name, content_message)
         self.accounts[account_name].post_messages(message)
         return self
 
