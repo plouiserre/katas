@@ -1,12 +1,6 @@
-from abc import ABC, abstractmethod
-
+from SocialNetwork.domain.ports.inbound.search_port import SearchServicePort
 from SocialNetwork.domain.search import Search
 from SocialNetwork.domain.wall import Wall
-
-class SearchServicePort(ABC):
-    @abstractmethod
-    def load_wall_and_run_search_posts_from_specific_user(self, all_accounts, account_name):
-        pass
 
 class SearchService(SearchServicePort) : 
     def __init__(self, wall : Wall):

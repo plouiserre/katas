@@ -1,22 +1,5 @@
-from abc import ABC, abstractmethod
 from SocialNetwork.domain.account import Account
-
-class WallPort(ABC):
-    @abstractmethod
-    def post_messages(self, account_name, message): 
-        pass
-
-    @abstractmethod
-    def get_all_messages_from_account(self, account_name): 
-        pass
-
-    @abstractmethod
-    def get_all_messages_from_all_accounts(self): 
-        pass
-
-    @abstractmethod
-    def get_all_accounts(self): 
-        pass
+from SocialNetwork.domain.ports.inbound.wall_port import WallPort
 
 class Wall(WallPort) :
     def __init__(self):
