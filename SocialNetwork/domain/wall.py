@@ -14,15 +14,6 @@ class Wall(WallPort) :
         self.wall_repository.save_posts(message)
         return self
 
-    #TODO trier le tout
-    def get_all_messages_from_account(self, account_name): 
-        messages = []
-        for key_account_name in self.accounts : 
-            if key_account_name == account_name :
-                for message in self.accounts[key_account_name].messages : 
-                    messages.append(message)
-        return messages
-
     def get_all_messages_from_all_accounts_group_by_author(self): 
         messages_by_authors = {}
         messages_entity = self.wall_repository.get_all_posts_from_wall()
@@ -42,6 +33,3 @@ class Wall(WallPort) :
             message = Message(author, message_entity.content_message)
             messages.append(message)
         return messages
-
-    def get_all_accounts(self): 
-        return self.accounts
