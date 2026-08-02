@@ -15,6 +15,6 @@ class MemoryWallRepository(WallRepository):
     def get_all_posts_from_wall(self) -> list[Message]:
         all_posts = []
         for post_memory in self.posts : 
-            post = Message(post_memory.author_memory, post_memory.content)
+            post = Message(post_memory.author, post_memory.content)
             all_posts.append(post)
         return all_posts

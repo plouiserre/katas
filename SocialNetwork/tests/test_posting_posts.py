@@ -40,6 +40,7 @@ class PostingDriver(DriverTest) :
     #TODO revoir ca !!!!!
     def check_messages(self):
         all_messages = {}
-        for account_name in self.wall.get_all_accounts() : 
-            all_messages[account_name] = self.wall.get_all_messages_from_account(account_name)
+        all_messages_by_autors = self.wall.get_all_messages_from_all_accounts_group_by_author()
+        for author in all_messages_by_autors : 
+            all_messages[author.name] = all_messages_by_autors[author]
         return all_messages
