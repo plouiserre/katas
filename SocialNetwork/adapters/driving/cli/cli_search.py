@@ -12,6 +12,6 @@ class CliSearch:
             else : 
                 print ("messages de "+account_name)
                 for message in messages_from_specific_user : 
-                    print(message + "\n")
+                    print(message.content_message)
         else : 
             print("Commande invalide")
