@@ -1,11 +1,14 @@
 from abc import ABC, abstractmethod
 
+from SocialNetwork.adapters.driven.wall.memory_wall_repository import MemoryWallRepository
 from SocialNetwork.domain.models.message import Message
 from SocialNetwork.domain.wall import Wall
 
+
 class DriverTest(ABC):
     def __init__(self):
-            self.wall = Wall()
+            wall_repository = MemoryWallRepository()
+            self.wall = Wall(wall_repository)
     
     @abstractmethod 
     def post_message(self, account_name, message):       
