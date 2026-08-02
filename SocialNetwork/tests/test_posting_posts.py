@@ -37,7 +37,7 @@ class PostingDriver(DriverTest) :
     def assert_tests_with_harry_ron_hermione(self, all_messages):
         pass
 
-    #TODO revoir ca !!!!!
+    #TODO factorize with reading_all_posts read_all_messages
     def check_messages(self):
         all_messages = {}
         all_messages_by_autors = self.wall.get_all_messages_from_all_accounts_group_by_author()

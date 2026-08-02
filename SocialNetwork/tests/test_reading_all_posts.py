@@ -12,7 +12,6 @@ def test_get_messages_from_three_friends_separate():
     all_messages = (reading_driver
                         .posts_messages_harry_ron_hermione()
                         .read_all_messages())
-
     reading_driver.assert_tests_with_harry_ron_hermione(all_messages)
 
 class ReadingDriver(DriverTest): 
@@ -35,5 +34,10 @@ class ReadingDriver(DriverTest):
         return super().assert_tests_with_harry_ron_hermione(all_messages)
 
     def read_all_messages(self): 
+        messages_assert = {}
         messages = self.wall.get_all_messages_from_all_accounts()
-        return messages
+        for message in messages : 
+            if message.author.name not in messages_assert : 
+                messages_assert[message.author.name] = []
+            messages_assert[message.author.name].append(message)
+        return messages_assert

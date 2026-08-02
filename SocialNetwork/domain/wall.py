@@ -34,5 +34,14 @@ class Wall(WallPort) :
             messages_by_authors[author].append(message)
         return messages_by_authors
 
+    def get_all_messages_from_all_accounts(self): 
+        messages = []
+        messages_entity = self.wall_repository.get_all_posts_from_wall()
+        for message_entity in messages_entity : 
+            author = Author(message_entity.author.name)
+            message = Message(author, message_entity.content_message)
+            messages.append(message)
+        return messages
+
     def get_all_accounts(self): 
         return self.accounts

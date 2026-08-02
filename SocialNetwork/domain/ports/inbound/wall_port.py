@@ -13,5 +13,9 @@ class WallPort(ABC):
         pass
 
     @abstractmethod
+    def get_all_messages_from_all_accounts(self):
+        pass
+
+    @abstractmethod
     def get_all_accounts(self): 
         pass
