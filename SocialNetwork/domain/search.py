@@ -1,12 +1,10 @@
 class Search() : 
     def __init__(self):
-        self.accounts = []
+        pass
 
-    def all_messages_from_specific_accounts(self, all_accounts, account_name):
-        self.accounts = all_accounts
+    def all_messages_from_specific_accounts(self, all_messages, account_name):
         messages = []
-        for key_account_name in self.accounts :
-            if key_account_name == account_name : 
-                for message in self.accounts[key_account_name].messages :
-                    messages.append(message)
+        for message in all_messages :
+            if message.author.name == account_name : 
+                messages.append(message)
         return messages

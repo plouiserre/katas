@@ -7,6 +7,5 @@ class CliGetAllMessages:
         if all_messages == {} :
             print("None message")
         else : 
-            for account_name in all_messages : 
-                for message in all_messages[account_name]:
-                    print(account_name+": "+message)  
+            for message in all_messages : 
+                    print(message.author.name+": "+message.content_message)  

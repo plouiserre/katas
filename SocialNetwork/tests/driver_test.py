@@ -1,10 +1,15 @@
 from abc import ABC, abstractmethod
 
+from SocialNetwork.adapters.driven.wall.memory_wall_repository import MemoryWallRepository
+from SocialNetwork.domain.models.author import Author
+from SocialNetwork.domain.models.message import Message
 from SocialNetwork.domain.wall import Wall
+
 
 class DriverTest(ABC):
     def __init__(self):
-            self.wall = Wall()
+            wall_repository = MemoryWallRepository()
+            self.wall = Wall(wall_repository)
     
     @abstractmethod 
     def post_message(self, account_name, message):       
@@ -35,10 +40,10 @@ class DriverTest(ABC):
 
         assert(len(peter_messages) == 4)
 
-        assert(peter_messages[0] == "Hello every body")
-        assert(peter_messages[1] == "Some one is here")
-        assert(peter_messages[2] == "I will enjoy this meal!!!")
-        assert(peter_messages[3] == "Why my soccer team is bad?")
+        assert(peter_messages[0] == Message(Author("Peter"),"Hello every body"))
+        assert(peter_messages[1] == Message(Author("Peter"),"Some one is here"))
+        assert(peter_messages[2] == Message(Author("Peter"),"I will enjoy this meal!!!"))
+        assert(peter_messages[3] == Message(Author("Peter"),"Why my soccer team is bad?"))
 
     @abstractmethod
     def assert_tests_with_harry_ron_hermione(self, all_messages) : 
@@ -49,10 +54,10 @@ class DriverTest(ABC):
         assert(len(all_messages) == 3)
     
         assert(len(all_messages_harry) == 2)
-        assert(all_messages_harry[0] == "Some one want to go eat some Pizza?")
-        assert(all_messages_harry[1] == "Hermione be nice we do not stop to study")
+        assert(all_messages_harry[0] == Message(Author("Harry"),"Some one want to go eat some Pizza?"))
+        assert(all_messages_harry[1] == Message(Author("Harry"),"Hermione be nice we do not stop to study"))
         assert(len(all_messages_ron) == 2)
-        assert(all_messages_ron[0] == "Yes me!!!")
-        assert(all_messages_ron[1] == "Stop to be boring!!!!")
+        assert(all_messages_ron[0] == Message(Author("Ron"),"Yes me!!!"))
+        assert(all_messages_ron[1] == Message(Author("Ron"),"Stop to be boring!!!!"))
         assert(len(all_messages_hermione) == 1)
-        assert(all_messages_hermione[0] == "Harry, Ron go back to study for the exams!!!!")
+        assert(all_messages_hermione[0] == Message(Author("Hermione"),"Harry, Ron go back to study for the exams!!!!"))
