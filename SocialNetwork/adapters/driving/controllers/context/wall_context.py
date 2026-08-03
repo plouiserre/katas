@@ -1,14 +1,14 @@
-from SocialNetwork.domain.wall import Wall
+from SocialNetwork.domain.wall_service import WallService
 from SocialNetwork.adapters.driven.wall.memory_wall_repository import MemoryWallRepository
 
 #TMP because I need it until I develop the data part
 class WallContext : 
     def __init__(self):
         wall_repository = MemoryWallRepository()
-        self.wall = Wall(wall_repository)
+        self.wall_service = WallService(wall_repository)
 
-    def get_wall(self): 
-        return self.wall
+    def get_wall_service(self): 
+        return self.wall_service
 
 _wall_context = WallContext()
 

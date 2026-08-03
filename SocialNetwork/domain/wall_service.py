@@ -4,7 +4,7 @@ from SocialNetwork.domain.models.message import Message
 from SocialNetwork.domain.ports.inbound.wall_port import WallPort
 from SocialNetwork.domain.ports.outbound.wall_repository import WallRepository
 
-class Wall(WallPort) :
+class WallService(WallPort) :
     def __init__(self, wall_repository : WallRepository):
         self.wall_repository = wall_repository
 

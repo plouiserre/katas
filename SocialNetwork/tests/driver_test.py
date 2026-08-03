@@ -3,17 +3,17 @@ from abc import ABC, abstractmethod
 from SocialNetwork.adapters.driven.wall.memory_wall_repository import MemoryWallRepository
 from SocialNetwork.domain.models.author import Author
 from SocialNetwork.domain.models.message import Message
-from SocialNetwork.domain.wall import Wall
+from SocialNetwork.domain.wall_service import WallService
 
 
 class DriverTest(ABC):
     def __init__(self):
             wall_repository = MemoryWallRepository()
-            self.wall = Wall(wall_repository)
+            self.wall_service = WallService(wall_repository)
     
     @abstractmethod 
     def post_message(self, account_name, message):       
-        self.wall.post_messages(account_name, message)
+        self.wall_service.post_messages(account_name, message)
         return self
 
     @abstractmethod

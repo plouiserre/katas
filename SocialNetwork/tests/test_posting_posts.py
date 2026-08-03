@@ -40,7 +40,7 @@ class PostingDriver(DriverTest) :
     #TODO factorize with reading_all_posts read_all_messages
     def check_messages(self):
         all_messages = {}
-        all_messages_by_autors = self.wall.get_all_messages_from_all_accounts_group_by_author()
+        all_messages_by_autors = self.wall_service.get_all_messages_from_all_accounts_group_by_author()
         for author in all_messages_by_autors : 
             all_messages[author.name] = all_messages_by_autors[author]
         return all_messages

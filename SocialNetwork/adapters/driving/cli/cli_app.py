@@ -2,7 +2,7 @@ from SocialNetwork.adapters.driving.cli.cli_command import CliCommand
 from SocialNetwork.adapters.driving.cli.cli_get_all_messages import CliGetAllMessages
 from SocialNetwork.adapters.driving.cli.cli_search import CliSearch
 from SocialNetwork.domain.search_service import SearchServicePort
-from SocialNetwork.domain.wall import WallPort
+from SocialNetwork.domain.wall_service import WallPort
 
 class cliApp : 
     def __init__(self):
