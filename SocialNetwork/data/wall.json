@@ -4,7 +4,13 @@
             "author": {
                 "name": "Peter"
             },
-            "content": "yo everybody"
+            "content": "hello"
+        },
+        {
+            "author": {
+                "name": "Peter"
+            },
+            "content": "hello"
         },
         {
             "author": {
@@ -16,19 +22,7 @@
             "author": {
                 "name": "Peter"
             },
-            "content": "I love you Alice"
-        },
-        {
-            "author": {
-                "name": "Alice"
-            },
-            "content": "not me"
-        },
-        {
-            "author": {
-                "name": "Peter"
-            },
-            "content": ":'("
+            "content": "I want to fight"
         }
     ]
 }

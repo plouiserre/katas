@@ -39,10 +39,5 @@ class JsonWallRepository(WallRepository):
                 return wall_entity
             clean_txt = content.replace("\n","")
             datas = json.loads(clean_txt)
-            all_messages = []
-            for message in datas["messages"] : 
-                author = AuthorEntity(message["author"]["name"])
-                message_entity = MessageEntity(author, message["content"])
-                all_messages.append(message_entity)
-            wall_entity = WallEntity(all_messages)
+            wall_entity = WallEntity.create_to_entity_from_wall_json(datas)
         return wall_entity
