@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from SocialNetwork.domain.models.message import Message
+from SocialNetwork.domain.models.post import Post
 
 @dataclass(frozen=True)
 class Wall : 
-    messages : list[Message]
+    posts : list[Post]

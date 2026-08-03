@@ -2,35 +2,35 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from SocialNetwork.adapters.driven.entity.author_entity import AuthorEntity
-from SocialNetwork.adapters.driven.entity.message_entity import MessageEntity
+from SocialNetwork.adapters.driven.entity.post_entity import PostEntity
 from SocialNetwork.domain.models.wall import Wall
 
 @dataclass(frozen=True)
 class WallEntity : 
-    messages : list[MessageEntity]
+    posts : list[PostEntity]
 
     @staticmethod
     def create_to_entity(wall : Wall) -> WallEntity:
-        messages = []
-        for message in wall.messages : 
-            m = MessageEntity.create_to_entity(message)
-            messages.append(m)
-        return WallEntity(messages)
+        posts = []
+        for post in wall.posts : 
+            p = PostEntity.create_to_entity(post)
+            posts.append(p)
+        return WallEntity(posts)
 
     @staticmethod
     def create_to_domain(wall_entity : WallEntity) -> Wall : 
-        messages = []
-        for message in wall_entity.messages : 
-            m = MessageEntity.create_to_domain(message)
-            messages.append(m)
-        return Wall(messages)
+        posts = []
+        for post in wall_entity.posts : 
+            p = PostEntity.create_to_domain(post)
+            posts.append(p)
+        return Wall(posts)
 
     @staticmethod
     def create_to_entity_from_wall_json(datas):
-        all_messages = []
-        for message in datas["messages"] : 
-            author = AuthorEntity.create_to_entity_from_message_json(message)
-            message_entity = MessageEntity.create_to_entity_from_message_json(author, message)
-            all_messages.append(message_entity)
-        wall_entity = WallEntity(all_messages)
+        all_posts = []
+        for post in datas["posts"] : 
+            author = AuthorEntity.create_to_entity_from_message_json(post)
+            post_entity = PostEntity.create_to_entity_from_message_json(author, post)
+            all_posts.append(post_entity)
+        wall_entity = WallEntity(all_posts)
         return wall_entity

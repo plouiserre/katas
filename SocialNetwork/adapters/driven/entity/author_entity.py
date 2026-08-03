@@ -1,7 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 
-from SocialNetwork.domain.models.message import Author
+from SocialNetwork.domain.models.post import Author
 
 @dataclass(frozen=True)
 class AuthorEntity :

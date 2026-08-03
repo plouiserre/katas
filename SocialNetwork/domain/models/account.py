@@ -1,9 +1,9 @@
-from SocialNetwork.domain.models.message import Message
+# from SocialNetwork.domain.models.post import Post
 
-class Account :
-    def __init__(self, account_name, messages : list[Message]):
-        self.name = account_name
-        self.messages = messages
+# class Account :
+#     def __init__(self, account_name, posts : list[Post]):
+#         self.name = account_name
+#         self.messages = posts
 
-    def post_messages(self, message : Message): 
-        self.messages.append(message)
+#     def post_messages(self, message : Post): 
+#         self.messages.append(message)
