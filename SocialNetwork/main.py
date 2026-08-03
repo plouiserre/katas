@@ -7,8 +7,8 @@ from SocialNetwork.domain.search_service import SearchService
 from SocialNetwork.domain.wall_service import WallService
 
 app = cliApp()
-wall_repository = MemoryWallRepository()
-# wall_repository = JsonWallRepository()
+# wall_repository = MemoryWallRepository()
+wall_repository = JsonWallRepository()
 wall_service = WallService(wall_repository)
 search_service = SearchService(wall_service)
 app.run(search_service, wall_service)

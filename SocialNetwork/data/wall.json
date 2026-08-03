@@ -1,26 +1,34 @@
 {
-    "author": {
-        "name": "Peter"
-    },
-    "content_message": "yo"
-}{
-    "author": {
-        "name": "Alice"
-    },
-    "content_message": "Hello Peter"
-}{
-    "author": {
-        "name": "Peter"
-    },
-    "content_message": "How are you?"
-}{
-    "author": {
-        "name": "Alice"
-    },
-    "content_message": "good and you?"
-}{
-    "author": {
-        "name": "Peter"
-    },
-    "content_message": "good :)"
+    "messages": [
+        {
+            "author": {
+                "name": "Peter"
+            },
+            "content": "yo everybody"
+        },
+        {
+            "author": {
+                "name": "Alice"
+            },
+            "content": "hello Peter"
+        },
+        {
+            "author": {
+                "name": "Peter"
+            },
+            "content": "I love you Alice"
+        },
+        {
+            "author": {
+                "name": "Alice"
+            },
+            "content": "not me"
+        },
+        {
+            "author": {
+                "name": "Peter"
+            },
+            "content": ":'("
+        }
+    ]
 }
