@@ -18,3 +18,7 @@ class MessageEntity :
     def create_to_domain(message_entity : MessageEntity) -> Message : 
         author = AuthorEntity.create_to_domain(message_entity.author)
         return Message(author, message_entity.content)
+
+    @staticmethod
+    def create_to_entity_from_message_json(author, datas):
+        return MessageEntity(author, datas["content"])
