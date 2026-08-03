@@ -1,12 +1,11 @@
 from SocialNetwork.domain.search_service import SearchService
-from SocialNetwork.domain.wall import Wall
 from SocialNetwork.adapters.driving.controllers.context.wall_context import get_wall_context
 
 #TMP because I need it until I develop the data part
 class SearchContext : 
     def __init__(self):
         wall_context  = get_wall_context()
-        self.search_service = SearchService(wall_context.wall)
+        self.search_service = SearchService(wall_context.get_wall_service())
 
     def get_search_service(self) : 
         return self.search_service

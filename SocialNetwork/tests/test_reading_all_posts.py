@@ -35,7 +35,7 @@ class ReadingDriver(DriverTest):
 
     def read_all_messages(self): 
         messages_assert = {}
-        messages = self.wall.get_all_messages_from_all_accounts()
+        messages = self.wall_service.get_all_messages_from_all_accounts()
         for message in messages : 
             if message.author.name not in messages_assert : 
                 messages_assert[message.author.name] = []

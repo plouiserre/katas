@@ -27,7 +27,7 @@ def test_three_friends_post():
 class SearchDriver(DriverTest): 
     def __init__(self):
         super().__init__()
-        self.search_service = SearchService(self.wall)
+        self.search_service = SearchService(self.wall_service)
 
     def post_message(self, account_name :str , message : str): 
         return super().post_message(account_name, message)

@@ -5,5 +5,6 @@ class WallRepository(ABC) :
     def save_posts():
         pass
 
-    def get_all_posts_from_wall(): 
+    @abstractmethod
+    def get_wall():
         pass
