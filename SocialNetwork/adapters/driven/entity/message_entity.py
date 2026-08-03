@@ -1,3 +1,4 @@
+from __future__ import annotations
 from dataclasses import dataclass
 
 from SocialNetwork.adapters.driven.entity.author_entity import AuthorEntity
@@ -9,6 +10,11 @@ class MessageEntity :
     content : str
 
     @staticmethod
-    def create_from_domain(message : Message):
-        author = AuthorEntity.create_from_domain(message.author)
+    def create_to_entity(message : Message) -> MessageEntity:
+        author = AuthorEntity.create_to_entity(message.author)
         return MessageEntity(author, message.content_message)
+
+    @staticmethod 
+    def create_to_domain(message_entity : MessageEntity) -> Message : 
+        author = AuthorEntity.create_to_domain(message_entity.author)
+        return Message(author, message_entity.content)
