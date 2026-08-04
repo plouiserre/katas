@@ -1,0 +1,22 @@
+{
+    "posts": [
+        {
+            "author": {
+                "name": "Peter"
+            },
+            "content": "Hello everyone"
+        },
+        {
+            "author": {
+                "name": "Alice"
+            },
+            "content": "Hello Peter"
+        },
+        {
+            "author": {
+                "name": "Peter"
+            },
+            "content": "Nice to meeting you"
+        }
+    ]
+}
