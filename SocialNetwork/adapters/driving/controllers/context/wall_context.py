@@ -1,7 +1,6 @@
 from SocialNetwork.domain.wall_service import WallService
 from SocialNetwork.adapters.driven.wall.memory_wall_repository import MemoryWallRepository
 
-#TMP because I need it until I develop the data part
 class WallContext : 
     def __init__(self):
         wall_repository = MemoryWallRepository()
