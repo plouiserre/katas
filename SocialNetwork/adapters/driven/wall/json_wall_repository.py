@@ -22,7 +22,7 @@ class JsonWallRepository(WallRepository):
         wall_json = ""
         wall_entity_existing = self.__get_wall_entity()
         if wall_entity_existing != None : 
-            wall_entity_existing.messages.append(PostEntity.create_to_entity(post))
+            wall_entity_existing.posts.append(PostEntity.create_to_entity(post))
             wall_json = json.dumps(wall_entity_existing.__dict__, default=lambda o: o.__dict__, indent=4 )
         else : 
             new_wall = WallEntity([PostEntity.create_to_entity(post)])

@@ -1,9 +1,9 @@
 from SocialNetwork.domain.wall_service import WallService
-from SocialNetwork.adapters.driven.wall.memory_wall_repository import MemoryWallRepository
+from SocialNetwork.adapters.driven.wall.json_wall_repository import JsonWallRepository
 
 class WallContext : 
     def __init__(self):
-        wall_repository = MemoryWallRepository()
+        wall_repository = JsonWallRepository()
         self.wall_service = WallService(wall_repository)
 
     def get_wall_service(self): 
