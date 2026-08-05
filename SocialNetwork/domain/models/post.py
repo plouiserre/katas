@@ -1,3 +1,4 @@
+import datetime
 from SocialNetwork.domain.models.author import Author
 
 from dataclasses import dataclass
@@ -6,3 +7,4 @@ from dataclasses import dataclass
 class Post : 
     author : Author
     content_message : str
+    date_posting : datetime

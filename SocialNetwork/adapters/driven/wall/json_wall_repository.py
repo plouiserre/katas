@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 
 from SocialNetwork.adapters.driven.entity.post_entity import PostEntity
@@ -23,10 +24,10 @@ class JsonWallRepository(WallRepository):
         wall_entity_existing = self.__get_wall_entity()
         if wall_entity_existing != None : 
             wall_entity_existing.posts.append(PostEntity.create_to_entity(post))
-            wall_json = json.dumps(wall_entity_existing.__dict__, default=lambda o: o.__dict__, indent=4 )
+            wall_json = json.dumps(wall_entity_existing.__dict__, default=lambda o: o.isoformat() if isinstance(o, datetime) else o.__dict__, indent=4 ) 
         else : 
             new_wall = WallEntity([PostEntity.create_to_entity(post)])
-            wall_json = json.dumps(new_wall.__dict__, default=lambda o: o.__dict__, indent=4 )
+            wall_json = json.dumps(new_wall.__dict__, default=lambda o: o.isoformat() if isinstance(o, datetime) else o.__dict__, indent=4 )  
         with open(self.path, "w") as file :
             file.write(wall_json)
 
