@@ -12,5 +12,5 @@ class PostResponse :
 
     @staticmethod
     def to_response(post : Post):
-        date = post.strftime.date_posting("%d/%m/%y %H:%M:%S")
+        date = post.date_posting.strftime("%d/%m/%y %H:%M:%S")
         return PostResponse(AuthorResponse.to_response(post.author), post.content_message, date)
