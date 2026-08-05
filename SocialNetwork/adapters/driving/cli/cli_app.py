@@ -1,5 +1,5 @@
 from SocialNetwork.adapters.driving.cli.cli_command import CliCommand
-from SocialNetwork.adapters.driving.cli.cli_get_all_messages import CliGetAllMessages
+from SocialNetwork.adapters.driving.cli.cli_get_all_posts import CliGetAllPosts
 from SocialNetwork.adapters.driving.cli.cli_search import CliSearch
 from SocialNetwork.domain.search_service import SearchServicePort
 from SocialNetwork.domain.wall_service import WallPort
@@ -19,8 +19,8 @@ class cliApp :
                 cli_search = CliSearch(arguments, search)
                 cli_search.run_search_command()
             elif command == "get_all_messages" : 
-                cli_get_all_messages = CliGetAllMessages(wall)
-                cli_get_all_messages.run_get_all_messages()
+                cli_get_all_posts = CliGetAllPosts(wall)
+                cli_get_all_posts.run_get_all_posts()
             elif command == "posts_messages" : 
                 wall.post_messages(arguments[0], arguments[1])
                 print("message posté")

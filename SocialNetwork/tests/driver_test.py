@@ -1,15 +1,19 @@
+import datetime
+
 from abc import ABC, abstractmethod
 
 from SocialNetwork.adapters.driven.wall.memory_wall_repository import MemoryWallRepository
 from SocialNetwork.domain.models.author import Author
 from SocialNetwork.domain.models.post import Post
 from SocialNetwork.domain.wall_service import WallService
+from SocialNetwork.tests.fake_clock import FakeClock
 
 
 class DriverTest(ABC):
-    def __init__(self):
+    def __init__(self, start_date):
             wall_repository = MemoryWallRepository()
-            self.wall_service = WallService(wall_repository)
+            self.clock = FakeClock(start_date)
+            self.wall_service = WallService(wall_repository, self.clock)
     
     @abstractmethod 
     def add_posts(self, account_name, message):       
@@ -34,30 +38,20 @@ class DriverTest(ABC):
         return self
 
     @abstractmethod
-    def assert_tests_with_peter_alone(self, all_messages) :
-        peter_posts = all_messages["Peter"]
-        assert(len(all_messages) == 1)
+    def assert_tests_with_peter_alone(self, all_posts) :
+        assert(len(all_posts) == 4)
 
-        assert(len(peter_posts) == 4)
-
-        assert(peter_posts[0] == Post(Author("Peter"),"Hello every body"))
-        assert(peter_posts[1] == Post(Author("Peter"),"Some one is here"))
-        assert(peter_posts[2] == Post(Author("Peter"),"I will enjoy this meal!!!"))
-        assert(peter_posts[3] == Post(Author("Peter"),"Why my soccer team is bad?"))
+        assert(all_posts[0] == Post(Author("Peter"),"Hello every body", datetime.datetime(2026, 8, 4, 17, 12, 36)))
+        assert(all_posts[1] == Post(Author("Peter"),"Some one is here", datetime.datetime(2026, 8, 4, 17, 13, 36)))
+        assert(all_posts[2] == Post(Author("Peter"),"I will enjoy this meal!!!", datetime.datetime(2026, 8, 4, 17, 15, 36)))
+        assert(all_posts[3] == Post(Author("Peter"),"Why my soccer team is bad?", datetime.datetime(2026, 8, 4, 17, 18, 36)))
 
     @abstractmethod
     def assert_tests_with_harry_ron_hermione(self, all_posts) : 
-        all_posts_harry = all_posts["Harry"]
-        all_posts_ron = all_posts["Ron"]
-        all_posts_hermione = all_posts["Hermione"]
+        assert(len(all_posts) == 5)
     
-        assert(len(all_posts) == 3)
-    
-        assert(len(all_posts_harry) == 2)
-        assert(all_posts_harry[0] == Post(Author("Harry"),"Some one want to go eat some Pizza?"))
-        assert(all_posts_harry[1] == Post(Author("Harry"),"Hermione be nice we do not stop to study"))
-        assert(len(all_posts_ron) == 2)
-        assert(all_posts_ron[0] == Post(Author("Ron"),"Yes me!!!"))
-        assert(all_posts_ron[1] == Post(Author("Ron"),"Stop to be boring!!!!"))
-        assert(len(all_posts_hermione) == 1)
-        assert(all_posts_hermione[0] == Post(Author("Hermione"),"Harry, Ron go back to study for the exams!!!!"))
+        assert(all_posts[0] == Post(Author("Harry"),"Some one want to go eat some Pizza?", datetime.datetime(2026, 8, 4, 17, 12, 36)))
+        assert(all_posts[1] == Post(Author("Ron"),"Yes me!!!", datetime.datetime(2026, 8, 4, 17, 13, 36)))
+        assert(all_posts[2] == Post(Author("Hermione"),"Harry, Ron go back to study for the exams!!!!", datetime.datetime(2026, 8, 4, 17, 15, 36)))
+        assert(all_posts[3] == Post(Author("Harry"),"Hermione be nice we do not stop to study", datetime.datetime(2026, 8, 4, 17, 18, 36)))
+        assert(all_posts[4] == Post(Author("Ron"),"Stop to be boring!!!!", datetime.datetime(2026, 8, 4, 17, 22, 36)))        
