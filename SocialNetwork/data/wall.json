@@ -34,6 +34,13 @@
             },
             "content": "Yes why?",
             "date_posting": "2026-08-05T11:49:20.737883"
+        },
+        {
+            "author": {
+                "name": "Alice"
+            },
+            "content": "Because I like you",
+            "date_posting": "2026-08-05T14:37:56.565010"
         }
     ]
 }
