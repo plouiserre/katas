@@ -1,6 +1,6 @@
 import datetime
 
-from SocialNetwork.domain.models.author import Author
+from SocialNetwork.domain.models.account import Account
 from SocialNetwork.domain.models.post import Post
 from SocialNetwork.domain.search_service import SearchService
 from SocialNetwork.tests.driver_test import DriverTest
@@ -23,8 +23,8 @@ def test_three_friends_post_search_harry():
                     .add_posts_harry_ron_hermione()
                     .search_post("Harry"))
     
-    assert(all_messages_harry[0] == Post(Author("Harry" , []),"Some one want to go eat some Pizza?", datetime.datetime(2026, 8, 4, 17, 12, 36)))
-    assert(all_messages_harry[1] == Post(Author("Harry" , []),"Hermione be nice we do not stop to study", datetime.datetime(2026, 8, 4, 17, 18, 36))) 
+    assert(all_messages_harry[0] == Post(Account("Harry" , []),"Some one want to go eat some Pizza?", datetime.datetime(2026, 8, 4, 17, 12, 36)))
+    assert(all_messages_harry[1] == Post(Account("Harry" , []),"Hermione be nice we do not stop to study", datetime.datetime(2026, 8, 4, 17, 18, 36))) 
 
 def test_three_friends_post_search_ron():
     search_driver = SearchDriver(start_date)
@@ -33,8 +33,8 @@ def test_three_friends_post_search_ron():
                     .add_posts_harry_ron_hermione()
                     .search_post("Ron"))
     
-    assert(all_messages_ron[0] == Post(Author("Ron" , []),"Yes me!!!", datetime.datetime(2026, 8, 4, 17, 13, 36)))
-    assert(all_messages_ron[1] == Post(Author("Ron" , []),"Stop to be boring!!!!", datetime.datetime(2026, 8, 4, 17, 22, 36)))        
+    assert(all_messages_ron[0] == Post(Account("Ron" , []),"Yes me!!!", datetime.datetime(2026, 8, 4, 17, 13, 36)))
+    assert(all_messages_ron[1] == Post(Account("Ron" , []),"Stop to be boring!!!!", datetime.datetime(2026, 8, 4, 17, 22, 36)))        
 
 def test_three_friends_post_search_hermione():
     search_driver = SearchDriver(start_date)
@@ -43,7 +43,7 @@ def test_three_friends_post_search_hermione():
                     .add_posts_harry_ron_hermione()
                     .search_post("Hermione"))
     
-    assert(all_messages_hermione[0] == Post(Author("Hermione" , []),"Harry, Ron go back to study for the exams!!!!", datetime.datetime(2026, 8, 4, 17, 15, 36)))
+    assert(all_messages_hermione[0] == Post(Account("Hermione" , []),"Harry, Ron go back to study for the exams!!!!", datetime.datetime(2026, 8, 4, 17, 15, 36)))
     
 class SearchDriver(DriverTest): 
     def __init__(self, start_date):

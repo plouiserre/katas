@@ -2,26 +2,26 @@ from __future__ import annotations
 import datetime
 from dataclasses import dataclass
 
-from SocialNetwork.adapters.driven.entity.author_entity import AuthorEntity
+from SocialNetwork.adapters.driven.entity.account_entity import AccountEntity
 from SocialNetwork.domain.models.post import Post
 
 @dataclass(frozen=True)
 class PostEntity :
-    author : AuthorEntity
+    account : AccountEntity
     content : str
     date_posting : datetime
 
     @staticmethod
     def create_to_entity(post : Post) -> PostEntity:
-        author = AuthorEntity.create_to_entity(post.author)
-        return PostEntity(author, post.content_message, post.date_posting)
+        account = AccountEntity.create_to_entity(post.account)
+        return PostEntity(account, post.content_message, post.date_posting)
 
     @staticmethod 
     def create_to_domain(post_entity : PostEntity) -> Post : 
-        author = AuthorEntity.create_to_domain(post_entity.author)
-        return Post(author, post_entity.content, post_entity.date_posting)
+        account = AccountEntity.create_to_domain(post_entity.account)
+        return Post(account, post_entity.content, post_entity.date_posting)
 
     @staticmethod
-    def create_to_entity_from_message_json(author, datas):
+    def create_to_entity_from_message_json(account, datas):
         date_posting = datetime.datetime.fromisoformat(datas["date_posting"])
-        return PostEntity(author, datas["content"], date_posting)
+        return PostEntity(account, datas["content"], date_posting)

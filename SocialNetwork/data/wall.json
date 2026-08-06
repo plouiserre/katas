@@ -1,60 +1,39 @@
 {
     "posts": [
         {
-            "author": {
+            "account": {
                 "name": "Peter"
             },
-            "content": "yo",
-            "date_posting": "2026-08-05T10:54:59.374329"
+            "content": "Hello everybody",
+            "date_posting": "2026-08-06T16:17:30.843241"
         },
         {
-            "author": {
+            "account": {
                 "name": "Alice"
             },
-            "content": "yo Peter",
-            "date_posting": "2026-08-05T10:57:35.758129"
+            "content": "Hello Peter",
+            "date_posting": "2026-08-06T16:17:53.644474"
         },
         {
-            "author": {
+            "account": {
                 "name": "Peter"
             },
-            "content": "Alice good to seeing you",
-            "date_posting": "2026-08-05T10:57:50.990132"
+            "content": "Happy to see you",
+            "date_posting": "2026-08-06T16:18:07.448162"
         },
         {
-            "author": {
-                "name": "Alice"
-            },
-            "content": "Are you free now?",
-            "date_posting": "2026-08-05T11:49:07.633103"
-        },
-        {
-            "author": {
-                "name": "Peter"
-            },
-            "content": "Yes why?",
-            "date_posting": "2026-08-05T11:49:20.737883"
-        },
-        {
-            "author": {
-                "name": "Alice"
-            },
-            "content": "Because I like you",
-            "date_posting": "2026-08-05T14:37:56.565010"
-        },
-        {
-            "author": {
+            "account": {
                 "name": "John"
             },
-            "content": "And me?",
-            "date_posting": "2026-08-05T14:47:41.702549"
+            "content": "Hello Peter and Alice",
+            "date_posting": "2026-08-06T16:18:53.190908"
         },
         {
-            "author": {
+            "account": {
                 "name": "Alice"
             },
-            "content": "John it is not about you!!!!",
-            "date_posting": "2026-08-05T14:56:52.187373"
+            "content": "Hi John",
+            "date_posting": "2026-08-06T16:21:35.513355"
         }
     ]
 }

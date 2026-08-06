@@ -1,10 +1,10 @@
 import datetime
-from SocialNetwork.domain.models.author import Author
+from SocialNetwork.domain.models.account import Account
 
 from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class Post : 
-    author : Author
+    account : Account
     content_message : str
     date_posting : datetime
