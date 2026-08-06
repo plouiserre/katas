@@ -19,7 +19,7 @@ class PostEntity :
     @staticmethod 
     def create_to_domain(post_entity : PostEntity) -> Post : 
         account = AccountEntity.create_to_domain(post_entity.account)
-        return Post(account, post_entity.content, post_entity.date_posting)
+        return Post.create_post(account, post_entity.content, post_entity.date_posting)
 
     @staticmethod
     def create_to_entity_from_message_json(account, datas):
