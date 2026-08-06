@@ -13,7 +13,7 @@ class PostEntity :
 
     @staticmethod
     def create_to_entity(post : Post) -> PostEntity:
-        author = AuthorEntity.create_to_entity(post.author)
+        author = AuthorEntity.create_to_entity(post.account)
         return PostEntity(author, post.content_message, post.date_posting)
 
     @staticmethod 

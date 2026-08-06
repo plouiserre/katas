@@ -1,5 +1,5 @@
 from __future__ import annotations
-from SocialNetwork.adapters.driving.response.author_response import AuthorResponse
+from SocialNetwork.adapters.driving.response.account_response import AuthorResponse
 from SocialNetwork.domain.models.post import Post
 
 from dataclasses import dataclass

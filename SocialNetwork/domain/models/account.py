@@ -2,6 +2,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 @dataclass(frozen=True)
-class Author : 
+class Account : 
     name : str
-    following_persons : list[Author]
+    following_accounts : list[Account]
