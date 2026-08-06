@@ -1,14 +1,14 @@
 from SocialNetwork.domain.following_service import FollowingService
 from SocialNetwork.domain.models.author import Author
 
-def test_1():
+def test_peter_follows_alice():
     following_persons = (FollowingDriver("Peter")
                          .follows_someone("Alice")
                          .see_following_persons())
     assert(len(following_persons) == 1)
     assert(following_persons[0] == Author("Alice", []))
 
-def test_2():
+def test_alice_follows_peter_and_luke():
     following_persons = (FollowingDriver("Alice")
                          .follows_someone("Peter")
                          .follows_someone("Luke")
