@@ -5,3 +5,7 @@ from dataclasses import dataclass
 class Account : 
     name : str
     following_accounts : list[Account]
+
+    @staticmethod
+    def create_account(account_name): 
+        return Account(account_name, [])

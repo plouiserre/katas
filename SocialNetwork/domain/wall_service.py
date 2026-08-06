@@ -11,8 +11,8 @@ class WallService(WallPort) :
         self.clock = clock
 
     def post_messages(self, account_name, content_post): 
-        account = Account(account_name, [])
-        post = Post(account, content_post, self.clock.now())
+        account = Account.create_account(account_name)
+        post = Post.create_post(account, content_post, self.clock.now())
         self.wall_repository.save_posts(post)
         return self
 
@@ -21,6 +21,6 @@ class WallService(WallPort) :
         wall = self.wall_repository.get_wall()
         for post_domain in wall.posts : 
             account = Account (post_domain.account.name, [])
-            post = Post(account, post_domain.content_message, post_domain.date_posting)
+            post = Post.create_post(account, post_domain.content_message, post_domain.date_posting)
             messages.append(post)
         return messages

@@ -41,17 +41,17 @@ class DriverTest(ABC):
     def assert_tests_with_peter_alone(self, all_posts) :
         assert(len(all_posts) == 4)
 
-        assert(all_posts[0] == Post(Account("Peter" , []),"Hello every body", datetime.datetime(2026, 8, 4, 17, 12, 36)))
-        assert(all_posts[1] == Post(Account("Peter" , []),"Some one is here", datetime.datetime(2026, 8, 4, 17, 13, 36)))
-        assert(all_posts[2] == Post(Account("Peter" , []),"I will enjoy this meal!!!", datetime.datetime(2026, 8, 4, 17, 15, 36)))
-        assert(all_posts[3] == Post(Account("Peter" , []),"Why my soccer team is bad?", datetime.datetime(2026, 8, 4, 17, 18, 36)))
+        assert(all_posts[0] == Post.create_post(Account.create_account("Peter"),"Hello every body", datetime.datetime(2026, 8, 4, 17, 12, 36)))
+        assert(all_posts[1] == Post.create_post(Account.create_account("Peter"),"Some one is here", datetime.datetime(2026, 8, 4, 17, 13, 36)))
+        assert(all_posts[2] == Post.create_post(Account.create_account("Peter"),"I will enjoy this meal!!!", datetime.datetime(2026, 8, 4, 17, 15, 36)))
+        assert(all_posts[3] == Post.create_post(Account.create_account("Peter"),"Why my soccer team is bad?", datetime.datetime(2026, 8, 4, 17, 18, 36)))
 
     @abstractmethod
     def assert_tests_with_harry_ron_hermione(self, all_posts) : 
         assert(len(all_posts) == 5)
     
-        assert(all_posts[0] == Post(Account("Harry" , []),"Some one want to go eat some Pizza?", datetime.datetime(2026, 8, 4, 17, 12, 36)))
-        assert(all_posts[1] == Post(Account("Ron" , []),"Yes me!!!", datetime.datetime(2026, 8, 4, 17, 13, 36)))
-        assert(all_posts[2] == Post(Account("Hermione" , []),"Harry, Ron go back to study for the exams!!!!", datetime.datetime(2026, 8, 4, 17, 15, 36)))
-        assert(all_posts[3] == Post(Account("Harry" , []),"Hermione be nice we do not stop to study", datetime.datetime(2026, 8, 4, 17, 18, 36)))
-        assert(all_posts[4] == Post(Account("Ron" , []),"Stop to be boring!!!!", datetime.datetime(2026, 8, 4, 17, 22, 36)))        
+        assert(all_posts[0] == Post.create_post(Account.create_account("Harry"),"Some one want to go eat some Pizza?", datetime.datetime(2026, 8, 4, 17, 12, 36)))
+        assert(all_posts[1] == Post.create_post(Account.create_account("Ron"),"Yes me!!!", datetime.datetime(2026, 8, 4, 17, 13, 36)))
+        assert(all_posts[2] == Post.create_post(Account.create_account("Hermione"),"Harry, Ron go back to study for the exams!!!!", datetime.datetime(2026, 8, 4, 17, 15, 36)))
+        assert(all_posts[3] == Post.create_post(Account.create_account("Harry"),"Hermione be nice we do not stop to study", datetime.datetime(2026, 8, 4, 17, 18, 36)))
+        assert(all_posts[4] == Post.create_post(Account.create_account("Ron"),"Stop to be boring!!!!", datetime.datetime(2026, 8, 4, 17, 22, 36)))        

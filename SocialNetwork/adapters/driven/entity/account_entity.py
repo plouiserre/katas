@@ -13,7 +13,7 @@ class AccountEntity :
 
     @staticmethod
     def create_to_domain(account_entity : AccountEntity):
-        return Account(account_entity.name, [])
+        return Account.create_account(account_entity.name)
 
     @staticmethod
     def create_to_entity_from_message_json(datas):
