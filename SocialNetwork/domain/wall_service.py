@@ -11,7 +11,7 @@ class WallService(WallPort) :
         self.clock = clock
 
     def post_messages(self, author_name, content_post): 
-        author = Author(author_name)
+        author = Author(author_name, [])
         post = Post(author, content_post, self.clock.now())
         self.wall_repository.save_posts(post)
         return self
@@ -20,7 +20,7 @@ class WallService(WallPort) :
         messages = []
         wall = self.wall_repository.get_wall()
         for post_entity in wall.posts : 
-            author = Author(post_entity.author.name)
+            author = Author(post_entity.author.name, [])
             post = Post(author, post_entity.content_message, post_entity.date_posting)
             messages.append(post)
         return messages
