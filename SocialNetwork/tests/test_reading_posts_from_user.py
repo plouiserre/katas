@@ -5,9 +5,9 @@ from SocialNetwork.domain.models.post import Post
 from SocialNetwork.domain.search import Search
 
 def test_get_messages_from_peter_unique_user():
-    all_accounts = [Post(Account("Peter" , []), "Hello every body", datetime.datetime(2026,8,4,17,12,36)), Post(Account("Peter" , []), "Some one is here", datetime.datetime(2026,8,4,17,13,36)),
-                    Post(Account("Peter" , []),  "I will enjoy this meal!!!", datetime.datetime(2026,8,4,17,14,36)), 
-                    Post(Account("Peter" , []), "Why my soccer team is bad?", datetime.datetime(2026,8,4,17,15,36))]
+    all_accounts = [Post(Account.create_account("Peter"), "Hello every body", datetime.datetime(2026,8,4,17,12,36)), Post(Account.create_account("Peter"), "Some one is here", datetime.datetime(2026,8,4,17,13,36)),
+                    Post(Account.create_account("Peter"),  "I will enjoy this meal!!!", datetime.datetime(2026,8,4,17,14,36)), 
+                    Post(Account.create_account("Peter"), "Why my soccer team is bad?", datetime.datetime(2026,8,4,17,15,36))]
     reading_driver = ReadingDriver()
 
     all_posts_peter = reading_driver.read_all_messages_from_specific_user(all_accounts, "Peter")
@@ -18,11 +18,11 @@ def test_get_messages_from_peter_unique_user():
     assert(all_posts_peter[3].content_message == "Why my soccer team is bad?")
 
 def test_get_messages_from_three_friends_separate():
-    all_accounts = [Post(Account("Harry" , []), "Some one want to go eat some Pizza?", datetime.datetime(2026,8,4,17,12,36)), 
-                    Post(Account("Harry" , []),"Hermione be nice we do not stop to study", datetime.datetime(2026,8,4,17,13,36)), 
-                    Post(Account("Ron" , []), "Yes me!!!", datetime.datetime(2026,8,4,17,14,36)), 
-                    Post(Account("Ron" , []),"Stop to be boring!!!!", datetime.datetime(2026,8,4,17,15,36)), 
-                    Post(Account("Hermione" , []),"Harry, Ron go back to study for the exams!!!!", datetime.datetime(2026,8,4,17,16,36))]
+    all_accounts = [Post(Account.create_account("Harry"), "Some one want to go eat some Pizza?", datetime.datetime(2026,8,4,17,12,36)), 
+                    Post(Account.create_account("Harry"),"Hermione be nice we do not stop to study", datetime.datetime(2026,8,4,17,13,36)), 
+                    Post(Account.create_account("Ron"), "Yes me!!!", datetime.datetime(2026,8,4,17,14,36)), 
+                    Post(Account.create_account("Ron"),"Stop to be boring!!!!", datetime.datetime(2026,8,4,17,15,36)), 
+                    Post(Account.create_account("Hermione"),"Harry, Ron go back to study for the exams!!!!", datetime.datetime(2026,8,4,17,16,36))]
     reading_driver = ReadingDriver()
 
     all_posts_harry = reading_driver.read_all_messages_from_specific_user(all_accounts, "Harry")
