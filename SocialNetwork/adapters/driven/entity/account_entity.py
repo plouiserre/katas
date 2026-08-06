@@ -8,13 +8,13 @@ class AccountEntity :
     name : str
 
     @staticmethod
-    def create_to_entity(author : Account):
-        return AccountEntity(author.name)
+    def create_to_entity(account : Account):
+        return AccountEntity(account.name)
 
     @staticmethod
-    def create_to_domain(author_entity : AccountEntity):
-        return Account(author_entity.name, [])
+    def create_to_domain(account_entity : AccountEntity):
+        return Account(account_entity.name, [])
 
     @staticmethod
     def create_to_entity_from_message_json(datas):
-        return AccountEntity(datas["author"]["name"])
+        return AccountEntity(datas["account"]["name"])

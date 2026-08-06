@@ -29,8 +29,8 @@ class WallEntity :
     def create_to_entity_from_wall_json(datas):
         all_posts = []
         for post in datas["posts"] : 
-            author = AccountEntity.create_to_entity_from_message_json(post)
-            post_entity = PostEntity.create_to_entity_from_message_json(author, post)
+            account = AccountEntity.create_to_entity_from_message_json(post)
+            post_entity = PostEntity.create_to_entity_from_message_json(account, post)
             all_posts.append(post_entity)
         wall_entity = WallEntity(all_posts)
         return wall_entity

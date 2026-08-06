@@ -19,13 +19,13 @@ def test_alice_follows_peter_and_luke():
 
 
 class FollowingDriver(): 
-    def __init__(self, main_author_name):
-        self.main_author = Account(main_author_name, [])
+    def __init__(self, main_account_name):
+        self.main_account = Account(main_account_name, [])
         self.following_service = FollowingService()
 
     def follows_someone(self, account_to_follow_name):
-        self.following_service.account_follows_some_one(self.main_author, Account(account_to_follow_name, []))
+        self.following_service.account_follows_some_one(self.main_account, Account(account_to_follow_name, []))
         return self
 
     def see_following_persons(self): 
-        return self.following_service.see_followers_from_account(self.main_author)
+        return self.following_service.see_followers_from_account(self.main_account)
