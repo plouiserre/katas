@@ -1,6 +1,6 @@
 from SocialNetwork.domain.account_service import AccountService
 
-def test_1(): 
+def test_search_alice_account(): 
     account_search = (AccountReadingDriver()
                         .create_account("Peter")
                         .create_account("Paul")
