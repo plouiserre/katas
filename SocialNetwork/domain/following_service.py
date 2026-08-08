@@ -1,6 +1,7 @@
 from SocialNetwork.domain.models.account import Account
+from SocialNetwork.domain.ports.inbound.following_port import FollowingPort
 
-class FollowingService : 
+class FollowingService(FollowingPort) : 
     def __init__(self):
         pass
 
