@@ -1,4 +1,6 @@
-from SocialNetwork.domain.following import FollowingService
+import pytest
+
+from SocialNetwork.domain.following.following import Following
 from SocialNetwork.domain.models.account import Account
 
 def test_peter_follows_alice():
@@ -24,6 +26,13 @@ def test_alice_follows_peter_and_luke():
     assert(following_persons[1] == Account.create_account("Luke"))
 
 #try to follow someone unknown
+def test_add_following_someone_non_existent():
+    with pytest.raises(Exception) :
+        (FollowingDriver("Alice")
+                .add_account("Peter")
+                .add_account("Luke")
+                .add_account("Mary")
+                .follows_someone_non_existent("Paul"))
 
 
 class FollowingDriver(): 
@@ -38,9 +47,16 @@ class FollowingDriver():
     def follows_someone(self, account_to_follow_name):
         all_accounts = self.others_accounts
         all_accounts.append(self.main_account)
-        self.following_service = FollowingService(all_accounts)
+        self.following_service = Following(all_accounts)
         self.following_service.account_follows_some_one(self.main_account, account_to_follow_name)
         return self
+
+    def follows_someone_non_existent(self, account_to_follow_name):
+            all_accounts = self.others_accounts
+            all_accounts.append(self.main_account)
+            self.following_service = Following(all_accounts)
+            self.following_service.account_follows_some_one(self.main_account, account_to_follow_name)
+            return self
 
     def see_following_persons(self): 
         return self.following_service.see_followers_from_account(self.main_account)
