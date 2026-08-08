@@ -1,7 +1,7 @@
 from SocialNetwork.domain.account_service import AccountService
 
 def test_create_harry_account(): 
-    all_accounts_created = (AccountDriver()
+    all_accounts_created = (AccountCreatingDriver()
                             .create_account("Harry")
                             .get_all_accounts_created())                            
     assert(1 == len(all_accounts_created))
@@ -9,7 +9,7 @@ def test_create_harry_account():
     assert([] == all_accounts_created[0].following_accounts)
 
 def test_create_harry_ron_accounts(): 
-    all_accounts_created = (AccountDriver()
+    all_accounts_created = (AccountCreatingDriver()
                             .create_account("Harry")
                             .create_account("Ron")
                             .get_all_accounts_created())                            
@@ -19,7 +19,7 @@ def test_create_harry_ron_accounts():
     assert("Ron" == all_accounts_created[1].name)
     assert([] == all_accounts_created[1].following_accounts)
 
-class AccountDriver: 
+class AccountCreatingDriver: 
     def __init__(self):
         self.account_service = AccountService() 
 
