@@ -20,10 +20,10 @@ class BirthdayCollaboratorsDriver :
         self.contacts = []
         self.template = None
         self.date_to_study = ""
+        self.contact_manager = ContactManagerFake()
 
     def add_contacts(self, contacts_to_add : list[Contact]):
-        for contact in contacts_to_add :
-            self.contacts.append(contact)
+        self.contact_manager.add_contacts(contacts_to_add)
         return self
 
     def add_template_message(self, message, str_to_replace) : 
@@ -35,7 +35,6 @@ class BirthdayCollaboratorsDriver :
         return self
 
     def birthday_messages_send(self) -> list[str]:
-        contact_manager = ContactManagerFake(self.contacts)
         template_manager = TemplateManagerFake(self.template)
-        birthday_collaborators = BirthdayCollaborators(contact_manager, template_manager)
+        birthday_collaborators = BirthdayCollaborators(self.contact_manager, template_manager)
         return birthday_collaborators.GreetingsBirthday(self.date_to_study)

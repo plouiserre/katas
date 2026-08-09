@@ -87,10 +87,10 @@ class AddressBookDriver :
         self.address_book = None 
         self.contacts = []
         self.date_to_study = ""
+        self.contact_manager = ContactManagerFake()
 
     def add_contacts(self, contacts_to_add : list[Contact]):
-        for contact in contacts_to_add :
-            self.contacts.append(contact)
+        self.contact_manager.add_contacts(contacts_to_add)
         return self
 
     def add_date_to_study(self, date_to_study : str): 
@@ -98,6 +98,5 @@ class AddressBookDriver :
         return self
     
     def search_birthdays_persons(self) -> list[Contact]: 
-        contact_manager = ContactManagerFake(self.contacts)
-        address_book = AddressBook(contact_manager)
+        address_book = AddressBook(self.contact_manager)
         return address_book.search_birthday_persons_in_this_date(self.date_to_study)
