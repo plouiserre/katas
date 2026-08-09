@@ -11,5 +11,8 @@ class ContactManagerFake(ContactManager):
             self.all_contacts.append(contact)
         return self
 
+    def add_contact(self, contact_to_add : Contact): 
+        self.all_contacts.append(contact_to_add)
+
     def get_all_contacts(self):
         return self.all_contacts
