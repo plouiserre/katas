@@ -9,7 +9,7 @@ class BirthdayCollaborators :
 
     def GreetingsBirthday(self, date_str): 
         address_book = AddressBook(self.contact_manager)
-        persons_to_greet = address_book.search_birthday_persons_in_this_date(date_str)
+        persons_to_greet = address_book.search_birthday_persons_with_this_date(date_str)
 
         template = self.template_manager.get_template_message()
 

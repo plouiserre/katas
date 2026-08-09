@@ -9,7 +9,7 @@ from SocialNetwork.domain.wall_service import WallService
 from SocialNetwork.tests.fake_clock import FakeClock
 
 
-class DriverTest(ABC):
+class DriverTest222(ABC):
     def __init__(self, start_date):
             wall_repository = MemoryWallRepository()
             self.clock = FakeClock(start_date)
