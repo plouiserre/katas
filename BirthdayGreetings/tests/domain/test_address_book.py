@@ -114,4 +114,4 @@ class AddressBookDriver :
     
     def search_birthdays_persons(self) -> list[Contact]: 
         address_book = AddressBook(self.contact_manager)
-        return address_book.search_birthday_persons_in_this_date(self.date_to_study)
+        return address_book.search_birthday_persons_with_this_date(self.date_to_study)
