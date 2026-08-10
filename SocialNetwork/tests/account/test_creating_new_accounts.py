@@ -1,4 +1,4 @@
-from SocialNetwork.domain.account_service import AccountService
+from SocialNetwork.domain.account.account_service import AccountService
 
 def test_create_harry_account(): 
     all_accounts_created = (AccountCreatingDriver()

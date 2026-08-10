@@ -1,6 +1,6 @@
 import pytest
 
-from SocialNetwork.domain.following.following import Following
+from SocialNetwork.domain.account.following import Following
 from SocialNetwork.domain.models.account import Account
 
 def test_peter_follows_alice():

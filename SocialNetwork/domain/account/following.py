@@ -1,4 +1,4 @@
-from SocialNetwork.domain.following.NoOneIsAddedException import NoOneIsAddedException
+from SocialNetwork.domain.account.NoOneIsAddedException import NoOneIsAddedException
 from SocialNetwork.domain.models.account import Account
 
 class Following() : 

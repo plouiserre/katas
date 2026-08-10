@@ -1,13 +1,13 @@
-# from SocialNetwork.domain.following.following import Following
+from SocialNetwork.domain.account.account_service import AccountService
 
-# class AccountContext():
-#     def __init__(self):
-#         self.following_service = Following()
+class AccountContext():
+    def __init__(self):
+        self.account_service = AccountService()
 
-#     def get_following_service(self) -> Following: 
-#         return self.following_service
+    def get_following_service(self) -> AccountService: 
+        return self.account_service
 
-# account_context = AccountContext()
+account_context = AccountContext()
 
-# def get_account_context() -> AccountContext:
-#     return account_context
+def get_account_context() -> AccountContext:
+    return account_context

@@ -9,4 +9,7 @@ class AccountResponse :
 
     @staticmethod
     def to_response(account : Account) -> AccountResponse:
-        return AccountResponse(account.name)
+        if account != None : 
+            return AccountResponse(account.name)
+        else : 
+            return None
