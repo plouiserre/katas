@@ -1,3 +1,4 @@
+from SocialNetwork.adapters.driven.account.memory_account_repository import MemoryAccountRepository
 from SocialNetwork.domain.account.account_service import AccountService
 
 def test_search_alice_account(): 
@@ -13,7 +14,8 @@ def test_search_alice_account():
 
 class AccountReadingDriver: 
     def __init__(self):
-        self.account_service = AccountService()
+        memory_account_repository = MemoryAccountRepository()
+        self.account_service = AccountService(memory_account_repository)
 
     def create_account(self, account_name):
         self.account_service.add_account(account_name)
