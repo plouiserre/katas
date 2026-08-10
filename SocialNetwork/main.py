@@ -4,10 +4,10 @@ from SocialNetwork.adapters.driven.system_clock import SystemClock
 from SocialNetwork.adapters.driven.wall.json_wall_repository import JsonWallRepository
 from SocialNetwork.adapters.driven.wall.memory_wall_repository import MemoryWallRepository
 from SocialNetwork.adapters.driving.cli.cli_app import cliApp
-from SocialNetwork.adapters.driving.controllers import account_controllers, search_controllers, wall_controllers
-from SocialNetwork.adapters.driving.controllers.context.account_context import get_account_context
-from SocialNetwork.adapters.driving.controllers.context.search_context import get_search_context
-from SocialNetwork.adapters.driving.controllers.context.wall_context import get_wall_context
+from SocialNetwork.adapters.driving.rest import account_controllers, search_controllers, wall_controllers
+from SocialNetwork.adapters.driving.rest.context.account_context import get_account_context
+from SocialNetwork.adapters.driving.rest.context.search_context import get_search_context
+from SocialNetwork.adapters.driving.rest.context.wall_context import get_wall_context
 from SocialNetwork.domain.search_service import SearchService
 from SocialNetwork.domain.wall_service import WallService
 from SocialNetwork.state import db_context
