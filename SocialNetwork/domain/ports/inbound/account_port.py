@@ -1,0 +1,14 @@
+from abc import ABC, abstractmethod
+
+class AccountPort(ABC): 
+    @abstractmethod
+    def add_account(self, account_name): 
+        pass
+    
+    @abstractmethod
+    def get_all_accounts(self): 
+        pass
+
+    @abstractmethod
+    def search_account(self, account_name): 
+        pass

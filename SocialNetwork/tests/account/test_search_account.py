@@ -1,4 +1,4 @@
-from SocialNetwork.domain.account_service import AccountService
+from SocialNetwork.domain.account.account_service import AccountService
 
 def test_search_alice_account(): 
     account_search = (AccountReadingDriver()

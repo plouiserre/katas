@@ -1,14 +1,16 @@
 from SocialNetwork.adapters.driving.cli.cli_command import CliCommand
 from SocialNetwork.adapters.driving.cli.cli_get_all_posts import CliGetAllPosts
 from SocialNetwork.adapters.driving.cli.cli_search import CliSearch
-from SocialNetwork.domain.search_service import SearchServicePort
-from SocialNetwork.domain.wall_service import WallPort
+from SocialNetwork.adapters.driving.cli.cli_search_account import CliSearchAccount
+from SocialNetwork.domain.ports.inbound.account_port import AccountPort
+from SocialNetwork.domain.ports.inbound.search_port import SearchServicePort
+from SocialNetwork.domain.ports.inbound.wall_port import WallPort
 
 class cliApp : 
     def __init__(self):
         pass
 
-    def run(self, search : SearchServicePort, wall : WallPort) -> None : 
+    def run(self, account : AccountPort, search : SearchServicePort, wall : WallPort) -> None : 
         while True : 
             raw = input("> ")
             cli_command = CliCommand(raw)
@@ -24,5 +26,11 @@ class cliApp :
             elif command == "posts_messages" : 
                 wall.post_messages(arguments[0], arguments[1])
                 print("message posté")
+            elif command == "search_account": 
+                cli_search_account = CliSearchAccount(account)
+                cli_search_account.run_search_account(arguments[0])
+            elif command == "add_account" : 
+                account.add_account(arguments[0])
+                print("compte créé")
             else : 
                 print("commande inconnu")
