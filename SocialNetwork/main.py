@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from SocialNetwork.adapters.driven.system_clock import SystemClock
+from SocialNetwork.adapters.driven.account.json_account_repository import JsonAccountRepository
 from SocialNetwork.adapters.driven.wall.json_wall_repository import JsonWallRepository
 from SocialNetwork.adapters.driven.wall.memory_wall_repository import MemoryWallRepository
 from SocialNetwork.adapters.driving.cli.cli_app import cliApp
@@ -17,7 +18,8 @@ app = cliApp()
 # wall_repository = MemoryWallRepository()
 wall_repository = JsonWallRepository()
 clock = SystemClock()
-account_service = AccountService()
+json_account_repository = JsonAccountRepository()
+account_service = AccountService(json_account_repository)
 wall_service = WallService(wall_repository, clock)
 search_service = SearchService(wall_service)
 app.run(account_service, search_service, wall_service)

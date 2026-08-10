@@ -1,8 +1,10 @@
+from SocialNetwork.adapters.driven.account.json_account_repository import JsonAccountRepository
 from SocialNetwork.domain.account.account_service import AccountService
 
 class AccountContext():
     def __init__(self):
-        self.account_service = AccountService()
+        json_account_repository = JsonAccountRepository()
+        self.account_service = AccountService(json_account_repository)
 
     def get_following_service(self) -> AccountService: 
         return self.account_service

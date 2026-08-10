@@ -1,17 +1,16 @@
 from SocialNetwork.domain.models.account import Account
 
 class AccountService : 
-    def __init__(self):
-        self.__accounts = []
+    def __init__(self, account_repository):        
+        self.account_repository = account_repository
 
     def add_account(self, account_name): 
-        self.__accounts.append(Account.create_account(account_name))
+        account = Account.create_account(account_name)
+        self.account_repository.add_account(account)
 
     def get_all_accounts(self): 
-        return self.__accounts
+        return self.account_repository.get_all_accounts()
 
     def search_account(self, account_name): 
-            for account in self.__accounts : 
-                if account.name == account_name : 
-                    return account
-            return None
+            account = self.account_repository.get_account_by_name(account_name)
+            return account
