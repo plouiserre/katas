@@ -5,7 +5,7 @@ from SocialNetwork.adapters.driven.wall.json_wall_repository import JsonWallRepo
 from SocialNetwork.adapters.driven.wall.memory_wall_repository import MemoryWallRepository
 from SocialNetwork.adapters.driving.cli.cli_app import cliApp
 from SocialNetwork.adapters.driving.rest import account_controllers, search_controllers, wall_controllers
-from SocialNetwork.adapters.driving.rest.context.account_context import get_account_context
+# from SocialNetwork.adapters.driving.rest.context.account_context import get_account_context
 from SocialNetwork.adapters.driving.rest.context.search_context import get_search_context
 from SocialNetwork.adapters.driving.rest.context.wall_context import get_wall_context
 from SocialNetwork.domain.search_service import SearchService
@@ -22,17 +22,17 @@ from SocialNetwork.state import db_context
 
 @asynccontextmanager 
 async def lifespan(app : FastAPI):
-    account_context = get_account_context()
+    # account_context = get_account_context()
     search_context = get_search_context()
     wall_context = get_wall_context()
-    db_context["account"] = account_context
+    # db_context["account"] = account_context
     db_context["search"] = search_context
     db_context["wall"] = wall_context
     yield
 
 app = FastAPI(lifespan=lifespan)
 
-app.include_router(account_controllers.router)
+# app.include_router(account_controllers.router)
 app.include_router(search_controllers.router)
 app.include_router(wall_controllers.router)
 
