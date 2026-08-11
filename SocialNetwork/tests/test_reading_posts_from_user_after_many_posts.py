@@ -1,6 +1,8 @@
 import datetime
 
+from SocialNetwork.adapters.driven.account.memory_account_repository import MemoryAccountRepository
 from SocialNetwork.adapters.driven.wall.memory_wall_repository import MemoryWallRepository
+from SocialNetwork.domain.account.account_service import AccountService
 from SocialNetwork.domain.models.account import Account
 from SocialNetwork.domain.models.post import Post
 from SocialNetwork.domain.search_service import SearchService
@@ -69,9 +71,11 @@ def test_three_friends_post_search_hermione():
     
 class SearchDriver(): 
     def __init__(self, start_date):
+        account_repository = MemoryAccountRepository()
+        self.account_service = AccountService(account_repository)
         wall_repository = MemoryWallRepository()
         self.clock = FakeClock(start_date)
-        self.wall_service = WallService(wall_repository, self.clock)
+        self.wall_service = WallService(self.account_service, wall_repository, self.clock)
         self.search_service = SearchService(self.wall_service)
 
     def add_posts(self, account_name :str , post : str): 
