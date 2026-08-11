@@ -20,7 +20,7 @@ wall_repository = JsonWallRepository()
 clock = SystemClock()
 json_account_repository = JsonAccountRepository()
 account_service = AccountService(json_account_repository)
-wall_service = WallService(wall_repository, clock)
+wall_service = WallService(account_service, wall_repository, clock)
 search_service = SearchService(wall_service)
 app.run(account_service, search_service, wall_service)
 

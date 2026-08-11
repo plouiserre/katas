@@ -1,39 +1,39 @@
 {
     "posts": [
         {
-            "account": {
-                "name": "Peter"
-            },
-            "content": "Hello everybody",
-            "date_posting": "2026-08-06T16:17:30.843241"
+            "account_name": "Peter",
+            "content": "Hello Alice and John",
+            "date_posting": "2026-08-11T17:02:11.359734"
         },
         {
-            "account": {
-                "name": "Alice"
-            },
-            "content": "Hello Peter",
-            "date_posting": "2026-08-06T16:17:53.644474"
+            "account_name": "Alice",
+            "content": "Hello guys",
+            "date_posting": "2026-08-11T17:02:25.004586"
         },
         {
-            "account": {
-                "name": "Peter"
-            },
-            "content": "Happy to see you",
-            "date_posting": "2026-08-06T16:18:07.448162"
+            "account_name": "John",
+            "content": "Yo",
+            "date_posting": "2026-08-11T17:02:36.376850"
         },
         {
-            "account": {
-                "name": "John"
-            },
-            "content": "Hello Peter and Alice",
-            "date_posting": "2026-08-06T16:18:53.190908"
+            "account_name": "Peter",
+            "content": "Nice to see you",
+            "date_posting": "2026-08-11T17:02:50.174536"
         },
         {
-            "account": {
-                "name": "Alice"
-            },
-            "content": "Hi John",
-            "date_posting": "2026-08-06T16:21:35.513355"
+            "account_name": "Alice",
+            "content": "Yeah me too!",
+            "date_posting": "2026-08-11T17:03:12.820289"
+        },
+        {
+            "account_name": "John",
+            "content": "Yes",
+            "date_posting": "2026-08-11T17:03:28.090528"
+        },
+        {
+            "account_name": "Peter",
+            "content": "I want to go to the cinema",
+            "date_posting": "2026-08-11T17:10:18.792231"
         }
     ]
 }

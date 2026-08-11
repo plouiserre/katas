@@ -12,7 +12,7 @@ router = APIRouter()
 @router.post("/wall/message/", status_code= status.HTTP_201_CREATED)
 async def post_message(post : PostRequest):
     db_context["wall"].get_wall_service().post_messages(post.account_name, post.message)
-    return PostResponse(AccountResponse(post.account_name), post.message, datetime.datetime.now().strftime("%d/%m/%y %H:%M:%S"))
+    return PostResponse(post.account_name, post.message, datetime.datetime.now().strftime("%d/%m/%y %H:%M:%S"))
 
 @router.get("/wall/messages/", status_code= status.HTTP_200_OK)
 async def get_all_messages():

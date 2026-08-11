@@ -1,6 +1,8 @@
 import datetime
 
+from SocialNetwork.adapters.driven.account.memory_account_repository import MemoryAccountRepository
 from SocialNetwork.adapters.driven.wall.memory_wall_repository import MemoryWallRepository
+from SocialNetwork.domain.account.account_service import AccountService
 from SocialNetwork.domain.models.account import Account
 from SocialNetwork.domain.models.post import Post
 from SocialNetwork.domain.wall_service import WallService
@@ -19,10 +21,10 @@ def test_get_messages_from_peter_unique_user():
 
     assert(len(all_posts) == 4)
     
-    assert(all_posts[0] == Post.create_post(Account.create_account("Peter"),"Hello every body", datetime.datetime(2026, 8, 4, 17, 12, 36)))
-    assert(all_posts[1] == Post.create_post(Account.create_account("Peter"),"Some one is here", datetime.datetime(2026, 8, 4, 17, 13, 36)))
-    assert(all_posts[2] == Post.create_post(Account.create_account("Peter"),"I will enjoy this meal!!!", datetime.datetime(2026, 8, 4, 17, 15, 36)))
-    assert(all_posts[3] == Post.create_post(Account.create_account("Peter"),"Why my soccer team is bad?", datetime.datetime(2026, 8, 4, 17, 18, 36)))
+    assert(all_posts[0] == Post.create_post("Peter","Hello every body", datetime.datetime(2026, 8, 4, 17, 12, 36)))
+    assert(all_posts[1] == Post.create_post("Peter","Some one is here", datetime.datetime(2026, 8, 4, 17, 13, 36)))
+    assert(all_posts[2] == Post.create_post("Peter","I will enjoy this meal!!!", datetime.datetime(2026, 8, 4, 17, 15, 36)))
+    assert(all_posts[3] == Post.create_post("Peter","Why my soccer team is bad?", datetime.datetime(2026, 8, 4, 17, 18, 36)))
 
 def test_get_messages_from_three_friends_separate():
     reading_driver = ReadingDriver(start_date)
@@ -36,17 +38,19 @@ def test_get_messages_from_three_friends_separate():
 
     assert(len(all_messages) == 5)
         
-    assert(all_messages[0] == Post.create_post(Account.create_account("Harry"),"Some one want to go eat some Pizza?", datetime.datetime(2026, 8, 4, 17, 12, 36)))
-    assert(all_messages[1] == Post.create_post(Account.create_account("Ron"),"Yes me!!!", datetime.datetime(2026, 8, 4, 17, 13, 36)))
-    assert(all_messages[2] == Post.create_post(Account.create_account("Hermione"),"Harry, Ron go back to study for the exams!!!!", datetime.datetime(2026, 8, 4, 17, 15, 36)))
-    assert(all_messages[3] == Post.create_post(Account.create_account("Harry"),"Hermione be nice we do not stop to study", datetime.datetime(2026, 8, 4, 17, 18, 36)))
-    assert(all_messages[4] == Post.create_post(Account.create_account("Ron"),"Stop to be boring!!!!", datetime.datetime(2026, 8, 4, 17, 22, 36)))        
+    assert(all_messages[0] == Post.create_post("Harry","Some one want to go eat some Pizza?", datetime.datetime(2026, 8, 4, 17, 12, 36)))
+    assert(all_messages[1] == Post.create_post("Ron","Yes me!!!", datetime.datetime(2026, 8, 4, 17, 13, 36)))
+    assert(all_messages[2] == Post.create_post("Hermione","Harry, Ron go back to study for the exams!!!!", datetime.datetime(2026, 8, 4, 17, 15, 36)))
+    assert(all_messages[3] == Post.create_post("Harry","Hermione be nice we do not stop to study", datetime.datetime(2026, 8, 4, 17, 18, 36)))
+    assert(all_messages[4] == Post.create_post("Ron","Stop to be boring!!!!", datetime.datetime(2026, 8, 4, 17, 22, 36)))        
 
 class ReadingDriver(): 
     def __init__(self, start_date):
+        account_repository = MemoryAccountRepository()
+        self.account_service = AccountService(account_repository)
         wall_repository = MemoryWallRepository()
         self.clock = FakeClock(start_date)
-        self.wall_service = WallService(wall_repository, self.clock)
+        self.wall_service = WallService(self.account_service, wall_repository, self.clock)
 
     def add_posts(self, account_name :str , post : str): 
         self.wall_service.post_messages(account_name, post)

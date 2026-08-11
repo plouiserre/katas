@@ -11,4 +11,4 @@ class CliGetAllPosts:
         else : 
             wall_response = WallResponse.to_response(posts_from_specific_user)
             for post in wall_response.posts : 
-                print(post.account.name+": "+post.date_posting+": "+post.content_message)            
+                print(post.account_name+": "+post.date_posting+": "+post.content_message)            

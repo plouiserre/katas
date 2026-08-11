@@ -1,8 +1,6 @@
-import pytest
-
-from SocialNetwork.domain.account.exception.account_is_already_created_exception import AccountIsAlreadyCreatedException
 from SocialNetwork.adapters.driven.account.memory_account_repository import MemoryAccountRepository
 from SocialNetwork.domain.account.account_service import AccountService
+from SocialNetwork.domain.models.account import Account
 
 def test_create_harry_account(): 
     all_accounts_created = (AccountCreatingDriver()
@@ -23,12 +21,18 @@ def test_create_harry_ron_accounts():
     assert("Ron" == all_accounts_created[1].name)
     assert([] == all_accounts_created[1].following_accounts)
 
-def test_not_creating_harry_account_because_already_existing(): 
-        with pytest.raises(AccountIsAlreadyCreatedException):
-                        (AccountCreatingDriver()
-                                .create_account("Harry")
-                                .create_account("Ron")
-                                .create_account("Harry"))
+def test_create_harry_ron_accounts_only_one_time(): 
+        all_accounts_created = (AccountCreatingDriver()
+                                    .create_account("Harry")
+                                    .create_account("Ron")                                    
+                                    .create_account("Ron")
+                                    .create_account("Harry")
+                                    .get_all_accounts_created())                            
+        assert(2 == len(all_accounts_created))
+        assert("Harry" == all_accounts_created[0].name)
+        assert([] == all_accounts_created[0].following_accounts)
+        assert("Ron" == all_accounts_created[1].name)
+        assert([] == all_accounts_created[1].following_accounts)
 
 class AccountCreatingDriver: 
     def __init__(self):
@@ -36,7 +40,8 @@ class AccountCreatingDriver:
         self.account_service = AccountService(memory_account_repository) 
 
     def create_account(self, account_name): 
-        self.account_service.add_account(account_name)
+        new_account = Account.create_account(account_name)
+        self.account_service.add_account(new_account)
         return self
 
     def get_all_accounts_created(self): 
