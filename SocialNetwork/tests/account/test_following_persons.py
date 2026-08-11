@@ -1,6 +1,7 @@
 import pytest
 
 from SocialNetwork.domain.account.following import Following
+from SocialNetwork.domain.account.exception.no_one_is_added_exception import NoOneIsAddedException
 from SocialNetwork.domain.models.account import Account
 
 def test_peter_follows_alice():
@@ -25,9 +26,8 @@ def test_alice_follows_peter_and_luke():
     assert(following_persons[0] == Account.create_account("Peter"))
     assert(following_persons[1] == Account.create_account("Luke"))
 
-#try to follow someone unknown
 def test_add_following_someone_non_existent():
-    with pytest.raises(Exception) :
+    with pytest.raises(NoOneIsAddedException) :
         (FollowingDriver("Alice")
                 .add_account("Peter")
                 .add_account("Luke")

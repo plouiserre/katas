@@ -1,4 +1,4 @@
-from SocialNetwork.domain.account.Account_is_Existing import AccountIsExisting
+from SocialNetwork.domain.account.account_is_existing import AccountIsExisting
 from SocialNetwork.domain.models.account import Account
 
 def test_check_alice_account_is_created():
