@@ -6,11 +6,11 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class PostResponse : 
-    account : AccountResponse
+    account_name : str
     content_message : str
     date_posting : str
 
     @staticmethod
     def to_response(post : Post):
         date = post.date_posting.strftime("%d/%m/%y %H:%M:%S")
-        return PostResponse(AccountResponse.to_response(post.account), post.content_message, date)
+        return PostResponse(post.account_name, post.content_message, date)

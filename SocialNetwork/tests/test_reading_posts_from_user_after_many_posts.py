@@ -23,10 +23,10 @@ def test_one_person_post_alone():
     
     assert(len(all_posts_peter) == 4)
     
-    assert(all_posts_peter[0] == Post.create_post(Account.create_account("Peter"),"Hello every body", datetime.datetime(2026, 8, 4, 17, 12, 36)))
-    assert(all_posts_peter[1] == Post.create_post(Account.create_account("Peter"),"Some one is here", datetime.datetime(2026, 8, 4, 17, 13, 36)))
-    assert(all_posts_peter[2] == Post.create_post(Account.create_account("Peter"),"I will enjoy this meal!!!", datetime.datetime(2026, 8, 4, 17, 15, 36)))
-    assert(all_posts_peter[3] == Post.create_post(Account.create_account("Peter"),"Why my soccer team is bad?", datetime.datetime(2026, 8, 4, 17, 18, 36)))
+    assert(all_posts_peter[0] == Post.create_post("Peter","Hello every body", datetime.datetime(2026, 8, 4, 17, 12, 36)))
+    assert(all_posts_peter[1] == Post.create_post("Peter","Some one is here", datetime.datetime(2026, 8, 4, 17, 13, 36)))
+    assert(all_posts_peter[2] == Post.create_post("Peter","I will enjoy this meal!!!", datetime.datetime(2026, 8, 4, 17, 15, 36)))
+    assert(all_posts_peter[3] == Post.create_post("Peter","Why my soccer team is bad?", datetime.datetime(2026, 8, 4, 17, 18, 36)))
 
 def test_three_friends_post_search_harry():
     search_driver = SearchDriver(start_date)
@@ -39,8 +39,8 @@ def test_three_friends_post_search_harry():
                     .add_posts("Ron", "Stop to be boring!!!!")
                     .search_post("Harry"))
     
-    assert(all_posts_harry[0] == Post.create_post(Account.create_account("Harry"),"Some one want to go eat some Pizza?", datetime.datetime(2026, 8, 4, 17, 12, 36)))
-    assert(all_posts_harry[1] == Post.create_post(Account.create_account("Harry"),"Hermione be nice we do not stop to study", datetime.datetime(2026, 8, 4, 17, 18, 36))) 
+    assert(all_posts_harry[0] == Post.create_post("Harry","Some one want to go eat some Pizza?", datetime.datetime(2026, 8, 4, 17, 12, 36)))
+    assert(all_posts_harry[1] == Post.create_post("Harry","Hermione be nice we do not stop to study", datetime.datetime(2026, 8, 4, 17, 18, 36))) 
 
 def test_three_friends_post_search_ron():
     search_driver = SearchDriver(start_date)
@@ -53,8 +53,8 @@ def test_three_friends_post_search_ron():
                     .add_posts("Ron", "Stop to be boring!!!!")
                     .search_post("Ron"))
     
-    assert(all_posts_ron[0] == Post.create_post(Account.create_account("Ron"),"Yes me!!!", datetime.datetime(2026, 8, 4, 17, 13, 36)))
-    assert(all_posts_ron[1] == Post.create_post(Account.create_account("Ron"),"Stop to be boring!!!!", datetime.datetime(2026, 8, 4, 17, 22, 36)))        
+    assert(all_posts_ron[0] == Post.create_post("Ron","Yes me!!!", datetime.datetime(2026, 8, 4, 17, 13, 36)))
+    assert(all_posts_ron[1] == Post.create_post("Ron","Stop to be boring!!!!", datetime.datetime(2026, 8, 4, 17, 22, 36)))        
 
 def test_three_friends_post_search_hermione():
     search_driver = SearchDriver(start_date)
@@ -67,7 +67,7 @@ def test_three_friends_post_search_hermione():
                     .add_posts("Ron", "Stop to be boring!!!!")
                     .search_post("Hermione"))
     
-    assert(all_posts_hermione[0] == Post(Account.create_account("Hermione"),"Harry, Ron go back to study for the exams!!!!", datetime.datetime(2026, 8, 4, 17, 15, 36)))
+    assert(all_posts_hermione[0] == Post("Hermione","Harry, Ron go back to study for the exams!!!!", datetime.datetime(2026, 8, 4, 17, 15, 36)))
     
 class SearchDriver(): 
     def __init__(self, start_date):

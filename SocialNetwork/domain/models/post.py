@@ -1,14 +1,13 @@
 import datetime
-from SocialNetwork.domain.models.account import Account
 
 from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class Post : 
-    account : Account
+    account_name : str
     content_message : str
     date_posting : datetime
 
     @staticmethod
-    def create_post(account, content_message, date_posting): 
-        return Post(account, content_message, date_posting)
+    def create_post(account_name, content_message, date_posting): 
+        return Post(account_name, content_message, date_posting)
