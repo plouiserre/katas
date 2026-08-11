@@ -12,7 +12,7 @@ class JsonAccountRepository(AccountRepository):
     def add_account(self, account : Account):
         accounts_json = ""
         accounts_entity_existing = self.__get_all_accounts_saved()
-        if accounts_entity_existing != None : 
+        if accounts_entity_existing != [] : 
             accounts_entity_existing.append(AccountEntity.create_to_entity(account))
             accounts_json = json.dumps([AccountEntity.to_dict(a) for a in accounts_entity_existing])
         else : 
@@ -30,7 +30,7 @@ class JsonAccountRepository(AccountRepository):
         return account_search
 
     def __get_all_accounts_saved(self) -> []:
-        accounts_entity = None 
+        accounts_entity = [] 
         with open(self.path, "r") as file : 
             content = file.read()
             if content == '' :
@@ -40,5 +40,5 @@ class JsonAccountRepository(AccountRepository):
             accounts_entity = AccountEntity.create_to_entity_from_accounts_json(datas)
         return accounts_entity    
 
-    def get_all_accounts():
-        pass
+    def get_all_accounts(self):
+        return self.__get_all_accounts_saved()

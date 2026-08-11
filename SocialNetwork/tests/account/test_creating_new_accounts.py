@@ -1,5 +1,6 @@
 from SocialNetwork.adapters.driven.account.memory_account_repository import MemoryAccountRepository
 from SocialNetwork.domain.account.account_service import AccountService
+from SocialNetwork.domain.models.account import Account
 
 def test_create_harry_account(): 
     all_accounts_created = (AccountCreatingDriver()
@@ -39,7 +40,8 @@ class AccountCreatingDriver:
         self.account_service = AccountService(memory_account_repository) 
 
     def create_account(self, account_name): 
-        self.account_service.add_account(account_name)
+        new_account = Account.create_account(account_name)
+        self.account_service.add_account(new_account)
         return self
 
     def get_all_accounts_created(self): 
