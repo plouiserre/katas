@@ -26,3 +26,8 @@ class MemoryAccountRepository(AccountRepository):
             account = AccountEntity.create_to_domain(account_entity)
             all_accounts.append(account)
         return all_accounts
+
+    def update_account(self, account_to_update):
+        for i, account in enumerate(self.accounts) : 
+            if account.name == account_to_update.name : 
+                self.accounts[i] = account_to_update

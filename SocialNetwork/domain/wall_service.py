@@ -13,7 +13,7 @@ class WallService(WallPort) :
         self.clock = clock
 
     def post_messages(self, account_name, content_post): 
-        account = Account.create_account(account_name)
+        account = Account.create_account(account_name, [])
         self.account_service.add_account(account)
         post = Post.create_post(account_name, content_post, self.clock.now())
         self.wall_repository.save_posts(post)
