@@ -42,3 +42,7 @@ class JsonAccountRepository(AccountRepository):
 
     def get_all_accounts(self):
         return self.__get_all_accounts_saved()
+
+    #TO UPDATE SOON
+    def update_account(account : Account): 
+        pass

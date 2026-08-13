@@ -19,7 +19,7 @@ class AccountReadingDriver:
         self.account_service = AccountService(memory_account_repository)
 
     def create_account(self, account_name):
-        new_account = Account.create_account(account_name)
+        new_account = Account.create_account(account_name, [])
         self.account_service.add_account(new_account)
         return self
 

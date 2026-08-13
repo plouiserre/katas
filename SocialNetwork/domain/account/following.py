@@ -9,7 +9,7 @@ class Following() :
         is_somone_added = False
         for other_account in self.all_accounts :
             if other_account.name == following_account_name :
-                account.following_accounts.append(other_account)
+                account.following_accounts.append(other_account.name)
                 is_somone_added = True
         if is_somone_added == False : 
             raise NoOneIsAddedException(following_account_name+" is unknown and cannot be added in "+account.name+" followings.")

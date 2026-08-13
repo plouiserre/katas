@@ -13,3 +13,7 @@ class AccountRepository(ABC):
     @abstractmethod
     def get_all_accounts():
         pass
+
+    @abstractmethod
+    def update_account(account : Account): 
+        pass

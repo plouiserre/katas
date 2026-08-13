@@ -10,7 +10,7 @@ class AccountService :
         account_is_existing = AccountIsExisting(all_accounts)
         is_existing = account_is_existing.check_existence(new_account.name)
         if is_existing == False :
-            account = Account.create_account(new_account.name)
+            account = Account.create_account(new_account.name, [])
             self.account_repository.add_account(account)
 
     def get_all_accounts(self): 

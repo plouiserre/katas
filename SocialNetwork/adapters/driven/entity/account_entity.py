@@ -6,14 +6,15 @@ from SocialNetwork.domain.models.account import Account
 @dataclass(frozen=True)
 class AccountEntity :
     name : str
+    following_accounts : list[str]
 
     @staticmethod
     def create_to_entity(account : Account):
-        return AccountEntity(account.name)
+        return AccountEntity(account.name, account.following_accounts)
 
     @staticmethod
     def create_to_domain(account_entity : AccountEntity):
-        return Account.create_account(account_entity.name)
+        return Account.create_account(account_entity.name, account_entity.following_accounts)
 
     @staticmethod
     def create_to_entity_from_message_json(datas):
@@ -22,7 +23,7 @@ class AccountEntity :
     
     @staticmethod
     def create_to_entity_from_message_json2(data):
-        return AccountEntity(data["account_name"])
+        return AccountEntity(data["account_name"], [])
 
     @staticmethod
     def create_to_entity_from_accounts_json(datas):
