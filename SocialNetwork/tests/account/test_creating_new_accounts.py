@@ -41,9 +41,8 @@ class AccountCreatingDriver:
         following_service = FollowingService(memory_account_repository)
         self.account_service = AccountService(memory_account_repository, following_service) 
 
-    def create_account(self, account_name): 
-        new_account = Account.create_account(account_name, [])
-        self.account_service.add_account(new_account)
+    def create_account(self, new_account_name): 
+        self.account_service.add_account(new_account_name)
         return self
 
     def get_all_accounts_created(self): 

@@ -32,5 +32,8 @@ class cliApp :
             elif command == "add_account" : 
                 account.add_account(arguments[0])
                 print("compte créé")
+            elif command == "add_following" : 
+                account.follow_new_account(arguments[0], arguments[1])
+                print(arguments[0]+" suit "+arguments[1])
             else : 
                 print("commande inconnu")
