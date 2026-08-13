@@ -9,7 +9,10 @@ class CliCommand :
         else : 
             args = self.cli_command.split(" ")
             if len(args) > 1 : 
-                return args[0], [args[1]]
+                if len(args) == 2 :
+                    return args[0], [args[1]]
+                else : 
+                    return args[0], [args[1], args[2]]
             else : 
                 return self.cli_command, []
 

@@ -3,7 +3,7 @@ import datetime
 from SocialNetwork.adapters.driven.account.memory_account_repository import MemoryAccountRepository
 from SocialNetwork.adapters.driven.wall.memory_wall_repository import MemoryWallRepository
 from SocialNetwork.domain.account.account_service import AccountService
-from SocialNetwork.domain.models.account import Account
+from SocialNetwork.domain.account.following_service import FollowingService
 from SocialNetwork.domain.models.post import Post
 from SocialNetwork.domain.wall_service import WallService
 from SocialNetwork.tests.fake_clock import FakeClock
@@ -47,7 +47,8 @@ def test_get_messages_from_three_friends_separate():
 class ReadingDriver(): 
     def __init__(self, start_date):
         account_repository = MemoryAccountRepository()
-        self.account_service = AccountService(account_repository)
+        following_service = FollowingService(account_repository)
+        self.account_service = AccountService(account_repository, following_service)
         wall_repository = MemoryWallRepository()
         self.clock = FakeClock(start_date)
         self.wall_service = WallService(self.account_service, wall_repository, self.clock)

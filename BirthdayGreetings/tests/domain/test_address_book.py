@@ -35,7 +35,7 @@ def test_search_contact_with_good_month_and_bad_day_birthday_and_return_no_one()
                          .add_date_to_study("2026/08/25")
                          .search_birthdays_persons())
     
-    assert ([], birthdays_persons)
+    assert ([] == birthdays_persons)
 
 def test_search_contact_with_bad_month_and_good_day_birthday_and_return_no_one():
     address_book_driver = AddressBookDriver()
@@ -46,7 +46,7 @@ def test_search_contact_with_bad_month_and_good_day_birthday_and_return_no_one()
                             .add_date_to_study("2026/08/18")
                             .search_birthdays_persons())
         
-    assert ([], birthdays_persons)    
+    assert ([] == birthdays_persons)    
 
 def test_search_contact_with_11_11_birthday_and_return_demi_moore_and_leonardo_dicaprio():
     address_book_driver = AddressBookDriver()

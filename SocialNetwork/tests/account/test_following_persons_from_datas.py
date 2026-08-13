@@ -41,6 +41,7 @@ class FollowingDataDriver():
     def __init__(self, main_account_name):
         self.account_repository = MemoryAccountRepository()
         self.following_service = FollowingService(self.account_repository)
+        self.account_service = AccountService(self.account_repository, self.following_service) 
         self.main_account_name = main_account_name
         self.account_repository.add_account(Account.create_account(main_account_name, []))
 
@@ -57,7 +58,6 @@ class FollowingDataDriver():
             return self
 
     def see_following_persons(self): 
-        account_service = AccountService(self.account_repository)
-        account_to_compare =  account_service.search_account(self.main_account_name)
+        account_to_compare =  self.account_service.search_account(self.main_account_name)
         following_accounts = account_to_compare.following_accounts
         return following_accounts

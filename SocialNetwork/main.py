@@ -10,6 +10,7 @@ from SocialNetwork.adapters.driving.rest.context.account_context import get_acco
 from SocialNetwork.adapters.driving.rest.context.search_context import get_search_context
 from SocialNetwork.adapters.driving.rest.context.wall_context import get_wall_context
 from SocialNetwork.domain.account.account_service import AccountService
+from SocialNetwork.domain.account.following_service import FollowingService
 from SocialNetwork.domain.search_service import SearchService
 from SocialNetwork.domain.wall_service import WallService
 from SocialNetwork.state import db_context
@@ -19,7 +20,8 @@ from SocialNetwork.state import db_context
 # wall_repository = JsonWallRepository()
 # clock = SystemClock()
 # json_account_repository = JsonAccountRepository()
-# account_service = AccountService(json_account_repository)
+# following_service = FollowingService(json_account_repository)
+# account_service = AccountService(json_account_repository, following_service)
 # wall_service = WallService(account_service, wall_repository, clock)
 # search_service = SearchService(wall_service)
 # app.run(account_service, search_service, wall_service)
