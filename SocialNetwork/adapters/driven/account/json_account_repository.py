@@ -43,6 +43,13 @@ class JsonAccountRepository(AccountRepository):
     def get_all_accounts(self):
         return self.__get_all_accounts_saved()
 
-    #TO UPDATE SOON
-    def update_account(account : Account): 
-        pass
+    def update_account(self, account : Account): 
+        all_accouts = self.__get_all_accounts_saved()
+        for i, account_loop in enumerate(all_accouts):
+            if account_loop.name == account.name : 
+                all_accouts[i] = account
+                break
+        accounts_json = json.dumps([AccountEntity.to_dict(a) for a in all_accouts])
+        with open(self.path, "w") as f: 
+            f.seek(0)
+            f.write(accounts_json)

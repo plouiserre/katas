@@ -1,1 +1,1 @@
-[{"account_name": "Peter"}, {"account_name": "Alice"}, {"account_name": "John"}]
+[{"account_name": "Peter", "following_accounts": ["John"]}, {"account_name": "Alice", "following_accounts": []}, {"account_name": "John", "following_accounts": []}]

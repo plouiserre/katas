@@ -35,5 +35,4 @@ class AccountEntity :
 
     @staticmethod
     def to_dict(account: AccountEntity) -> dict:
-            return {"account_name": account.name}
-    
+            return {"account_name": account.name, "following_accounts" : account.following_accounts}
