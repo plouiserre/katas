@@ -22,8 +22,8 @@ class AccountEntity :
 
     
     @staticmethod
-    def create_to_entity_from_message_json2(data):
-        return AccountEntity(data["account_name"], [])
+    def create_to_entity_from_message_json2(datas):
+        return AccountEntity(datas["account_name"], datas["following_accounts"])
 
     @staticmethod
     def create_to_entity_from_accounts_json(datas):

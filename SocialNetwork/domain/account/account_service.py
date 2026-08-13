@@ -6,12 +6,12 @@ class AccountService :
         self.account_repository = account_repository
         self.following_service = following_service
 
-    def add_account(self, new_account): 
+    def add_account(self, new_account_name): 
         all_accounts = self.get_all_accounts()
         account_is_existing = AccountIsExisting(all_accounts)
-        is_existing = account_is_existing.check_existence(new_account.name)
+        is_existing = account_is_existing.check_existence(new_account_name)
         if is_existing == False :
-            account = Account.create_account(new_account.name, [])
+            account = Account.create_account(new_account_name, [])
             self.account_repository.add_account(account)
 
     def get_all_accounts(self): 

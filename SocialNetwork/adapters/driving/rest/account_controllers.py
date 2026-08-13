@@ -1,6 +1,7 @@
 from fastapi import APIRouter, status
 
 from SocialNetwork.adapters.driving.request.account_request import AccountRequest
+from SocialNetwork.adapters.driving.request.following_request import FollowingRequest
 from SocialNetwork.adapters.driving.response.account_response import AccountResponse
 from SocialNetwork.state import db_context
 
@@ -16,10 +17,5 @@ async def get_account(account_name : str):
     return account_response
 
 @router.post("/account/following/", status_code=status.HTTP_201_CREATED)
-async def follow_someone_more(account_request : AccountRequest):
-    return db_context["account"].account_service.follow_new_account(account_request.account_name, account_request.following_name)
-
-# # @router.post("/wall/message/", status_code= status.HTTP_201_CREATED)
-# # async def post_message(post : PostRequest):
-# #     db_context["wall"].get_wall_service().post_messages(post.account_name, post.message)
-# #     return PostResponse(AccountResponse(post.account_name), post.message, datetime.datetime.now().strftime("%d/%m/%y %H:%M:%S"))
+async def follow_someone_more(following_request : FollowingRequest):
+    return db_context["account"].account_service.follow_new_account(following_request.account_name, following_request.following_name)
