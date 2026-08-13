@@ -42,7 +42,7 @@ def test_three_friends_post():
 class PostingDriver() :
     def __init__(self, start_date):
         account_repository = MemoryAccountRepository()
-        self.account_service = AccountService(account_repository)
+        self.account_service = AccountService(account_repository, account_repository)
         wall_repository = MemoryWallRepository()
         self.clock = FakeClock(start_date)
         self.wall_service = WallService(self.account_service, wall_repository, self.clock)

@@ -15,9 +15,9 @@ async def get_account(account_name : str):
     account_response = AccountResponse.to_response(db_context["account"].account_service.search_account(account_name))
     return account_response
 
-# @router.post("/account/following/", status_code=status.HTTP_201_CREATED)
-# async def follow_someone_more(account_request : AccountRequest):
-#     return db_context["account"].get_following_service().account_follows_some_one(account_request.account_name, account_request.following_name)
+@router.post("/account/following/", status_code=status.HTTP_201_CREATED)
+async def follow_someone_more(account_request : AccountRequest):
+    return db_context["account"].account_service.follow_new_account(account_request.account_name, account_request.following_name)
 
 # # @router.post("/wall/message/", status_code= status.HTTP_201_CREATED)
 # # async def post_message(post : PostRequest):
