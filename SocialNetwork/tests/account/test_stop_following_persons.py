@@ -4,7 +4,7 @@ from SocialNetwork.domain.models.account import Account
 from SocialNetwork.domain.account.exception.following_not_existing_exception import FollowingNotExistingException
 from SocialNetwork.domain.account.following import Following
 
-def test_1(): 
+def test_remove_following_after_following(): 
     is_following_account = (StopFollowingDriver("Peter")
                                  .add_account("Alice")
                                  .add_following_account("Alice")
@@ -12,7 +12,7 @@ def test_1():
                                  .is_following_account("Alice"))
     assert (is_following_account == False)
 
-def test_2(): 
+def test_add_multiple_following_for_one_account_and_remove_one_of_them(): 
     is_following_account = (StopFollowingDriver("Peter")
                                  .add_account("Anna")
                                  .add_account("Alice")
@@ -24,7 +24,7 @@ def test_2():
                                  .is_following_account("Alice"))
     assert (is_following_account == False)
 
-def test_3():
+def test_raise_exception_because_you_want_remove_a_following_did_not_exist():
       with pytest.raises(FollowingNotExistingException) :
             (StopFollowingDriver("Alice")
                     .add_account("Peter")

@@ -1,3 +1,4 @@
+from SocialNetwork.domain.account.exception.account_not_existing_exception import AccountNotExistingException
 from SocialNetwork.domain.account.exception.following_not_existing_exception import FollowingNotExistingException
 from SocialNetwork.domain.models.account import Account
 
@@ -12,7 +13,7 @@ class Following() :
                 account.following_accounts.append(other_account.name)
                 is_somone_added = True
         if is_somone_added == False : 
-            raise FollowingNotExistingException(following_account_name+" is unknown and cannot be added in "+account.name+" followings.")
+            raise AccountNotExistingException(following_account_name+" is unknown and cannot be added in "+account.name+" followings.")
 
     def see_followers_from_account(self, account : Account) -> list[Account] : 
         return account.following_accounts

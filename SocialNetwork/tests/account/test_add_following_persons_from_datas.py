@@ -2,6 +2,7 @@ import pytest
 
 from SocialNetwork.adapters.driven.account.memory_account_repository import MemoryAccountRepository
 from SocialNetwork.domain.account.account_service import AccountService
+from SocialNetwork.domain.account.exception.account_not_existing_exception import AccountNotExistingException
 from SocialNetwork.domain.account.exception.following_not_existing_exception import FollowingNotExistingException
 from SocialNetwork.domain.account.following_service import FollowingService
 from SocialNetwork.domain.models.account import Account
@@ -29,7 +30,7 @@ def test_alice_follows_peter_and_luke_from_datas():
     assert(following_persons[1] == "Luke")
 
 def test_add_following_someone_non_existent_in_the_datas():
-    with pytest.raises(FollowingNotExistingException) :
+    with pytest.raises(AccountNotExistingException) :
         (FollowingDataDriver("Alice")
                 .add_account("Peter")
                 .add_account("Luke")
