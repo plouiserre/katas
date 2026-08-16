@@ -23,3 +23,10 @@ class FollowingService :
                 account_search = account
                 break
         return account_search
+
+    def delete_following_account(self, main_account_name : str, new_following_account_name : str) : 
+        self.__get_all_accounts()
+        main_account = self.__get_account(main_account_name)
+        following = Following(self.accounts)
+        following.delete_following_account(main_account, new_following_account_name)
+        self.accout_repository.update_account(main_account)
