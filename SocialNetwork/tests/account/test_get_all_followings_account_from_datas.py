@@ -3,7 +3,7 @@ from SocialNetwork.domain.models.account import Account
 from SocialNetwork.domain.account.account_service import AccountService
 from SocialNetwork.domain.account.following_service import FollowingService
 
-def test_1(): 
+def test_get_all_accounts_that_peter_follows(): 
     following_accounts = (FollowingDataDriver("Peter")
                             .add_account("Anna")
                             .add_account("John")
@@ -34,4 +34,4 @@ class FollowingDataDriver():
         return self
 
     def get_all_followings_accounts(self) : 
-        return self.account_service.get_all_following_account(self.account_principal.name)
+        return self.account_service.get_all_following_accounts(self.account_principal.name)

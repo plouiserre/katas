@@ -1,4 +1,5 @@
 from SocialNetwork.adapters.driving.cli.cli_command import CliCommand
+from SocialNetwork.adapters.driving.cli.cli_get_all_following import CliGetAllFollowing
 from SocialNetwork.adapters.driving.cli.cli_get_all_posts import CliGetAllPosts
 from SocialNetwork.adapters.driving.cli.cli_search import CliSearch
 from SocialNetwork.adapters.driving.cli.cli_search_account import CliSearchAccount
@@ -38,5 +39,8 @@ class cliApp :
             elif command == "add_following" : 
                 account.follow_new_account(arguments[0], arguments[1])
                 print(arguments[0]+" suit "+arguments[1])
+            elif command == "all_following": 
+                cli_all_following = CliGetAllFollowing(account)
+                cli_all_following.run_get_all_following_for_specific_account(arguments[0])
             else : 
                 print("commande inconnu")

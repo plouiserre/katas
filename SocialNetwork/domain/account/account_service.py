@@ -27,5 +27,5 @@ class AccountService :
     def delete_follow_account(self, account_name, flollow_account_name): 
         self.following_service.delete_following_account(account_name, flollow_account_name)
 
-    def get_all_following_account(self, account_name): 
+    def get_all_following_accounts(self, account_name): 
         return self.following_service.get_following_persons(account_name)
