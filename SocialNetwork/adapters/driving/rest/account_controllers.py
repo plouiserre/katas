@@ -19,3 +19,7 @@ async def get_account(account_name : str):
 @router.post("/account/following/", status_code=status.HTTP_201_CREATED)
 async def follow_someone_more(following_request : FollowingRequest):
     return db_context["account"].account_service.follow_new_account(following_request.account_name, following_request.following_name)
+
+@router.delete("/account/following/{account_name}/{follow_account_name}", status_code= status.HTTP_204_NO_CONTENT)
+async def delete_follow(account_name : str, follow_account_name : str): 
+    db_context["account"].account_service.delete_follow_account(account_name, follow_account_name)
