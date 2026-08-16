@@ -23,3 +23,6 @@ class AccountService :
 
     def follow_new_account(self, account_name, follow_account_name):
         self.following_service.add_following_account(account_name, follow_account_name)
+
+    def delete_follow_account(self, account_name, flollow_account_name): 
+        self.following_service.delete_following_account(account_name, flollow_account_name)

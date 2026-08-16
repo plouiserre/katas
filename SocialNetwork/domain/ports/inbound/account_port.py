@@ -16,3 +16,7 @@ class AccountPort(ABC):
     @abstractmethod
     def follow_new_account(self, account_name, follow_account_name):
         pass
+
+    @abstractmethod
+    def delete_follow_account(self, account_name, flollow_account_name): 
+        pass
