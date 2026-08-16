@@ -30,3 +30,7 @@ class FollowingService :
         following = Following(self.accounts)
         following.delete_following_account(main_account, new_following_account_name)
         self.accout_repository.update_account(main_account)
+
+    def get_following_persons(self, main_account_name : str): 
+        account = self.accout_repository.get_account_by_name(main_account_name)
+        return account.following_accounts
