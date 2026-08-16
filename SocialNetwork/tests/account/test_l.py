@@ -1,5 +1,7 @@
 from SocialNetwork.adapters.driven.account.memory_account_repository import MemoryAccountRepository
 from SocialNetwork.domain.models.account import Account
+from SocialNetwork.domain.account.account_service import AccountService
+from SocialNetwork.domain.account.following_service import FollowingService
 
 def test_1(): 
     following_accounts = (FollowingDataDriver("Peter")
@@ -17,19 +19,19 @@ def test_1():
 
 class FollowingDataDriver(): 
     def __init__(self, account_name_principal):
-        self.memory_account_repository = MemoryAccountRepository()
         self.account_principal = Account.create_account(account_name_principal, [])
-        self.memory_account_repository.add_account(self.account_principal)
+        memory_account_repository = MemoryAccountRepository()
+        memory_account_repository.add_account(self.account_principal)
+        self.following_service = FollowingService(memory_account_repository)
+        self.account_service = AccountService(memory_account_repository, self.following_service)
 
     def add_account(self, account_name): 
-        self.memory_account_repository.add_account(Account.create_account(account_name, []))
+        self.account_service.add_account(account_name)
         return self
     
     def add_following_account(self, account_name_to_follow : str):
-        self.account_principal.following_accounts.append(account_name_to_follow)
-        self.memory_account_repository.update_account(self.account_principal)
+        self.account_service.follow_new_account(self.account_principal.name, account_name_to_follow)
         return self
 
     def get_all_followings_accounts(self) : 
-        account = self.memory_account_repository.get_account_by_name(self.account_principal.name)
-        return account.following_accounts
+        return self.account_service.get_all_following_account(self.account_principal.name)
