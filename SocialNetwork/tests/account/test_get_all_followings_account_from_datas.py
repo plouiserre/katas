@@ -34,4 +34,4 @@ class FollowingDataDriver():
         return self
 
     def get_all_followings_accounts(self) : 
-        return self.account_service.get_all_following_account(self.account_principal.name)
+        return self.account_service.get_all_following_accounts(self.account_principal.name)
