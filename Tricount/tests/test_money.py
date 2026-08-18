@@ -1,44 +1,126 @@
-from decimal import Decimal, ROUND_HALF_UP 
+import pytest
 
-def test_add_two_amount(): 
-    first_amount = "1456.56"
-    second_amount = "4563.49"
-    assert(Decimal("6020.05") == add_two_amounts(first_amount, second_amount))
+from Tricount.MoneyLogic.cannot_divide_by_zero_exception import CannotDivideByZeroException
+from Tricount.MoneyLogic.money import Money
+from Tricount.MoneyLogic.rounded_type import RoundedType
 
-def test_substract_two_amount(): 
-    first_amount = "1456.56"
-    second_amount = "4563.49"
-    assert(Decimal("-3106.93") == substract_two_amount(first_amount, second_amount))
+def test_add_two_moneys(): 
+    final_money = (MoneyDriver(RoundedType.BELOW)
+             .add("5.3", "6.5")
+             .display_final_result())
 
-def test_multiply_two_amount(): 
-    first_amount = "1456.56"
-    second_amount = "4563.49"
-    assert(Decimal("6646996.99") == multiply_two_amount(first_amount, second_amount))
+    assert("11.8" == final_money)
 
-def test_divide_two_amount(): 
-    first_amount = 1456.56
-    second_amount = 4563.49
-    assert(Decimal("0.32") == divide_two_amount(first_amount, second_amount))
+def test_substract_two_moneys(): 
+    final_money = (MoneyDriver(RoundedType.BELOW)
+                   .substract("11.9", "4.3")
+                   .display_final_result())
 
+    assert("7.6" == final_money)
 
-def add_two_amounts(first_amount, second_amount):
-    return Decimal(first_amount) + Decimal(second_amount)
+def test_multiply_two_moneys(): 
+    final_money = (MoneyDriver(RoundedType.BELOW)
+                   .multiply("33.4", "0.2")
+                   .display_final_result())
+    assert("6.68" == final_money)
 
-def substract_two_amount(first_amount, second_amount):
-    return Decimal(first_amount) - Decimal(second_amount)
+def test_multiply_two_moneys_with_round_below(): 
+    final_money = (MoneyDriver(RoundedType.BELOW)
+                       .multiply("33.4", "0.21")
+                       .display_final_result())
+    assert("7.01" == final_money)
 
-def multiply_two_amount(first_amount, second_amount):
-    first_amount_bigger = Decimal(first_amount)*100
-    second_amount_bigger = Decimal(second_amount) *100
-    bigger_multiply = first_amount_bigger * second_amount_bigger
-    first_step_to_normal = bigger_multiply / 100
-    result_remove_useless_futur_decimal = first_step_to_normal.quantize(Decimal("1"), rounding= ROUND_HALF_UP )
-    final_result = result_remove_useless_futur_decimal / 100
-    return final_result
+def test_multiply_two_moneys_with_round_up(): 
+    final_money = (MoneyDriver(RoundedType.UP)
+                       .multiply("33.4", "0.21")
+                       .display_final_result())
+    assert("7.02" == final_money)
 
-def divide_two_amount(first_amount, second_amount): 
-    result_divided = Decimal(first_amount) /Decimal(second_amount)
-    first_step_to_normal = result_divided*100
-    result_remove_useless_futur_decimal = first_step_to_normal.quantize(Decimal("1"), rounding= ROUND_HALF_UP )
-    final_result = result_remove_useless_futur_decimal / 100
-    return final_result
+def test_divide_two_moneys(): 
+    final_money = (MoneyDriver(RoundedType.BELOW)
+                   .divide("8", "2.5")
+                   .display_final_result())
+    assert("3.2" == final_money)
+
+def test_divide_two_moneys_with_round_below(): 
+    final_money = (MoneyDriver(RoundedType.BELOW)
+                   .divide("20", "2.54")
+                   .display_final_result())
+    assert("7.87" == final_money)
+
+def test_divide_two_moneys_with_round_up(): 
+    final_money = (MoneyDriver(RoundedType.UP)
+                   .divide("20", "2.54")
+                   .display_final_result())
+    assert("7.88" == final_money)
+    
+def test_multiple_operande_with_many_moneys_with_round_below_negative():
+    final_money = (MoneyDriver(RoundedType.BELOW)
+                   .add("9.87", "2.32")
+                   .substract(None, "43.23")
+                   .multiply(None, "93.23")
+                   .divide(None, "7.3")
+                   .display_final_result())
+    assert("-396.42" == final_money)
+
+def test_multiple_operande_with_many_moneys_with_round_up_negative():
+    final_money = (MoneyDriver(RoundedType.UP)
+                   .add("9.87", "2.32")
+                   .substract(None, "43.23")
+                   .multiply(None, "93.23")
+                   .divide(None, "7.3")
+                   .display_final_result())
+    assert("-396.41" == final_money)
+    
+def test_multiple_operande_with_many_moneys_with_round_below():
+    final_money = (MoneyDriver(RoundedType.BELOW)
+                   .add("9.87", "2.32")
+                   .substract(None, "3.23")
+                   .multiply(None, "93.23")
+                   .divide(None, "7.3")
+                   .display_final_result())
+    assert("114.43" == final_money)
+
+def test_multiple_operande_with_many_moneys_with_round_up():
+    final_money = (MoneyDriver(RoundedType.UP)
+                   .add("9.87", "2.32")
+                   .substract(None, "3.23")
+                   .multiply(None, "93.23")
+                   .divide(None, "7.3")
+                   .display_final_result())
+    assert("114.44" == final_money)
+
+def test_divide_one_money_by_0():
+    with pytest.raises(CannotDivideByZeroException) :
+        (MoneyDriver(RoundedType.BELOW)
+                   .divide("89.2", "0"))
+        
+def test_add_two_money_and_divide_one_money_by_0():
+    with pytest.raises(CannotDivideByZeroException) :
+        (MoneyDriver(RoundedType.UP)
+                   .add("93", "2")
+                   .divide("89.2", "0"))
+
+class MoneyDriver : 
+    def __init__(self, rounded_type):
+        self.money = Money(rounded_type)
+
+    def add(self, first_number_str : str, second_number_str : str): 
+        self.money.add_two_money(first_number_str, second_number_str)
+        return self
+
+    def substract(self, first_number_str : str, second_number_str : str): 
+        self.money.substract_two_money(first_number_str, second_number_str)
+        return self
+
+    def multiply(self, first_number_str : str, second_number_str : str): 
+        self.money.multiply_two_money(first_number_str, second_number_str)
+        return self
+
+    def divide(self, first_number_str : str, second_number_str : str):
+        self.money.divide_two_money(first_number_str, second_number_str)
+        return self
+
+    def display_final_result(self): 
+        display = self.money.display_final_result()
+        return display
