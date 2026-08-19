@@ -3,8 +3,12 @@ import math
 from  decimal import Decimal
 
 from Tricount.MoneyLogic.cannot_divide_by_zero_exception import CannotDivideByZeroException
+from Tricount.MoneyLogic.Operation.last_result_needed import LastResultNeeded
 from Tricount.MoneyLogic.operand import Operand
-from Tricount.MoneyLogic.operation import Operation
+from Tricount.MoneyLogic.Operation.addition import Addition
+from Tricount.MoneyLogic.Operation.division import Division
+from Tricount.MoneyLogic.Operation.multiplication import Multiplication
+from Tricount.MoneyLogic.Operation.substraction import Substraction
 from Tricount.MoneyLogic.rounded_type import RoundedType
 
 class Money: 
@@ -13,35 +17,20 @@ class Money:
         self.rounded_type = rounded_type
         self.all_ops = []
         
-    def add_two_money(self, first_number_str: str, second_number_str: str):
-        if first_number_str != None : 
-            self.all_ops.append(Operation(first_number_str, second_number_str, Operand.Add, False))
-        else : 
-            self.all_ops.append(Operation(None, second_number_str, Operand.Add, True))
-        return self
-    
-    def substract_two_money(self, first_number_str: str, second_number_str: str):
-        if first_number_str != None : 
-            self.all_ops.append(Operation(first_number_str, second_number_str, Operand.Soustract, False))
-        else : 
-            self.all_ops.append(Operation(None, second_number_str, Operand.Soustract, True))      
-        return self
-    
-    def multiply_two_money(self, first_number_str: str, second_number_str: str):
-        if first_number_str != None : 
-            self.all_ops.append(Operation(first_number_str, second_number_str, Operand.Multiply, False))
-        else : 
-            self.all_ops.append(Operation(None, second_number_str, Operand.Multiply, True))      
-        return self
-    
-    def divide_two_money(self, first_number_str: str, second_number_str: str):
+    def add_two_money(self, first_number_str: str, second_number_str: str, last_result_needed : LastResultNeeded):
+        self.all_ops.append(Addition(first_number_str, second_number_str, Operand.Add, last_result_needed))
+        
+    def substract_two_money(self, first_number_str: str, second_number_str: str, last_result_needed : LastResultNeeded):
+        self.all_ops.append(Substraction(first_number_str, second_number_str, Operand.Soustract, last_result_needed))
+        
+    def multiply_two_money(self, first_number_str: str, second_number_str: str, last_result_needed : LastResultNeeded):
+        self.all_ops.append(Multiplication(first_number_str, second_number_str, Operand.Multiply, last_result_needed))
+        
+    def divide_two_money(self, first_number_str: str, second_number_str: str, last_result_needed : LastResultNeeded):
         if second_number_str == "0":
             raise CannotDivideByZeroException("Cannot divide by 0")
-        elif first_number_str != None : 
-            self.all_ops.append(Operation(first_number_str, second_number_str, Operand.Divide, False))
-        else : 
-            self.all_ops.append(Operation(None, second_number_str, Operand.Divide, True))      
-        return self
+        else:
+            self.all_ops.append(Division(first_number_str, second_number_str, Operand.Divide, last_result_needed)) 
     
     def display_final_result(self):
         display = ""
@@ -55,24 +44,5 @@ class Money:
     def __calculate_all_operations(self):
         last_result = Decimal("0")
         for op in self.all_ops : 
-            if op.operand == Operand.Add:
-                if op.is_last_result_needed == False : 
-                    last_result = Decimal(op.first_number) + Decimal(op.second_number) 
-                else : 
-                    last_result = last_result + Decimal(op.second_number)
-            elif op.operand == Operand.Soustract : 
-                if op.is_last_result_needed == False : 
-                    last_result = Decimal(op.first_number) - Decimal(op.second_number) 
-                else : 
-                    last_result = last_result - Decimal(op.second_number)
-            elif op.operand == Operand.Multiply : 
-                if op.is_last_result_needed == False : 
-                    last_result = Decimal(op.first_number) * Decimal(op.second_number) 
-                else : 
-                    last_result = last_result * Decimal(op.second_number) 
-            else : 
-                if op.is_last_result_needed == False : 
-                    last_result = Decimal(op.first_number) / Decimal(op.second_number) 
-                else :
-                    last_result = last_result / Decimal(op.second_number)
+            last_result = op.calculate(last_result)
         return last_result
