@@ -1,3 +1,6 @@
+from Tricount.MoneyLogic.money import Money
+from Tricount.MoneyLogic.Operation.last_result_needed import LastResultNeeded
+from Tricount.MoneyLogic.rounded_type import RoundedType
 from Tricount.refund import Refund
 DEBTOR = 0
 CREDITOR = 1
@@ -19,15 +22,19 @@ class Participant :
             self.participant_type = CREDITOR
 
     def add_activity_you_participe(self, activity):
-        price_by_participant = round(activity.price / len(activity.participants), 2)
-        self.balance = round(self.balance - price_by_participant, 2)
+        money_activity = Money(RoundedType.BELOW)
+        money_activity.divide_two_money(str(activity.price), str(len(activity.participants)), LastResultNeeded.NotNeeded)
+        money_activity.substract_two_money(str(self.balance), None, LastResultNeeded.SecondMember)
+        balance_str = money_activity.display_final_result()
+        self.balance = float(balance_str)
+        
         if self.balance < 0 : 
             self.participant_type = DEBTOR
 
     def paid_generous_friends(self, generous_participants) : 
         refunds = []
         idx = 0
-        while self.balance < 0 and idx < 20: 
+        while self.balance < -0.03 and idx < 20: 
             value_to_refund = round(0 - self.balance, 2)
             for generous_participant in generous_participants : 
                 if value_to_refund == 0 : 

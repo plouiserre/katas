@@ -5,26 +5,26 @@ from Tricount.trip import Trip
 
 def test_count_all_expenses_trip_ninja_turtles(): 
     ninja_trip = __init_ninja_trip_and_add_many_activity()
-    assert(ninja_trip.participants[0] == Participant("Léonardo", 21.18, CREDITOR))
-    assert(ninja_trip.participants[1] == Participant("Michelangelo", -41.23, DEBTOR))
-    assert(ninja_trip.participants[2] == Participant("Donatello", 39.58, CREDITOR))
-    assert(ninja_trip.participants[3] == Participant("Raphaël", -19.52, DEBTOR))
+    assert(ninja_trip.participants[0] == Participant("Léonardo", 21.17, CREDITOR))
+    assert(ninja_trip.participants[1] == Participant("Michelangelo", -41.24, DEBTOR))
+    assert(ninja_trip.participants[2] == Participant("Donatello", 39.57, CREDITOR))
+    assert(ninja_trip.participants[3] == Participant("Raphaël", -19.53, DEBTOR))
     
 
 def test_count_all_expenses_trip_dream_team(): 
     basket_ball_trip = __init_basket_ball_trip_and_add_many_activity()
-    assert(basket_ball_trip.participants[0] == Participant("Jordan", 56.91, CREDITOR))
-    assert(basket_ball_trip.participants[1] == Participant("Johnson", 18.71, CREDITOR))
+    assert(basket_ball_trip.participants[0] == Participant("Jordan", 56.9, CREDITOR))
+    assert(basket_ball_trip.participants[1] == Participant("Johnson", 18.7, CREDITOR))
     assert(basket_ball_trip.participants[2] == Participant("Bird", 83.47, CREDITOR))
     assert(basket_ball_trip.participants[3] == Participant("Barkley", -76.23, DEBTOR))
-    assert(basket_ball_trip.participants[4] == Participant("Pippen", -82.86, DEBTOR))
+    assert(basket_ball_trip.participants[4] == Participant("Pippen", -82.87, DEBTOR))
 
 def test_calcul_all_refunds_for_trip_ninja_turtles():
     ninja_trip = __init_ninja_trip_and_add_many_activity()
     refunds_expected = [
-        Refund("Michelangelo", "Donatello", 39.58),
-        Refund("Michelangelo", "Léonardo", 1.65),
-        Refund("Raphaël", "Léonardo", 19.52)
+        Refund("Michelangelo", "Donatello", 39.57),
+        Refund("Michelangelo", "Léonardo", 1.67),
+        Refund("Raphaël", "Léonardo", 19.5)
     ]
     refunds_calculated = ninja_trip.refunds
     for idx, refund in enumerate(refunds_calculated) : 
@@ -33,10 +33,10 @@ def test_calcul_all_refunds_for_trip_ninja_turtles():
 def test_calcul_all_refunds_for_trip_dream_team():
     basket_ball_trip = __init_basket_ball_trip_and_add_many_activity()
     refunds_expected = [
-        Refund("Pippen", "Bird", 82.86),
-        Refund("Barkley", "Bird", 0.61),
-        Refund("Barkley", "Jordan", 56.91),
-        Refund("Barkley", "Johnson", 18.71)
+        Refund("Pippen", "Bird", 82.87),
+        Refund("Barkley", "Bird", 0.6),
+        Refund("Barkley", "Jordan", 56.9),
+        Refund("Barkley", "Johnson", 18.7)
     ]
     refunds_calculated = basket_ball_trip.refunds
     for idx, refund in enumerate(refunds_calculated) : 
