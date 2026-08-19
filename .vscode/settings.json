@@ -8,6 +8,7 @@
         "PokerHands",
         "SocialNetwork",
         "Tricount",
+        "TricountV2",
         "-s"
     ],
     "python.testing.unittestEnabled": false,
