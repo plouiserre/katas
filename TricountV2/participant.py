@@ -1,4 +1,4 @@
-from TricountV2.activity import Activity
+from TricountV2.activity import Activity, ActivityType
 from TricountV2.MoneyLogic.money import Money
 
 class Participant : 
@@ -14,8 +14,8 @@ class Participant :
         
     def get_balance(self):
         for activity in self.activites :
-            if activity.role == "Payer" :  
+            if activity.role == ActivityType.PAYER :  
                 self.balance += activity.calculate_balance_payer_activity(self.money)
-            elif activity.role == "Freeloader" : 
+            elif activity.role == ActivityType.FREELOADER : 
                 self.balance -= activity.calculate_balance_freeloader_activity(self.money)
         return str(self.balance)

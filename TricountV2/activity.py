@@ -1,5 +1,10 @@
 from decimal import Decimal
+from enum import Enum
 from TricountV2.MoneyLogic.Operation.last_result_needed import LastResultNeeded
+
+class ActivityType(Enum) : 
+    FREELOADER = 0
+    PAYER = 1
 
 class Activity : 
     def __init__(self, name, price, number_participants, role):
