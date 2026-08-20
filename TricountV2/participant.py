@@ -1,7 +1,5 @@
 from TricountV2.activity import Activity
 from TricountV2.MoneyLogic.money import Money
-from TricountV2.MoneyLogic.Operation.last_result_needed import LastResultNeeded
-
 
 class Participant : 
     def __init__(self, name, rounded_type):
@@ -17,10 +15,7 @@ class Participant :
     def get_balance(self):
         for activity in self.activites :
             if activity.role == "Payer" :  
-                self.money.divide_two_money(activity.price, activity.number_participants, LastResultNeeded.NotNeeded)
-                self.money.substract_two_money(str(activity.price), None, LastResultNeeded.SecondMember)
-                self.balance += float(self.money.display_final_result())
+                self.balance += activity.calculate_balance_payer_activity(self.money)
             elif activity.role == "Freeloader" : 
-                self.money.divide_two_money(activity.price, activity.number_participants, LastResultNeeded.NotNeeded)
-                self.balance -= float(self.money.display_final_result())
+                self.balance -= activity.calculate_balance_freeloader_activity(self.money)
         return str(self.balance)
