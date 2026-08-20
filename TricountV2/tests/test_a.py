@@ -58,13 +58,27 @@ def test7():
     assert("8.5" == balance_participant)
     
 def test8():
-    balance_participant = (ParticipantDriver("Norman")
+    balance_participant = (ParticipantDriver("Flash")
                            .add_activities("restaurant", 150, 5, "Payer")
                            .add_activities("jet ski", 99, 4, "Freeloader")
                            .add_activities("massages", 120, 3, "Freeloader")
                            .add_activities("icecram", 40, 6, "Payer")
                            .get_balance())
     assert("88.58" == balance_participant)
+
+def test9():
+    balance_participant = (ParticipantDriver("Miles")
+                          .add_activities("bottle club", 200, 4, "Payer")
+                          .add_activities("restaurant", 66.78, 5, "Freeloader")
+                          .add_activities("rent car", 500, 3, "Freeloader")
+                          .add_activities("airbnb", 1200, 7, "Freeloader")
+                          .add_activities("plane tickets", 1500, 4, "Payer")
+                          .add_activities("museum", 20, 5, "Freeloader")
+                          .add_activities("bar", 88, 7, "Freeloader")
+                          .add_activities("bus", 24, 6, "Freeloader")
+                          .add_activities("Uber", 51, 4, "Payer")
+                          .get_balance())
+    assert("941.25"== balance_participant)
     
 class ParticipantDriver : 
     def __init__(self, name):
