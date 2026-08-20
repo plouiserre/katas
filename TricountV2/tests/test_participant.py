@@ -2,20 +2,20 @@ from TricountV2.activity import Activity
 from TricountV2.MoneyLogic.rounded_type import RoundedType
 from TricountV2.participant import Participant
 
-def test1():
+def test_peter_paid_one_activity_for_his_friends():
     balance_participant = (ParticipantDriver("Peter")
                            .add_activities("bar", 23, 2, "Payer")
                            .get_balance())
     assert("11.5" == balance_participant)
     
-def test2():
+def test_mj_paid_two_activities_for_his_friends():
     balance_participant = (ParticipantDriver("MJ")
                            .add_activities("massages", 120, 3, "Payer")
                            .add_activities("restaurant", 150, 5, "Payer")
                            .get_balance())
     assert("200.0" == balance_participant)
     
-def test3(): 
+def test_ned_paid_three_activities_for_his_friends(): 
     balance_participant = (ParticipantDriver("Ned")
                            .add_activities("rent a car", 500, 3, "Payer")
                            .add_activities("jet ski", 99, 4, "Payer")
@@ -24,20 +24,20 @@ def test3():
                            )
     assert("457.58" == balance_participant)
     
-def test4():
+def test_harry_participate_in_freeloader_mode_in_one_activity():
     balance_participant = (ParticipantDriver("Harry")
                            .add_activities("bar", 23, 2, "Freeloader")
                            .get_balance())
     assert("-11.5" == balance_participant)
     
-def test5():
+def test_gwen_participate_in_freeloader_mode_in_two_activities():
     balance_participant = (ParticipantDriver("Gwen")
                            .add_activities("massages", 120, 3, "Freeloader")
                            .add_activities("restaurant", 150, 5, "Freeloader")
                            .get_balance())
     assert("-70.0" == balance_participant)
     
-def test6(): 
+def test_norman_participate_in_freeloader_mode_in_three_activities(): 
     balance_participant = (ParticipantDriver("Norman")
                            .add_activities("rent a car", 500, 3, "Freeloader")
                            .add_activities("jet ski", 99, 4, "Freeloader")
@@ -46,7 +46,7 @@ def test6():
                            )
     assert("-241.41" == balance_participant)
     
-def test7():
+def test_may_paid_and_participate_in_two_activities():
     balance_participant = (ParticipantDriver("May")
                           .add_activities("bar", 23, 2, "Freeloader")
                           .add_activities("buy cake", 30, 3, "Payer")
@@ -54,7 +54,7 @@ def test7():
                           )
     assert("8.5" == balance_participant)
     
-def test8():
+def test_flash_paid_and_participate_in_four_activities():
     balance_participant = (ParticipantDriver("Flash")
                            .add_activities("restaurant", 150, 5, "Payer")
                            .add_activities("jet ski", 99, 4, "Freeloader")
@@ -63,7 +63,7 @@ def test8():
                            .get_balance())
     assert("88.58" == balance_participant)
 
-def test9():
+def test_miles_paid_and_participate_in_nine_activities():
     balance_participant = (ParticipantDriver("Miles")
                           .add_activities("bottle club", 200, 4, "Payer")
                           .add_activities("restaurant", 66.78, 5, "Freeloader")
