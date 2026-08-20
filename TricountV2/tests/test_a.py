@@ -1,6 +1,9 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from decimal import Decimal
+from TricountV2.MoneyLogic.money import Money
+from TricountV2.MoneyLogic.Operation.last_result_needed import LastResultNeeded
+from TricountV2.MoneyLogic.rounded_type import RoundedType
 
 def test1():
     balance_participant = (ParticipantDriver("Peter")
@@ -13,23 +16,34 @@ def test2():
                            .add_activities("massages", 120, 3, "Payer")
                            .add_activities("restaurant", 150, 5, "Payer")
                            .get_balance())
-    assert("200" == balance_participant)
+    assert("200.0" == balance_participant)
     
+def test3(): 
+    balance_participant = (ParticipantDriver("Ned")
+                           .add_activities("rent a car", 500, 3, "Payer")
+                           .add_activities("jet ski", 99, 4, "Payer")
+                           .add_activities("room", 100, 2, "Payer")
+                           .get_balance()
+                           )
+    assert("457.58" == balance_participant)
     
 class ParticipantDriver : 
     def __init__(self, name):
         self.name = name
         self.activites = []
         self.balance = 0
+        self.money = Money(RoundedType.BELOW)
     
     def add_activities(self, name, price, number_participants, role):
         self.activites.append(Activity.create(name, price, number_participants, role))
         return self
     
+    #TODO optimise
     def get_balance(self):
         for activity in self.activites : 
-            own_share = self.__get_own_share(activity)
-            self.balance += activity.price - own_share
+            self.money.divide_two_money(activity.price, activity.number_participants, LastResultNeeded.NotNeeded)
+            self.money.substract_two_money(str(activity.price), None, LastResultNeeded.SecondMember)
+            self.balance += float(self.money.display_final_result())
         return str(self.balance)
     
     def __get_own_share(self, activity : Activity):
