@@ -1,9 +1,6 @@
-from __future__ import annotations
-from dataclasses import dataclass
-from decimal import Decimal
-from TricountV2.MoneyLogic.money import Money
-from TricountV2.MoneyLogic.Operation.last_result_needed import LastResultNeeded
+from TricountV2.activity import Activity
 from TricountV2.MoneyLogic.rounded_type import RoundedType
+from TricountV2.participant import Participant
 
 def test1():
     balance_participant = (ParticipantDriver("Peter")
@@ -82,34 +79,11 @@ def test9():
     
 class ParticipantDriver : 
     def __init__(self, name):
-        self.name = name
-        self.activites = []
-        self.balance = 0
-        self.money = Money(RoundedType.BELOW)
+        self.participant = Participant(name, RoundedType.BELOW)
     
     def add_activities(self, name, price, number_participants, role):
-        self.activites.append(Activity.create(name, price, number_participants, role))
+        self.participant.add_activities(name, price, number_participants, role)
         return self
     
-    #TODO optimise
     def get_balance(self):
-        for activity in self.activites :
-            if activity.role == "Payer" :  
-                self.money.divide_two_money(activity.price, activity.number_participants, LastResultNeeded.NotNeeded)
-                self.money.substract_two_money(str(activity.price), None, LastResultNeeded.SecondMember)
-                self.balance += float(self.money.display_final_result())
-            elif activity.role == "Freeloader" : 
-                self.money.divide_two_money(activity.price, activity.number_participants, LastResultNeeded.NotNeeded)
-                self.balance -= float(self.money.display_final_result())
-        return str(self.balance)
-    
-@dataclass
-class Activity : 
-    name : str
-    price : Decimal
-    number_participants : int 
-    role : str
-    
-    @staticmethod
-    def create(name : str, price : str, number_participants : int, role : str):
-        return Activity(name, Decimal(price), number_participants, role)
+        return self.participant.get_balance()  
