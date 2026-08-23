@@ -14,6 +14,13 @@ def test_mj_paid_two_activities_for_his_friends():
                            .add_participation("restaurant", 150, 5, ParticipationType.PAYER)
                            .get_balance())
     assert("200.0" == balance_participant)
+
+# def test_betty_paid_two_activities_with_float_price_for_his_friends(): 
+#     balance_participant = (ParticipantDriver("Betty")
+#                            .add_participation("spa day", 212.5, 7, ParticipationType.PAYER)
+#                            .add_participation("cafe kitten", 45.3, 4, ParticipationType.PAYER)
+#                            .get_balance())
+#     assert("216.13" == balance_participant)
     
 def test_ned_paid_three_activities_for_his_friends(): 
     balance_participant = (ParticipantDriver("Ned")

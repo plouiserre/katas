@@ -8,8 +8,15 @@ class Participant :
         self.balance = 0
         self.money = Money(rounded_type)
 
+    @staticmethod
+    def create_participant(name, balance, participations, rounded_type): 
+        participant = Participant(name, rounded_type)
+        participant.balance = balance
+        participant.participations = participations
+        return participant
+
     def add_participation(self, name, price, number_participants, role):
-        self.participations.append(Participation.create(name, price, number_participants, role))
+        self.participations.append(Participation.create(name, str(price), number_participants, role))
         return self
         
     def get_balance(self):
