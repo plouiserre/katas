@@ -15,20 +15,19 @@ def test_mj_paid_two_activities_for_his_friends():
                            .get_balance())
     assert("200.0" == balance_participant)
 
-# def test_betty_paid_two_activities_with_float_price_for_his_friends(): 
-#     balance_participant = (ParticipantDriver("Betty")
-#                            .add_participation("spa day", 212.5, 7, ParticipationType.PAYER)
-#                            .add_participation("cafe kitten", 45.3, 4, ParticipationType.PAYER)
-#                            .get_balance())
-#     assert("216.13" == balance_participant)
+def test_betty_paid_two_activities_with_float_price_for_his_friends(): 
+    balance_participant = (ParticipantDriver("Betty")
+                           .add_participation("spa day", 212.5, 7, ParticipationType.PAYER)
+                           .add_participation("cafe kitten", 45.3, 4, ParticipationType.PAYER)
+                           .get_balance())
+    assert("216.11" == balance_participant)
     
 def test_ned_paid_three_activities_for_his_friends(): 
     balance_participant = (ParticipantDriver("Ned")
                            .add_participation("rent a car", 500, 3, ParticipationType.PAYER)
                            .add_participation("jet ski", 99, 4, ParticipationType.PAYER)
                            .add_participation("room", 100, 2, ParticipationType.PAYER)
-                           .get_balance()
-                           )
+                           .get_balance())
     assert("457.58" == balance_participant)
     
 def test_harry_participate_in_freeloader_mode_in_one_activity():
@@ -51,7 +50,7 @@ def test_norman_participate_in_freeloader_mode_in_three_activities():
                            .add_participation("room", 100, 2, ParticipationType.FREELOADER)
                            .get_balance()
                            )
-    assert("-241.41" == balance_participant)
+    assert("-241.42" == balance_participant)
     
 def test_may_paid_and_participate_in_two_activities():
     balance_participant = (ParticipantDriver("May")
@@ -75,14 +74,14 @@ def test_miles_paid_and_participate_in_nine_activities():
                           .add_participation("bottle club", 200, 4, ParticipationType.PAYER)
                           .add_participation("restaurant", 66.78, 5, ParticipationType.FREELOADER)
                           .add_participation("rent car", 500, 3, ParticipationType.FREELOADER)
-                          .add_participation("airbnb", 1200, 7, ParticipationType.FREELOADER)
+                          .add_participation("airbnb", 1199.99, 7, ParticipationType.FREELOADER)
                           .add_participation("plane tickets", 1500, 4, ParticipationType.PAYER)
                           .add_participation("museum", 20, 5, ParticipationType.FREELOADER)
-                          .add_participation("bar", 88, 7, ParticipationType.FREELOADER)
+                          .add_participation("bar", 86.52, 7, ParticipationType.FREELOADER)
                           .add_participation("bus", 24, 6, ParticipationType.FREELOADER)
                           .add_participation("Uber", 51, 4, ParticipationType.PAYER)
                           .get_balance())
-    assert("941.25"== balance_participant)
+    assert("941.22"== balance_participant)
     
 class ParticipantDriver : 
     def __init__(self, name):

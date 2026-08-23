@@ -21,8 +21,7 @@ class Participation :
     def calculate_balance_payer_participation(self, money): 
         money.divide_two_money(self.price, self.number_participants, LastResultNeeded.NotNeeded)
         money.substract_two_money(str(self.price), None, LastResultNeeded.SecondMember)
-        return float(money.display_final_result())
-
+        
     def calculate_balance_freeloader_participation(self, money):
         money.divide_two_money(self.price, self.number_participants, LastResultNeeded.NotNeeded)
-        return float(money.display_final_result())
+        
