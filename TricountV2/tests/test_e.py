@@ -14,14 +14,23 @@ def test_1() :
     refund_between_participants_expected = RefundBetweenParticipants.create(refund_expected, Participant.create_participant("Jean", "0", None, RoundedType.BELOW), Participant.create_participant("Fantine", "0", None, RoundedType.BELOW))
     assert(compare_refund(refund_between_participants_expected, refund_between_participants_calculated))  
 
+def test_2() : 
+    refund_between_participants_calculated =(ParticipantDriver()
+              .add_payer(Participant.create_participant("Jean", "-50.35", None, RoundedType.BELOW))
+              .add_participant_to_refund(Participant.create_participant("Fantine", "100.66", None, RoundedType.BELOW))
+              .get_refund_and_participants_updated())
+    refund_expected = Refund.create_refund("Jean", "Fantine", "50.35")
+    refund_between_participants_expected = RefundBetweenParticipants.create(refund_expected, Participant.create_participant("Jean", "0", None, RoundedType.BELOW), Participant.create_participant("Fantine", "50.31", None, RoundedType.BELOW))
+    assert(compare_refund(refund_between_participants_expected, refund_between_participants_calculated))  
 
-# def test_2() : 
-#     refund_calculated =(ParticipantDriver()
-#               .add_payer(Participant.create_participant("Jean", "-50.35", None, RoundedType.BELOW))
-#               .add_participant_to_refund(Participant.create_participant("Fantine", "100.66", None, RoundedType.BELOW))
-#               .get_refund())
-#     refund_expected = Refund.create_refund("Jean", "Fantine", "50.35")
-#     assert(compare_refund(refund_expected, refund_calculated))  
+def test_3() : 
+    refund_between_participants_calculated =(ParticipantDriver()
+              .add_payer(Participant.create_participant("Jean", "-157.17", None, RoundedType.BELOW))
+              .add_participant_to_refund(Participant.create_participant("Fantine", "100.66", None, RoundedType.BELOW))
+              .get_refund_and_participants_updated())
+    refund_expected = Refund.create_refund("Jean", "Fantine", "100.66")
+    refund_between_participants_expected = RefundBetweenParticipants.create(refund_expected, Participant.create_participant("Jean", "-56.51", None, RoundedType.BELOW), Participant.create_participant("Fantine", "0", None, RoundedType.BELOW))
+    assert(compare_refund(refund_between_participants_expected, refund_between_participants_calculated))  
 
 def compare_refund(refund_between_participants_expected : RefundBetweenParticipants, refund_between_participants_calculated : RefundBetweenParticipants):
     refund_expected = refund_between_participants_expected.refund
@@ -36,13 +45,14 @@ def compare_refund(refund_between_participants_expected : RefundBetweenParticipa
     return is_equal_refund and  is_equal_payer and is_equal_recipiant
 
 # TODO faire : 
-# 1 - payer.balance = refund.balance  DOING 
-# 2 - payer.balance < refund.balance 
+# 1 - payer.balance = refund.balance  DID 
+# 2 - payer.balance < refund.balance  DID
 # 3 - payer.balance > refund.balance 
-# 4 - externaliser code 
-# 5 - cleaner test
-# 6 - commit
-# 7 - merge
+# 4 - Decimal
+# 5 - externaliser code 
+# 6 - cleaner test
+# 7 - commit
+# 8 - merge
 
 class ParticipantDriver(): 
     def __init__(self):
@@ -57,11 +67,25 @@ class ParticipantDriver():
         self.recipient = participant
         return self
 
+    #TODO try with decimal 
     def get_refund_and_participants_updated(self):
+        refund = None
         balance_payer = self.payer.balance.replace("-", "")
-        refund = Refund.create_refund(self.payer.name, self.recipient.name, balance_payer)
-        self.payer.balance = "0"
-        self.recipient.balance = "0"
+        money = Money(RoundedType.BELOW)
+        if balance_payer == self.recipient.balance : 
+            refund = Refund.create_refund(self.payer.name, self.recipient.name, balance_payer)
+            self.payer.balance = "0"
+            self.recipient.balance = "0"
+        elif float(balance_payer) < float(self.recipient.balance) : 
+            refund = Refund.create_refund(self.payer.name, self.recipient.name, balance_payer)
+            money.substract_two_money(self.recipient.balance, balance_payer, LastResultNeeded.NotNeeded)
+            self.payer.balance = "0"
+            self.recipient.balance = money.display_final_result()
+        elif float(balance_payer) > float(self.recipient.balance) : 
+            refund = Refund.create_refund(self.payer.name, self.recipient.name, self.recipient.balance)
+            money.substract_two_money(balance_payer, self.recipient.balance, LastResultNeeded.NotNeeded)
+            self.recipient.balance = "0"
+            self.payer.balance = "-"+money.display_final_result()
         return RefundBetweenParticipants.create(refund, self.payer, self.recipient)
 
 @dataclass
