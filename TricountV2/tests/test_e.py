@@ -1,10 +1,10 @@
-from __future__ import annotations
-from dataclasses import dataclass
 from decimal import Decimal
 from TricountV2.MoneyLogic.Operation.last_result_needed import LastResultNeeded
 from TricountV2.MoneyLogic.rounded_type import RoundedType
 from TricountV2.MoneyLogic.money import Money
 from TricountV2.participant import Participant
+from TricountV2.refund import Refund
+from TricountV2.refund_between_participants import RefundBetweenParticipants
 
 def test_1() : 
     refund_between_participants_calculated =(ParticipantDriver()
@@ -48,9 +48,9 @@ def compare_refund(refund_between_participants_expected : RefundBetweenParticipa
 # TODO faire : 
 # 1 - payer.balance = refund.balance  DID 
 # 2 - payer.balance < refund.balance  DID
-# 3 - payer.balance > refund.balance 
-# 4 - Decimal
-# 5 - externaliser code 
+# 3 - payer.balance > refund.balance DID
+# 4 - Decimal DID
+# 5 - externaliser code DOING
 # 6 - cleaner test
 # 7 - commit
 # 8 - merge
@@ -68,46 +68,8 @@ class ParticipantDriver():
         self.recipient = participant
         return self
 
-    #TODO try with decimal 
     def get_refund_and_participants_updated(self):
-        refund = None
-        balance_payer = Decimal(self.payer.balance.replace("-", ""))
-        balance_recipient = Decimal(self.recipient.balance)
-        money = Money(RoundedType.BELOW)
-        if balance_payer == balance_recipient : 
-            refund = Refund.create_refund(self.payer.name, self.recipient.name, str(balance_payer))
-            self.payer.balance = "0"
-            self.recipient.balance = "0"
-        elif balance_payer < balance_recipient : 
-            refund = Refund.create_refund(self.payer.name, self.recipient.name, str(balance_payer))
-            money.substract_two_money(balance_recipient, balance_payer, LastResultNeeded.NotNeeded)
-            self.payer.balance = "0"
-            self.recipient.balance = money.display_final_result()
-        elif float(balance_payer) > float(self.recipient.balance) : 
-            refund = Refund.create_refund(self.payer.name, self.recipient.name, str(balance_recipient))
-            money.substract_two_money(balance_payer, balance_recipient, LastResultNeeded.NotNeeded)
-            self.recipient.balance = "0"
-            self.payer.balance = "-"+money.display_final_result()
-        return RefundBetweenParticipants.create(refund, self.payer, self.recipient)
+        refund_between_participants = RefundBetweenParticipants(self.payer, self.recipient)
+        refund_between_participants.calculate_refund_between_payer_and_recipient()
+        return refund_between_participants
 
-@dataclass
-class RefundBetweenParticipants :
-    refund : Refund
-    payer : Participant 
-    recipient : Participant
-
-    @staticmethod
-    def create(refund, payer, recipient):
-        return RefundBetweenParticipants(refund, payer, recipient)
-
-@dataclass(frozen=True)
-class Refund : 
-    payer : str
-    recipient : str
-    amount :str
-    
-    @staticmethod
-    def create_refund(payer : str, recipient : str, amount : str):
-        return Refund(payer, recipient, amount)
-
-    
