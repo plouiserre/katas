@@ -14,6 +14,20 @@ def test_1():
     assert(len(refunds_calculated) == 1)
     assert(compare_all_refunds(refunds_expected, refunds_calculated))  
     
+def test_2():
+    harry_participations = [Participation.create("bar", "23.5", 2, ParticipationType.PAYER), Participation.create("bowling", "12", 2, ParticipationType.FREELOADER)]
+    hermione_participations = [Participation.create("bar", "23.5", 2, ParticipationType.FREELOADER), Participation.create("restaurant", "50.7", 2, ParticipationType.PAYER)]
+    ron_participations = [Participation.create("restaurant", "50.7", 2, ParticipationType.FREELOADER), Participation.create("bowling", "12", 2, ParticipationType.PAYER)]
+    refunds_calculated = (RefundDriver()
+                        .add_participant(Participant.create_participant("harry", "5.75", harry_participations, RoundedType.BELOW))
+                        .add_participant(Participant.create_participant("hermione", "13.6", hermione_participations, RoundedType.BELOW))
+                        .add_participant(Participant.create_participant("ron", "-19.35", ron_participations, RoundedType.BELOW))
+                        .get_refunds())
+    refunds_expected = [Refund.create_refund("ron", "hermione", "13.6"), Refund.create_refund("ron", "harry", "5.75")]
+    assert(len(refunds_calculated) == 2)
+    assert(compare_all_refunds(refunds_expected, refunds_calculated))  
+    
+    
 def compare_all_refunds(refunds_expected : Refund, refunds_calculated : Refund):
     is_equal = True
     for idx, _ in enumerate(refunds_expected): 
