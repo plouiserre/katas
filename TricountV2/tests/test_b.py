@@ -1,11 +1,12 @@
+from TricountV2.activity import Activity
+from TricountV2.balance_calculator import BalanceCalculator
 from TricountV2.MoneyLogic.rounded_type import RoundedType
 from TricountV2.participant import Participant
 from TricountV2.participation import Participation, ParticipationType
 
-
 def test_1():
     participants = (ActivityDriver()
-                    .add_activities("bar", 23.5, ["harry", "hermione"], "harry")
+                    .add_activity("bar", 23.5, ["harry", "hermione"], "harry")
                     .get_participants_with_balance_calculated())
 
     assert(is_participant_are_equal(Participant.create_participant("harry", "11.75", [Participation.create("bar", 23.5, 2, ParticipationType.PAYER)], RoundedType.BELOW), participants[0])== True)
@@ -13,9 +14,9 @@ def test_1():
 
 def test_2():
     participants = (ActivityDriver()
-                    .add_activities("bar", 23.5, ["harry", "hermione"], "harry")
-                    .add_activities("restaurant", 50.7, ["harry", "hermione"], "hermione")
-                    .add_activities("bowling", 12, ["harry", "hermione"], "harry")
+                    .add_activity("bar", 23.5, ["harry", "hermione"], "harry")
+                    .add_activity("restaurant", 50.7, ["harry", "hermione"], "hermione")
+                    .add_activity("bowling", 12, ["harry", "hermione"], "harry")
                     .get_participants_with_balance_calculated())
 
     harry_participations = [Participation.create("bar", "23.5", 2, ParticipationType.PAYER), Participation.create("restaurant", "50.7", 2, ParticipationType.FREELOADER), Participation.create("bowling", "12", 2, ParticipationType.PAYER)]
@@ -25,9 +26,9 @@ def test_2():
 
 def test_3(): 
     participants = (ActivityDriver()
-                    .add_activities("bar", 23.5, ["harry", "hermione"], "harry")
-                    .add_activities("restaurant", 50.7, ["hermione", "ron"], "hermione")
-                    .add_activities("bowling", 12, ["ron", "harry"], "ron")
+                    .add_activity("bar", 23.5, ["harry", "hermione"], "harry")
+                    .add_activity("restaurant", 50.7, ["hermione", "ron"], "hermione")
+                    .add_activity("bowling", 12, ["ron", "harry"], "ron")
                     .get_participants_with_balance_calculated())
 
     harry_participations = [Participation.create("bar", "23.5", 2, ParticipationType.PAYER), Participation.create("bowling", "12", 2, ParticipationType.FREELOADER)]
@@ -39,12 +40,12 @@ def test_3():
 
 def test_4(): 
     participants = (ActivityDriver()
-                    .add_activities("bar", 23.5, ["harry", "hermione", "ron"], "harry")
-                    .add_activities("restaurant", 50.7, ["hermione", "ron", "ginny", "hagrid"], "hermione")
-                    .add_activities("bowling", 12, ["ron", "ginny"], "ron")
-                    .add_activities("plane tickets", 1200, ["harry", "hermione", "ron", "ginny", "hagrid"], "ginny")
-                    .add_activities("hotel", 615, ["harry", "hermione", "ron", "ginny","hagrid"], "hagrid")
-                    .add_activities("spa day", 120, ["hermione", "ginny"], "hermione")
+                    .add_activity("bar", 23.5, ["harry", "hermione", "ron"], "harry")
+                    .add_activity("restaurant", 50.7, ["hermione", "ron", "ginny", "hagrid"], "hermione")
+                    .add_activity("bowling", 12, ["ron", "ginny"], "ron")
+                    .add_activity("plane tickets", 1200, ["harry", "hermione", "ron", "ginny", "hagrid"], "ginny")
+                    .add_activity("hotel", 615, ["harry", "hermione", "ron", "ginny","hagrid"], "hagrid")
+                    .add_activity("spa day", 120, ["hermione", "ginny"], "hermione")
                     .get_participants_with_balance_calculated())
     harry_participations = [Participation.create( "bar", "23.5", 3, ParticipationType.PAYER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER)]
     hermione_participations = [Participation.create( "bar", "23.5", 3, ParticipationType.FREELOADER), Participation.create("restaurant", "50.7", 4, ParticipationType.PAYER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER), Participation.create("spa day", "120", 2, ParticipationType.PAYER)]
@@ -59,9 +60,9 @@ def test_4():
         
 #TODO
 # - faire un test avec trois personnes et trois activités qui ne font pas la même chose OK 
-# - faire un test avec six personnes et cinq activités qui ne font pas la même chose 
-# - commiter 
-# - externaliser le code 
+# - faire un test avec six personnes et cinq activités qui ne font pas la même chose OK 
+# - commiter OK 
+# - externaliser le code OK
 # - commiter 
 # - renommer les tests
 
@@ -75,53 +76,13 @@ def is_participant_are_equal(participant_expected : Participant, participant_cal
             break        
     return participant_expected.name == participant_calculated.name and participant_expected.balance == participant_calculated.balance and is_participations_equal == True
 
-
 class ActivityDriver :
     def __init__(self):
-        self.activities = []
-        self.participants = []
+        self.balance_calculator = BalanceCalculator()
 
-    def add_activities(self, name_activity, price, participants_name, payer):
-        self.activities.append(Activity.create(name_activity, str(price), participants_name, payer))
+    def add_activity(self, name_activity, price, participants_name, payer):
+        self.balance_calculator.add_activity(name_activity, price, participants_name, payer)
         return self
 
     def get_participants_with_balance_calculated(self):
-        participants = []
-        participations = self.__get_all_participations_from_activities()
-        for participant_name in participations :
-            all_participations_for_participant = participations[participant_name]
-            participant = Participant.create_participant(participant_name, 0, all_participations_for_participant, RoundedType.BELOW)
-            balance = participant.get_balance()
-            participant.balance = balance
-            participants.append(participant)
-        return participants
-
-    def __get_all_participations_from_activities(self):
-        participations = {}
-        for activity in self.activities :
-            for participant_name in activity.participants_name :
-                if participant_name not in participations :
-                    participations[participant_name] = []
-                participation_type = ParticipationType.PAYER if participant_name == activity.payer else ParticipationType.FREELOADER
-                participations[participant_name].append(Participation.create(activity.name, activity.price, len(activity.participants_name), participation_type))
-        return participations
-
-    def __get_participant_by_name(self, name):
-        find_participant = None
-        for participant in self.participants :
-            if participant.name == name :
-                find_participant = participant
-                break
-        return find_participant
-
-
-class Activity :
-    def __init__(self, name, price, participants_name, payer):
-        self.name = name
-        self.price = price
-        self.participants_name = participants_name
-        self.payer = payer
-
-    @staticmethod
-    def create(name, price, participants_name, payer):
-        return Activity(name, price, participants_name, payer)
+        return self.balance_calculator.calculate_participants_balance_from_activities()
