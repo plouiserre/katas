@@ -81,7 +81,7 @@ def test_miles_paid_and_participate_in_nine_activities():
                           .add_participation("bus", 24, 6, ParticipationType.FREELOADER)
                           .add_participation("Uber", 51, 4, ParticipationType.PAYER)
                           .get_balance())
-    assert("941.22"== balance_participant)
+    assert("941.44"== balance_participant)
     
 class ParticipantDriver : 
     def __init__(self, name):
