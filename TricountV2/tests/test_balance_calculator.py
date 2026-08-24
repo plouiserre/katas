@@ -1,10 +1,9 @@
-from TricountV2.activity import Activity
 from TricountV2.balance_calculator import BalanceCalculator
 from TricountV2.MoneyLogic.rounded_type import RoundedType
 from TricountV2.participant import Participant
 from TricountV2.participation import Participation, ParticipationType
 
-def test_1():
+def test_get_balance_for_two_participants_in_one_activity():
     participants = (ActivityDriver()
                     .add_activity("bar", 23.5, ["harry", "hermione"], "harry")
                     .get_participants_with_balance_calculated())
@@ -12,7 +11,7 @@ def test_1():
     assert(is_participant_are_equal(Participant.create_participant("harry", "11.75", [Participation.create("bar", 23.5, 2, ParticipationType.PAYER)], RoundedType.BELOW), participants[0])== True)
     assert(is_participant_are_equal(Participant.create_participant("hermione", "-11.75", [Participation.create("bar", 23.5, 2, ParticipationType.FREELOADER)], RoundedType.BELOW), participants[1]) == True)
 
-def test_2():
+def test_get_balance_for_two_participants_in_three_activities():
     participants = (ActivityDriver()
                     .add_activity("bar", 23.5, ["harry", "hermione"], "harry")
                     .add_activity("restaurant", 50.7, ["harry", "hermione"], "hermione")
@@ -24,7 +23,7 @@ def test_2():
     assert(is_participant_are_equal(Participant.create_participant("harry", "-7.6", harry_participations, RoundedType.BELOW), participants[0]) == True)
     assert(is_participant_are_equal(Participant.create_participant("hermione", "7.6", hermione_participations, RoundedType.BELOW), participants[1]) == True)
 
-def test_3(): 
+def test_get_balance_for_three_participants_in_three_activities(): 
     participants = (ActivityDriver()
                     .add_activity("bar", 23.5, ["harry", "hermione"], "harry")
                     .add_activity("restaurant", 50.7, ["hermione", "ron"], "hermione")
@@ -38,7 +37,7 @@ def test_3():
     assert(is_participant_are_equal(Participant.create_participant("hermione", "13.6", hermione_participations, RoundedType.BELOW), participants[1]) == True)
     assert(is_participant_are_equal(Participant.create_participant("ron", "-19.35", ron_participations, RoundedType.BELOW), participants[2]) == True)
 
-def test_4(): 
+def test_get_balance_for_five_participants_in_six_activities(): 
     participants = (ActivityDriver()
                     .add_activity("bar", 23.5, ["harry", "hermione", "ron"], "harry")
                     .add_activity("restaurant", 50.7, ["hermione", "ron", "ginny", "hagrid"], "hermione")
@@ -57,14 +56,6 @@ def test_4():
     assert(is_participant_are_equal(Participant.create_participant("ron", "-377.51", ron_participations, RoundedType.BELOW), participants[2]) == True)
     assert(is_participant_are_equal(Participant.create_participant("ginny", "758.32", ginny_participations, RoundedType.BELOW), participants[3]) == True)
     assert(is_participant_are_equal(Participant.create_participant("hagrid", "239.32", hagrid_participations, RoundedType.BELOW), participants[4]) == True)
-        
-#TODO
-# - faire un test avec trois personnes et trois activités qui ne font pas la même chose OK 
-# - faire un test avec six personnes et cinq activités qui ne font pas la même chose OK 
-# - commiter OK 
-# - externaliser le code OK
-# - commiter 
-# - renommer les tests
 
 def is_participant_are_equal(participant_expected : Participant, participant_calculated : Participant):
     is_participations_equal  = True
