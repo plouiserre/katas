@@ -1,12 +1,9 @@
-from decimal import Decimal
-from TricountV2.MoneyLogic.Operation.last_result_needed import LastResultNeeded
 from TricountV2.MoneyLogic.rounded_type import RoundedType
-from TricountV2.MoneyLogic.money import Money
 from TricountV2.participant import Participant
 from TricountV2.refund import Refund
 from TricountV2.refund_between_participants import RefundBetweenParticipants
 
-def test_1() : 
+def test_refund_when_payer_and_recipient_have_opposite_balance() : 
     refund_between_participants_calculated =(ParticipantDriver()
               .add_payer(Participant.create_participant("Jean", "-50.35", None, RoundedType.BELOW))
               .add_participant_to_refund(Participant.create_participant("Fantine", "50.35", None, RoundedType.BELOW))
@@ -15,7 +12,7 @@ def test_1() :
     refund_between_participants_expected = RefundBetweenParticipants.create(refund_expected, Participant.create_participant("Jean", "0", None, RoundedType.BELOW), Participant.create_participant("Fantine", "0", None, RoundedType.BELOW))
     assert(compare_refund(refund_between_participants_expected, refund_between_participants_calculated))  
 
-def test_2() : 
+def test_refund_when_recipient_balance_is_more_important() : 
     refund_between_participants_calculated =(ParticipantDriver()
               .add_payer(Participant.create_participant("Jean", "-50.35", None, RoundedType.BELOW))
               .add_participant_to_refund(Participant.create_participant("Fantine", "100.66", None, RoundedType.BELOW))
@@ -24,7 +21,7 @@ def test_2() :
     refund_between_participants_expected = RefundBetweenParticipants.create(refund_expected, Participant.create_participant("Jean", "0", None, RoundedType.BELOW), Participant.create_participant("Fantine", "50.31", None, RoundedType.BELOW))
     assert(compare_refund(refund_between_participants_expected, refund_between_participants_calculated))  
 
-def test_3() : 
+def test_refund_when_payer_balance_is_more_important() : 
     refund_between_participants_calculated =(ParticipantDriver()
               .add_payer(Participant.create_participant("Jean", "-157.17", None, RoundedType.BELOW))
               .add_participant_to_refund(Participant.create_participant("Fantine", "100.66", None, RoundedType.BELOW))
