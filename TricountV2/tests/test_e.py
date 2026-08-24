@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from decimal import Decimal
 from TricountV2.MoneyLogic.Operation.last_result_needed import LastResultNeeded
 from TricountV2.MoneyLogic.rounded_type import RoundedType
 from TricountV2.MoneyLogic.money import Money
@@ -70,20 +71,21 @@ class ParticipantDriver():
     #TODO try with decimal 
     def get_refund_and_participants_updated(self):
         refund = None
-        balance_payer = self.payer.balance.replace("-", "")
+        balance_payer = Decimal(self.payer.balance.replace("-", ""))
+        balance_recipient = Decimal(self.recipient.balance)
         money = Money(RoundedType.BELOW)
-        if balance_payer == self.recipient.balance : 
-            refund = Refund.create_refund(self.payer.name, self.recipient.name, balance_payer)
+        if balance_payer == balance_recipient : 
+            refund = Refund.create_refund(self.payer.name, self.recipient.name, str(balance_payer))
             self.payer.balance = "0"
             self.recipient.balance = "0"
-        elif float(balance_payer) < float(self.recipient.balance) : 
-            refund = Refund.create_refund(self.payer.name, self.recipient.name, balance_payer)
-            money.substract_two_money(self.recipient.balance, balance_payer, LastResultNeeded.NotNeeded)
+        elif balance_payer < balance_recipient : 
+            refund = Refund.create_refund(self.payer.name, self.recipient.name, str(balance_payer))
+            money.substract_two_money(balance_recipient, balance_payer, LastResultNeeded.NotNeeded)
             self.payer.balance = "0"
             self.recipient.balance = money.display_final_result()
         elif float(balance_payer) > float(self.recipient.balance) : 
-            refund = Refund.create_refund(self.payer.name, self.recipient.name, self.recipient.balance)
-            money.substract_two_money(balance_payer, self.recipient.balance, LastResultNeeded.NotNeeded)
+            refund = Refund.create_refund(self.payer.name, self.recipient.name, str(balance_recipient))
+            money.substract_two_money(balance_payer, balance_recipient, LastResultNeeded.NotNeeded)
             self.recipient.balance = "0"
             self.payer.balance = "-"+money.display_final_result()
         return RefundBetweenParticipants.create(refund, self.payer, self.recipient)
