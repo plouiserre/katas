@@ -5,29 +5,29 @@ from TricountV2.refund_between_participants import RefundBetweenParticipants
 
 def test_refund_when_payer_and_recipient_have_opposite_balance() : 
     refund_between_participants_calculated =(ParticipantDriver()
-              .add_payer(Participant.create_participant("Jean", "-50.35", None, RoundedType.BELOW))
-              .add_participant_to_refund(Participant.create_participant("Fantine", "50.35", None, RoundedType.BELOW))
+              .add_payer(Participant.create("Jean", "-50.35", None, RoundedType.BELOW))
+              .add_participant_to_refund(Participant.create("Fantine", "50.35", None, RoundedType.BELOW))
               .get_refund_and_participants_updated())
     refund_expected = Refund.create_refund("Jean", "Fantine", "50.35")
-    refund_between_participants_expected = RefundBetweenParticipants.create(refund_expected, Participant.create_participant("Jean", "0", None, RoundedType.BELOW), Participant.create_participant("Fantine", "0", None, RoundedType.BELOW))
+    refund_between_participants_expected = RefundBetweenParticipants.create(refund_expected, Participant.create("Jean", "0", None, RoundedType.BELOW), Participant.create("Fantine", "0", None, RoundedType.BELOW))
     assert(compare_refund(refund_between_participants_expected, refund_between_participants_calculated))  
 
 def test_refund_when_recipient_balance_is_more_important() : 
     refund_between_participants_calculated =(ParticipantDriver()
-              .add_payer(Participant.create_participant("Jean", "-50.35", None, RoundedType.BELOW))
-              .add_participant_to_refund(Participant.create_participant("Fantine", "100.66", None, RoundedType.BELOW))
+              .add_payer(Participant.create("Jean", "-50.35", None, RoundedType.BELOW))
+              .add_participant_to_refund(Participant.create("Fantine", "100.66", None, RoundedType.BELOW))
               .get_refund_and_participants_updated())
     refund_expected = Refund.create_refund("Jean", "Fantine", "50.35")
-    refund_between_participants_expected = RefundBetweenParticipants.create(refund_expected, Participant.create_participant("Jean", "0", None, RoundedType.BELOW), Participant.create_participant("Fantine", "50.31", None, RoundedType.BELOW))
+    refund_between_participants_expected = RefundBetweenParticipants.create(refund_expected, Participant.create("Jean", "0", None, RoundedType.BELOW), Participant.create("Fantine", "50.31", None, RoundedType.BELOW))
     assert(compare_refund(refund_between_participants_expected, refund_between_participants_calculated))  
 
 def test_refund_when_payer_balance_is_more_important() : 
     refund_between_participants_calculated =(ParticipantDriver()
-              .add_payer(Participant.create_participant("Jean", "-157.17", None, RoundedType.BELOW))
-              .add_participant_to_refund(Participant.create_participant("Fantine", "100.66", None, RoundedType.BELOW))
+              .add_payer(Participant.create("Jean", "-157.17", None, RoundedType.BELOW))
+              .add_participant_to_refund(Participant.create("Fantine", "100.66", None, RoundedType.BELOW))
               .get_refund_and_participants_updated())
     refund_expected = Refund.create_refund("Jean", "Fantine", "100.66")
-    refund_between_participants_expected = RefundBetweenParticipants.create(refund_expected, Participant.create_participant("Jean", "-56.51", None, RoundedType.BELOW), Participant.create_participant("Fantine", "0", None, RoundedType.BELOW))
+    refund_between_participants_expected = RefundBetweenParticipants.create(refund_expected, Participant.create("Jean", "-56.51", None, RoundedType.BELOW), Participant.create("Fantine", "0", None, RoundedType.BELOW))
     assert(compare_refund(refund_between_participants_expected, refund_between_participants_calculated))  
 
 def compare_refund(refund_between_participants_expected : RefundBetweenParticipants, refund_between_participants_calculated : RefundBetweenParticipants):

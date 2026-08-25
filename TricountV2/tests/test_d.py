@@ -7,8 +7,8 @@ from TricountV2.participation import Participation, ParticipationType
 
 def test_1():
     refunds_calculated = (RefundDriver()
-               .add_participant(Participant.create_participant("harry", "11.75", [Participation.create("bar", 23.5, 2, ParticipationType.PAYER)], RoundedType.BELOW))
-               .add_participant(Participant.create_participant("hermione", "-11.75", [Participation.create("bar", 23.5, 2, ParticipationType.FREELOADER)], RoundedType.BELOW))
+               .add_participant(Participant.create("harry", "11.75", [Participation.create("bar", 23.5, 2, ParticipationType.PAYER)], RoundedType.BELOW))
+               .add_participant(Participant.create("hermione", "-11.75", [Participation.create("bar", 23.5, 2, ParticipationType.FREELOADER)], RoundedType.BELOW))
                .get_refunds())
     refunds_expected = [Refund.create_refund("hermione", "harry", "11.75")]
     assert(len(refunds_calculated) == 1)
@@ -19,9 +19,9 @@ def test_1():
 #     hermione_participations = [Participation.create("bar", "23.5", 2, ParticipationType.FREELOADER), Participation.create("restaurant", "50.7", 2, ParticipationType.PAYER)]
 #     ron_participations = [Participation.create("restaurant", "50.7", 2, ParticipationType.FREELOADER), Participation.create("bowling", "12", 2, ParticipationType.PAYER)]
 #     refunds_calculated = (RefundDriver()
-#                         .add_participant(Participant.create_participant("harry", "5.75", harry_participations, RoundedType.BELOW))
-#                         .add_participant(Participant.create_participant("hermione", "13.6", hermione_participations, RoundedType.BELOW))
-#                         .add_participant(Participant.create_participant("ron", "-19.35", ron_participations, RoundedType.BELOW))
+#                         .add_participant(Participant.create("harry", "5.75", harry_participations, RoundedType.BELOW))
+#                         .add_participant(Participant.create("hermione", "13.6", hermione_participations, RoundedType.BELOW))
+#                         .add_participant(Participant.create("ron", "-19.35", ron_participations, RoundedType.BELOW))
 #                         .get_refunds())
 #     refunds_expected = [Refund.create_refund("ron", "hermione", "13.6"), Refund.create_refund("ron", "harry", "5.75")]
 #     assert(len(refunds_calculated) == 2)
