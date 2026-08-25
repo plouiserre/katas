@@ -11,6 +11,7 @@ class RefundBetweenParticipants :
         self.payer = payer 
         self.recipient = recipient
 
+    #TODO reprendre ce test car on renvoie le refund
     def calculate_refund_between_payer_and_recipient(self):
         balance_payer = Decimal(self.payer.balance.replace("-", ""))
         balance_recipient = Decimal(self.recipient.balance)
@@ -29,6 +30,7 @@ class RefundBetweenParticipants :
             money.substract_two_money(balance_payer, balance_recipient, LastResultNeeded.NotNeeded)
             self.recipient.balance = "0"
             self.payer.balance = "-"+money.display_final_result()
+        return self.refund
 
     @staticmethod
     def create(refund, payer, recipient):
