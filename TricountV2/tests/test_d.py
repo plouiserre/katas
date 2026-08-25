@@ -1,9 +1,8 @@
-from __future__ import annotations
-from dataclasses import dataclass
+from TricountV2.manage_refunds import ManageRefunds
 from TricountV2.MoneyLogic.rounded_type import RoundedType
 from TricountV2.participant import Participant 
 from TricountV2.participation import Participation, ParticipationType
-from TricountV2.refund_between_participants import RefundBetweenParticipants
+from TricountV2.refund import Refund
 
 def test_1():
     refunds_calculated = (RefundDriver()
@@ -61,50 +60,12 @@ def compare_all_refunds(refunds_expected : Refund, refunds_calculated : Refund):
 class RefundDriver : 
     def __init__(self):
         self.participants = []
+        self.manage_refunds = ManageRefunds()   
     
     def add_participant(self, participant : Participant) :
-        self.participants.append(participant)
+        self.manage_refunds.add_participant(participant)
         return self
     
     #TODO reprendre ce code et l'améliorer
     def get_refunds(self):
-        payer_participants = self.__get_payer_participants()
-        recipient_participants = self.__get_recipient_participants()
-        all_refunds = []
-        while (len(payer_participants)>0 and len(recipient_participants)>0):
-            first_payer = payer_participants[0]
-            first_recipient = recipient_participants[0]
-            refund_between_participants = RefundBetweenParticipants(first_payer, first_recipient)
-            refund = refund_between_participants.calculate_refund_between_payer_and_recipient()
-            if first_payer.balance == "0": 
-                payer_participants.remove(first_payer)
-            if first_recipient.balance == "0" : 
-                recipient_participants.remove(first_recipient)
-            all_refunds.append(refund)
-        return all_refunds
-    
-    def __get_payer_participants(self): 
-        payer_participants = []
-        for participant in self.participants : 
-            balance_participant = float(participant.balance)
-            if balance_participant < 0 : 
-                payer_participants.append(participant)
-        return sorted(payer_participants, key =lambda x:x.balance, reverse= True)
-    
-    def __get_recipient_participants(self): 
-            recipient_participants = []
-            for participant in self.participants : 
-                balance_participant = float(participant.balance)
-                if balance_participant > 0 : 
-                    recipient_participants.append(participant)
-            return sorted(recipient_participants, key =lambda x:x.balance, reverse= True)
-    
-@dataclass(frozen=True)
-class Refund : 
-    payer : str
-    recipient : str
-    amount :str
-    
-    @staticmethod
-    def create_refund(payer : str, recipient : str, amount : str):
-        return Refund(payer, recipient, amount)
+        return self.manage_refunds.calculate_all_refunds()
