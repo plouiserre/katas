@@ -25,7 +25,27 @@ def test_2():
                         .get_refunds())
     refunds_expected = [Refund.create_refund("ron", "hermione", "13.6"), Refund.create_refund("ron", "harry", "5.75")]
     assert(len(refunds_calculated) == 2)
-    assert(compare_all_refunds(refunds_expected, refunds_calculated))  
+    assert(compare_all_refunds(refunds_expected, refunds_calculated)) 
+    
+def test_3() :  
+    harry_participations = [Participation.create( "bar", "23.5", 3, ParticipationType.PAYER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER)]
+    hermione_participations = [Participation.create( "bar", "23.5", 3, ParticipationType.FREELOADER), Participation.create("restaurant", "50.7", 4, ParticipationType.PAYER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER), Participation.create("spa day", "120", 2, ParticipationType.PAYER)]
+    ron_participations = [Participation.create("bar", "23.5", 3, ParticipationType.FREELOADER), Participation.create("restaurant", "50.7", 4, ParticipationType.FREELOADER), Participation.create("bowling", "12", 2, ParticipationType.PAYER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER)]
+    ginny_participations = [Participation.create("restaurant", "50.7", 4, ParticipationType.FREELOADER), Participation.create("bowling", "12", 2, ParticipationType.FREELOADER), Participation.create("plane tickets", "1200", 5, ParticipationType.PAYER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER), Participation.create("spa day", "120", 2, ParticipationType.FREELOADER)]
+    hagrid_participations = [Participation.create("restaurant", "50.7", 4, ParticipationType.FREELOADER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.PAYER)]
+    
+    refunds_calculated = (RefundDriver()
+                            .add_participant(Participant.create("harry", "-347.34", harry_participations, RoundedType.BELOW))
+                            .add_participant(Participant.create("hermione", "-272.81", hermione_participations, RoundedType.BELOW))
+                            .add_participant(Participant.create("ron", "-377.51", ron_participations, RoundedType.BELOW))
+                            .add_participant(Participant.create("ginny", "758.32", ginny_participations, RoundedType.BELOW))
+                            .add_participant(Participant.create("hagrid", "239.32", hagrid_participations, RoundedType.BELOW))
+                            .get_refunds())
+    
+    refunds_expected = [Refund.create_refund("ron", "ginny", "377.51"), Refund.create_refund("harry", "ginny", "347.34"),
+                        Refund.create_refund("hermione", "ginny", "33.47"), Refund.create_refund("hermione", "hagrid", "239.32")]
+    assert(len(refunds_calculated) == 4)
+    assert(compare_all_refunds(refunds_expected, refunds_calculated)) 
     
     
 def compare_all_refunds(refunds_expected : Refund, refunds_calculated : Refund):
@@ -69,7 +89,7 @@ class RefundDriver :
             balance_participant = float(participant.balance)
             if balance_participant < 0 : 
                 payer_participants.append(participant)
-        return sorted(payer_participants, key =lambda x:x.balance)
+        return sorted(payer_participants, key =lambda x:x.balance, reverse= True)
     
     def __get_recipient_participants(self): 
             recipient_participants = []
@@ -77,11 +97,7 @@ class RefundDriver :
                 balance_participant = float(participant.balance)
                 if balance_participant > 0 : 
                     recipient_participants.append(participant)
-            return sorted(recipient_participants, key =lambda x:x.balance)
-                
-    #  self.debt_participants = sorted(self.debt_participants, key=lambda x:x.balance)
-    #  self.generous_participants = sorted(self.generous_participants, key=lambda x:x.balance, reverse= True )
-                       
+            return sorted(recipient_participants, key =lambda x:x.balance, reverse= True)
     
 @dataclass(frozen=True)
 class Refund : 
