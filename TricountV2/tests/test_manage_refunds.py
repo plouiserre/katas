@@ -4,7 +4,7 @@ from TricountV2.participant import Participant
 from TricountV2.participation import Participation, ParticipationType
 from TricountV2.refund import Refund
 
-def test_1():
+def test_calculate_refunds_for_two_participants_in_one_activity():
     refunds_calculated = (RefundDriver()
                .add_participant(Participant.create("harry", "11.75", [Participation.create("bar", 23.5, 2, ParticipationType.PAYER)], RoundedType.BELOW))
                .add_participant(Participant.create("hermione", "-11.75", [Participation.create("bar", 23.5, 2, ParticipationType.FREELOADER)], RoundedType.BELOW))
@@ -13,7 +13,7 @@ def test_1():
     assert(len(refunds_calculated) == 1)
     assert(compare_all_refunds(refunds_expected, refunds_calculated))  
     
-def test_2():
+def test_calculate_refunds_for_three_participants_in_three_activities():
     harry_participations = [Participation.create("bar", "23.5", 2, ParticipationType.PAYER), Participation.create("bowling", "12", 2, ParticipationType.FREELOADER)]
     hermione_participations = [Participation.create("bar", "23.5", 2, ParticipationType.FREELOADER), Participation.create("restaurant", "50.7", 2, ParticipationType.PAYER)]
     ron_participations = [Participation.create("restaurant", "50.7", 2, ParticipationType.FREELOADER), Participation.create("bowling", "12", 2, ParticipationType.PAYER)]
@@ -26,7 +26,7 @@ def test_2():
     assert(len(refunds_calculated) == 2)
     assert(compare_all_refunds(refunds_expected, refunds_calculated)) 
     
-def test_3() :  
+def test_calculate_refunds_for_five_participants_in_six_activities() :  
     harry_participations = [Participation.create( "bar", "23.5", 3, ParticipationType.PAYER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER)]
     hermione_participations = [Participation.create( "bar", "23.5", 3, ParticipationType.FREELOADER), Participation.create("restaurant", "50.7", 4, ParticipationType.PAYER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER), Participation.create("spa day", "120", 2, ParticipationType.PAYER)]
     ron_participations = [Participation.create("bar", "23.5", 3, ParticipationType.FREELOADER), Participation.create("restaurant", "50.7", 4, ParticipationType.FREELOADER), Participation.create("bowling", "12", 2, ParticipationType.PAYER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER)]
