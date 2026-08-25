@@ -42,16 +42,6 @@ def compare_refund(refund_between_participants_expected : RefundBetweenParticipa
     is_equal_recipiant = recipiant_expected.name == recipiant_calculated.name and recipiant_calculated.balance == recipiant_expected.balance
     return is_equal_refund and  is_equal_payer and is_equal_recipiant
 
-# TODO faire : 
-# 1 - payer.balance = refund.balance  DID 
-# 2 - payer.balance < refund.balance  DID
-# 3 - payer.balance > refund.balance DID
-# 4 - Decimal DID
-# 5 - externaliser code DOING
-# 6 - cleaner test
-# 7 - commit
-# 8 - merge
-
 class ParticipantDriver(): 
     def __init__(self):
         self.payer = None
