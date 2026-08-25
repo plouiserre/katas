@@ -17,7 +17,7 @@ class BalanceCalculator:
         participations = self.__get_all_participations_from_activities()
         for participant_name in participations :
             all_participations_for_participant = participations[participant_name]
-            participant = Participant.create_participant(participant_name, 0, all_participations_for_participant, RoundedType.BELOW)
+            participant = Participant.create(participant_name, "0", all_participations_for_participant, RoundedType.BELOW)
             balance = participant.get_balance()
             participant.balance = balance
             participants.append(participant)

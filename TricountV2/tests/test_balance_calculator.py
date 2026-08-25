@@ -8,8 +8,8 @@ def test_get_balance_for_two_participants_in_one_activity():
                     .add_activity("bar", 23.5, ["harry", "hermione"], "harry")
                     .get_participants_with_balance_calculated())
 
-    assert(is_participant_are_equal(Participant.create_participant("harry", "11.75", [Participation.create("bar", 23.5, 2, ParticipationType.PAYER)], RoundedType.BELOW), participants[0])== True)
-    assert(is_participant_are_equal(Participant.create_participant("hermione", "-11.75", [Participation.create("bar", 23.5, 2, ParticipationType.FREELOADER)], RoundedType.BELOW), participants[1]) == True)
+    assert(is_participant_are_equal(Participant.create("harry", "11.75", [Participation.create("bar", 23.5, 2, ParticipationType.PAYER)], RoundedType.BELOW), participants[0])== True)
+    assert(is_participant_are_equal(Participant.create("hermione", "-11.75", [Participation.create("bar", 23.5, 2, ParticipationType.FREELOADER)], RoundedType.BELOW), participants[1]) == True)
 
 def test_get_balance_for_two_participants_in_three_activities():
     participants = (ActivityDriver()
@@ -20,8 +20,8 @@ def test_get_balance_for_two_participants_in_three_activities():
 
     harry_participations = [Participation.create("bar", "23.5", 2, ParticipationType.PAYER), Participation.create("restaurant", "50.7", 2, ParticipationType.FREELOADER), Participation.create("bowling", "12", 2, ParticipationType.PAYER)]
     hermione_participations = [Participation.create("bar", "23.5", 2, ParticipationType.FREELOADER), Participation.create("restaurant", "50.7", 2, ParticipationType.PAYER), Participation.create("bowling", "12", 2, ParticipationType.FREELOADER)]
-    assert(is_participant_are_equal(Participant.create_participant("harry", "-7.6", harry_participations, RoundedType.BELOW), participants[0]) == True)
-    assert(is_participant_are_equal(Participant.create_participant("hermione", "7.6", hermione_participations, RoundedType.BELOW), participants[1]) == True)
+    assert(is_participant_are_equal(Participant.create("harry", "-7.6", harry_participations, RoundedType.BELOW), participants[0]) == True)
+    assert(is_participant_are_equal(Participant.create("hermione", "7.6", hermione_participations, RoundedType.BELOW), participants[1]) == True)
 
 def test_get_balance_for_three_participants_in_three_activities(): 
     participants = (ActivityDriver()
@@ -33,9 +33,9 @@ def test_get_balance_for_three_participants_in_three_activities():
     harry_participations = [Participation.create("bar", "23.5", 2, ParticipationType.PAYER), Participation.create("bowling", "12", 2, ParticipationType.FREELOADER)]
     hermione_participations = [Participation.create("bar", "23.5", 2, ParticipationType.FREELOADER), Participation.create("restaurant", "50.7", 2, ParticipationType.PAYER)]
     ron_participations = [Participation.create("restaurant", "50.7", 2, ParticipationType.FREELOADER), Participation.create("bowling", "12", 2, ParticipationType.PAYER)]
-    assert(is_participant_are_equal(Participant.create_participant("harry", "5.75", harry_participations, RoundedType.BELOW), participants[0]) == True)
-    assert(is_participant_are_equal(Participant.create_participant("hermione", "13.6", hermione_participations, RoundedType.BELOW), participants[1]) == True)
-    assert(is_participant_are_equal(Participant.create_participant("ron", "-19.35", ron_participations, RoundedType.BELOW), participants[2]) == True)
+    assert(is_participant_are_equal(Participant.create("harry", "5.75", harry_participations, RoundedType.BELOW), participants[0]) == True)
+    assert(is_participant_are_equal(Participant.create("hermione", "13.6", hermione_participations, RoundedType.BELOW), participants[1]) == True)
+    assert(is_participant_are_equal(Participant.create("ron", "-19.35", ron_participations, RoundedType.BELOW), participants[2]) == True)
 
 def test_get_balance_for_five_participants_in_six_activities(): 
     participants = (ActivityDriver()
@@ -51,11 +51,11 @@ def test_get_balance_for_five_participants_in_six_activities():
     ron_participations = [Participation.create("bar", "23.5", 3, ParticipationType.FREELOADER), Participation.create("restaurant", "50.7", 4, ParticipationType.FREELOADER), Participation.create("bowling", "12", 2, ParticipationType.PAYER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER)]
     ginny_participations = [Participation.create("restaurant", "50.7", 4, ParticipationType.FREELOADER), Participation.create("bowling", "12", 2, ParticipationType.FREELOADER), Participation.create("plane tickets", "1200", 5, ParticipationType.PAYER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER), Participation.create("spa day", "120", 2, ParticipationType.FREELOADER)]
     hagrid_participations = [Participation.create("restaurant", "50.7", 4, ParticipationType.FREELOADER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.PAYER)]
-    assert(is_participant_are_equal(Participant.create_participant("harry", "-347.34", harry_participations, RoundedType.BELOW), participants[0]) == True)
-    assert(is_participant_are_equal(Participant.create_participant("hermione", "-272.81", hermione_participations, RoundedType.BELOW), participants[1]) == True)
-    assert(is_participant_are_equal(Participant.create_participant("ron", "-377.51", ron_participations, RoundedType.BELOW), participants[2]) == True)
-    assert(is_participant_are_equal(Participant.create_participant("ginny", "758.32", ginny_participations, RoundedType.BELOW), participants[3]) == True)
-    assert(is_participant_are_equal(Participant.create_participant("hagrid", "239.32", hagrid_participations, RoundedType.BELOW), participants[4]) == True)
+    assert(is_participant_are_equal(Participant.create("harry", "-347.34", harry_participations, RoundedType.BELOW), participants[0]) == True)
+    assert(is_participant_are_equal(Participant.create("hermione", "-272.81", hermione_participations, RoundedType.BELOW), participants[1]) == True)
+    assert(is_participant_are_equal(Participant.create("ron", "-377.51", ron_participations, RoundedType.BELOW), participants[2]) == True)
+    assert(is_participant_are_equal(Participant.create("ginny", "758.32", ginny_participations, RoundedType.BELOW), participants[3]) == True)
+    assert(is_participant_are_equal(Participant.create("hagrid", "239.32", hagrid_participations, RoundedType.BELOW), participants[4]) == True)
 
 def is_participant_are_equal(participant_expected : Participant, participant_calculated : Participant):
     is_participations_equal  = True

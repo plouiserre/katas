@@ -11,7 +11,7 @@ class Participant :
         self.money = Money(rounded_type)
 
     @staticmethod
-    def create_participant(name, balance, participations, rounded_type): 
+    def create(name, balance, participations, rounded_type): 
         participant = Participant(name, rounded_type)
         participant.balance = balance
         participant.participations = participations
