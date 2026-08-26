@@ -1,15 +1,15 @@
 from TricountV2.cli.CommandBadFormattingException import CommandBadFormattingException
 
-class CliCommand : 
+class CliActivity : 
     def __init__(self, cli_command):
         self.cli_command = cli_command
 
-    def find_command_and_arguments(self):
+    def decompose_arguments(self):
         arguments_between_brackets_with_brackets = self.__find_arguments_with_brackets()
         arguments_between_brackets_transformed = self.__transform_argument_between_bracket()
         self.cli_command = self.cli_command.replace(arguments_between_brackets_with_brackets, arguments_between_brackets_transformed)
-        command, arguments = self.__split_arguments()
-        return command, arguments
+        arguments = self.__split_arguments()
+        return arguments
     
     def __find_arguments_with_brackets(self):
         indexs = self.__find_indexs_brackets()
@@ -48,4 +48,4 @@ class CliCommand :
         arguments = []
         for arg in args :
             arguments.append(arg)
-        return command, arguments
+        return arguments
