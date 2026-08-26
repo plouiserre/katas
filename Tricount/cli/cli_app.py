@@ -1,5 +1,5 @@
-from TricountV2.cli.cli_activity import CliActivity
-from TricountV2.business.trip import Trip
+from Tricount.cli.cli_activity import CliActivity
+from Tricount.business.trip import Trip
 
 class cliApp :
     def __init__(self):

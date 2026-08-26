@@ -1,7 +1,7 @@
-from TricountV2.business.activity import Activity
-from TricountV2.MoneyLogic.rounded_type import RoundedType
-from TricountV2.business.participant import Participant
-from TricountV2.business.participation import Participation, ParticipationType
+from Tricount.business.activity import Activity
+from Tricount.MoneyLogic.rounded_type import RoundedType
+from Tricount.business.participant import Participant
+from Tricount.business.participation import Participation, ParticipationType
 
 class BalanceCalculator:
     def __init__(self):

@@ -1,6 +1,6 @@
 from decimal import Decimal
 from enum import Enum
-from TricountV2.MoneyLogic.Operation.last_result_needed import LastResultNeeded
+from Tricount.MoneyLogic.Operation.last_result_needed import LastResultNeeded
 
 class ParticipationType(Enum) : 
     FREELOADER = 0

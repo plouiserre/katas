@@ -1,7 +1,6 @@
 from decimal import Decimal
 
 from abc import ABC, abstractmethod
-from Tricount.MoneyLogic.operand import Operand
 
 class Operation(ABC): 
     def __init__(self, first_number, second_number, operand, last_result_needed):

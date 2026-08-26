@@ -1,5 +1,5 @@
-from TricountV2.business.participant import Participant 
-from TricountV2.business.refund_between_participants import RefundBetweenParticipants
+from Tricount.business.participant import Participant 
+from Tricount.business.refund_between_participants import RefundBetweenParticipants
 
 class ManageRefunds : 
     def __init__(self):

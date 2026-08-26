@@ -31,6 +31,16 @@ class Money:
             raise CannotDivideByZeroException("Cannot divide by 0")
         else:
             self.all_ops.append(Division(first_number_str, second_number_str, Operand.Divide, last_result_needed)) 
+
+    def calculate_all_op_with_not_display(self):
+        return self.__calculate_all_operations()
+
+    def display_final_result_from_all_operations(self, result_to_display): 
+        if self.rounded_type == RoundedType.BELOW  : 
+            display = str(math.floor(result_to_display * 100)/100.0)
+        else : 
+            display = str(math.ceil(result_to_display * 100)/100.0)
+        return display        
     
     def display_final_result(self):
         display = ""

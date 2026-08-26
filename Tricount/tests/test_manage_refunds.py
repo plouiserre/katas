@@ -1,8 +1,8 @@
-from TricountV2.business.manage_refunds import ManageRefunds
-from TricountV2.MoneyLogic.rounded_type import RoundedType
-from TricountV2.business.participant import Participant 
-from TricountV2.business.participation import Participation, ParticipationType
-from TricountV2.business.refund import Refund
+from Tricount.business.manage_refunds import ManageRefunds
+from Tricount.MoneyLogic.rounded_type import RoundedType
+from Tricount.business.participant import Participant 
+from Tricount.business.participation import Participation, ParticipationType
+from Tricount.business.refund import Refund
 
 def test_calculate_refunds_for_two_participants_in_one_activity():
     refunds_calculated = (RefundDriver()
