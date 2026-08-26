@@ -1,7 +1,7 @@
 from  decimal import Decimal
 
-from TricountV2.MoneyLogic.Operation.last_result_needed import LastResultNeeded
-from TricountV2.MoneyLogic.Operation.operation import Operation
+from Tricount.MoneyLogic.Operation.last_result_needed import LastResultNeeded
+from Tricount.MoneyLogic.Operation.operation import Operation
 
 class Addition(Operation):
     def __init__(self, first_number, second_number, operand, last_result_needed):

@@ -1,6 +1,6 @@
-from TricountV2.business.participation import ParticipationType
-from TricountV2.MoneyLogic.rounded_type import RoundedType
-from TricountV2.business.participant import Participant
+from Tricount.business.participation import ParticipationType
+from Tricount.MoneyLogic.rounded_type import RoundedType
+from Tricount.business.participant import Participant
 
 def test_peter_paid_one_activity_for_his_friends():
     balance_participant = (ParticipantDriver("Peter")

@@ -1,4 +1,4 @@
-from TricountV2.cli.cli_app import cliApp
+from Tricount.cli.cli_app import cliApp
 
 app = cliApp()
 # # wall_repository = MemoryWallRepository()

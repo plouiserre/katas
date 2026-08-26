@@ -1,5 +1,5 @@
-from TricountV2.business.participation import Participation, ParticipationType
-from TricountV2.MoneyLogic.money import Money
+from Tricount.business.participation import Participation, ParticipationType
+from Tricount.MoneyLogic.money import Money
 
 from decimal import Decimal
 

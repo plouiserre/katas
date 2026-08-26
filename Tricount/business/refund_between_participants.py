@@ -1,9 +1,9 @@
 from decimal import Decimal
-from TricountV2.MoneyLogic.Operation.last_result_needed import LastResultNeeded
-from TricountV2.MoneyLogic.rounded_type import RoundedType
-from TricountV2.MoneyLogic.money import Money
-from TricountV2.business.participant import Participant
-from TricountV2.business.refund import Refund
+from Tricount.MoneyLogic.Operation.last_result_needed import LastResultNeeded
+from Tricount.MoneyLogic.rounded_type import RoundedType
+from Tricount.MoneyLogic.money import Money
+from Tricount.business.participant import Participant
+from Tricount.business.refund import Refund
 
 class RefundBetweenParticipants :
     def __init__(self, payer : Participant, recipient : Participant):

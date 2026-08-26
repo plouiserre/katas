@@ -2,14 +2,14 @@ import math
 
 from  decimal import Decimal
 
-from TricountV2.MoneyLogic.cannot_divide_by_zero_exception import CannotDivideByZeroException
-from TricountV2.MoneyLogic.Operation.last_result_needed import LastResultNeeded
-from TricountV2.MoneyLogic.operand import Operand
-from TricountV2.MoneyLogic.Operation.addition import Addition
-from TricountV2.MoneyLogic.Operation.division import Division
-from TricountV2.MoneyLogic.Operation.multiplication import Multiplication
-from TricountV2.MoneyLogic.Operation.substraction import Substraction
-from TricountV2.MoneyLogic.rounded_type import RoundedType
+from Tricount.MoneyLogic.cannot_divide_by_zero_exception import CannotDivideByZeroException
+from Tricount.MoneyLogic.Operation.last_result_needed import LastResultNeeded
+from Tricount.MoneyLogic.operand import Operand
+from Tricount.MoneyLogic.Operation.addition import Addition
+from Tricount.MoneyLogic.Operation.division import Division
+from Tricount.MoneyLogic.Operation.multiplication import Multiplication
+from Tricount.MoneyLogic.Operation.substraction import Substraction
+from Tricount.MoneyLogic.rounded_type import RoundedType
 
 class Money: 
     def __init__(self, rounded_type):

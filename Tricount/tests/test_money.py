@@ -1,9 +1,9 @@
 import pytest
 
-from TricountV2.MoneyLogic.cannot_divide_by_zero_exception import CannotDivideByZeroException
-from TricountV2.MoneyLogic.money import Money
-from TricountV2.MoneyLogic.Operation.last_result_needed import LastResultNeeded
-from TricountV2.MoneyLogic.rounded_type import RoundedType
+from Tricount.MoneyLogic.cannot_divide_by_zero_exception import CannotDivideByZeroException
+from Tricount.MoneyLogic.money import Money
+from Tricount.MoneyLogic.Operation.last_result_needed import LastResultNeeded
+from Tricount.MoneyLogic.rounded_type import RoundedType
 
 def test_add_two_moneys(): 
     final_money = (MoneyDriver(RoundedType.BELOW)

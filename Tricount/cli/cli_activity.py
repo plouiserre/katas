@@ -1,4 +1,4 @@
-from TricountV2.cli.CommandBadFormattingException import CommandBadFormattingException
+from Tricount.cli.CommandBadFormattingException import CommandBadFormattingException
 
 class CliActivity : 
     def __init__(self, cli_command):

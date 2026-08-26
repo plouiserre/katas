@@ -1,5 +1,5 @@
-from TricountV2.business.refund import Refund
-from TricountV2.business.trip import Trip
+from Tricount.business.refund import Refund
+from Tricount.business.trip import Trip
 
 def test_calculate_all_trip_with_one_activity_and_two_persons():
     refunds_calculated = (TripDriver()
