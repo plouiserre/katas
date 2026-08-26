@@ -1,7 +1,5 @@
-from TricountV2.activity import Activity
-from TricountV2.balance_calculator import BalanceCalculator
-from TricountV2.manage_refunds import ManageRefunds
 from TricountV2.refund import Refund
+from TricountV2.trip import Trip
 
 def test_1():
     refunds_calculated = (TripDriver()
@@ -50,20 +48,11 @@ def compare_all_refunds(refunds_expected : Refund, refunds_calculated : Refund):
     
 class TripDriver : 
     def __init__(self):
-        self.activities = []
-        pass
+        self.trip = Trip()
     
     def add_activity(self, name_activity, price, participants, payer):
-        activity  = Activity.create(name_activity, price, participants, payer)
-        self.activities.append(activity)
+        self.trip.add_activity(name_activity, price, participants, payer)
         return self
     
     def calculate_refunds(self):
-        balance_calculator = BalanceCalculator()
-        manage_refunds = ManageRefunds()
-        for activity in self.activities :
-            balance_calculator.add_activity(activity.name, activity.price, activity.participants_name, activity.payer)
-        participants = balance_calculator.calculate_participants_balance_from_activities()
-        for participant in participants : 
-            manage_refunds.add_participant(participant)
-        return manage_refunds.calculate_all_refunds()
+        return self.trip.calculate_refunds()
