@@ -1,7 +1,7 @@
 from TricountV2.MoneyLogic.rounded_type import RoundedType
-from TricountV2.participant import Participant
-from TricountV2.refund import Refund
-from TricountV2.refund_between_participants import RefundBetweenParticipants
+from TricountV2.business.participant import Participant
+from TricountV2.business.refund import Refund
+from TricountV2.business.refund_between_participants import RefundBetweenParticipants
 
 def test_refund_when_payer_and_recipient_have_opposite_balance() : 
     refund_between_participants_calculated =(ParticipantDriver()

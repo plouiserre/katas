@@ -1,7 +1,7 @@
-from TricountV2.balance_calculator import BalanceCalculator
+from TricountV2.business.balance_calculator import BalanceCalculator
 from TricountV2.MoneyLogic.rounded_type import RoundedType
-from TricountV2.participant import Participant
-from TricountV2.participation import Participation, ParticipationType
+from TricountV2.business.participant import Participant
+from TricountV2.business.participation import Participation, ParticipationType
 
 def test_get_balance_for_two_participants_in_one_activity():
     participants = (ActivityDriver()

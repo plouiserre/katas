@@ -1,4 +1,4 @@
-from TricountV2.participation import Participation, ParticipationType
+from TricountV2.business.participation import Participation, ParticipationType
 from TricountV2.MoneyLogic.money import Money
 
 from decimal import Decimal
