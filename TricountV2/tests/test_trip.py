@@ -1,7 +1,7 @@
 from TricountV2.refund import Refund
 from TricountV2.trip import Trip
 
-def test_1():
+def test_calculate_all_trip_with_one_activity_and_two_persons():
     refunds_calculated = (TripDriver()
                             .add_activity("bar", 23.5, ["harry", "hermione"], "harry")
                             .calculate_refunds())
@@ -9,7 +9,7 @@ def test_1():
     assert(len(refunds_calculated) == 1)
     assert(compare_all_refunds(refunds_expected, refunds_calculated)) 
 
-def test_2():
+def test_calculate_all_trip_with_three_activities_and_three_persons():
     refunds_calculated = (TripDriver()
                             .add_activity("bar", 23.5, ["harry", "hermione"], "harry")
                             .add_activity("restaurant", 50.7, ["hermione", "ron"], "hermione")
@@ -20,7 +20,7 @@ def test_2():
     assert(len(refunds_calculated) == 2)
     assert(compare_all_refunds(refunds_expected, refunds_calculated)) 
     
-def test_3():
+def test_calculate_all_trip_with_six_activities_and_five_persons():
     refunds_calculated = (TripDriver()
                             .add_activity("bar", 23.5, ["harry", "hermione", "ron"], "harry")
                             .add_activity("restaurant", 50.7, ["hermione", "ron", "ginny", "hagrid"], "hermione")
