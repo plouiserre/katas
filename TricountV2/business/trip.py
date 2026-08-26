@@ -1,6 +1,6 @@
-from TricountV2.activity import Activity
-from TricountV2.balance_calculator import BalanceCalculator
-from TricountV2.manage_refunds import ManageRefunds
+from TricountV2.business.activity import Activity
+from TricountV2.business.balance_calculator import BalanceCalculator
+from TricountV2.business.manage_refunds import ManageRefunds
 
 
 class Trip : 
