@@ -1,9 +1,7 @@
-import random
-
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.draw.draw_card import DrawCard
 
-def test_1():
+def test_draw_one_time_one_card():
     card_spread = (CardSpreadDriver()
                    .spread_one_card()
                    .get_card_spread_and_rest_cards())
@@ -13,7 +11,7 @@ def test_1():
     assert(card_spread.color in CardColor)
     assert(card_spread.color != CardColor.UNDEFINED)
 
-def test_2(): 
+def test_draw_two_hundred_times_one_card(): 
     i = 0
     while i < 200 : 
         card_spread = (CardSpreadDriver()
