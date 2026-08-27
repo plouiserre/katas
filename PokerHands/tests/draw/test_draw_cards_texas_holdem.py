@@ -2,7 +2,7 @@ from PokerHands.card import Card
 from PokerHands.draw.draw_cards_texas_holdem import DrawCardsTexasHoldem
 from dataclasses import dataclass
 
-def test_1(): 
+def test_draw_all_cards_need_for_two_players_in_poker_texas_holdem(): 
     cards = (
         DrawCardsTexasHoldemDriver()
             .add_one_player("Bruce")
@@ -34,7 +34,7 @@ def test_1():
     assert (len(all_cards_drawn) == len(all_cards_drawn_unique))
 
 
-def test_2(): 
+def test_draw_all_cards_need_for_six_players_in_poker_texas_holdem(): 
     cards = (
         DrawCardsTexasHoldemDriver()
             .add_one_player("Bruce")
