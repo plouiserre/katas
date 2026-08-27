@@ -33,6 +33,9 @@ class Card:
 
     def __eq__(self, other):
         return self.value == other.value and self.color == other.color
+
+    def __hash__(self):
+        return hash((self.value, self.color))
     
     def render(self) -> str: 
         transcription = ""
