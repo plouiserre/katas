@@ -1,14 +1,14 @@
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
 
-def test_1():
+def test_draw_one_card():
     card_draw = (MultiDrawCardDriver()
                  .draw_one_card()
                  .get_all_cards_draw())
 
     assert(len(card_draw) == 1)
 
-def test_2():
+def test_draw_three_cards():
     i = 0
     while i < 200 :
         three_cards_draw = (MultiDrawCardDriver()
@@ -21,7 +21,7 @@ def test_2():
         assert (len(three_cards_draw) == len(three_card_draw_unique_element))
         i += 1
 
-def test_3():
+def test_draw_twelve_cards():
     i = 0
     while i < 200 :
         twelve_cards_draw = (MultiDrawCardDriver()
