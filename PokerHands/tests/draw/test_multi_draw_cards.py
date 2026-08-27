@@ -1,4 +1,3 @@
-from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
 
 def test_draw_one_card():
