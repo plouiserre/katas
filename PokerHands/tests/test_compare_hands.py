@@ -104,6 +104,6 @@ def test_compare_one_quinte_flush_with_two_pairs():
     assert(Winner.SECOND_HAND == compare_two_hands(first_hand, second_hand))
 
 def compare_two_hands(first_hand, second_hand):
-    score = Score(first_hand, second_hand)
+    score = Score([first_hand, second_hand])
     return score.determinate_winner()
 

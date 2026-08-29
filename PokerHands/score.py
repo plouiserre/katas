@@ -11,11 +11,12 @@ from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 from PokerHands.winner import Winner
 
 class Score: 
-    def __init__(self, first_hand : Figure, second_hand : Figure):
-        self.first_hand = first_hand
-        self.second_hand = second_hand
+    def __init__(self, hands : list[Figure]):
+        self.hands = hands
 
     def determinate_winner(self) -> Winner:
+        self.first_hand = self.hands[0]
+        self.second_hand = self.hands[1]
         if self.first_hand.points < self.second_hand.points : 
             return Winner.SECOND_HAND
         elif self.second_hand.points < self.first_hand.points : 
