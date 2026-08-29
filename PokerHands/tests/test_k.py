@@ -155,9 +155,12 @@ class DrawAndComparePlayersHandDriver():
 
     def determine_player_with_better_hand(self):
         self.__check_all_players_have_all_their_cards()
-        first_player_hand = self.hand.determinate_high_figure(self.players["Steve"]) 
-        second_player_hand = self.hand.determinate_high_figure(self.players["Natacha"]) 
-        score = Score([first_player_hand, second_player_hand])
+        hands = []
+        for player_name in self.players : 
+            player = self.players[player_name]
+            hand = self.hand.determinate_high_figure(player) 
+            hands.append(hand)
+        score = Score(hands)
         result = score.determinate_winner()
         return result
 
