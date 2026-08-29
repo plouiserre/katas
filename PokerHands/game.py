@@ -10,5 +10,5 @@ class Game :
         all_hands_cards = self.deck.drawn_five_cards_for_the_two_players()
         high_figure_first_hand = self.player_one.calculate_hand(all_hands_cards[0])
         high_figure_second_hand = self.player_two.calculate_hand(all_hands_cards[1])
-        score = Score(high_figure_first_hand, high_figure_second_hand)
+        score = Score([high_figure_first_hand, high_figure_second_hand])
         return score.determinate_winner()

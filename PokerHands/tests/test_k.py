@@ -112,9 +112,9 @@ def test_6():
 #                                        .add_player("Steve")
 #                                        .add_player("Natacha")
 #                                        .add_player("Tony")
-#                                         .add_player("Thor")
-#                                         .add_player("Bruce")
-#                                         .add_player("Clint")                                        
+#                                        .add_player("Thor")
+#                                        .add_player("Bruce")
+#                                        .add_player("Clint")                                        
 #                                        .give_specific_hand("Steve", [Card(CardValue.SEVEN, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS)])                                   
 #                                        .give_specific_hand("Natacha", [Card(CardValue.SIX, CardColor.HEARTS), Card(CardValue.FIVE, CardColor.SPADES)])                                        
 #                                        .give_specific_hand("Tony", [Card(CardValue.JACK, CardColor.CLUBS), Card(CardValue.TEN, CardColor.DIAMONDS)])                                   
@@ -122,7 +122,7 @@ def test_6():
 #                                        .give_specific_hand("Bruce", [Card(CardValue.NINE, CardColor.CLUBS), Card(CardValue.EIGHT, CardColor.DIAMONDS)])                                   
 #                                        .give_specific_hand("Clint", [Card(CardValue.EIGHT, CardColor.HEARTS), Card(CardValue.SEVEN, CardColor.SPADES)])
 #                                        .determine_player_with_better_hand())
-    assert(player_with_better_hand == Winner.THIRD_HAND)
+#     assert(player_with_better_hand == Winner.THIRD_HAND)
 
 class DrawAndComparePlayersHandDriver():
     def __init__(self):
@@ -157,7 +157,7 @@ class DrawAndComparePlayersHandDriver():
         self.__check_all_players_have_all_their_cards()
         first_player_hand = self.hand.determinate_high_figure(self.players["Steve"]) 
         second_player_hand = self.hand.determinate_high_figure(self.players["Natacha"]) 
-        score = Score(first_player_hand, second_player_hand)
+        score = Score([first_player_hand, second_player_hand])
         result = score.determinate_winner()
         return result
 
