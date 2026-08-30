@@ -1,5 +1,5 @@
-from PokerHands.card import Card
-from PokerHands.draw.draw_cards_texas_holdem import DrawCardsTexasHoldem
+from PokerHandsV2.card import Card
+from PokerHandsV2.draw.draw_cards_texas_holdem import DrawCardsTexasHoldem
 from dataclasses import dataclass
 
 def test_draw_all_cards_need_for_two_players_in_poker_texas_holdem(): 

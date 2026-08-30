@@ -1,5 +1,5 @@
-from PokerHands.card import Card, CardColor, CardValue
-from PokerHands.draw.draw_card import DrawCard
+from PokerHandsV2.card import Card, CardColor, CardValue
+from PokerHandsV2.draw.draw_card import DrawCard
 
 def test_draw_one_time_one_card():
     card_spread = (CardSpreadDriver()

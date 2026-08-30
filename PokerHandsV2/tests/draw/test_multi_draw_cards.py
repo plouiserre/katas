@@ -1,4 +1,4 @@
-from PokerHands.draw.multi_draw_cards import MultiDrawCards
+from PokerHandsV2.draw.multi_draw_cards import MultiDrawCards
 
 def test_draw_one_card():
     card_draw = (MultiDrawCardDriver()
