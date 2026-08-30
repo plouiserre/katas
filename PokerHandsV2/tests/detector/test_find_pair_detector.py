@@ -1,0 +1,37 @@
+from PokerHandsV2.AllFigures.PairFigure import PairFigure
+from PokerHandsV2.card import Card, CardColor, CardValue
+from PokerHandsV2.counting_cards import CountingCards
+from PokerHandsV2.detector.pair_detector import PairDetector
+from PokerHandsV2.tests.random_cards import add_cards, get_all_values, get_high_card_complete, get_random_card_complete, get_shuffle_hand, remove_cards
+
+def test_find_pair_queen(): 
+    hand =  [Card(CardValue.QUEEN, CardColor.CLUBS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(_find_pair(hand)==PairFigure(CardValue.QUEEN, CardValue.SEVEN))
+
+def test_find_pair_ace(): 
+    hand =  [Card(CardValue.ACE, CardColor.CLUBS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(_find_pair(hand)==PairFigure(CardValue.ACE, CardValue.SEVEN))
+
+def test_find_pair_random(): 
+    all_cards_values = get_all_values()
+    pair_card = get_random_card_complete(all_cards_values)
+    remove_cards(all_cards_values, [CardValue.THREE])
+    if pair_card.value == CardValue.TWO or pair_card.value == CardValue.THREE : 
+        remove_cards(all_cards_values, [CardValue.FOUR])
+    high_card = get_high_card_complete(all_cards_values)  
+    if pair_card.value == CardValue.TWO :
+        remove_cards(all_cards_values, [CardValue.TWO])     
+    if pair_card.value != CardValue.THREE :
+        add_cards(all_cards_values, [CardValue.THREE])
+    if pair_card.value == CardValue.TWO or pair_card.value == CardValue.THREE : 
+        add_cards(all_cards_values, [CardValue.FOUR])
+    fourth_card = get_random_card_complete(all_cards_values)
+    fifth_card = get_random_card_complete(all_cards_values)
+    hand = [pair_card, pair_card, high_card, fourth_card, fifth_card]
+    get_shuffle_hand(hand)
+    assert(_find_pair(hand)==PairFigure(pair_card.value, high_card.value))   
+                    
+def _find_pair(hand):
+    counting_cards = CountingCards()
+    pair_detector = PairDetector(counting_cards)
+    return pair_detector.find_pair(hand)
