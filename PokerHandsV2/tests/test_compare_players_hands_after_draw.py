@@ -17,86 +17,58 @@ from PokerHandsV2.exception.TooManyPlayerException import TooManyPlayerException
 from PokerHandsV2.hand import Hand
 from PokerHandsV2.hands_manager import HandsManager
 
-def test_1(): 
+def test_two_players_compare_random_hands_after_drawn(): 
     player_with_better_hand = (DrawAndComparePlayersHandDriver()
-                               .add_player("Steve")
-                               .add_player("Natacha")
-                               .draw_card_player("Steve")
-                               .draw_card_player("Natacha")
-                               .draw_card_player("Steve")
-                               .draw_card_player("Natacha")
+                               .add_players(["Steve","Natacha"])    
+                               .players_draw_first_card(["Steve", "Natacha"])
+                               .players_draw_second_card(["Steve", "Natacha"])
                                .determine_player_with_better_hand())
     assert(player_with_better_hand == ["Steve"] or player_with_better_hand == ["Natacha"] or player_with_better_hand == ["Steve", "Natacha"])
 
-def test_2(): 
+def test_two_players_compare_specific_hands_after_drawn_and_steve_win(): 
     player_with_better_hand = (DrawAndComparePlayersHandDriver()
-                                   .add_player("Steve")
-                                   .add_player("Natacha")
+                                   .add_players(["Steve","Natacha"])    
                                    .give_specific_hand("Steve", [Card(CardValue.KING, CardColor.CLUBS), Card(CardValue.QUEEN, CardColor.DIAMONDS)])                                   
                                    .give_specific_hand("Natacha", [Card(CardValue.QUEEN, CardColor.HEARTS), Card(CardValue.SEVEN, CardColor.SPADES)])                                   
                                    .determine_player_with_better_hand())
     assert(player_with_better_hand == ["Steve"])
 
-def test_3(): 
+def test_two_players_compare_specific_hands_after_drawn_and_natacha_win(): 
     player_with_better_hand = (DrawAndComparePlayersHandDriver()
-                                   .add_player("Steve")
-                                   .add_player("Natacha")
+                                   .add_players(["Steve","Natacha"])    
                                    .give_specific_hand("Steve", [Card(CardValue.TEN, CardColor.CLUBS), Card(CardValue.JACK, CardColor.DIAMONDS)])                                   
                                    .give_specific_hand("Natacha", [Card(CardValue.QUEEN, CardColor.HEARTS), Card(CardValue.SEVEN, CardColor.SPADES)])                                   
                                    .determine_player_with_better_hand())
     assert(player_with_better_hand == ["Natacha"])
 
-def test_4(): 
+def test_two_players_compare_specific_hands_after_drawn_and_no_one_win(): 
     player_with_better_hand = (DrawAndComparePlayersHandDriver()
-                                   .add_player("Steve")
-                                   .add_player("Natacha")
+                                   .add_players(["Steve","Natacha"])    
                                    .give_specific_hand("Steve", [Card(CardValue.QUEEN, CardColor.CLUBS), Card(CardValue.QUEEN, CardColor.DIAMONDS)])                                   
                                    .give_specific_hand("Natacha", [Card(CardValue.QUEEN, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES)])                                   
                                    .determine_player_with_better_hand())
     assert(player_with_better_hand == ["Steve", "Natacha"])
 
-def test_5(): 
+def test_failing_two_players_compare_hands_because_steve_do_not_have_two_cards(): 
      with pytest.raises(PlayerDoNotHaveCompleteHandException) :
             (DrawAndComparePlayersHandDriver()
-                               .add_player("Steve")
-                               .add_player("Natacha")
-                               .draw_card_player("Steve")
-                               .draw_card_player("Natacha")
-                               .draw_card_player("Natacha")
+                               .add_players(["Steve","Natacha"])                                                                          
+                               .players_draw_first_card(["Steve","Natacha"])
+                               .players_draw_second_card(["Natacha"])                                                              
                                .determine_player_with_better_hand())
 
-def test_6(): 
+def test_six_players_compare_random_hands_after_drawn(): 
     player_with_better_hand = (DrawAndComparePlayersHandDriver()
-                               .add_player("Steve")
-                               .add_player("Natacha")
-                               .add_player("Tony")
-                               .add_player("Thor")
-                               .add_player("Bruce")
-                               .add_player("Clint")
-                               .draw_card_player("Steve")
-                               .draw_card_player("Natacha")
-                               .draw_card_player("Tony")
-                               .draw_card_player("Thor")
-                               .draw_card_player("Bruce")
-                               .draw_card_player("Clint")
-                               .draw_card_player("Steve")
-                               .draw_card_player("Natacha")
-                               .draw_card_player("Tony")
-                               .draw_card_player("Thor")
-                               .draw_card_player("Bruce")
-                               .draw_card_player("Clint")
+                               .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])                                                                          
+                               .players_draw_first_card(["Steve","Natacha","Tony","Thor","Bruce","Clint"])
+                               .players_draw_second_card(["Steve","Natacha","Tony","Thor","Bruce","Clint"])
                                .determine_player_with_better_hand())
     assert("Steve" in  player_with_better_hand or "Natacha" in  player_with_better_hand or "Tony" in  player_with_better_hand 
            or "Thor" in  player_with_better_hand  or "Bruce" in  player_with_better_hand  or "Clint" in  player_with_better_hand )
 
-def test_7():
+def test_six_players_compare_specific_hands_after_drawn_and_steve_win():
     player_with_better_hand = (DrawAndComparePlayersHandDriver()
-                                       .add_player("Steve")
-                                       .add_player("Natacha")
-                                       .add_player("Tony")
-                                        .add_player("Thor")
-                                        .add_player("Bruce")
-                                        .add_player("Clint")                                        
+                                       .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])                                                                                                                        
                                        .give_specific_hand("Steve", [Card(CardValue.KING, CardColor.CLUBS), Card(CardValue.QUEEN, CardColor.DIAMONDS)])                                   
                                        .give_specific_hand("Natacha", [Card(CardValue.QUEEN, CardColor.HEARTS), Card(CardValue.JACK, CardColor.SPADES)])                                        
                                        .give_specific_hand("Tony", [Card(CardValue.JACK, CardColor.CLUBS), Card(CardValue.TEN, CardColor.DIAMONDS)])                                   
@@ -106,14 +78,9 @@ def test_7():
                                        .determine_player_with_better_hand())
     assert(player_with_better_hand == ["Steve"])
 
-def test_8():
+def test_six_players_compare_specific_hands_after_drawn_and_tony_win():
     player_with_better_hand = (DrawAndComparePlayersHandDriver()
-                                       .add_player("Steve")
-                                       .add_player("Natacha")
-                                       .add_player("Tony")
-                                        .add_player("Thor")
-                                        .add_player("Bruce")
-                                        .add_player("Clint")                                        
+                                       .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])                                                                                                                      
                                        .give_specific_hand("Steve", [Card(CardValue.SEVEN, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS)])                                   
                                        .give_specific_hand("Natacha", [Card(CardValue.JACK, CardColor.CLUBS), Card(CardValue.TEN, CardColor.DIAMONDS)])                                        
                                        .give_specific_hand("Tony", [Card(CardValue.QUEEN, CardColor.HEARTS), Card(CardValue.JACK, CardColor.SPADES)])                                   
@@ -123,14 +90,9 @@ def test_8():
                                        .determine_player_with_better_hand())
     assert(player_with_better_hand == ["Tony"])
 
-def test_9():
+def test_six_players_compare_specific_hands_after_drawn_and_clint_win():
     player_with_better_hand = (DrawAndComparePlayersHandDriver()
-                                       .add_player("Steve")
-                                       .add_player("Natacha")
-                                       .add_player("Tony")
-                                       .add_player("Thor")
-                                       .add_player("Bruce")
-                                       .add_player("Clint")                                        
+                                       .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])
                                        .give_specific_hand("Steve", [Card(CardValue.SEVEN, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS)])                                   
                                        .give_specific_hand("Natacha", [Card(CardValue.SIX, CardColor.HEARTS), Card(CardValue.FIVE, CardColor.SPADES)])                                        
                                        .give_specific_hand("Tony", [Card(CardValue.JACK, CardColor.CLUBS), Card(CardValue.TEN, CardColor.DIAMONDS)])                                   
@@ -140,14 +102,9 @@ def test_9():
                                        .determine_player_with_better_hand())
     assert(player_with_better_hand == ["Clint"])
 
-def test_10(): 
+def test_six_players_compare_specific_hands_after_drawn_and_natacha_and_bruce_win(): 
     player_with_better_hand = (DrawAndComparePlayersHandDriver()
-                                           .add_player("Steve")
-                                           .add_player("Natacha")
-                                           .add_player("Tony")
-                                           .add_player("Thor")
-                                           .add_player("Bruce")
-                                           .add_player("Clint")                                        
+                                           .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])
                                            .give_specific_hand("Steve", [Card(CardValue.SEVEN, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS)])                                   
                                            .give_specific_hand("Natacha", [Card(CardValue.KING, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES)])                                        
                                            .give_specific_hand("Tony", [Card(CardValue.JACK, CardColor.CLUBS), Card(CardValue.TEN, CardColor.DIAMONDS)])                                   
@@ -157,83 +114,37 @@ def test_10():
                                            .determine_player_with_better_hand())
     assert(player_with_better_hand == ["Natacha", "Bruce"])
 
-def test_11(): 
+def test_ten_players_compare_random_hands_after_drawn(): 
     player_with_better_hand = (DrawAndComparePlayersHandDriver()
-                                           .add_player("Steve")
-                                           .add_player("Natacha")
-                                           .add_player("Tony")
-                                           .add_player("Thor")
-                                           .add_player("Bruce")
-                                           .add_player("Clint")
-                                           .add_player("Carol")
-                                           .add_player("T'Challa")
-                                           .add_player("Steven")
-                                           .add_player("Wanda")
-                                           .draw_card_player("Steve")
-                                           .draw_card_player("Natacha")
-                                           .draw_card_player("Tony")
-                                           .draw_card_player("Thor")
-                                           .draw_card_player("Bruce")
-                                           .draw_card_player("Clint")
-                                           .draw_card_player("Carol")
-                                           .draw_card_player("T'Challa")
-                                           .draw_card_player("Steven")
-                                           .draw_card_player("Wanda")
-                                           .draw_card_player("Steve")
-                                           .draw_card_player("Natacha")
-                                           .draw_card_player("Tony")
-                                           .draw_card_player("Thor")
-                                           .draw_card_player("Bruce")
-                                           .draw_card_player("Clint")
-                                           .draw_card_player("Carol")
-                                           .draw_card_player("T'Challa")
-                                           .draw_card_player("Steven")
-                                           .draw_card_player("Wanda")
-                                           .determine_player_with_better_hand())
+                                    .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
+                                    .players_draw_first_card(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])                                    
+                                    .players_draw_second_card(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
+                                    .determine_player_with_better_hand())
     assert("Steve" in  player_with_better_hand or "Natacha" in  player_with_better_hand or "Tony" in  player_with_better_hand 
            or "Thor" in  player_with_better_hand  or "Bruce" in  player_with_better_hand  or "Clint" in  player_with_better_hand 
            or "Carol" in player_with_better_hand or "T'Challa" in player_with_better_hand or "Steven" in player_with_better_hand
            or "Peter" in player_with_better_hand or "Wanda" in player_with_better_hand)
 
-def test_12(): 
+def test_six_players_compare_specific_hands_after_drawn_and_wanda_win(): 
     player_with_better_hand = (DrawAndComparePlayersHandDriver()
-                                           .add_player("Steve")
-                                           .add_player("Natacha")
-                                           .add_player("Tony")
-                                           .add_player("Thor")
-                                           .add_player("Bruce")
-                                           .add_player("Clint")
-                                           .add_player("Carol")
-                                           .add_player("T'Challa")
-                                           .add_player("Steven")
-                                           .add_player("Wanda")
-                                           .give_specific_hand("Steve", [Card(CardValue.SEVEN, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS)])                                   
-                                           .give_specific_hand("Natacha", [Card(CardValue.KING, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES)])                                        
-                                           .give_specific_hand("Tony", [Card(CardValue.JACK, CardColor.CLUBS), Card(CardValue.TEN, CardColor.DIAMONDS)])                                   
-                                           .give_specific_hand("Thor", [Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.NINE, CardColor.SPADES)])                                        
-                                           .give_specific_hand("Bruce", [Card(CardValue.KING, CardColor.CLUBS), Card(CardValue.QUEEN, CardColor.DIAMONDS)])                                   
-                                           .give_specific_hand("Clint", [Card(CardValue.TWO, CardColor.HEARTS), Card(CardValue.FOUR , CardColor.SPADES)])                                  
-                                           .give_specific_hand("Carol", [Card(CardValue.ACE, CardColor.HEARTS), Card(CardValue.ACE , CardColor.SPADES)])                                 
-                                           .give_specific_hand("T'Challa", [Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.QUEEN , CardColor.SPADES)])                              
-                                           .give_specific_hand("Steven", [Card(CardValue.THREE, CardColor.SPADES), Card(CardValue.FOUR , CardColor.CLUBS)])                          
-                                           .give_specific_hand("Wanda", [Card(CardValue.KING, CardColor.SPADES), Card(CardValue.KING , CardColor.DIAMONDS)])
-                                           .determine_player_with_better_hand())
+                                .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
+                                .give_specific_hand("Steve", [Card(CardValue.SEVEN, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS)])                                   
+                                .give_specific_hand("Natacha", [Card(CardValue.KING, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES)])                                        
+                                .give_specific_hand("Tony", [Card(CardValue.JACK, CardColor.CLUBS), Card(CardValue.TEN, CardColor.DIAMONDS)])                                   
+                                .give_specific_hand("Thor", [Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.NINE, CardColor.SPADES)])                                        
+                                .give_specific_hand("Bruce", [Card(CardValue.KING, CardColor.CLUBS), Card(CardValue.QUEEN, CardColor.DIAMONDS)])                                   
+                                .give_specific_hand("Clint", [Card(CardValue.TWO, CardColor.HEARTS), Card(CardValue.FOUR , CardColor.SPADES)])                                  
+                                .give_specific_hand("Carol", [Card(CardValue.ACE, CardColor.HEARTS), Card(CardValue.ACE , CardColor.SPADES)])                                 
+                                .give_specific_hand("T'Challa", [Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.QUEEN , CardColor.SPADES)])                              
+                                .give_specific_hand("Steven", [Card(CardValue.THREE, CardColor.SPADES), Card(CardValue.FOUR , CardColor.CLUBS)])                          
+                                .give_specific_hand("Wanda", [Card(CardValue.KING, CardColor.SPADES), Card(CardValue.KING , CardColor.DIAMONDS)])
+                                .determine_player_with_better_hand())
     assert(player_with_better_hand == ["Carol"])
 
-def test_13(): 
+def test_failing_because_more_ten_players(): 
     with pytest.raises(TooManyPlayerException) :
         (DrawAndComparePlayersHandDriver()
-                .add_player("Steve")
-                .add_player("Natacha")
-                .add_player("Tony")
-                .add_player("Thor")
-                .add_player("Bruce")
-                .add_player("Clint")
-                .add_player("Carol")
-                .add_player("T'Challa")
-                .add_player("Steven")
-                .add_player("Peter")
-                .add_player("Wanda")
+                .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Peter","Wanda"])
                 .give_specific_hand("Steve", [Card(CardValue.SEVEN, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS)])                                   
                 .give_specific_hand("Natacha", [Card(CardValue.KING, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES)])                                        
                 .give_specific_hand("Tony", [Card(CardValue.JACK, CardColor.CLUBS), Card(CardValue.TEN, CardColor.DIAMONDS)])                                   
@@ -264,12 +175,23 @@ class DrawAndComparePlayersHandDriver():
         multi_draw_cards = MultiDrawCards()
         self.hands_manager = HandsManager(hand, multi_draw_cards)
         
-    def add_player(self, name_player):
-        self.hands_manager.add_player(name_player)
+    def add_players(self, name_players):
+        for name_player in name_players:
+            self.hands_manager.add_player(name_player)
         return self
 
     def draw_card_player(self, name_player):
         self.hands_manager.draw_card_player(name_player)
+        return self
+
+    def players_draw_first_card(self, name_players):
+        for name_player in name_players : 
+            self.hands_manager.draw_card_player(name_player)
+        return self
+
+    def players_draw_second_card(self, name_players):
+        for name_player in name_players : 
+            self.hands_manager.draw_card_player(name_player)
         return self
 
     def give_specific_hand(self, name_player, cards): 
