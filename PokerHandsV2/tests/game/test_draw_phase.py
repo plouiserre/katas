@@ -12,7 +12,6 @@ from PokerHandsV2.detector.straight_detector import StraightDetector
 from PokerHandsV2.detector.three_cards_detector import ThreeCardsDetector
 from PokerHandsV2.detector.two_pairs_detector import TwoPairsDetector
 from PokerHandsV2.draw.multi_draw_cards import MultiDrawCards
-from PokerHandsV2.exception.PlayerDoNotHaveCompleteHandException import PlayerDoNotHaveCompleteHandException
 from PokerHandsV2.exception.TooManyPlayerException import TooManyPlayerException
 from PokerHandsV2.hand import Hand
 from PokerHandsV2.game.draw_phase import DrawPhase
