@@ -15,7 +15,7 @@ from PokerHandsV2.game.hands_manager import HandsManager
 from PokerHandsV2.hand import Hand
 from PokerHandsV2.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
-def test_1():
+def test_launch_flop_phase_with_two_players_randomly():
     best_players = (CompareHandsAfterFlopDriver(MultiDrawCards())
                     .add_player("Steve")
                     .add_player("Natacha")
@@ -26,7 +26,7 @@ def test_1():
                     .launch_phase_and_get_best_players())                    
     assert("Steve" in best_players or "Natacha" in best_players)
 
-def test_2(): 
+def test_launch_flop_phase_with_two_players_and_steve_wins(): 
     fake_cards = [Card(CardValue.ACE, CardColor.SPADES), Card(CardValue.QUEEN, CardColor.SPADES), Card(CardValue.EIGHT, CardColor.SPADES)]
     best_players = (CompareHandsAfterFlopDriver(FakeMultiDrawCards(fake_cards))
                     .add_player("Steve")
@@ -39,7 +39,7 @@ def test_2():
                     )  
     assert(["Steve"] == best_players)
 
-def test_3(): 
+def test_launch_flop_phase_with_two_players_and_natacha_wins(): 
     fake_cards = [Card(CardValue.ACE, CardColor.SPADES), Card(CardValue.QUEEN, CardColor.HEARTS), Card(CardValue.EIGHT, CardColor.CLUBS)]
     best_players = (CompareHandsAfterFlopDriver(FakeMultiDrawCards(fake_cards))
                     .add_player("Steve")
@@ -52,7 +52,7 @@ def test_3():
                     )  
     assert(["Natacha"] == best_players)
 
-def test_4(): 
+def test_launch_flop_phase_with_two_players_win(): 
     fake_cards = [Card(CardValue.KING, CardColor.SPADES), Card(CardValue.QUEEN, CardColor.HEARTS), Card(CardValue.EIGHT, CardColor.CLUBS)]
     best_players = (CompareHandsAfterFlopDriver(FakeMultiDrawCards(fake_cards))
                     .add_player("Steve")
@@ -65,20 +65,7 @@ def test_4():
                     )  
     assert(["Steve", "Natacha"] == best_players)
 
-def test_5(): 
-    fake_cards = [Card(CardValue.KING, CardColor.SPADES), Card(CardValue.QUEEN, CardColor.HEARTS), Card(CardValue.EIGHT, CardColor.CLUBS)]
-    best_players = (CompareHandsAfterFlopDriver(FakeMultiDrawCards(fake_cards))
-                    .add_player("Steve")
-                    .add_player("Natacha")
-                    .add_card_before_flop(Card(CardValue.ACE, CardColor.SPADES), "Steve")
-                    .add_card_before_flop(Card(CardValue.ACE, CardColor.HEARTS), "Natacha")
-                    .add_card_before_flop(Card(CardValue.ACE, CardColor.DIAMONDS), "Steve")
-                    .add_card_before_flop(Card(CardValue.ACE, CardColor.CLUBS), "Natacha")
-                    .launch_phase_and_get_best_players()
-                    )  
-    assert(["Steve", "Natacha"] == best_players)
-
-def test_6():
+def test_launch_flop_phase_with_ten_players_randomly():
     best_players = (CompareHandsAfterFlopDriver(MultiDrawCards())
                     .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
                     .add_card_before_flop(Card(CardValue.ACE, CardColor.SPADES), "Steve")
@@ -107,7 +94,7 @@ def test_6():
                or "Carol" in best_players or "T'Challa" in best_players or "Steven" in best_players
                or "Peter" in best_players or "Wanda" in best_players)
 
-def test_7():
+def test_launch_flop_phase_with_ten_players_and_steve_wins():
     fake_cards = [Card(CardValue.ACE, CardColor.HEARTS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.SPADES)]
     best_players = (CompareHandsAfterFlopDriver(FakeMultiDrawCards(fake_cards))
                     .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
@@ -134,7 +121,7 @@ def test_7():
                     .launch_phase_and_get_best_players())
     assert(["Steve"] ==  best_players)
 
-def test_8():
+def test_launch_flop_phase_with_ten_players_and_bruce_and_tchalla_win():
     fake_cards = [Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.SPADES)]
     best_players = (CompareHandsAfterFlopDriver(FakeMultiDrawCards(fake_cards))
                     .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
