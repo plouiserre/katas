@@ -10,6 +10,7 @@ from PokerHandsV2.detector.straight_detector import StraightDetector
 from PokerHandsV2.detector.three_cards_detector import ThreeCardsDetector
 from PokerHandsV2.detector.two_pairs_detector import TwoPairsDetector
 from PokerHandsV2.draw.multi_draw_cards import MultiDrawCards
+from PokerHandsV2.game.flop_phase import FlopPhase
 from PokerHandsV2.game.hands_manager import HandsManager
 from PokerHandsV2.hand import Hand
 from PokerHandsV2.tests.fake_multi_draw_cards import FakeMultiDrawCards
@@ -22,8 +23,7 @@ def test_1():
                     .add_card_before_flop(Card(CardValue.ACE, CardColor.HEARTS), "Natacha")
                     .add_card_before_flop(Card(CardValue.SIX, CardColor.SPADES), "Steve")
                     .add_card_before_flop(Card(CardValue.ACE, CardColor.CLUBS), "Natacha")
-                    .draw_flop()
-                    .determinate_players_winners())                    
+                    .launch_phase_and_get_best_players())                    
     assert("Steve" in best_players or "Natacha" in best_players)
 
 def test_2(): 
@@ -35,8 +35,7 @@ def test_2():
                     .add_card_before_flop(Card(CardValue.ACE, CardColor.HEARTS), "Natacha")
                     .add_card_before_flop(Card(CardValue.SIX, CardColor.SPADES), "Steve")
                     .add_card_before_flop(Card(CardValue.ACE, CardColor.CLUBS), "Natacha")
-                    .draw_flop()
-                    .determinate_players_winners()
+                    .launch_phase_and_get_best_players()
                     )  
     assert(["Steve"] == best_players)
 
@@ -49,8 +48,7 @@ def test_3():
                     .add_card_before_flop(Card(CardValue.ACE, CardColor.HEARTS), "Natacha")
                     .add_card_before_flop(Card(CardValue.SIX, CardColor.SPADES), "Steve")
                     .add_card_before_flop(Card(CardValue.ACE, CardColor.CLUBS), "Natacha")
-                    .draw_flop()
-                    .determinate_players_winners()
+                    .launch_phase_and_get_best_players()
                     )  
     assert(["Natacha"] == best_players)
 
@@ -63,8 +61,7 @@ def test_4():
                     .add_card_before_flop(Card(CardValue.ACE, CardColor.HEARTS), "Natacha")
                     .add_card_before_flop(Card(CardValue.ACE, CardColor.DIAMONDS), "Steve")
                     .add_card_before_flop(Card(CardValue.ACE, CardColor.CLUBS), "Natacha")
-                    .draw_flop()
-                    .determinate_players_winners()
+                    .launch_phase_and_get_best_players()
                     )  
     assert(["Steve", "Natacha"] == best_players)
 
@@ -77,8 +74,7 @@ def test_5():
                     .add_card_before_flop(Card(CardValue.ACE, CardColor.HEARTS), "Natacha")
                     .add_card_before_flop(Card(CardValue.ACE, CardColor.DIAMONDS), "Steve")
                     .add_card_before_flop(Card(CardValue.ACE, CardColor.CLUBS), "Natacha")
-                    .draw_flop()
-                    .determinate_players_winners()
+                    .launch_phase_and_get_best_players()
                     )  
     assert(["Steve", "Natacha"] == best_players)
 
@@ -105,8 +101,7 @@ def test_6():
                     .add_card_before_flop(Card(CardValue.TEN, CardColor.DIAMONDS), "T'Challa")
                     .add_card_before_flop(Card(CardValue.NINE, CardColor.HEARTS), "Steven")
                     .add_card_before_flop(Card(CardValue.EIGHT, CardColor.SPADES), "Wanda")
-                    .draw_flop()
-                    .determinate_players_winners())
+                    .launch_phase_and_get_best_players())
     assert("Steve" in  best_players or "Natacha" in  best_players or "Tony" in  best_players 
                or "Thor" in  best_players  or "Bruce" in  best_players  or "Clint" in  best_players 
                or "Carol" in best_players or "T'Challa" in best_players or "Steven" in best_players
@@ -136,8 +131,7 @@ def test_7():
                     .add_card_before_flop(Card(CardValue.TEN, CardColor.DIAMONDS), "T'Challa")
                     .add_card_before_flop(Card(CardValue.NINE, CardColor.HEARTS), "Steven")
                     .add_card_before_flop(Card(CardValue.EIGHT, CardColor.SPADES), "Wanda")
-                    .draw_flop()
-                    .determinate_players_winners())
+                    .launch_phase_and_get_best_players())
     assert(["Steve"] ==  best_players)
 
 def test_8():
@@ -164,8 +158,7 @@ def test_8():
                     .add_card_before_flop(Card(CardValue.TEN, CardColor.DIAMONDS), "T'Challa")
                     .add_card_before_flop(Card(CardValue.NINE, CardColor.HEARTS), "Steven")
                     .add_card_before_flop(Card(CardValue.EIGHT, CardColor.SPADES), "Wanda")
-                    .draw_flop()
-                    .determinate_players_winners())
+                    .launch_phase_and_get_best_players())
     assert(["Bruce", "T'Challa"] ==  best_players)
 
 class CompareHandsAfterFlopDriver():
@@ -195,24 +188,10 @@ class CompareHandsAfterFlopDriver():
         return self
 
     def add_card_before_flop(self, card, player_name):
-        if player_name not in self.card_players : 
-            self.card_players[player_name]=[]
-        self.card_players[player_name].append(card)
+        self.hand_manager.add_cards_to_players(player_name, card)
         return self
 
-    def draw_flop(self): 
-        flop = []
-        i = 0
-        while i < 3 :
-            new_card = self.multi_draw_cards.draw_one_card()
-            flop.append(new_card)
-            i += 1
-        for player_name in self.card_players : 
-            for card in flop : 
-                self.card_players[player_name].append(card)
-            self.hand_manager.give_specific_hand(player_name, self.card_players[player_name])
-        return self
-
-    def determinate_players_winners(self):
-        best_players = self.hand_manager.get_players_with_best_hands()
+    def launch_phase_and_get_best_players(self):
+        flop_phase = FlopPhase(self.hand_manager, self.multi_draw_cards)
+        best_players = flop_phase.launch_phase_and_get_best_players()
         return best_players
