@@ -11,7 +11,13 @@ class QuinteFlushDetector :
         self.is_ace_present = False
         self.card_value_hand = []        
 
-    def find_quinte_flush(self, hand: Iterator[Card]) -> QuinteFlushFigure:        
+    def find_quinte_flush(self, hand: Iterator[Card]) -> QuinteFlushFigure:
+        if len(hand) == 5:
+            return self.__analyse_hand_when_the_player_have_five_cards(hand)
+        else : 
+            return None
+
+    def __analyse_hand_when_the_player_have_five_cards(self, hand : Iterator[Card]) -> QuinteFlushFigure:
         hand_sorted = sorted(hand, key=lambda o : o.value)
         self.__determine_if_hand_contains_quinte_flush(hand_sorted)
         if self.is_quinte_flush : 
