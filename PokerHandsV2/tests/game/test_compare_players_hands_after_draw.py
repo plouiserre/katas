@@ -158,6 +158,22 @@ def test_failing_because_more_ten_players():
                 .give_specific_hand("Wanda", [Card(CardValue.KING, CardColor.SPADES), Card(CardValue.KING , CardColor.DIAMONDS)])    
                 .determine_player_with_better_hand())
 
+def test_if_it_is_not_flush_with_one_player_have_two_cards_the_same_colors_but_not_five():
+    player_with_better_hand = (HandManagerDriver()
+                                    .add_players(["Steve","Natacha"])    
+                                    .give_specific_hand("Steve", [Card(CardValue.KING, CardColor.CLUBS), Card(CardValue.JACK, CardColor.CLUBS)])                                   
+                                    .give_specific_hand("Natacha", [Card(CardValue.QUEEN, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES)])                                   
+                                    .determine_player_with_better_hand())
+    assert(player_with_better_hand == ["Natacha"])
+
+def test_if_it_is_not_flush_with_one_player_have_two_cards_the_same_colors_and_they_follow_each_other_but_not_five():
+    player_with_better_hand = (HandManagerDriver()
+                                    .add_players(["Steve","Natacha"])    
+                                    .give_specific_hand("Steve", [Card(CardValue.KING, CardColor.CLUBS), Card(CardValue.QUEEN, CardColor.CLUBS)])                                   
+                                    .give_specific_hand("Natacha", [Card(CardValue.QUEEN, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES)])                                   
+                                    .determine_player_with_better_hand())
+    assert(player_with_better_hand == ["Natacha"])
+
 class HandManagerDriver():
     def __init__(self):
         counting_cards = CountingCards()

@@ -8,6 +8,12 @@ class FlushDetector :
         pass
 
     def find_flush(self, hand : Iterator[Card]) -> FlushFigure:
+        if len(hand) == 5 :
+            return self.__analyse_hand_when_the_player_have_five_cards(hand)
+        else : 
+            return None
+
+    def __analyse_hand_when_the_player_have_five_cards(self, hand : Iterator[Card]) -> FlushFigure:
         is_flush = True
         last_color = CardColor.UNDEFINED
         high_card_value = CardValue.TWO
