@@ -36,6 +36,12 @@ class HandsManager :
         best_players = self.__get_all_players_with_best_hand(best_hand)
         return best_players
 
+    def add_cards_to_players(self, player_name, card):
+        self.players[player_name].append(card)
+
+    def get_all_players(self): 
+        return self.players
+
     def __check_all_players_have_all_their_cards(self): 
         for player_name in self.players : 
             if len(self.players[player_name]) < 2: 
