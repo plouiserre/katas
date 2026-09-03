@@ -15,7 +15,7 @@ from PokerHandsV2.game.turn_phase import TurnPhase
 from PokerHandsV2.hand import Hand
 from PokerHandsV2.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
-def test_1():
+def test_launch_turn_phase_with_two_players_randomly():
     best_players = (TurnPhaseDriver(MultiDrawCards())
                     .add_player("Steve")
                     .add_player("Natacha")
@@ -30,7 +30,7 @@ def test_1():
     )
     assert("Steve" in best_players or "Natacha" in best_players)
 
-def test_2():
+def test_launch_turn_phase_with_two_players_and_steve_wins():
     false_cards = [Card(CardValue.TWO, CardColor.CLUBS)]
     best_players = (TurnPhaseDriver(FakeMultiDrawCards(false_cards))
                     .add_player("Steve")
@@ -46,7 +46,7 @@ def test_2():
     )
     assert(["Steve"] == best_players)
 
-def test_3():
+def test_launch_turn_phase_with_two_players_and_natacha_wins():
     false_cards = [Card(CardValue.THREE, CardColor.CLUBS)]
     best_players = (TurnPhaseDriver(FakeMultiDrawCards(false_cards))
                     .add_player("Steve")
@@ -62,7 +62,7 @@ def test_3():
     )
     assert(["Natacha"] == best_players)
 
-def test_4():
+def test_launch_turn_phase_with_two_players_win():
     false_cards = [Card(CardValue.THREE, CardColor.CLUBS)]
     best_players = (TurnPhaseDriver(FakeMultiDrawCards(false_cards))
                     .add_player("Steve")
@@ -78,7 +78,7 @@ def test_4():
     )
     assert(["Steve", "Natacha"] == best_players)
 
-def test_5():
+def test_launch_turn_phase_with_ten_players_randomly():
     best_players = (TurnPhaseDriver(MultiDrawCards())
                     .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
                     .add_card_before_flop_phase(Card(CardValue.ACE, CardColor.SPADES), "Steve")
@@ -110,7 +110,37 @@ def test_5():
                or "Carol" in best_players or "T'Challa" in best_players or "Steven" in best_players
                or "Peter" in best_players or "Wanda" in best_players)
 
-def test_6():
+def test_launch_flop_phase_with_ten_players_and_wanda_win():
+    fake_cards = [Card(CardValue.FIVE, CardColor.SPADES)]
+    best_players = (TurnPhaseDriver(FakeMultiDrawCards(fake_cards))
+                    .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
+                    .add_card_before_flop_phase(Card(CardValue.ACE, CardColor.SPADES), "Steve")
+                    .add_card_before_flop_phase(Card(CardValue.KING, CardColor.CLUBS), "Natacha")
+                    .add_card_before_flop_phase(Card(CardValue.QUEEN, CardColor.HEARTS), "Tony")
+                    .add_card_before_flop_phase(Card(CardValue.JACK, CardColor.DIAMONDS), "Thor")
+                    .add_card_before_flop_phase(Card(CardValue.TEN, CardColor.CLUBS), "Bruce")
+                    .add_card_before_flop_phase(Card(CardValue.NINE, CardColor.DIAMONDS), "Clint")
+                    .add_card_before_flop_phase(Card(CardValue.EIGHT, CardColor.HEARTS), "Carol")
+                    .add_card_before_flop_phase(Card(CardValue.SEVEN, CardColor.SPADES), "T'Challa")
+                    .add_card_before_flop_phase(Card(CardValue.SIX, CardColor.CLUBS), "Steven")
+                    .add_card_before_flop_phase(Card(CardValue.FIVE, CardColor.DIAMONDS), "Wanda")
+                    .add_card_before_flop_phase(Card(CardValue.FOUR, CardColor.HEARTS), "Steve")
+                    .add_card_before_flop_phase(Card(CardValue.THREE, CardColor.SPADES), "Natacha")
+                    .add_card_before_flop_phase(Card(CardValue.TWO, CardColor.CLUBS), "Tony")
+                    .add_card_before_flop_phase(Card(CardValue.ACE, CardColor.DIAMONDS), "Thor")
+                    .add_card_before_flop_phase(Card(CardValue.SEVEN, CardColor.HEARTS), "Bruce")
+                    .add_card_before_flop_phase(Card(CardValue.QUEEN, CardColor.SPADES), "Clint")
+                    .add_card_before_flop_phase(Card(CardValue.JACK, CardColor.CLUBS), "Carol")
+                    .add_card_before_flop_phase(Card(CardValue.TEN, CardColor.DIAMONDS), "T'Challa")
+                    .add_card_before_flop_phase(Card(CardValue.NINE, CardColor.HEARTS), "Steven")
+                    .add_card_before_flop_phase(Card(CardValue.EIGHT, CardColor.SPADES), "Wanda")                 
+                    .add_card_flop_phase(Card(CardValue.FIVE, CardColor.HEARTS))
+                    .add_card_flop_phase(Card(CardValue.EIGHT, CardColor.DIAMONDS))
+                    .add_card_flop_phase(Card(CardValue.FOUR, CardColor.SPADES))
+                    .launch_phase_and_get_best_players())
+    assert(["Wanda"] ==  best_players)
+
+def test_launch_flop_phase_with_ten_players_and_tony_and_clint_win():
     fake_cards = [Card(CardValue.QUEEN, CardColor.DIAMONDS)]
     best_players = (TurnPhaseDriver(FakeMultiDrawCards(fake_cards))
                     .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
