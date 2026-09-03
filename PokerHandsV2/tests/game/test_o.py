@@ -11,6 +11,7 @@ from PokerHandsV2.detector.three_cards_detector import ThreeCardsDetector
 from PokerHandsV2.detector.two_pairs_detector import TwoPairsDetector
 from PokerHandsV2.draw.multi_draw_cards import MultiDrawCards
 from PokerHandsV2.game.hands_manager import HandsManager
+from PokerHandsV2.game.turn_phase import TurnPhase
 from PokerHandsV2.hand import Hand
 from PokerHandsV2.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
@@ -175,8 +176,6 @@ class TurnPhaseDriver():
         return self
 
     def launch_phase_and_get_best_players(self):        
-        new_card = self.multi_draw_cards.draw_one_card()
-        for player_name in self.hand_manager.get_all_players() : 
-            self.hand_manager.add_cards_to_players(player_name, new_card)
-        best_players = self.hand_manager.get_players_with_best_hands()
+        turn_phase = TurnPhase(self.hand_manager, self.multi_draw_cards)
+        best_players = turn_phase.launch_phase_and_get_best_players()
         return best_players
