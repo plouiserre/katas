@@ -11,50 +11,50 @@ def test_get_balance_for_two_participants_in_one_activity():
             .is_valid_participation("bar_23.5_2_harry_hermione"))
     
 def test_get_balance_for_two_participants_in_three_activities():
-    participants = (ActivityDriver()
+    (ActivityDriver()
                     .add_activity("bar", 23.5, ["harry", "hermione"], "harry")
                     .add_activity("restaurant", 50.7, ["harry", "hermione"], "hermione")
                     .add_activity("bowling", 12, ["harry", "hermione"], "harry")
-                    .get_participants_with_balance_calculated())
-
-    harry_participations = [Participation.create("bar", "23.5", 2, ParticipationType.PAYER), Participation.create("restaurant", "50.7", 2, ParticipationType.FREELOADER), Participation.create("bowling", "12", 2, ParticipationType.PAYER)]
-    hermione_participations = [Participation.create("bar", "23.5", 2, ParticipationType.FREELOADER), Participation.create("restaurant", "50.7", 2, ParticipationType.PAYER), Participation.create("bowling", "12", 2, ParticipationType.FREELOADER)]
-    assert(is_participant_are_equal(Participant.create("harry", "-7.6", harry_participations, RoundedType.BELOW), participants[0]) == True)
-    assert(is_participant_are_equal(Participant.create("hermione", "7.6", hermione_participations, RoundedType.BELOW), participants[1]) == True)
+                    .calculate_participants_with_balance()
+                    .is_valid_participant("harry_-7.6")
+                    .is_valid_participant("hermione_7.6")
+                    .is_valid_participation("bar_23.5_2_harry_hermione")
+                    .is_valid_participation("restaurant_50.7_2_hermione_harry")
+                    .is_valid_participation("bowling_12_2_harry_hermione"))
 
 def test_get_balance_for_three_participants_in_three_activities(): 
-    participants = (ActivityDriver()
+    (ActivityDriver()
                     .add_activity("bar", 23.5, ["harry", "hermione"], "harry")
                     .add_activity("restaurant", 50.7, ["hermione", "ron"], "hermione")
                     .add_activity("bowling", 12, ["ron", "harry"], "ron")
-                    .get_participants_with_balance_calculated())
-
-    harry_participations = [Participation.create("bar", "23.5", 2, ParticipationType.PAYER), Participation.create("bowling", "12", 2, ParticipationType.FREELOADER)]
-    hermione_participations = [Participation.create("bar", "23.5", 2, ParticipationType.FREELOADER), Participation.create("restaurant", "50.7", 2, ParticipationType.PAYER)]
-    ron_participations = [Participation.create("restaurant", "50.7", 2, ParticipationType.FREELOADER), Participation.create("bowling", "12", 2, ParticipationType.PAYER)]
-    assert(is_participant_are_equal(Participant.create("harry", "5.75", harry_participations, RoundedType.BELOW), participants[0]) == True)
-    assert(is_participant_are_equal(Participant.create("hermione", "13.6", hermione_participations, RoundedType.BELOW), participants[1]) == True)
-    assert(is_participant_are_equal(Participant.create("ron", "-19.35", ron_participations, RoundedType.BELOW), participants[2]) == True)
+                    .calculate_participants_with_balance()
+                    .is_valid_participant("harry_5.75")
+                    .is_valid_participant("hermione_13.6")
+                    .is_valid_participant("ron_-19.35")
+                    .is_valid_participation("bar_23.5_2_harry_hermione")
+                    .is_valid_participation("restaurant_50.7_2_hermione_ron")
+                    .is_valid_participation("bowling_12_2_ron_harry"))
 
 def test_get_balance_for_five_participants_in_six_activities(): 
-    participants = (ActivityDriver()
+    (ActivityDriver()
                     .add_activity("bar", 23.5, ["harry", "hermione", "ron"], "harry")
                     .add_activity("restaurant", 50.7, ["hermione", "ron", "ginny", "hagrid"], "hermione")
                     .add_activity("bowling", 12, ["ron", "ginny"], "ron")
                     .add_activity("plane tickets", 1200, ["harry", "hermione", "ron", "ginny", "hagrid"], "ginny")
                     .add_activity("hotel", 615, ["harry", "hermione", "ron", "ginny","hagrid"], "hagrid")
                     .add_activity("spa day", 120, ["hermione", "ginny"], "hermione")
-                    .get_participants_with_balance_calculated())
-    harry_participations = [Participation.create( "bar", "23.5", 3, ParticipationType.PAYER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER)]
-    hermione_participations = [Participation.create( "bar", "23.5", 3, ParticipationType.FREELOADER), Participation.create("restaurant", "50.7", 4, ParticipationType.PAYER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER), Participation.create("spa day", "120", 2, ParticipationType.PAYER)]
-    ron_participations = [Participation.create("bar", "23.5", 3, ParticipationType.FREELOADER), Participation.create("restaurant", "50.7", 4, ParticipationType.FREELOADER), Participation.create("bowling", "12", 2, ParticipationType.PAYER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER)]
-    ginny_participations = [Participation.create("restaurant", "50.7", 4, ParticipationType.FREELOADER), Participation.create("bowling", "12", 2, ParticipationType.FREELOADER), Participation.create("plane tickets", "1200", 5, ParticipationType.PAYER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER), Participation.create("spa day", "120", 2, ParticipationType.FREELOADER)]
-    hagrid_participations = [Participation.create("restaurant", "50.7", 4, ParticipationType.FREELOADER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.PAYER)]
-    assert(is_participant_are_equal(Participant.create("harry", "-347.34", harry_participations, RoundedType.BELOW), participants[0]) == True)
-    assert(is_participant_are_equal(Participant.create("hermione", "-272.81", hermione_participations, RoundedType.BELOW), participants[1]) == True)
-    assert(is_participant_are_equal(Participant.create("ron", "-377.51", ron_participations, RoundedType.BELOW), participants[2]) == True)
-    assert(is_participant_are_equal(Participant.create("ginny", "758.32", ginny_participations, RoundedType.BELOW), participants[3]) == True)
-    assert(is_participant_are_equal(Participant.create("hagrid", "239.32", hagrid_participations, RoundedType.BELOW), participants[4]) == True)
+                    .calculate_participants_with_balance()
+                    .is_valid_participant("harry_-347.34")
+                    .is_valid_participant("hermione_-272.81")
+                    .is_valid_participant("ron_-377.51")
+                    .is_valid_participant("ginny_758.32")
+                    .is_valid_participant("hagrid_239.32")
+                    .is_valid_participation("bar_23.5_3_harry_hermione|ron")
+                    .is_valid_participation("restaurant_50.7_4_hermione_ron|ginny|hagrid")
+                    .is_valid_participation("bowling_12_2_ron_ginny")
+                    .is_valid_participation("plane tickets_1200_5_ginny_harry|hermione|ron|hagrid")
+                    .is_valid_participation("hotel_615_5_hagrid_harry_hermione|ron|ginny")
+                    .is_valid_participation("spa day_120_2_hermione_ginny"))
 
 def is_participant_are_equal(participant_expected : Participant, participant_calculated : Participant):
     is_participations_equal  = True
