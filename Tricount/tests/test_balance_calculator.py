@@ -4,7 +4,8 @@ from Tricount.business.participation import Participation, ParticipationType
 from Tricount.MoneyLogic.rounded_type import RoundedType
 
 def test_get_balance_for_two_participants_in_one_activity():
-    (ActivityDriver().add_activity("bar", 23.5, ["harry", "hermione"], "harry")
+    (ActivityDriver()
+            .add_activity("bar", 23.5, ["harry", "hermione"], "harry")
             .calculate_participants_with_balance()
             .is_valid_participant_with_participations("harry_11.75|bar_23.5_2_Payer")
             .is_valid_participant_with_participations("hermione_-11.75|bar_23.5_2_Freeloader"))
