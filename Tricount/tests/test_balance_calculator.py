@@ -4,13 +4,12 @@ from Tricount.business.participant import Participant
 from Tricount.business.participation import Participation, ParticipationType
 
 def test_get_balance_for_two_participants_in_one_activity():
-    participants = (ActivityDriver()
-                    .add_activity("bar", 23.5, ["harry", "hermione"], "harry")
-                    .get_participants_with_balance_calculated())
-
-    assert(is_participant_are_equal(Participant.create("harry", "11.75", [Participation.create("bar", 23.5, 2, ParticipationType.PAYER)], RoundedType.BELOW), participants[0])== True)
-    assert(is_participant_are_equal(Participant.create("hermione", "-11.75", [Participation.create("bar", 23.5, 2, ParticipationType.FREELOADER)], RoundedType.BELOW), participants[1]) == True)
-
+    (ActivityDriver().add_activity("bar", 23.5, ["harry", "hermione"], "harry")
+            .calculate_participants_with_balance()
+            .is_valid_participant("harry_11.75")
+            .is_valid_participant("hermione_-11.75")
+            .is_valid_participation("bar_23.5_2_harry_hermione"))
+    
 def test_get_balance_for_two_participants_in_three_activities():
     participants = (ActivityDriver()
                     .add_activity("bar", 23.5, ["harry", "hermione"], "harry")
@@ -70,10 +69,66 @@ def is_participant_are_equal(participant_expected : Participant, participant_cal
 class ActivityDriver :
     def __init__(self):
         self.balance_calculator = BalanceCalculator()
+        self.participants = []
 
     def add_activity(self, name_activity, price, participants_name, payer):
         self.balance_calculator.add_activity(name_activity, price, participants_name, payer)
         return self
 
+    def calculate_participants_with_balance(self):
+            self.participants = self.balance_calculator.calculate_participants_balance_from_activities()
+            return self
+
     def get_participants_with_balance_calculated(self):
-        return self.balance_calculator.calculate_participants_balance_from_activities()
+        self.participants = self.balance_calculator.calculate_participants_balance_from_activities()
+        return self.participants
+
+    def is_valid_participant(self, data_participant_candidate):
+        is_valid = False
+        datas = data_participant_candidate.split("_")
+        participant_candidate_name = datas[0]
+        participant_candidate_balance = datas[1]
+        for participant in self.participants : 
+            if participant.name == participant_candidate_name and participant.balance == participant_candidate_balance : 
+                is_valid = True
+                break
+        assert(is_valid)
+        return self
+
+    def is_valid_participation(self, data_participation_candidate):
+        is_valid = True 
+        datas = data_participation_candidate.split("_")
+        participation_candidate_name = datas[0]
+        participation_candidate_price = datas[1]
+        participation_candidate_number_participants = datas[2]
+        participation_candidate_payer = datas[3]
+        participation_freeloaders = datas[4].split("|")
+        for participant in self.participants :
+            if participant.name == participation_candidate_payer : 
+                is_participation_here = False
+                for participation in participant.participations : 
+                    if participation.name == participation_candidate_name : 
+                        is_participation_here = True
+                        if participation_candidate_price == str(participation.price) and participation_candidate_number_participants == str(participation.number_participants) and participation.role == ParticipationType.PAYER :
+                            break
+                        else : 
+                            is_valid = False
+                            break
+            elif is_valid : 
+                for participation in participant.participations :
+                    if participation.name == participation_candidate_name : 
+                        is_participation_here = True 
+                        for freeloader_name in participation_freeloaders : 
+                            if participant.name == freeloader_name : 
+                                is_participation_here = True 
+                                if participation_candidate_price == str(participation.price) and participation_candidate_number_participants == str(participation.number_participants) and participation.role == ParticipationType.FREELOADER :
+                                    break
+                                else : 
+                                    is_valid = False
+                                    break 
+            else : 
+                break
+        if is_participation_here == False : 
+            is_valid = False
+        assert(is_valid)
+        return self   
