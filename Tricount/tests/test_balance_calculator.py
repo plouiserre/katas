@@ -1,6 +1,4 @@
 from Tricount.business.balance_calculator import BalanceCalculator
-from Tricount.MoneyLogic.rounded_type import RoundedType
-from Tricount.business.participant import Participant
 from Tricount.business.participation import Participation, ParticipationType
 
 def test_get_balance_for_two_participants_in_one_activity():
@@ -85,36 +83,43 @@ class ActivityDriver :
         is_valid = True 
         datas = data_participation_candidate.split("_")
         participation_candidate_payer = datas[3]
-        participation_freeloaders = datas[4]
+        participation_freeloaders = datas[4].split("|")
         for participant in self.participants :
             role = ParticipationType.PAYER if participation_candidate_payer == participant.name else ParticipationType.FREELOADER
             participation_expected = Participation.create_from_datas_tests(datas, role)
             if participant.name == participation_candidate_payer : 
-                is_participation_here = False
-                for participation in participant.participations : 
-                    if participation.name == participation_expected.name : 
-                        is_participation_here = True
-                        is_valid = self.__is_good_participation_for_payer(participation_expected, participation)
-                        if is_valid == False : 
-                            break
+                is_valid = self.__find_and_valid_participation_for_payer(participation_expected, participant)                
             elif is_valid : 
-                for participation in participant.participations :
-                    if participation.name == participation_expected.name : 
-                        is_participation_here = True 
-                        for freeloader_name in participation_freeloaders : 
-                            if participant.name == freeloader_name : 
-                                is_participation_here = True 
-                                is_valid = self.__is_good_participation_for_payer(participation_expected, participation)
-                                if is_valid == False : 
-                                    break
+                is_valid = self.__find_and_valid_participation_for_freeloader(participation_freeloaders, participant, participation_expected)                        
             else : 
                 break
-        if is_participation_here == False : 
-            is_valid = False
+        
         assert(is_valid)
         return self   
 
-    def __is_good_participation_for_payer(self, participation_expected, participation_calculated):
+    def __find_and_valid_participation_for_payer(self, participation_expected, participant):
+        all_is_validation = []
+        for participation in participant.participations : 
+            if participation.name == participation_expected.name : 
+                is_participation_here = True
+                is_valid_participation =  self.__is_good_participation_for_participant(participation_expected, participation)
+                is_valid = is_valid_participation and is_participation_here
+                all_is_validation.append(is_valid)
+        return all(validation is True for validation in all_is_validation)
+
+    def __find_and_valid_participation_for_freeloader(self, participation_freeloaders, participant, participation_expected):
+        all_is_validation = []
+        for participation in participant.participations :
+            if participation.name == participation_expected.name : 
+                for freeloader_name in participation_freeloaders : 
+                    if participant.name == freeloader_name : 
+                        is_participation_here = True 
+                        is_valid_participation = self.__is_good_participation_for_participant(participation_expected, participation)
+                        is_valid = is_valid_participation and is_participation_here
+                        all_is_validation.append(is_valid)
+        return all(validation is True for validation in all_is_validation) 
+        
+    def __is_good_participation_for_participant(self, participation_expected, participation_calculated):
         if participation_expected.price == participation_calculated.price and participation_expected.number_participants ==  str(participation_calculated.number_participants) and participation_expected.role == participation_calculated.role :
             return True
         else : 
