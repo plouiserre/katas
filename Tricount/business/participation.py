@@ -18,6 +18,10 @@ class Participation :
     def create(name : str, price : str, number_participants : int, role : str):
         return Participation(name, Decimal(price), number_participants, role)
 
+    @staticmethod
+    def create_from_datas_tests(datas, role : str):
+        return Participation(datas[0], Decimal(datas[1]), datas[2], role)
+
     def calculate_balance_payer_participation(self, money): 
         money.divide_two_money(self.price, self.number_participants, LastResultNeeded.NotNeeded)
         money.substract_two_money(str(self.price), None, LastResultNeeded.SecondMember)

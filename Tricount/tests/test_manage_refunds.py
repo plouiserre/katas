@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from Tricount.business.manage_refunds import ManageRefunds
 from Tricount.MoneyLogic.rounded_type import RoundedType
 from Tricount.business.participant import Participant 
@@ -5,67 +7,67 @@ from Tricount.business.participation import Participation, ParticipationType
 from Tricount.business.refund import Refund
 
 def test_calculate_refunds_for_two_participants_in_one_activity():
-    refunds_calculated = (RefundDriver()
-               .add_participant(Participant.create("harry", "11.75", [Participation.create("bar", 23.5, 2, ParticipationType.PAYER)], RoundedType.BELOW))
-               .add_participant(Participant.create("hermione", "-11.75", [Participation.create("bar", 23.5, 2, ParticipationType.FREELOADER)], RoundedType.BELOW))
-               .get_refunds())
-    refunds_expected = [Refund.create_refund("hermione", "harry", "11.75")]
-    assert(len(refunds_calculated) == 1)
-    assert(compare_all_refunds(refunds_expected, refunds_calculated))  
+    (RefundDriver()
+               .add_participant_with_participation("harry_11.75|bar_23.5_2_Payer")
+               .add_participant_with_participation("hermione_-11.75|bar_23.5_2_Freeloader")
+               .calculate_refunds()
+               .valid_refund("hermione_harry_11.75"))
+    
     
 def test_calculate_refunds_for_three_participants_in_three_activities():
-    harry_participations = [Participation.create("bar", "23.5", 2, ParticipationType.PAYER), Participation.create("bowling", "12", 2, ParticipationType.FREELOADER)]
-    hermione_participations = [Participation.create("bar", "23.5", 2, ParticipationType.FREELOADER), Participation.create("restaurant", "50.7", 2, ParticipationType.PAYER)]
-    ron_participations = [Participation.create("restaurant", "50.7", 2, ParticipationType.FREELOADER), Participation.create("bowling", "12", 2, ParticipationType.PAYER)]
-    refunds_calculated = (RefundDriver()
-                        .add_participant(Participant.create("harry", "5.75", harry_participations, RoundedType.BELOW))
-                        .add_participant(Participant.create("hermione", "13.6", hermione_participations, RoundedType.BELOW))
-                        .add_participant(Participant.create("ron", "-19.35", ron_participations, RoundedType.BELOW))
-                        .get_refunds())
-    refunds_expected = [Refund.create_refund("ron", "hermione", "13.6"), Refund.create_refund("ron", "harry", "5.75")]
-    assert(len(refunds_calculated) == 2)
-    assert(compare_all_refunds(refunds_expected, refunds_calculated)) 
+    (RefundDriver()
+                .add_participant_with_participation("harry_5.75|bar_23.5_2_Payer|bowling_12_2_Freeloader")
+                .add_participant_with_participation("hermione_13.6|bar_23.5_2_Freeloader|restaurant_50.7_2_Payer")
+                .add_participant_with_participation("ron_-19.35|restaurant_50.7_2_Freeloader|bowling_12_2_Payer")
+                .calculate_refunds()
+                .valid_refund("ron_hermione_13.6")
+                .valid_refund("ron_harry_5.75"))
     
 def test_calculate_refunds_for_five_participants_in_six_activities() :  
-    harry_participations = [Participation.create( "bar", "23.5", 3, ParticipationType.PAYER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER)]
-    hermione_participations = [Participation.create( "bar", "23.5", 3, ParticipationType.FREELOADER), Participation.create("restaurant", "50.7", 4, ParticipationType.PAYER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER), Participation.create("spa day", "120", 2, ParticipationType.PAYER)]
-    ron_participations = [Participation.create("bar", "23.5", 3, ParticipationType.FREELOADER), Participation.create("restaurant", "50.7", 4, ParticipationType.FREELOADER), Participation.create("bowling", "12", 2, ParticipationType.PAYER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER)]
-    ginny_participations = [Participation.create("restaurant", "50.7", 4, ParticipationType.FREELOADER), Participation.create("bowling", "12", 2, ParticipationType.FREELOADER), Participation.create("plane tickets", "1200", 5, ParticipationType.PAYER), Participation.create("hotel", "615", 5, ParticipationType.FREELOADER), Participation.create("spa day", "120", 2, ParticipationType.FREELOADER)]
-    hagrid_participations = [Participation.create("restaurant", "50.7", 4, ParticipationType.FREELOADER), Participation.create("plane tickets", "1200", 5, ParticipationType.FREELOADER), Participation.create("hotel", "615", 5, ParticipationType.PAYER)]
-    
-    refunds_calculated = (RefundDriver()
-                            .add_participant(Participant.create("harry", "-347.34", harry_participations, RoundedType.BELOW))
-                            .add_participant(Participant.create("hermione", "-272.81", hermione_participations, RoundedType.BELOW))
-                            .add_participant(Participant.create("ron", "-377.51", ron_participations, RoundedType.BELOW))
-                            .add_participant(Participant.create("ginny", "758.32", ginny_participations, RoundedType.BELOW))
-                            .add_participant(Participant.create("hagrid", "239.32", hagrid_participations, RoundedType.BELOW))
-                            .get_refunds())
-    
-    refunds_expected = [Refund.create_refund("ron", "ginny", "377.51"), Refund.create_refund("harry", "ginny", "347.34"),
-                        Refund.create_refund("hermione", "ginny", "33.47"), Refund.create_refund("hermione", "hagrid", "239.32")]
-    assert(len(refunds_calculated) == 4)
-    assert(compare_all_refunds(refunds_expected, refunds_calculated)) 
-    
-    
-def compare_all_refunds(refunds_expected : Refund, refunds_calculated : Refund):
-    is_equal = True
-    for idx, _ in enumerate(refunds_expected): 
-        refund_expected = refunds_expected[idx]
-        refund_calculated = refunds_calculated[idx]
-        is_equal = refund_expected.amount == refund_calculated.amount and refund_expected.recipient == refund_calculated.recipient and refund_expected.payer == refund_calculated.payer
-        if is_equal == False : 
-            break
-    return is_equal 
+    (RefundDriver()
+                .add_participant_with_participation("harry_-347.34|bar_23.5_3_Payer|plane tickets_1200_5_Freeloader|hotel_615_5_Freeloader")
+                .add_participant_with_participation("hermione_-272.91|bar_23.5_3_Freeloader|restaurant_50.4_4_Payer|plane tickets_1200_5_Freeloader|hotel_615_5_Freeloader|spa day_120_2_Payer")
+                .add_participant_with_participation("ron_-377.51|bar_23.5_3_Freeloader|restaurant_50.4_4_Freeloader|bowling_12_2_Payer|plane tickets_1200_5_Freeloader|hotel_615_5_Freeloader")
+                .add_participant_with_participation("ginny_758.32|restaurant_50.4_4_Freeloader|bowling_12_2_Freeloader|plane tickets_1200_5_Payer|hotel_615_5_Freeloader|spa day_120_2_Freeloader")
+                .add_participant_with_participation("hagrid_239.32|restaurant_50.4_4_Freeloader|plane tickets_1200_5_Freeloader|hotel_615_5_Payer")
+                .calculate_refunds()
+                .valid_refund("ron_ginny_377.51")
+                .valid_refund("harry_ginny_347.34")
+                .valid_refund("hermione_ginny_33.47")
+                .valid_refund("hermione_hagrid_239.32"))    
     
 class RefundDriver : 
     def __init__(self):
         self.participants = []
-        self.manage_refunds = ManageRefunds()   
+        self.manage_refunds = ManageRefunds()
+        self.refunds = []
     
     def add_participant(self, participant : Participant) :
         self.manage_refunds.add_participant(participant)
         return self
+
+    def add_participant_with_participation(self, datas_participant):
+        all_participations = []
+        datas_split = datas_participant.split("|")
+        data_only_participant = datas_split.pop(0).split("_")
+        for data_split in datas_split:
+            data_participation = data_split.split("_")
+            participation_type = ParticipationType.PAYER if data_participation[3] == "Payer" else ParticipationType.FREELOADER
+            participation = Participation.create(data_participation[0], Decimal(data_participation[1]), int(data_participation[2]), participation_type)
+            all_participations.append(participation)
+        self.manage_refunds.add_participant(Participant.create(data_only_participant[0], data_only_participant[1], all_participations, RoundedType.BELOW))
+        return self
     
-    #TODO reprendre ce code et l'améliorer
-    def get_refunds(self):
-        return self.manage_refunds.calculate_all_refunds()
+    def calculate_refunds(self):
+        self.refunds = self.manage_refunds.calculate_all_refunds()
+        return self
+
+    def valid_refund(self, refund_data_expected):
+        is_valid = False
+        for refund in self.refunds : 
+            refund_datas_calculated = str(refund.payer)+"_"+str(refund.recipient)+"_"+str(refund.amount)
+            if refund_datas_calculated == refund_data_expected : 
+                is_valid = True
+                break
+        assert(is_valid)
+        return self  
