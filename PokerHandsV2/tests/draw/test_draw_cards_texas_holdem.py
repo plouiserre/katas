@@ -16,7 +16,7 @@ def test_draw_all_cards_need_for_two_players_in_poker_texas_holdem():
         .draw_turn_card()
         .burn_one_card()
         .draw_river_card()
-        .get_all_cards_choosen2()
+        .get_all_cards_choosen()
         .is_player_have_all_cards("Bruce")
         .is_player_have_all_cards("Diana")
         .is_cards_on_table_are_completed()
@@ -49,7 +49,7 @@ def test_draw_all_cards_need_for_six_players_in_poker_texas_holdem():
         .draw_turn_card()
         .burn_one_card()
         .draw_river_card()
-        .get_all_cards_choosen2()
+        .get_all_cards_choosen()
         .is_player_have_all_cards("Bruce")
         .is_player_have_all_cards("Diana")
         .is_player_have_all_cards("Clark")
@@ -90,12 +90,6 @@ class DrawCardsTexasHoldemDriver :
         return self
 
     def get_all_cards_choosen(self):
-        all_players = self.draw_cards_texas_holdem.get_players()
-        all_cards_on_table = self.draw_cards_texas_holdem.get_all_cards_on_table()
-        burns_cards = self.draw_cards_texas_holdem.get_all_burns_cards()
-        return Cards(all_players, all_cards_on_table, burns_cards)
-
-    def get_all_cards_choosen2(self):
         all_players = self.draw_cards_texas_holdem.get_players()
         all_cards_on_table = self.draw_cards_texas_holdem.get_all_cards_on_table()
         burns_cards = self.draw_cards_texas_holdem.get_all_burns_cards()
