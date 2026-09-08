@@ -1,7 +1,8 @@
-class FlopPhase : 
+from PokerHandsV2.game.phase import Phase
+
+class FlopPhase(Phase) : 
     def __init__(self, hand_manager, multi_draw_cards):
-        self.hand_manager = hand_manager
-        self.multi_draw_cards = multi_draw_cards
+        super().__init__(hand_manager, multi_draw_cards)
 
     def launch_phase_and_get_best_players(self): 
         self.__draw_flop()
