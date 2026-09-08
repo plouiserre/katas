@@ -16,7 +16,7 @@ from PokerHandsV2.game.river_phase import RiverPhase
 from PokerHandsV2.hand import Hand
 from PokerHandsV2.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
-def test_1():
+def test_launch_river_phase_with_two_players_randomly():
     (RiverPhaseDriver(MultiDrawCards())
             .add_player("Steve")
             .add_player("Natacha")
@@ -30,7 +30,8 @@ def test_1():
             .add_card_turn_phase("K♥")
             .launch_river_phase_and_gest_best_players()
             .is_this_players_can_be_a_winner(["Steve", "Natacha"]))
-def test_2():
+    
+def test_launch_river_phase_with_two_players_and_steve_wins():
     false_cards = ["2♣"]
     (RiverPhaseDriver(FakeMultiDrawCards(false_cards))
         .add_player("Steve")
@@ -46,7 +47,7 @@ def test_2():
         .launch_river_phase_and_gest_best_players()
         .is_this_players_can_be_a_winner(["Steve"]))
 
-def test_3():
+def test_launch_river_phase_with_two_players_and_natacha_wins():
   false_cards = ["5♥"]
   (RiverPhaseDriver(FakeMultiDrawCards(false_cards))
            .add_player("Steve")
@@ -62,7 +63,7 @@ def test_3():
            .launch_river_phase_and_gest_best_players()
            .is_this_players_can_be_a_winner(["Natacha"]))
 
-def test_4():
+def test_launch_river_phase_with_two_players_win():
     false_cards = ["J♠"]
     (RiverPhaseDriver(FakeMultiDrawCards(false_cards))
         .add_player("Steve")
@@ -78,7 +79,7 @@ def test_4():
         .launch_river_phase_and_gest_best_players()
         .is_this_players_can_be_a_winner(["Steve_Natacha"]))
 
-def test_5():
+def test_launch_river_phase_with_ten_players_randomly():
     (RiverPhaseDriver(MultiDrawCards())
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
         .add_card_draw("A♠", "Steve")
@@ -110,7 +111,7 @@ def test_5():
         .launch_river_phase_and_gest_best_players()
         .is_this_players_can_be_a_winner(["Steve", "Natacha", "Tony", "Thor", "Bruce", "Clint", "Carol", "T'Challa", "Steven", "Peter", "Wanda" ]))        
     
-def test_6():
+def test_launch_river_phase_with_ten_players_and_wanda_win():
     fake_cards = ["8♦"]
     (RiverPhaseDriver(FakeMultiDrawCards(fake_cards))
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
@@ -143,8 +144,7 @@ def test_6():
         .launch_river_phase_and_gest_best_players()
         .is_this_players_can_be_a_winner(["Wanda"]))
 
-# ♠ ♣ ♥ ♦
-def test_7():
+def test_launch_river_phase_with_ten_players_and_tony_and_clint_win():
     fake_cards = ["Q♣"]
     (RiverPhaseDriver(FakeMultiDrawCards(fake_cards))
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])

@@ -108,7 +108,7 @@ def test_launch_turn_phase_with_ten_players_randomly():
         .launch_phase_and_get_best_players()
         .is_this_players_can_be_a_winner(["Steve", "Natacha", "Tony", "Thor", "Bruce", "Clint", "Carol", "T'Challa", "Steven", "Peter", "Wanda" ]))
 
-def test_launch_flop_phase_with_ten_players_and_wanda_win():
+def test_launch_turn_phase_with_ten_players_and_wanda_win():
     fake_cards = ["5♠"]
     (TurnPhaseDriver(FakeMultiDrawCards(fake_cards))
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
@@ -140,7 +140,7 @@ def test_launch_flop_phase_with_ten_players_and_wanda_win():
         .launch_phase_and_get_best_players()
         .is_this_players_can_be_a_winner(["Wanda"]))
 
-def test_launch_flop_phase_with_ten_players_and_tony_and_clint_win():
+def test_launch_turn_phase_with_ten_players_and_tony_and_clint_win():
     fake_cards = ["Q♦"]
     (TurnPhaseDriver(FakeMultiDrawCards(fake_cards))
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
