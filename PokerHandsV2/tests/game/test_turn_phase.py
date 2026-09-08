@@ -1,4 +1,4 @@
-from PokerHandsV2.card import Card, CardColor, CardValue
+from PokerHandsV2.card import Card
 from PokerHandsV2.counting_cards import CountingCards
 from PokerHandsV2.detector.four_cards_detector import FourCardsDetector
 from PokerHandsV2.detector.flush_detector import FlushDetector
@@ -16,7 +16,7 @@ from PokerHandsV2.hand import Hand
 from PokerHandsV2.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
 def test_launch_turn_phase_with_two_players_randomly():
-    best_players = (TurnPhaseDriver(MultiDrawCards())
+    (TurnPhaseDriver(MultiDrawCards())
                     .add_player("Steve")
                     .add_player("Natacha")
                     .add_card_before_flop_phase("2♠", "Steve")
@@ -27,24 +27,23 @@ def test_launch_turn_phase_with_two_players_randomly():
                     .add_card_flop_phase("2♦")
                     .add_card_flop_phase("A♠")
                     .launch_phase_and_get_best_players()
-    )
-    assert("Steve" in best_players or "Natacha" in best_players)
+                    .is_this_players_can_be_a_winner(["Steve", "Natacha"]))
 
 def test_launch_turn_phase_with_two_players_and_steve_wins():
     false_cards = ["2♣"]
-    best_players = (TurnPhaseDriver(FakeMultiDrawCards(false_cards))
-                    .add_player("Steve")
-                    .add_player("Natacha")
-                    .add_card_before_flop_phase("2♠", "Steve")
-                    .add_card_before_flop_phase("A♥", "Natacha")
-                    .add_card_before_flop_phase("6♠", "Steve")
-                    .add_card_before_flop_phase("A♣", "Natacha")
-                    .add_card_flop_phase("2♥")
-                    .add_card_flop_phase("2♦")
-                    .add_card_flop_phase("A♠")
-                    .launch_phase_and_get_best_players()
+    (TurnPhaseDriver(FakeMultiDrawCards(false_cards))
+        .add_player("Steve")
+        .add_player("Natacha")
+        .add_card_before_flop_phase("2♠", "Steve")
+        .add_card_before_flop_phase("A♥", "Natacha")
+        .add_card_before_flop_phase("6♠", "Steve")
+        .add_card_before_flop_phase("A♣", "Natacha")
+        .add_card_flop_phase("2♥")
+        .add_card_flop_phase("2♦")
+        .add_card_flop_phase("A♠")
+        .launch_phase_and_get_best_players()
+        .is_this_players_can_be_a_winner(["Steve"])
     )
-    assert(["Steve"] == best_players)
 
 def test_launch_turn_phase_with_two_players_and_natacha_wins():
     false_cards = ["3♣"]
@@ -109,7 +108,6 @@ def test_launch_turn_phase_with_ten_players_randomly():
         .launch_phase_and_get_best_players()
         .is_this_players_can_be_a_winner(["Steve", "Natacha", "Tony", "Thor", "Bruce", "Clint", "Carol", "T'Challa", "Steven", "Peter", "Wanda" ]))
 
-# ♠ ♥ ♦ ♣
 def test_launch_flop_phase_with_ten_players_and_wanda_win():
     fake_cards = ["5♠"]
     (TurnPhaseDriver(FakeMultiDrawCards(fake_cards))
