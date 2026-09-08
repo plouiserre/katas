@@ -12,6 +12,7 @@ from PokerHandsV2.detector.three_cards_detector import ThreeCardsDetector
 from PokerHandsV2.detector.two_pairs_detector import TwoPairsDetector
 from PokerHandsV2.draw.multi_draw_cards import MultiDrawCards
 from PokerHandsV2.game.hands_manager import HandsManager
+from PokerHandsV2.game.river_phase import RiverPhase
 from PokerHandsV2.hand import Hand
 from PokerHandsV2.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
@@ -219,10 +220,8 @@ class RiverPhaseDriver():
         return self
 
     def launch_river_phase_and_gest_best_players(self):
-        new_card = self.multi_draw_cards.draw_one_card()
-        for player_name in self.hand_manager.get_all_players() : 
-            self.hand_manager.add_cards_to_players(player_name, new_card)
-        self.winners = self.hand_manager.get_players_with_best_hands()
+        river_phase = RiverPhase(self.hand_manager, self.multi_draw_cards)
+        self.winners = river_phase.launch_phase_and_get_best_players()
         return self
 
     def is_this_players_can_be_a_winner(self, players_name):
