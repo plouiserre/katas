@@ -10,9 +10,9 @@ class FourCardsDetector:
         self.high_card_value = CardValue.UNDEFINED    
 
     def find_four_cards(self,  hand: Iterator[Card]) -> FourOfKindFigure:
-        cards_sorted = self.manipulating_cards.Count(hand)
-        for card in cards_sorted : 
-            number_cards = cards_sorted[card]
+        cards_group_by_value = self.manipulating_cards.Count(hand)
+        for card in cards_group_by_value : 
+            number_cards = cards_group_by_value[card]
             if number_cards == 4 :
                 self.card_four_times = card
             else :

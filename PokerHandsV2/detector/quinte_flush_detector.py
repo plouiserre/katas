@@ -4,12 +4,13 @@ from PokerHandsV2.AllFigures.QuinteFlushFigure import QuinteFlushFigure
 from typing import Iterator
 
 class QuinteFlushDetector : 
-    def __init__(self):
+    def __init__(self, manipulating_cards):
         self.is_quinte_flush = True 
         self.last_card_color = CardColor.UNDEFINED
         self.last_card_value = CardValue.UNDEFINED
         self.is_ace_present = False
-        self.card_value_hand = []        
+        self.card_value_hand = []
+        self.manipulating_cards = manipulating_cards 
 
     def find_quinte_flush(self, hand: Iterator[Card]) -> QuinteFlushFigure:
         if len(hand) == 5:
@@ -18,7 +19,7 @@ class QuinteFlushDetector :
             return None
 
     def __analyse_hand_when_the_player_have_five_cards(self, hand : Iterator[Card]) -> QuinteFlushFigure:
-        hand_sorted = sorted(hand, key=lambda o : o.value)
+        hand_sorted = self.manipulating_cards.sorted_card(hand)
         self.__determine_if_hand_contains_quinte_flush(hand_sorted)
         if self.is_quinte_flush : 
             return self.__construct_quinte_flush()

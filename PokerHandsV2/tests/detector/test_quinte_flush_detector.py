@@ -1,5 +1,6 @@
 from PokerHandsV2.AllFigures.QuinteFlushFigure import QuinteFlushFigure
 from PokerHandsV2.card import Card, CardColor, CardValue
+from PokerHandsV2.manipulating_cards import ManipulatingCards
 from PokerHandsV2.detector.quinte_flush_detector import QuinteFlushDetector
 from PokerHandsV2.tests.random_cards import get_all_values, get_random_card, get_colors_random, get_shuffle_hand, remove_cards
 
@@ -21,5 +22,6 @@ def test_find_quinte_flush_random_colors__with_six_value():
     assert(__find_quinte_flush(hand) == QuinteFlushFigure(top_quinte_flush, color_value))
 
 def __find_quinte_flush(hand):
-    quinte_flush_detector = QuinteFlushDetector()
+    manipulating_cards = ManipulatingCards()
+    quinte_flush_detector = QuinteFlushDetector(manipulating_cards)
     return quinte_flush_detector.find_quinte_flush(hand)
