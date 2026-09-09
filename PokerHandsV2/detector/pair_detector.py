@@ -4,11 +4,11 @@ from PokerHandsV2.AllFigures.PairFigure import PairFigure
 from typing import Iterator
 
 class PairDetector : 
-    def __init__(self, counting_cards):
-        self.counting_cards = counting_cards
+    def __init__(self, manipulating_cards):
+        self.manipulating_cards = manipulating_cards
 
     def find_pair(self, hand: Iterator[Card]) -> PairFigure:
-        cards_sorted = self.counting_cards.Count(hand)
+        cards_sorted = self.manipulating_cards.Count(hand)
         is_one_pair = False
         value_pair = CardValue.TWO
         high_value_outside_one_pair = CardValue.TWO

@@ -4,11 +4,11 @@ from PokerHandsV2.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from typing import Iterator
 
 class ThreeCardsDetector: 
-    def __init__(self, counting_cards):
-        self.counting_cards = counting_cards
+    def __init__(self, manipulating_cards):
+        self.manipulating_cards = manipulating_cards
 
     def find_three_of_kind(self, hand : Iterator[Card]) -> ThreeOfKindFigure:
-        cards_sorted = self.counting_cards.Count(hand)
+        cards_sorted = self.manipulating_cards.Count(hand)
         is_three_cards = False
         three_of_kind_value = CardValue.TWO
         high_value_outside_three_of_kind = CardValue.TWO

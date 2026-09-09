@@ -3,13 +3,13 @@ from PokerHandsV2.AllFigures.StraitFigure import StraitFigure
 from typing import Iterator
 
 class StraightDetector : 
-    def __init__(self, counting_cards):
-        self.counting_cards = counting_cards
+    def __init__(self, manipulating_cards):
+        self.manipulating_cards = manipulating_cards
         self.high_card_value = CardValue.TWO
         self.is_ace_present = False
 
     def find_straight(self, hand: Iterator[Card]) -> StraitFigure:
-        cards_sorted = self.counting_cards.Count(hand)
+        cards_sorted = self.manipulating_cards.Count(hand)
         cards_ordered = dict(sorted(cards_sorted.items())) 
         if len(cards_ordered) == 5 :
             last_value = CardValue.UNDEFINED

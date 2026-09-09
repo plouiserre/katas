@@ -1,7 +1,7 @@
 from PokerHands.card import Card, CardValue
 from typing import Iterator
 
-class CountingCards :
+class ManipulatingCards :
     def __init__(self):
         pass
 

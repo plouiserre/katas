@@ -1,6 +1,6 @@
 # ♠ ♥ ♦ ♣
 from PokerHandsV2.card import Card
-from PokerHandsV2.counting_cards import CountingCards
+from PokerHandsV2.manipulating_cards import ManipulatingCards
 from PokerHandsV2.detector.four_cards_detector import FourCardsDetector
 from PokerHandsV2.detector.flush_detector import FlushDetector
 from PokerHandsV2.detector.full_detector import FullDetector
@@ -177,15 +177,15 @@ def test_launch_river_phase_with_ten_players_and_tony_and_clint_win():
     
 class RiverPhaseDriver():
     def __init__(self, multi_draw_cards):
-        counting_cards = CountingCards()
+        manipulating_cards = ManipulatingCards()
         high_card_detector = HighCardDetector()
-        pair_detector = PairDetector(counting_cards)
-        two_pairs_detector = TwoPairsDetector(counting_cards)
-        three_cards_detector = ThreeCardsDetector(counting_cards)
-        straight_detector = StraightDetector(counting_cards)
+        pair_detector = PairDetector(manipulating_cards)
+        two_pairs_detector = TwoPairsDetector(manipulating_cards)
+        three_cards_detector = ThreeCardsDetector(manipulating_cards)
+        straight_detector = StraightDetector(manipulating_cards)
         flush_detector = FlushDetector()
-        full_detector = FullDetector(counting_cards)
-        four_cards_detector = FourCardsDetector(counting_cards)
+        full_detector = FullDetector(manipulating_cards)
+        four_cards_detector = FourCardsDetector(manipulating_cards)
         quinte_flush_detector = QuinteFlushDetector()
         hand = Hand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, straight_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
         self.multi_draw_cards = multi_draw_cards
