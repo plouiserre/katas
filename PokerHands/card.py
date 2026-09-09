@@ -67,7 +67,7 @@ class Card:
         card_color = CardColor.UNDEFINED
         card_value = CardValue.UNDEFINED
         card_color = Card.__parse_color(str)
-        card_value = Card.__parse_value(str)
+        card_value = Card.parse_value(str)
         return Card(card_value, card_color)
     
     @staticmethod
@@ -84,7 +84,7 @@ class Card:
         return card_color
     
     @staticmethod
-    def __parse_value(str) -> CardValue : 
+    def parse_value(str) -> CardValue : 
         if "2" in str : 
             card_value = CardValue.TWO
         elif "3" in str : 
