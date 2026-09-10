@@ -84,8 +84,6 @@ def test_launch_river_phase_with_ten_players_randomly():
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
         .add_card_draw("A♠", "Steve")
         .add_card_draw("K♣", "Natacha")
-        .add_card_draw("A♠", "Steve")
-        .add_card_draw("K♣", "Natacha")
         .add_card_draw("Q♥", "Tony")
         .add_card_draw("J♦","Thor")
         .add_card_draw("10♣", "Bruce")
@@ -115,8 +113,6 @@ def test_launch_river_phase_with_ten_players_and_wanda_win():
     fake_cards = ["8♦"]
     (RiverPhaseDriver(FakeMultiDrawCards(fake_cards))
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
-        .add_card_draw("A♠", "Steve")
-        .add_card_draw("K♣", "Natacha")
         .add_card_draw("A♠", "Steve")
         .add_card_draw("K♣", "Natacha")
         .add_card_draw("Q♥", "Tony")

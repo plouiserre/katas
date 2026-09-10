@@ -54,7 +54,7 @@ def test_find_quinte_from_7_cards_from_texas_holdem_game():
     )
 
 #"♠♥♦♣"  
-def test_find_quinte_from_7_cards_from_texas_holdem_game():
+def test_find_quinte_from_7_cards_from_texas_holdem_game_with_outside_cards():
     (
         QuinteDetectorDriver()
             .add_card_in_hand("Q♥")
@@ -67,7 +67,62 @@ def test_find_quinte_from_7_cards_from_texas_holdem_game():
             .calculate_hand()
             .is_valid_quinte_figure("A")
     )
-#en faire un autre où y a des cartes au milieu qui sont hors de la suite
+
+def test_find_quinte_from_7_small_cards_from_texas_holdem_game_with_outside_cards():
+    (
+        QuinteDetectorDriver()
+            .add_card_in_hand("3♥")
+            .add_card_in_hand("6♦")
+            .add_card_in_hand("Q♠")            
+            .add_card_in_hand("5♠")
+            .add_card_in_hand("10♣")
+            .add_card_in_hand("2♥")
+            .add_card_in_hand("4♦")
+            .calculate_hand()
+            .is_valid_quinte_figure("6")
+    )
+
+def test_find_quinte_from_7_started_finished_by_seven_and_two_wrongs_cards():
+    (
+        QuinteDetectorDriver()
+            .add_card_in_hand("3♥")
+            .add_card_in_hand("6♦")
+            .add_card_in_hand("7♠")            
+            .add_card_in_hand("5♠")
+            .add_card_in_hand("10♣")
+            .add_card_in_hand("2♥")
+            .add_card_in_hand("4♦")
+            .calculate_hand()
+            .is_valid_quinte_figure("7")
+    )
+
+def test_find_quinte_from_7_started_with_double():
+    (
+        QuinteDetectorDriver()
+            .add_card_in_hand("3♥")
+            .add_card_in_hand("6♦")
+            .add_card_in_hand("7♠")            
+            .add_card_in_hand("5♠")
+            .add_card_in_hand("6♣")
+            .add_card_in_hand("2♥")
+            .add_card_in_hand("4♦")
+            .calculate_hand()
+            .is_valid_quinte_figure("7")
+    )
+
+def test_cannot_find_quinte_from_7_started_with_double():
+    (
+        QuinteDetectorDriver()
+            .add_card_in_hand("3♥")
+            .add_card_in_hand("6♦")
+            .add_card_in_hand("7♠")            
+            .add_card_in_hand("5♠")
+            .add_card_in_hand("6♣")
+            .add_card_in_hand("2♥")
+            .add_card_in_hand("K♦")
+            .calculate_hand()
+            .is_not_valid_quinte_figure()
+    )
 
 class QuinteDetectorDriver : 
     def __init__(self):
@@ -88,3 +143,6 @@ class QuinteDetectorDriver :
     def is_valid_quinte_figure(self, card_value_crypted):
         card_value = Card.parse_value(card_value_crypted)
         assert(QuinteFigure(card_value) == self.quinte_figure)
+
+    def is_not_valid_quinte_figure(self): 
+        assert(self.quinte_figure == None)
