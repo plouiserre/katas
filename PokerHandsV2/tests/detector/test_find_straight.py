@@ -1,5 +1,5 @@
 from PokerHandsV2.card import Card, CardColor, CardValue
-from PokerHandsV2.counting_cards import CountingCards
+from PokerHandsV2.manipulating_cards import ManipulatingCards
 from PokerHandsV2.AllFigures.StraitFigure import StraitFigure
 from PokerHandsV2.detector.straight_detector import StraightDetector
 
@@ -16,7 +16,7 @@ def test_find_straight_finish_ace():
     assert(__find_straight_cards(hand)==StraitFigure(CardValue.ACE))
 
 def __find_straight_cards(hand):
-    counting_cards = CountingCards()
-    straight_detector = StraightDetector(counting_cards)
+    manipulating_cards = ManipulatingCards()
+    straight_detector = StraightDetector(manipulating_cards)
     return straight_detector.find_straight(hand)
     

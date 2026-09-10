@@ -1,6 +1,6 @@
 from PokerHandsV2.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from PokerHandsV2.card import Card, CardColor, CardValue
-from PokerHandsV2.counting_cards import CountingCards
+from PokerHandsV2.manipulating_cards import ManipulatingCards
 from PokerHandsV2.detector.three_cards_detector import ThreeCardsDetector
 from PokerHandsV2.tests.random_cards import add_cards, get_all_values, get_high_card_complete, get_lower_card_complete, get_random_card_complete, get_shuffle_hand, remove_cards
 
@@ -28,6 +28,6 @@ def test_find_three_of_kind_randomized():
     assert(__find_three_cards_of_kind(hand)==ThreeOfKindFigure(three_of_kinds.value, high_card.value))        
 
 def __find_three_cards_of_kind(hand):
-    counting_cards = CountingCards()
-    three_cards_detector = ThreeCardsDetector(counting_cards)
+    manipulating_cards = ManipulatingCards()
+    three_cards_detector = ThreeCardsDetector(manipulating_cards)
     return three_cards_detector.find_three_of_kind(hand)

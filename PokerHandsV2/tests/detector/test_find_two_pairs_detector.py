@@ -1,6 +1,6 @@
 from PokerHandsV2.AllFigures.TwoPairFigure import TwoPairFigure
 from PokerHandsV2.card import Card, CardColor, CardValue
-from PokerHandsV2.counting_cards import CountingCards
+from PokerHandsV2.manipulating_cards import ManipulatingCards
 from PokerHandsV2.detector.two_pairs_detector import TwoPairsDetector
 from PokerHandsV2.tests.random_cards import get_all_values, get_random_card_complete, get_shuffle_hand
 
@@ -23,6 +23,6 @@ def test_find_two_pairs_randomise():
 
 
 def __find_two_pairs(hand):
-    counting_cards = CountingCards()
-    two_pairs_detector = TwoPairsDetector(counting_cards)
+    manipulating_cards = ManipulatingCards()
+    two_pairs_detector = TwoPairsDetector(manipulating_cards)
     return two_pairs_detector.find_two_pairs(hand)

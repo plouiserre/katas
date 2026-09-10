@@ -4,16 +4,16 @@ from PokerHandsV2.AllFigures.FullFigure import FullFigure
 from typing import Iterator
 
 class FullDetector : 
-    def __init__(self, counting_cards):
-        self.counting_cards = counting_cards
+    def __init__(self, manipulating_cards):
+        self.manipulating_cards = manipulating_cards
         self.card_two_times = CardValue.UNDEFINED
         self.card_three_times = CardValue.UNDEFINED
 
     def find_full(self, hand: Iterator[Card]) -> FullFigure: 
         self.__init_count_cards()
-        cards_sorted = self.counting_cards.Count(hand)
-        for card in cards_sorted :
-            number_cards = cards_sorted[card]
+        cards_group_by_value = self.manipulating_cards.count_cards(hand)
+        for card in cards_group_by_value :
+            number_cards = cards_group_by_value[card]
             if number_cards == 3 : 
                 self.card_three_times = card
             elif number_cards == 2 : 
