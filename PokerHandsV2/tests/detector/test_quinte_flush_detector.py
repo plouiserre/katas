@@ -43,7 +43,106 @@ def test_find_quinte_flush_diamonds_from_texas_holdem_game():
             .is_valid_quinte_flush_figure("A", "♦")
     )
 
-#à la fin faire un test parfait complexe mais y a une couleur qui n'est pas commune
+def test_find_quinte_flushs_from_7_cards_from_texas_holdem_game_with_outside_cards():
+    (
+        QuinteFlushDetectorDriver()
+            .add_card_in_hand("Q♣")
+            .add_card_in_hand("A♣")
+            .add_card_in_hand("Q♣")            
+            .add_card_in_hand("K♣")
+            .add_card_in_hand("10♣")
+            .add_card_in_hand("2♣")
+            .add_card_in_hand("J♣")
+            .calculate_hand()
+            .is_valid_quinte_flush_figure("A", "♣")
+    )
+
+def test_find_quinte_from_7_small_cards_from_texas_holdem_game_with_outside_cards():
+    (
+        QuinteFlushDetectorDriver()
+            .add_card_in_hand("3♥")
+            .add_card_in_hand("6♥")
+            .add_card_in_hand("Q♥")            
+            .add_card_in_hand("5♥")
+            .add_card_in_hand("10♥")
+            .add_card_in_hand("2♥")
+            .add_card_in_hand("4♥")
+            .calculate_hand()
+            .is_valid_quinte_flush_figure("6", "♥")
+    )
+
+def test_find_quinte_flush_from_7_started_finished_by_seven_and_two_wrongs_cards():
+    (
+        QuinteFlushDetectorDriver()
+            .add_card_in_hand("3♠")
+            .add_card_in_hand("6♠")
+            .add_card_in_hand("7♠")            
+            .add_card_in_hand("5♠")
+            .add_card_in_hand("10♠")
+            .add_card_in_hand("2♠")
+            .add_card_in_hand("4♠")
+            .calculate_hand()
+            .is_valid_quinte_flush_figure("7", "♠")
+    )
+
+def test_find_quinte_flush_from_7_started_with_double():
+    (
+        QuinteFlushDetectorDriver()
+            .add_card_in_hand("3♦")
+            .add_card_in_hand("6♦")
+            .add_card_in_hand("7♦")            
+            .add_card_in_hand("5♦")
+            .add_card_in_hand("6♦")
+            .add_card_in_hand("2♦")
+            .add_card_in_hand("4♦")
+            .calculate_hand()
+            .is_valid_quinte_flush_figure("7", "♦")
+    )
+
+def test_cannot_find_quinte_flush_from_7_started_with_double():
+    (
+        QuinteFlushDetectorDriver()
+            .add_card_in_hand("3♣")
+            .add_card_in_hand("6♣")
+            .add_card_in_hand("7♣")            
+            .add_card_in_hand("5♣")
+            .add_card_in_hand("6♣")
+            .add_card_in_hand("2♣")
+            .add_card_in_hand("K♣")
+            .calculate_hand()
+            .is_not_valid_quinte_flush_figure()
+    )
+    
+def test_find_quinte_flush_from_7_started_finished_by_seven_and_two_wrongs_cards_with_no_good_number_and_color():
+    (
+        QuinteFlushDetectorDriver()
+            .add_card_in_hand("3♥")
+            .add_card_in_hand("6♥")
+            .add_card_in_hand("7♥")            
+            .add_card_in_hand("5♥")
+            .add_card_in_hand("10♠")
+            .add_card_in_hand("2♣")
+            .add_card_in_hand("4♥")
+            .calculate_hand()
+            .is_valid_quinte_flush_figure("7", "♥")
+    )
+
+def test_find_quinte_flush_from_7_started_finished_by_seven_and_fails_because_one_quinte_card_have_different_color():
+    (
+        QuinteFlushDetectorDriver()
+            .add_card_in_hand("3♥")
+            .add_card_in_hand("6♥")
+            .add_card_in_hand("7♥")            
+            .add_card_in_hand("5♦")
+            .add_card_in_hand("10♠")
+            .add_card_in_hand("2♣")
+            .add_card_in_hand("4♥")
+            .calculate_hand()
+            .is_not_valid_quinte_flush_figure()
+    )
+
+#à la fin 
+# - faire un test KO complexe mais y a une couleur qui n'est pas commune
     
 def test_find_quinte_flush_random_colors__with_six_value():
     color_value = get_colors_random()
@@ -86,5 +185,5 @@ class QuinteFlushDetectorDriver :
         card_color = Card.parse_color(card_color_crypted)
         assert(QuinteFlushFigure(card_value, card_color) == self.quinte_flush_figure)
 
-    def is_not_valid_quinte_figure(self): 
+    def is_not_valid_quinte_flush_figure(self): 
         assert(self.quinte_flush_figure == None) 
