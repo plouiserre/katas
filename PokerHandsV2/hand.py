@@ -66,7 +66,7 @@ class Hand :
         return self.flush_detector.find_flush(hand)
     
     def __detect_straight(self, hand: Iterator[Card]) -> StraitFigure: 
-        return self.straight_detector.find_straight(hand)
+        return self.straight_detector.find_quinte(hand)
         
     def __detect_three_of_kind(self, hand: Iterator[Card]) -> ThreeOfKindFigure: 
         return self.three_cards_detector.find_three_of_kind(hand)

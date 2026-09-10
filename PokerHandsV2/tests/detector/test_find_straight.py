@@ -1,7 +1,7 @@
 from PokerHandsV2.card import Card, CardColor, CardValue
 from PokerHandsV2.manipulating_cards import ManipulatingCards
 from PokerHandsV2.AllFigures.StraitFigure import StraitFigure
-from PokerHandsV2.detector.straight_detector import StraightDetector
+from PokerHandsV2.detector.quinte_detector import QuinteDetector
 
 def test_find_straight_finish_six():
     hand =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.HEARTS), Card(CardValue.FIVE, CardColor.SPADES), Card(CardValue.THREE, CardColor.SPADES)]
@@ -17,6 +17,6 @@ def test_find_straight_finish_ace():
 
 def __find_straight_cards(hand):
     manipulating_cards = ManipulatingCards()
-    straight_detector = StraightDetector(manipulating_cards)
-    return straight_detector.find_straight(hand)
+    straight_detector = QuinteDetector(manipulating_cards)
+    return straight_detector.find_quinte(hand)
     

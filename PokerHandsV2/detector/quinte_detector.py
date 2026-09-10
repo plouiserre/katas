@@ -2,13 +2,13 @@ from PokerHandsV2.card import Card, CardValue
 from PokerHandsV2.AllFigures.StraitFigure import StraitFigure
 from typing import Iterator
 
-class StraightDetector : 
+class QuinteDetector : 
     def __init__(self, manipulating_cards):
         self.manipulating_cards = manipulating_cards
         self.high_card_value = CardValue.TWO
         self.is_ace_present = False
 
-    def find_straight(self, hand: Iterator[Card]) -> StraitFigure:
+    def find_quinte(self, hand: Iterator[Card]) -> StraitFigure:
         cards_sorted = self.manipulating_cards.sorted_card(hand)
         is_card_two_present = False
         is_card_king_present = False
