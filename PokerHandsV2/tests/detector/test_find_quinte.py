@@ -1,4 +1,4 @@
-from PokerHandsV2.card import Card, CardColor, CardValue
+from PokerHandsV2.card import Card
 from PokerHandsV2.manipulating_cards import ManipulatingCards
 from PokerHandsV2.AllFigures.QuinteFigure import QuinteFigure
 from PokerHandsV2.detector.quinte_detector import QuinteDetector
@@ -39,6 +39,18 @@ def test_find_quinte_finish_ace():
             .is_valid_quinte_figure("A")
     )
 
+def test_find_quinte_started_ace():
+    (
+        QuinteDetectorDriver()
+            .add_card_in_hand("4♣")
+            .add_card_in_hand("2♦")
+            .add_card_in_hand("A♥")
+            .add_card_in_hand("5♠")
+            .add_card_in_hand("3♠")
+            .calculate_hand()
+            .is_valid_quinte_figure("5")
+    )
+
 def test_find_quinte_from_7_cards_from_texas_holdem_game():
     (
         QuinteDetectorDriver()
@@ -53,7 +65,6 @@ def test_find_quinte_from_7_cards_from_texas_holdem_game():
             .is_valid_quinte_figure("A")
     )
 
-#"♠♥♦♣"  
 def test_find_quinte_from_7_cards_from_texas_holdem_game_with_outside_cards():
     (
         QuinteDetectorDriver()
