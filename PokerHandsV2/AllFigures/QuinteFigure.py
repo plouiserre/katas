@@ -4,11 +4,11 @@ from PokerHandsV2.winner import Winner
 from typing import ClassVar, Self
 
 @dataclass(frozen=True)
-class StraitFigure:
+class QuinteFigure:
     value : CardValue
     points : ClassVar[int] = 50
 
-    def compare_with_other_straight_hand(self, other_hand: type[Self]) -> Winner:
+    def compare_with_other_quinte_hand(self, other_hand: type[Self]) -> Winner:
         if self.value < other_hand.value : 
             return Winner.SECOND_HAND 
         elif other_hand.value < self.value : 

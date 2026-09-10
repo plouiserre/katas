@@ -6,19 +6,19 @@ from PokerHandsV2.AllFigures.FullFigure import FullFigure
 from PokerHandsV2.AllFigures.HighCardFigure import HighCardFigure
 from PokerHandsV2.AllFigures.PairFigure import PairFigure
 from PokerHandsV2.AllFigures.QuinteFlushFigure import QuinteFlushFigure
-from PokerHandsV2.AllFigures.StraitFigure import StraitFigure
+from PokerHandsV2.AllFigures.QuinteFigure import QuinteFigure
 from PokerHandsV2.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from PokerHandsV2.AllFigures.TwoPairFigure import TwoPairFigure
 from typing import Iterator
 
 class Hand :
-    def __init__(self, high_cards_detector, pair_detector, two_pairs_detector, three_cards_detector, straight_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector):
+    def __init__(self, high_cards_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector):
         self.counting_cards = {}
         self.high_cards_detector = high_cards_detector
         self.pair_detector = pair_detector
         self.two_pairs_detector = two_pairs_detector
         self.three_cards_detector = three_cards_detector
-        self.straight_detector = straight_detector
+        self.quinte_detector = quinte_detector
         self.flush_detector = flush_detector
         self.full_detector = full_detector
         self.four_cards_detector = four_cards_detector
@@ -29,7 +29,7 @@ class Hand :
         four_a_kind = self.__detect_four_a_kind(hand)
         full_figure = self.__detect_full(hand)
         flush_figure = self.__detect_flush(hand)
-        strait_figure = self.__detect_straight(hand)
+        quinte_figure = self.__detect_quinte(hand)
         three_of_kind = self.__detect_three_of_kind(hand)
         two_pairs = self.__detect_two_pairs(hand)
         pair = self.__detect_one_pair(hand)
@@ -42,8 +42,8 @@ class Hand :
             return full_figure
         elif flush_figure != None : 
             return flush_figure
-        elif strait_figure != None : 
-            return strait_figure
+        elif quinte_figure != None : 
+            return quinte_figure
         elif three_of_kind != None : 
             return three_of_kind
         elif two_pairs != None : 
@@ -65,8 +65,8 @@ class Hand :
     def __detect_flush(self, hand: Iterator[Card]) -> FlushFigure: 
         return self.flush_detector.find_flush(hand)
     
-    def __detect_straight(self, hand: Iterator[Card]) -> StraitFigure: 
-        return self.straight_detector.find_quinte(hand)
+    def __detect_quinte(self, hand: Iterator[Card]) -> QuinteFigure: 
+        return self.quinte_detector.find_quinte(hand)
         
     def __detect_three_of_kind(self, hand: Iterator[Card]) -> ThreeOfKindFigure: 
         return self.three_cards_detector.find_three_of_kind(hand)

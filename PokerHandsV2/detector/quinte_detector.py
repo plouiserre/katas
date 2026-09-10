@@ -1,5 +1,5 @@
 from PokerHandsV2.card import Card, CardValue
-from PokerHandsV2.AllFigures.StraitFigure import StraitFigure
+from PokerHandsV2.AllFigures.QuinteFigure import QuinteFigure
 from typing import Iterator
 
 class QuinteDetector : 
@@ -8,7 +8,7 @@ class QuinteDetector :
         self.high_card_value = CardValue.TWO
         self.is_ace_present = False
 
-    def find_quinte(self, hand: Iterator[Card]) -> StraitFigure:
+    def find_quinte(self, hand: Iterator[Card]) -> QuinteFigure:
         cards_sorted = self.manipulating_cards.sorted_card(hand)
         is_card_two_present = False
         is_card_king_present = False
@@ -28,9 +28,9 @@ class QuinteDetector :
                         return None
                 last_value = card.value
             if self.is_ace_present == False or (self.is_ace_present and is_card_two_present): 
-                return StraitFigure(self.high_card_value)
+                return QuinteFigure(self.high_card_value)
             elif self.is_ace_present and is_card_king_present : 
-                return StraitFigure(CardValue.ACE)
+                return QuinteFigure(CardValue.ACE)
             else :
                 return None
         else : 
