@@ -12,7 +12,7 @@ class QuinteDetector :
         cards_sorted = self.manipulating_cards.sorted_card(hand)
         is_card_two_present = False
         is_card_king_present = False
-        if len(cards_sorted) == 5 :
+        if len(cards_sorted) >= 5 :
             last_value = CardValue.UNDEFINED
             for card in cards_sorted :
                 if card.value == CardValue.ACE :
