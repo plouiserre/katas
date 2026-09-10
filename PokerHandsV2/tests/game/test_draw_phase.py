@@ -108,7 +108,7 @@ class DrawAndComparePlayersHandDriver():
         flush_detector = FlushDetector()
         full_detector = FullDetector(manipulating_cards)
         four_cards_detector = FourCardsDetector(manipulating_cards)
-        quinte_flush_detector = QuinteFlushDetector(manipulating_cards)
+        quinte_flush_detector = QuinteFlushDetector(manipulating_cards, quinte_detector)
         hand = Hand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
         self.players = {}
         self.multi_draw_cards = multidrawcards

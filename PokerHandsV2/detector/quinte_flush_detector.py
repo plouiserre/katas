@@ -4,54 +4,40 @@ from PokerHandsV2.AllFigures.QuinteFlushFigure import QuinteFlushFigure
 from typing import Iterator
 
 class QuinteFlushDetector : 
-    def __init__(self, manipulating_cards):
-        self.is_quinte_flush = True 
-        self.last_card_color = CardColor.UNDEFINED
-        self.last_card_value = CardValue.UNDEFINED
-        self.is_ace_present = False
-        self.card_value_hand = []
+    def __init__(self, manipulating_cards, quinte_detector):
         self.manipulating_cards = manipulating_cards 
+        self.quinte_detector = quinte_detector
 
     def find_quinte_flush(self, hand: Iterator[Card]) -> QuinteFlushFigure:
-        if len(hand) == 5:
-            return self.__analyse_hand_when_the_player_have_five_cards(hand)
-        else : 
+        quinte_figure = self.quinte_detector.find_quinte(hand)
+        card_color = CardColor.UNDEFINED
+        is_same_color = True
+        if quinte_figure != None : 
+            card_color = self.__get_color_from_card_value(hand, quinte_figure.value)
+            for card in hand :
+                is_same_color = self.__determine_is_same_color_is_ok_for_this_card(quinte_figure.value, card, card_color)
+                if is_same_color == False : 
+                    break
+            if is_same_color : 
+                return QuinteFlushFigure(quinte_figure.value, card_color)
+            else : 
+                return None
+        else :
             return None
 
-    def __analyse_hand_when_the_player_have_five_cards(self, hand : Iterator[Card]) -> QuinteFlushFigure:
-        hand_sorted = self.manipulating_cards.sorted_card(hand)
-        self.__determine_if_hand_contains_quinte_flush(hand_sorted)
-        if self.is_quinte_flush : 
-            return self.__construct_quinte_flush()
-        else : 
-            return None    
+    def __determine_is_same_color_is_ok_for_this_card(self, quinte_figure_value, card, card_color):
+        is_same_color = True
+        difference_card_value = quinte_figure_value - card.value
+        if difference_card_value < 4 and difference_card_value > 0 and card.color != card_color : 
+            is_same_color = False
+        return is_same_color
         
-    def __construct_quinte_flush(self) -> QuinteFlushFigure: 
-        if self.is_ace_present == False : 
-            return QuinteFlushFigure(self.last_card_value, self.last_card_color)
-        elif self.is_ace_present and CardValue.TWO in self.card_value_hand : 
-            return QuinteFlushFigure(CardValue.FIVE, self.last_card_color)
-        elif self.is_ace_present and CardValue.KING in self.card_value_hand : 
-            return QuinteFlushFigure(CardValue.ACE, self.last_card_color)
-        
-    def __determine_if_hand_contains_quinte_flush(self, hand_sorted):
-        for card in hand_sorted : 
-            if card.value == CardValue.ACE : 
-                self.is_ace_present = True
-            if self.last_card_color == CardColor.UNDEFINED  and self.last_card_value == CardValue.UNDEFINED:
-                self.last_card_color = card.color
-                self.last_card_value = card.value
-                self.card_value_hand.append(card.value)
-                continue
-            elif self.last_card_color != card.color : 
-                self.is_quinte_flush = False
+    def __get_color_from_card_value(self, hand, card_value):
+        card_color = CardColor.UNDEFINED
+        for card in hand :
+            if card.value == card_value.value : 
+                card_color = card.color
                 break
-            elif self.is_ace_present and (CardValue.KING not in self.card_value_hand and CardValue.TWO not in self.card_value_hand): 
-                self.is_quinte_flush = False
-                break
-            elif card.value != CardValue.ACE and (card.value - self.last_card_value > 1 or card.value in self.card_value_hand): 
-                self.is_quinte_flush = False
-                break
-            else : 
-                self.last_card_value = card.value
-            self.card_value_hand.append(card.value)
+        return card_color
+
+    
