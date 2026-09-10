@@ -81,7 +81,7 @@ class ManipulatingCardDriver():
         return self
 
     def count_card(self):
-        self.counting_card =  self.manipulating_cards.Count(self.hand)
+        self.counting_card =  self.manipulating_cards.count_cards(self.hand)
         return self
 
     def sorted_card(self): 

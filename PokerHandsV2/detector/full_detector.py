@@ -11,7 +11,7 @@ class FullDetector :
 
     def find_full(self, hand: Iterator[Card]) -> FullFigure: 
         self.__init_count_cards()
-        cards_group_by_value = self.manipulating_cards.Count(hand)
+        cards_group_by_value = self.manipulating_cards.count_cards(hand)
         for card in cards_group_by_value :
             number_cards = cards_group_by_value[card]
             if number_cards == 3 : 

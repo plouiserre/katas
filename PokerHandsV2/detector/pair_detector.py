@@ -8,7 +8,7 @@ class PairDetector :
         self.manipulating_cards = manipulating_cards
 
     def find_pair(self, hand: Iterator[Card]) -> PairFigure:
-        cards_group_by_value = self.manipulating_cards.Count(hand)
+        cards_group_by_value = self.manipulating_cards.count_cards(hand)
         is_one_pair = False
         value_pair = CardValue.TWO
         high_value_outside_one_pair = CardValue.TWO

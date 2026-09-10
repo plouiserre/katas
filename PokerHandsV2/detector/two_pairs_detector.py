@@ -8,7 +8,7 @@ class TwoPairsDetector:
         self.manipulating_cards = manipulating_cards
 
     def find_two_pairs(self, hand: Iterator[Card]) -> TwoPairFigure:
-        cards_group_by_value = self.manipulating_cards.Count(hand)
+        cards_group_by_value = self.manipulating_cards.count_cards(hand)
         is_two_pairs = False
         first_value_pair = CardValue.TWO
         second_value_pair = CardValue.TWO
