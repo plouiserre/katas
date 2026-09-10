@@ -53,8 +53,6 @@ class HandsManager :
         
     def __determinate_hand_for_each_player(self):
          for player_name in self.players : 
-            if player_name == "Bruce":
-                print("stop")
             player = self.players[player_name]
             hand = self.hand.determinate_high_figure(player) 
             self.hands_by_player[player_name] = hand

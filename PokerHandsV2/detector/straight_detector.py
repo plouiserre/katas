@@ -9,22 +9,27 @@ class StraightDetector :
         self.is_ace_present = False
 
     def find_straight(self, hand: Iterator[Card]) -> StraitFigure:
-        cards_sorted = self.manipulating_cards.Count(hand)
-        cards_ordered = dict(sorted(cards_sorted.items())) 
-        if len(cards_ordered) == 5 :
+        cards_sorted = self.manipulating_cards.sorted_card(hand)
+        is_card_two_present = False
+        is_card_king_present = False
+        if len(cards_sorted) == 5 :
             last_value = CardValue.UNDEFINED
-            for card in cards_ordered :
+            for card in cards_sorted :
                 if card.value == CardValue.ACE :
                     self.is_ace_present = True
                     continue 
-                self.high_card_value = card
+                elif card.value == CardValue.KING : 
+                    is_card_king_present = True
+                elif card.value == CardValue.TWO : 
+                    is_card_two_present = True
+                self.high_card_value = card.value
                 if last_value != CardValue.UNDEFINED : 
                     if card.value - last_value > 1 : 
                         return None
                 last_value = card.value
-            if self.is_ace_present == False or (self.is_ace_present and CardValue.TWO in cards_ordered): 
+            if self.is_ace_present == False or (self.is_ace_present and is_card_two_present): 
                 return StraitFigure(self.high_card_value)
-            elif self.is_ace_present and CardValue.KING in cards_ordered : 
+            elif self.is_ace_present and is_card_king_present : 
                 return StraitFigure(CardValue.ACE)
             else :
                 return None

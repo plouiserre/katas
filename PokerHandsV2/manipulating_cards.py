@@ -19,10 +19,10 @@ class ManipulatingCards :
     def sorted_card(self, hand): 
         all_cards = copy.deepcopy(hand)
         hand_ordered = []
-        while(len(hand_ordered) < len(all_cards)) :
+        while(len(hand_ordered) < len(hand)) :
             min_card = Card(CardValue.UNDEFINED, CardColor.UNDEFINED)
-            for idx, card_in_hand in enumerate(hand) : 
-                card = hand[idx]
+            for idx, card_in_hand in enumerate(all_cards) : 
+                card = all_cards[idx]
                 if min_card == Card(CardValue.UNDEFINED, CardColor.UNDEFINED) :
                     min_card = card
                     continue
@@ -30,5 +30,5 @@ class ManipulatingCards :
                     if min_card.value > card.value : 
                         min_card = card
             hand_ordered.append(min_card)
-            hand.remove(min_card) 
+            all_cards.remove(min_card) 
         return hand_ordered

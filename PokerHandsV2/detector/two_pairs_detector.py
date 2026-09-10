@@ -8,14 +8,14 @@ class TwoPairsDetector:
         self.manipulating_cards = manipulating_cards
 
     def find_two_pairs(self, hand: Iterator[Card]) -> TwoPairFigure:
-        cards_sorted = self.manipulating_cards.Count(hand)
+        cards_group_by_value = self.manipulating_cards.Count(hand)
         is_two_pairs = False
         first_value_pair = CardValue.TWO
         second_value_pair = CardValue.TWO
         high_value_outside_two_pair = CardValue.TWO
         number_pair = 0
-        for card in cards_sorted : 
-            number_cards = cards_sorted[card]
+        for card in cards_group_by_value : 
+            number_cards = cards_group_by_value[card]
             if number_cards == 2 : 
                 number_pair = number_pair + 1 
                 if number_pair == 1 :
