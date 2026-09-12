@@ -141,8 +141,19 @@ def test_find_quinte_flush_from_7_started_finished_by_seven_and_fails_because_on
             .is_not_valid_quinte_flush_figure()
     )
 
-#à la fin 
-# - faire un test KO complexe mais y a une couleur qui n'est pas commune
+def test_cannot_find_quinte_flush_from_7_contains_double():
+    (
+        QuinteFlushDetectorDriver()
+            .add_card_in_hand("3♥")
+            .add_card_in_hand("Q♥")
+            .add_card_in_hand("4♥")            
+            .add_card_in_hand("4♥")
+            .add_card_in_hand("5♥")
+            .add_card_in_hand("6♥")
+            .add_card_in_hand("K♥")
+            .calculate_hand()
+            .is_not_valid_quinte_flush_figure()
+    )
     
 def test_find_quinte_flush_random_colors__with_six_value():
     color_value = get_colors_random()
