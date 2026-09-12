@@ -135,6 +135,20 @@ def test_cannot_find_quinte_from_7_started_with_double():
             .is_not_valid_quinte_figure()
     )
 
+def test_cannot_find_quinte_from_7_contains_double():
+    (
+        QuinteDetectorDriver()
+            .add_card_in_hand("3♥")
+            .add_card_in_hand("Q♦")
+            .add_card_in_hand("4♠")            
+            .add_card_in_hand("4♠")
+            .add_card_in_hand("5♣")
+            .add_card_in_hand("6♥")
+            .add_card_in_hand("K♦")
+            .calculate_hand()
+            .is_not_valid_quinte_figure()
+    )
+
 class QuinteDetectorDriver : 
     def __init__(self):
         self.hand = []
