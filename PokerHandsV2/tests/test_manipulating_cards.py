@@ -1,7 +1,6 @@
-import copy
 
-from PokerHandsV2.card import Card, CardColor, CardValue
-from PokerHandsV2.manipulating_cards import ManipulatingCards
+from PokerHandsV2.card import Card
+from PokerHandsV2.manipulating_cards import ManipulatingCards, SortedType
 
 def test_count_each_where_different_cards():
     (ManipulatingCardDriver()
@@ -40,39 +39,67 @@ def test_count_each_where_fourth_same_cards():
 def test_sorted_5_cards_following_each_other():
     (ManipulatingCardDriver()
                     .add_all_cards_crypted(["3♦", "4♥", "5♠", "6♣", "7♦"])
-                    .sorted_card()
+                    .sorted_card(5, SortedType.NORMAL)
                     .is_valid_order(["3♦", "4♥", "5♠", "6♣", "7♦"]))
 
 def test_sorted_5_differents_cards_in_opposite_order():
     (ManipulatingCardDriver()
                     .add_all_cards_crypted(["7♦", "6♣", "5♠", "4♥","3♦"])
-                    .sorted_card()
+                    .sorted_card(5, SortedType.NORMAL)
                     .is_valid_order(["3♦", "4♥", "5♠", "6♣", "7♦"]))
 
 def test_sorted_5_differents_cards_mixed_order():
     (ManipulatingCardDriver()
                         .add_all_cards_crypted(["6♣", "3♦", "5♠", "4♥", "7♦"])
-                        .sorted_card()
+                        .sorted_card(5, SortedType.NORMAL)
                         .is_valid_order(["3♦", "4♥", "5♠", "6♣", "7♦"]))
 
 def test_sorted_5_differents_cards_mixed_not_order():
     (ManipulatingCardDriver()
                             .add_all_cards_crypted(["K♣", "3♦", "A♠", "6♥", "10♦"])
-                            .sorted_card()
+                            .sorted_card(5, SortedType.NORMAL)
                             .is_valid_order(["3♦", "6♥", "10♦", "K♣", "A♠"]))
 
 def test_sorted_5_cards_some_with_same_values_mixed_not_order():
     (ManipulatingCardDriver()
                             .add_all_cards_crypted(["6♣", "3♦", "A♠", "6♥", "A♦"])
-                            .sorted_card()
+                            .sorted_card(5, SortedType.NORMAL)
                             .is_valid_order(["3♦", "6♣", "6♥", "A♠", "A♦"]))
+
+
+def test_sorted_all_cards_possibles_from_this_list_and_returns_list_with_5_sorted_cards(): 
+    (ManipulatingCardDriver()
+        .add_all_cards_crypted(["6♣", "3♦", "A♠", "4♥", "J♦", "10♠", "5♣"])
+        .sorted_card(5, SortedType.NORMAL)
+        .is_valid_order(["3♦", "4♥", "5♣", "6♣", "10♠"])
+        .is_valid_order(["4♥", "5♣", "6♣", "10♠", "J♦"])
+        .is_valid_order([ "5♣", "6♣", "10♠", "J♦", "A♠"])
+        )
+
+def test_sorted_5_cards_some_with_same_values_and_keeping_one_doublon():
+    (ManipulatingCardDriver()
+                            .add_all_cards_crypted(["6♣", "3♦", "A♠", "6♥", "A♦"])
+                            .sorted_card(5, SortedType.KEEP_ONE_DOUBLON)
+                            .is_valid_order(["3♦", "6♣", "A♠"]))
+
+def test_sorted_5_cards_some_keeping_only_doublons():
+    (ManipulatingCardDriver()
+                            .add_all_cards_crypted(["6♣", "3♦", "A♠", "6♥", "A♦"])
+                            .sorted_card(5, SortedType.ONLY_DOUBLONS)
+                            .is_valid_order(["6♣", "6♥", "A♠", "A♦"]))
+
+def test_sorted_5_cards_some_with_same_values_and_no_doublon():
+    (ManipulatingCardDriver()
+                            .add_all_cards_crypted(["6♣", "3♦", "A♠", "6♥", "A♦"])
+                            .sorted_card(5, SortedType.NO_DOUBLON)
+                            .is_valid_order(["3♦"]))
 
 class ManipulatingCardDriver(): 
     def __init__(self):
         self.hand = []
-        self.hand_ordered = []
+        self.hands_ordered = []
         self.counting_card = {}
-        self.manipulating_cards = ManipulatingCards()        
+        self.manipulating_cards = ManipulatingCards() 
 
     def add_all_cards_crypted(self, all_cards_crypted):
         for card_crypted in all_cards_crypted : 
@@ -84,8 +111,8 @@ class ManipulatingCardDriver():
         self.counting_card =  self.manipulating_cards.count_cards(self.hand)
         return self
 
-    def sorted_card(self): 
-        self.hand_ordered = self.manipulating_cards.sorted_card(self.hand)
+    def sorted_card(self, sorted_limit, sorted_type): 
+        self.hands_ordered = self.manipulating_cards.sorted_card(self.hand, sorted_limit, sorted_type)
         return self
 
     def is_valid_number_card(self, card_value_crypted, number):
@@ -104,10 +131,15 @@ class ManipulatingCardDriver():
         for card_crypted in ordered_expected_crypted : 
             card = Card.parse(card_crypted)
             ordered_expected.append(card)
-        is_valid_ordered = True
-        for idx, card_expected in enumerate(ordered_expected):
-            card = self.hand_ordered[int(idx)]
-            is_valid_ordered = card.value == card_expected.value and card.color == card_expected.color
-            if is_valid_ordered == False :
-                break
-        return is_valid_ordered
+        is_valid = False 
+        for hand_ordered in self.hands_ordered :
+            is_valid_ordered = True
+            for idx, card_expected in enumerate(ordered_expected):
+                card = hand_ordered[int(idx)]
+                is_valid_ordered = card.value == card_expected.value and card.color == card_expected.color
+                if is_valid_ordered == False :
+                    break
+            if is_valid_ordered and len(ordered_expected_crypted) == len(hand_ordered): 
+                is_valid = True
+        assert(is_valid)
+        return self
