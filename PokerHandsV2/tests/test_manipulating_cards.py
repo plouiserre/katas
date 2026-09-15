@@ -94,6 +94,13 @@ def test_sorted_5_cards_some_with_same_values_and_no_doublon():
                             .sorted_card(5, SortedType.NO_DOUBLON)
                             .is_valid_order(["3♦"]))
 
+def test_sorted_5_cards_without_no_doublon_from_7_cards_with_many_doublons():
+    (ManipulatingCardDriver()
+                        .add_all_cards_crypted(["Q♥", "A♦", "Q♠", "K♠", "10♣", "2♥", "J♦"])
+                        .sorted_card(5, SortedType.KEEP_ONE_DOUBLON)
+                        .is_valid_order(["2♥", "10♣", "J♦", "Q♥", "K♠"])
+                        .is_valid_order(["10♣", "J♦", "Q♥", "K♠", "A♦"]))
+
 class ManipulatingCardDriver(): 
     def __init__(self):
         self.hand = []
