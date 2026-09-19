@@ -48,7 +48,7 @@ def test_find_quinte_flushs_from_7_cards_from_texas_holdem_game_with_outside_car
         QuinteFlushDetectorDriver()
             .add_card_in_hand("Q♣")
             .add_card_in_hand("A♣")
-            .add_card_in_hand("Q♣")            
+            .add_card_in_hand("Q♦")            
             .add_card_in_hand("K♣")
             .add_card_in_hand("10♣")
             .add_card_in_hand("2♣")
@@ -89,7 +89,7 @@ def test_find_quinte_flush_from_7_started_with_double():
     (
         QuinteFlushDetectorDriver()
             .add_card_in_hand("3♦")
-            .add_card_in_hand("6♦")
+            .add_card_in_hand("6♠")
             .add_card_in_hand("7♦")            
             .add_card_in_hand("5♦")
             .add_card_in_hand("6♦")
@@ -153,6 +153,48 @@ def test_cannot_find_quinte_flush_from_7_contains_double():
             .add_card_in_hand("K♥")
             .calculate_hand()
             .is_not_valid_quinte_flush_figure()
+    )
+
+def test_find_quinte_flush_from_7_contains_double_in_second_place():
+    (
+        QuinteFlushDetectorDriver()
+            .add_card_in_hand("3♣")
+            .add_card_in_hand("Q♣")
+            .add_card_in_hand("4♣")            
+            .add_card_in_hand("4♥")
+            .add_card_in_hand("7♣")
+            .add_card_in_hand("6♣")
+            .add_card_in_hand("5♣")
+            .calculate_hand()
+            .is_valid_quinte_flush_figure("7", "♣")
+    )
+
+def test_find_quinte_flush_from_7_contains_double_in_middle_place():
+    (
+        QuinteFlushDetectorDriver()
+            .add_card_in_hand("3♠")
+            .add_card_in_hand("Q♠")
+            .add_card_in_hand("4♠")            
+            .add_card_in_hand("5♠")
+            .add_card_in_hand("7♠")
+            .add_card_in_hand("6♠")
+            .add_card_in_hand("5♦")
+            .calculate_hand()
+            .is_valid_quinte_flush_figure("7", "♠")
+    )
+
+def test_find_quinte_flush_from_7_contains_double_in_final_place():
+    (
+        QuinteFlushDetectorDriver()
+            .add_card_in_hand("8♠")
+            .add_card_in_hand("Q♦")
+            .add_card_in_hand("4♦")            
+            .add_card_in_hand("5♦")
+            .add_card_in_hand("7♦")
+            .add_card_in_hand("6♦")
+            .add_card_in_hand("8♦")
+            .calculate_hand()
+            .is_valid_quinte_flush_figure("8", "♦")
     )
     
 def test_find_quinte_flush_random_colors__with_six_value():
