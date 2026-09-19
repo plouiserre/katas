@@ -141,7 +141,7 @@ def test_cannot_find_quinte_from_7_contains_double():
             .add_card_in_hand("3♥")
             .add_card_in_hand("Q♦")
             .add_card_in_hand("4♠")            
-            .add_card_in_hand("4♠")
+            .add_card_in_hand("4♣")
             .add_card_in_hand("5♣")
             .add_card_in_hand("6♥")
             .add_card_in_hand("K♦")

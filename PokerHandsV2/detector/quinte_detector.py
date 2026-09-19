@@ -13,10 +13,15 @@ class QuinteDetector :
         all_quintes_figure = []
         if len(hand) >= 5 :
             all_cards_sorted = self.manipulating_cards.sorted_card(hand, 5, SortedType.KEEP_ONE_DOUBLON)
-            all_quintes_figure = self.__find_quinte_from_sorted_cards(all_cards_sorted)    
+            #TEMP code 
+            if len(all_cards_sorted[0]) > 4 : 
+                all_quintes_figure = self.__find_quinte_from_sorted_cards(all_cards_sorted)
+                return self.__find_best_quinte(all_quintes_figure)
+            else : 
+                return None
         else : 
             return None 
-        return self.__find_best_quinte(all_quintes_figure)
+        
 
     def __find_quinte_from_sorted_cards (self, all_cards_sorted):
         all_quintes_figure = []

@@ -1,5 +1,6 @@
 from PokerHandsV2.card import Card, CardColor, CardValue
 from PokerHandsV2.AllFigures.QuinteFlushFigure import QuinteFlushFigure
+from PokerHandsV2.manipulating_cards import SortedType
 
 from typing import Iterator
 
@@ -13,15 +14,35 @@ class QuinteFlushDetector :
         card_color = CardColor.UNDEFINED
         is_same_color = True
         if quinte_figure != None : 
-            card_color = self.__get_color_from_card_value(hand, quinte_figure.value)
-            for card in hand :
+            card_color = self.__get_majority_color(hand)
+            all_cards_in_quinte = []
+            card_mini = quinte_figure.value - 4
+            for card in hand : 
+                if card.value >= card_mini and card.color == card_color : 
+                    all_cards_in_quinte.append(card)
+            if len(all_cards_in_quinte) < 5 : 
+                return None
+            all_cards_in_quinte_without_doublon = self.manipulating_cards.sorted_card(all_cards_in_quinte, 5, SortedType.NO_DOUBLON)
+            for card in all_cards_in_quinte_without_doublon[0] : 
                 is_same_color = self.__determine_is_same_color_is_ok_for_this_card(quinte_figure.value, card, card_color)
                 if is_same_color == False : 
                     break
-            if is_same_color : 
-                return QuinteFlushFigure(quinte_figure.value, card_color)
-            else : 
+            if is_same_color == False : 
                 return None
+            else : 
+                if len(all_cards_in_quinte_without_doublon[0]) == 5 : 
+                    return QuinteFlushFigure(quinte_figure.value, card_color)
+                else : 
+                    doublon_cards = self.manipulating_cards.sorted_card(all_cards_in_quinte, 5, SortedType.ONLY_DOUBLONS)
+                    for card in doublon_cards : 
+                        if card.value >= card_mini and card.color == card_color : 
+                            is_same_color = True 
+                            if is_same_color: 
+                                break
+                    if is_same_color : 
+                        return QuinteFlushFigure(quinte_figure.value, card_color)
+                    else : 
+                        return None
         else :
             return None
 
@@ -31,7 +52,24 @@ class QuinteFlushDetector :
         if difference_card_value < 4 and difference_card_value > 0 and card.color != card_color : 
             is_same_color = False
         return is_same_color
-        
+
+    def __get_majority_color(self, hand):
+        all_cards_colors = {}
+        for card in hand : 
+            if card.color in all_cards_colors : 
+                all_cards_colors[card.color] += 1
+            else : 
+                all_cards_colors[card.color] = 1
+        card_color_max = CardColor.UNDEFINED
+        count_color = 0
+        for color in all_cards_colors :
+            count_this_color = all_cards_colors[color]            
+            if count_color < count_this_color : 
+                count_color = count_this_color
+                card_color_max = color
+        return card_color_max
+
+    #TO DELETE
     def __get_color_from_card_value(self, hand, card_value):
         card_color = CardColor.UNDEFINED
         for card in hand :
