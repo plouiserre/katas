@@ -1,21 +1,5 @@
-from PokerHandsV2.manipulating_cards import ManipulatingCards
-from PokerHandsV2.detector.four_cards_detector import FourCardsDetector
-from PokerHandsV2.detector.flush_detector import FlushDetector
-from PokerHandsV2.detector.full_detector import FullDetector
-from PokerHandsV2.detector.high_card_detector import HighCardDetector
-from PokerHandsV2.detector.pair_detector import PairDetector
-from PokerHandsV2.detector.quinte_flush_detector import QuinteFlushDetector
-from PokerHandsV2.detector.quinte_detector import QuinteDetector
-from PokerHandsV2.detector.three_cards_detector import ThreeCardsDetector
-from PokerHandsV2.detector.two_pairs_detector import TwoPairsDetector
 from PokerHandsV2.draw.multi_draw_cards import MultiDrawCards
-from PokerHandsV2.game.draw_phase import DrawPhase
-from PokerHandsV2.game.flop_phase import FlopPhase
-from PokerHandsV2.game.hands_manager import HandsManager
 from PokerHandsV2.game.party import Party, PhasePoker
-from PokerHandsV2.game.river_phase import RiverPhase
-from PokerHandsV2.game.turn_phase import TurnPhase
-from PokerHandsV2.hand import Hand
 from PokerHandsV2.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
 def test_1():
@@ -62,19 +46,7 @@ def test_4():
 
 class PartyDriver: 
     def __init__(self, multi_draw_cards):
-        manipulating_cards = ManipulatingCards()
-        high_card_detector = HighCardDetector()
-        pair_detector = PairDetector(manipulating_cards)
-        two_pairs_detector = TwoPairsDetector(manipulating_cards)
-        three_cards_detector = ThreeCardsDetector(manipulating_cards)
-        quinte_detector = QuinteDetector(manipulating_cards)
-        flush_detector = FlushDetector()
-        full_detector = FullDetector(manipulating_cards)
-        four_cards_detector = FourCardsDetector(manipulating_cards)
-        quinte_flush_detector = QuinteFlushDetector(manipulating_cards, quinte_detector)
-        hand = Hand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
-        hands_manager = HandsManager(hand, multi_draw_cards)
-        self.party = Party(hands_manager, multi_draw_cards)
+        self.party = Party(multi_draw_cards)
                 
         self.players = []
         self.winners = {}
