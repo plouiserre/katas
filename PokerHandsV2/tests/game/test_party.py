@@ -2,7 +2,7 @@ from PokerHandsV2.draw.multi_draw_cards import MultiDrawCards
 from PokerHandsV2.game.party import Party, PhasePoker
 from PokerHandsV2.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
-def test_1():
+def test_launch_random_party_with_two_players():
     (PartyDriver(MultiDrawCards())
             .add_players(["Steve", "Natacha"])
             .launch_party()
@@ -12,7 +12,7 @@ def test_1():
             .is_this_players_can_be_a_winner(["Steve", "Natacha"], PhasePoker.RIVER)
     )
 
-def test_2(): 
+def test_launch_determine_party_with_two_players(): 
     fake_cards = ["K♣", "Q♠", "Q♥", "J♦", "A♣", "10♠", "9♥", "8♦", "J♣"]
     (PartyDriver(FakeMultiDrawCards(fake_cards))
                 .add_players(["Steve", "Natacha"])
@@ -23,7 +23,7 @@ def test_2():
                 .is_this_players_can_be_a_winner(["Steve"], PhasePoker.RIVER)
         )
 
-def test_3(): 
+def test_launch_random_party_with_ten_players(): 
     (PartyDriver(MultiDrawCards())
                 .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
                 .launch_party()
@@ -33,7 +33,7 @@ def test_3():
                 .is_this_players_can_be_a_winner(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"], PhasePoker.RIVER)
         )
 
-def test_4(): 
+def test_launch_determine_party_with_ten_players(): 
     fake_cards = ["A♣", "K♠", "Q♥", "J♦", "10♣", "9♦", "8♥", "7♦", "6♣", "5♠", "4♥", "3♦", "2♣", "A♠", "K♥", "Q♦", "J♣", "10♠", "9♥", "8♥", "10♦", "10♥", "7♠", "J♦", "8♦"]
     (PartyDriver(FakeMultiDrawCards(fake_cards))
                 .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
