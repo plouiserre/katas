@@ -1,5 +1,3 @@
-from enum import Enum
-
 from PokerHandsV2.manipulating_cards import ManipulatingCards
 from PokerHandsV2.detector.four_cards_detector import FourCardsDetector
 from PokerHandsV2.detector.flush_detector import FlushDetector
@@ -14,18 +12,11 @@ from PokerHandsV2.draw.multi_draw_cards import MultiDrawCards
 from PokerHandsV2.game.draw_phase import DrawPhase
 from PokerHandsV2.game.flop_phase import FlopPhase
 from PokerHandsV2.game.hands_manager import HandsManager
+from PokerHandsV2.game.party import Party, PhasePoker
 from PokerHandsV2.game.river_phase import RiverPhase
 from PokerHandsV2.game.turn_phase import TurnPhase
 from PokerHandsV2.hand import Hand
 from PokerHandsV2.tests.fake_multi_draw_cards import FakeMultiDrawCards
-
-
-
-class PhasePoker(Enum) : 
-    DRAW = 1
-    FLOP = 2
-    TURN = 3
-    RIVER = 4
 
 def test_1():
     (PartyDriver(MultiDrawCards())
@@ -82,25 +73,18 @@ class PartyDriver:
         four_cards_detector = FourCardsDetector(manipulating_cards)
         quinte_flush_detector = QuinteFlushDetector(manipulating_cards, quinte_detector)
         hand = Hand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
-        self.multi_draw_cards = multi_draw_cards
-        self.hand_manager = HandsManager(hand, self.multi_draw_cards)
+        hands_manager = HandsManager(hand, multi_draw_cards)
+        self.party = Party(hands_manager, multi_draw_cards)
+                
         self.players = []
         self.winners = {}
 
     def add_players(self, players_name):
-        for player_name in players_name : 
-            self.players.append(player_name)
+        self.party.add_players(players_name)
         return self
 
     def launch_party(self):
-        draw_phase = DrawPhase(self.players, self.hand_manager)
-        self.winners[PhasePoker.DRAW] = draw_phase.launch_phase_and_get_best_players()
-        flop_phase = FlopPhase(self.hand_manager, self.multi_draw_cards)
-        self.winners[PhasePoker.FLOP] = flop_phase.launch_phase_and_get_best_players()
-        turn_phase = TurnPhase(self.hand_manager, self.multi_draw_cards)
-        self.winners[PhasePoker.TURN]  = turn_phase.launch_phase_and_get_best_players()
-        river_phase = RiverPhase(self.hand_manager, self.multi_draw_cards)
-        self.winners[PhasePoker.RIVER] = river_phase.launch_phase_and_get_best_players()
+        self.winners = self.party.launch_party()
         return self
 
     def is_this_players_can_be_a_winner(self, players_name, phase):
