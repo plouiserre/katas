@@ -12,7 +12,7 @@ from PokerHandsV2.detector.two_pairs_detector import TwoPairsDetector
 from PokerHandsV2.game.draw_phase import DrawPhase
 from PokerHandsV2.game.flop_phase import FlopPhase
 from PokerHandsV2.hand import Hand
-from PokerHandsV2.game.hands_manager import HandsManager
+from PokerHandsV2.player.player_manager import HandsManager
 from PokerHandsV2.game.river_phase import RiverPhase
 from PokerHandsV2.game.turn_phase import TurnPhase
 

@@ -1,4 +1,4 @@
-from PokerHands.AllFigures.Figure import Figure
+from PokerHandsV2.AllFigures.Figure import Figure
 from PokerHandsV2.AllFigures.HighCardFigure import HighCardFigure
 from PokerHandsV2.AllFigures.PairFigure import PairFigure
 from PokerHandsV2.exception.PlayerDoNotHaveCompleteHandException import PlayerDoNotHaveCompleteHandException
@@ -6,26 +6,11 @@ from PokerHandsV2.exception.TooManyPlayerException import TooManyPlayerException
 from PokerHandsV2.hand import Hand
 from PokerHandsV2.winner import Winner
 
-class HandsManager : 
-    def __init__(self, hand, multi_draw_cards):
-        self.players = {}
+class CompareHand: 
+    def __init__(self, players, hand):
+        self.players = players
         self.hand = hand
-        self.multi_draw_cards = multi_draw_cards
-        self.hands_by_player = {}                
-
-    def add_player(self, name_player):
-        self.players[name_player] = []
-
-    #TODO study if it is necessary
-    def draw_card_player(self, name_player):
-            new_card = self.multi_draw_cards.draw_one_card()
-            self.players[name_player].append(new_card)
-            return self
-    
-    #TODO study if it is necessary
-    def give_specific_hand(self, name_player, cards): 
-        self.players[name_player] = cards
-        return self
+        self.hands_by_player = {}     
 
     def get_players_with_best_hands(self):
         self.__check_all_players_have_all_their_cards()
@@ -34,25 +19,19 @@ class HandsManager :
         self.__determinate_hand_for_each_player()      
         best_hand = self.__determinate_best_hand_from_all_players()
         best_players = self.__get_all_players_with_best_hand(best_hand)
-        return best_players
-
-    def add_cards_to_players(self, player_name, card):
-        self.players[player_name].append(card)
-
-    def get_all_players(self): 
-        return self.players
+        return best_players 
 
     def __check_all_players_have_all_their_cards(self): 
         for player_name in self.players : 
             if len(self.players[player_name]) < 2: 
                 raise PlayerDoNotHaveCompleteHandException(player_name+" do not have his/hers 2 cards ")
-            
+                
     def __check_not_too_many_players(self): 
         if len(self.players) > 10 : 
             raise TooManyPlayerException("You cannot have more than ten players for a game.")
         
     def __determinate_hand_for_each_player(self):
-         for player_name in self.players : 
+        for player_name in self.players : 
             player = self.players[player_name]
             hand = self.hand.determinate_high_figure(player) 
             self.hands_by_player[player_name] = hand
@@ -89,7 +68,7 @@ class HandsManager :
                 return Winner.FIRST_HAND 
             else :
                 return Winner.EQUALITY
-            
+                
     def __compare_two_hands_with_pairs(self, first_hand : Hand, second_hand : Hand) -> Winner:
         if first_hand.value < second_hand.value : 
             return Winner.SECOND_HAND
@@ -102,7 +81,7 @@ class HandsManager :
                 return Winner.FIRST_HAND
             else : 
                 return Winner.EQUALITY
-
+    
     def __get_all_players_with_best_hand(self, best_hand):
         best_players = []
         for player_name in self.hands_by_player : 

@@ -11,7 +11,7 @@ from PokerHandsV2.detector.quinte_detector import QuinteDetector
 from PokerHandsV2.detector.three_cards_detector import ThreeCardsDetector
 from PokerHandsV2.detector.two_pairs_detector import TwoPairsDetector
 from PokerHandsV2.draw.multi_draw_cards import MultiDrawCards
-from PokerHandsV2.game.hands_manager import HandsManager
+from PokerHandsV2.player.player_manager import HandsManager
 from PokerHandsV2.game.river_phase import RiverPhase
 from PokerHandsV2.hand import Hand
 from PokerHandsV2.tests.fake_multi_draw_cards import FakeMultiDrawCards
