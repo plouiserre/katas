@@ -1,7 +1,7 @@
 import copy
 import random
 
-from PokerHands.card import Card, CardColor, CardValue
+from PokerHandsV2.card import Card, CardColor, CardValue
 
 def add_cards(all_cards_value, values_to_add):
     for value in values_to_add :

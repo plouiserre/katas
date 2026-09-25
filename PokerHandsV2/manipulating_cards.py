@@ -1,7 +1,7 @@
 import copy
 
 from enum import Enum
-from PokerHands.card import Card, CardValue, CardColor
+from PokerHandsV2.card import Card, CardValue, CardColor
 from typing import Iterator
 
 class ManipulatingCards :

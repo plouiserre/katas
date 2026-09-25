@@ -1,6 +1,6 @@
 import pytest
 
-from PokerHands.card import Card
+from PokerHandsV2.card import Card
 from PokerHandsV2.manipulating_cards import ManipulatingCards
 from PokerHandsV2.detector.four_cards_detector import FourCardsDetector
 from PokerHandsV2.detector.flush_detector import FlushDetector

@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from PokerHands.card import CardValue
+from PokerHandsV2.card import CardValue
 from PokerHandsV2.winner import Winner
 from typing import ClassVar, Self
 
