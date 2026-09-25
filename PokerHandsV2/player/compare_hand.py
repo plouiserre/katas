@@ -1,4 +1,4 @@
-
+from PokerHandsV2.AllFigures.Figure import Figure
 from PokerHandsV2.AllFigures.HighCardFigure import HighCardFigure
 from PokerHandsV2.AllFigures.PairFigure import PairFigure
 from PokerHandsV2.exception.PlayerDoNotHaveCompleteHandException import PlayerDoNotHaveCompleteHandException
@@ -7,8 +7,10 @@ from PokerHandsV2.hand import Hand
 from PokerHandsV2.winner import Winner
 
 class CompareHand: 
-    def __init__(self):
-        pass
+    def __init__(self, players, hand):
+        self.players = players
+        self.hand = hand
+        self.hands_by_player = {}     
 
     def get_players_with_best_hands(self):
         self.__check_all_players_have_all_their_cards()

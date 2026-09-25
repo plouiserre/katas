@@ -14,7 +14,7 @@ from PokerHandsV2.draw.multi_draw_cards import MultiDrawCards
 from PokerHandsV2.exception.TooManyPlayerException import TooManyPlayerException
 from PokerHandsV2.hand import Hand
 from PokerHandsV2.game.draw_phase import DrawPhase
-from PokerHandsV2.game.hands_manager import HandsManager
+from PokerHandsV2.player.player_manager import HandsManager
 from PokerHandsV2.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
 def test_launch_draw_phase_with_two_players_randomly(): 

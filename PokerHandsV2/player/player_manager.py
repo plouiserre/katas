@@ -4,8 +4,7 @@ class HandsManager :
     def __init__(self, hand, multi_draw_cards):
         self.players = {}
         self.hand = hand
-        self.multi_draw_cards = multi_draw_cards
-        self.hands_by_player = {}                
+        self.multi_draw_cards = multi_draw_cards           
 
     def add_player(self, name_player):
         self.players[name_player] = []
@@ -21,7 +20,7 @@ class HandsManager :
         return self
 
     def get_players_with_best_hands(self):
-        compare_hand = CompareHand()
+        compare_hand = CompareHand(self.players, self.hand)
         return compare_hand.get_players_with_best_hands()
 
     def add_cards_to_players(self, player_name, card):

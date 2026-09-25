@@ -15,7 +15,7 @@ from PokerHandsV2.draw.multi_draw_cards import MultiDrawCards
 from PokerHandsV2.exception.PlayerDoNotHaveCompleteHandException import PlayerDoNotHaveCompleteHandException
 from PokerHandsV2.exception.TooManyPlayerException import TooManyPlayerException
 from PokerHandsV2.hand import Hand
-from PokerHandsV2.game.hands_manager import HandsManager
+from PokerHandsV2.player.player_manager import HandsManager
 
 def test_two_players_compare_random_hands_after_drawn(): 
     (HandManagerDriver()
