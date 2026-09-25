@@ -1,6 +1,6 @@
 from PokerHands.AllFigures.FourOfKindFigure import FourOfKindFigure
 from PokerHands.card import Card, CardColor, CardValue
-from PokerHands.counting_cards import CountingCards
+from PokerHands.manipulating_cards import ManipulatingCards
 from PokerHands.detector.four_cards_detector import FourCardsDetector
 from PokerHands.tests.random_cards import get_all_values, get_random_card, get_shuffle_hand
 
@@ -21,7 +21,7 @@ def test_find_four_of_kind_randomize():
     assert(__find_four_of_kind(hand) == FourOfKindFigure(four_times, other_card))
     
 def __find_four_of_kind(hand): 
-    counting_cards = CountingCards()
-    four_cards_detector = FourCardsDetector(counting_cards)
+    manipulating_cards = ManipulatingCards()
+    four_cards_detector = FourCardsDetector(manipulating_cards)
     return four_cards_detector.find_four_cards(hand)
     

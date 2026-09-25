@@ -66,12 +66,12 @@ class Card:
     def parse(str) -> Self:
         card_color = CardColor.UNDEFINED
         card_value = CardValue.UNDEFINED
-        card_color = Card.__parse_color(str)
+        card_color = Card.parse_color(str)
         card_value = Card.parse_value(str)
         return Card(card_value, card_color)
     
     @staticmethod
-    def __parse_color(str) -> CardColor :
+    def parse_color(str) -> CardColor :
         card_color = CardColor.UNDEFINED
         if "♠" in str : 
             card_color = CardColor.SPADES
