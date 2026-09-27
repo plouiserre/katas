@@ -15,10 +15,10 @@ from PokerHands.draw.multi_draw_cards import MultiDrawCards
 from PokerHands.exception.PlayerDoNotHaveCompleteHandException import PlayerDoNotHaveCompleteHandException
 from PokerHands.exception.TooManyPlayerException import TooManyPlayerException
 from PokerHands.hand import Hand
-from PokerHands.player.player_manager import HandsManager
+from PokerHands.player.players_manager import PlayersManager
 
 def test_two_players_compare_random_hands_after_drawn(): 
-    (HandManagerDriver()
+    (PlayersManagerDriver()
         .add_players(["Steve","Natacha"])    
         .players_draw_first_card(["Steve", "Natacha"])
         .players_draw_second_card(["Steve", "Natacha"])
@@ -26,7 +26,7 @@ def test_two_players_compare_random_hands_after_drawn():
         .is_this_players_can_be_a_winner(["Steve" , "Natacha", "Steve_Natacha"]))
 
 def test_two_players_compare_specific_hands_after_drawn_and_steve_win(): 
-    (HandManagerDriver()
+    (PlayersManagerDriver()
         .add_players(["Steve","Natacha"])    
         .give_specific_hand("Steve", ["K♣","Q♦"])                                   
         .give_specific_hand("Natacha", ["Q♥", "7♠"])                                   
@@ -34,7 +34,7 @@ def test_two_players_compare_specific_hands_after_drawn_and_steve_win():
         .is_this_players_can_be_a_winner(["Steve"]))
 
 def test_two_players_compare_specific_hands_after_drawn_and_natacha_win(): 
-    (HandManagerDriver()
+    (PlayersManagerDriver()
             .add_players(["Steve","Natacha"])    
             .give_specific_hand("Steve", ["10♣", "J♦"])                                   
             .give_specific_hand("Natacha", ["Q♥","7♠"])                                   
@@ -42,7 +42,7 @@ def test_two_players_compare_specific_hands_after_drawn_and_natacha_win():
             .is_this_players_can_be_a_winner(["Natacha"]))
 
 def test_two_players_compare_specific_hands_after_drawn_and_no_one_win(): 
-    (HandManagerDriver()
+    (PlayersManagerDriver()
         .add_players(["Steve","Natacha"])    
         .give_specific_hand("Steve", ["Q♣","Q♦"])                                   
         .give_specific_hand("Natacha", ["Q♥","Q♠"])                                   
@@ -51,14 +51,14 @@ def test_two_players_compare_specific_hands_after_drawn_and_no_one_win():
 
 def test_failing_two_players_compare_hands_because_steve_do_not_have_two_cards(): 
      with pytest.raises(PlayerDoNotHaveCompleteHandException) :
-            (HandManagerDriver()
+            (PlayersManagerDriver()
                                .add_players(["Steve","Natacha"])                                                                          
                                .players_draw_first_card(["Steve","Natacha"])
                                .players_draw_second_card(["Natacha"])                                                              
                                .determine_player_with_better_hand())
 
 def test_six_players_compare_random_hands_after_drawn(): 
-    (HandManagerDriver()
+    (PlayersManagerDriver()
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])                                                                          
         .players_draw_first_card(["Steve","Natacha","Tony","Thor","Bruce","Clint"])
         .players_draw_second_card(["Steve","Natacha","Tony","Thor","Bruce","Clint"])
@@ -66,7 +66,7 @@ def test_six_players_compare_random_hands_after_drawn():
         .is_this_players_can_be_a_winner(["Steve" , "Natacha", "Tony", "Thor", "Bruce", "Clint"]))
 
 def test_six_players_compare_specific_hands_after_drawn_and_steve_win():
-    (HandManagerDriver()
+    (PlayersManagerDriver()
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])                                                                                                                        
         .give_specific_hand("Steve", ["K♣",  "Q♦"])                                   
         .give_specific_hand("Natacha", ["Q♥","J♠"])                                        
@@ -78,7 +78,7 @@ def test_six_players_compare_specific_hands_after_drawn_and_steve_win():
         .is_this_players_can_be_a_winner(["Steve"]))
 
 def test_six_players_compare_specific_hands_after_drawn_and_tony_win():
-    (HandManagerDriver()
+    (PlayersManagerDriver()
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])                                                                                                                      
         .give_specific_hand("Steve", ["7♣","6♦"])                                   
         .give_specific_hand("Natacha", ["J♣","10♦"])                                        
@@ -90,7 +90,7 @@ def test_six_players_compare_specific_hands_after_drawn_and_tony_win():
         .is_this_players_can_be_a_winner(["Tony"]))
 
 def test_six_players_compare_specific_hands_after_drawn_and_clint_win():
-    (HandManagerDriver()
+    (PlayersManagerDriver()
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])
         .give_specific_hand("Steve", ["7♣","6♦"])                                   
         .give_specific_hand("Natacha", ["6♥","5♠"])                                        
@@ -102,7 +102,7 @@ def test_six_players_compare_specific_hands_after_drawn_and_clint_win():
         .is_this_players_can_be_a_winner(["Clint"]))
 
 def test_six_players_compare_specific_hands_after_drawn_and_natacha_and_bruce_win(): 
-    (HandManagerDriver()
+    (PlayersManagerDriver()
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])
         .give_specific_hand("Steve", ["7♣","6♦"])                                   
         .give_specific_hand("Natacha", ["K♥","Q♠"])                                        
@@ -114,7 +114,7 @@ def test_six_players_compare_specific_hands_after_drawn_and_natacha_and_bruce_wi
         .is_this_players_can_be_a_winner(["Natacha", "Bruce"]))
 
 def test_ten_players_compare_random_hands_after_drawn(): 
-        (HandManagerDriver()
+        (PlayersManagerDriver()
                 .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
                 .players_draw_first_card(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])                                    
                 .players_draw_second_card(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
@@ -123,7 +123,7 @@ def test_ten_players_compare_random_hands_after_drawn():
 
 
 def test_six_players_compare_specific_hands_after_drawn_and_wanda_win(): 
-    (HandManagerDriver()
+    (PlayersManagerDriver()
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
         .give_specific_hand("Steve", ["7♣","6♦"])                                   
         .give_specific_hand("Natacha", ["K♥","Q♠"])                                        
@@ -140,7 +140,7 @@ def test_six_players_compare_specific_hands_after_drawn_and_wanda_win():
 
 def test_failing_because_more_ten_players(): 
     with pytest.raises(TooManyPlayerException) :
-        (HandManagerDriver()
+        (PlayersManagerDriver()
                 .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Peter","Wanda"])
                 .give_specific_hand("Steve", ["7♣","6♦"])                                   
                 .give_specific_hand("Natacha", ["K♥","Q♠"])                                        
@@ -156,7 +156,7 @@ def test_failing_because_more_ten_players():
                 .determine_player_with_better_hand())
 
 def test_if_it_is_not_flush_with_one_player_have_two_cards_the_same_colors_but_not_five():
-    (HandManagerDriver()
+    (PlayersManagerDriver()
             .add_players(["Steve","Natacha"])    
             .give_specific_hand("Steve", ["K♣","J♣"])                                   
             .give_specific_hand("Natacha", ["Q♥","Q♠"])                                   
@@ -164,14 +164,14 @@ def test_if_it_is_not_flush_with_one_player_have_two_cards_the_same_colors_but_n
             .is_this_players_can_be_a_winner(["Natacha"]))
 
 def test_if_it_is_not_flush_with_one_player_have_two_cards_the_same_colors_and_they_follow_each_other_but_not_five():
-    (HandManagerDriver()
+    (PlayersManagerDriver()
             .add_players(["Steve","Natacha"])    
             .give_specific_hand("Steve", ["K♣","Q♣"])                                   
             .give_specific_hand("Natacha", ["Q♥","Q♠"])                                          
             .determine_player_with_better_hand()
             .is_this_players_can_be_a_winner(["Natacha"]))
 
-class HandManagerDriver():
+class PlayersManagerDriver():
     def __init__(self):
         manipulating_cards = ManipulatingCards()
         high_card_detector = HighCardDetector()
@@ -186,26 +186,26 @@ class HandManagerDriver():
         hand = Hand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
         self.players = {}
         multi_draw_cards = MultiDrawCards()
-        self.hands_manager = HandsManager(hand, multi_draw_cards)
+        self.players_manager = PlayersManager(hand, multi_draw_cards)
         self.winner = []
         
     def add_players(self, name_players):
         for name_player in name_players:
-            self.hands_manager.add_player(name_player)
+            self.players_manager.add_player(name_player)
         return self
 
     def draw_card_player(self, name_player):
-        self.hands_manager.draw_card_player(name_player)
+        self.players_manager.draw_card_player(name_player)
         return self
 
     def players_draw_first_card(self, name_players):
         for name_player in name_players : 
-            self.hands_manager.draw_card_player(name_player)
+            self.players_manager.draw_card_player(name_player)
         return self
 
     def players_draw_second_card(self, name_players):
         for name_player in name_players : 
-            self.hands_manager.draw_card_player(name_player)
+            self.players_manager.draw_card_player(name_player)
         return self
 
     def give_specific_hand(self, name_player, cards_encrypted):
@@ -213,11 +213,11 @@ class HandManagerDriver():
         for card_encrypted in cards_encrypted:
             card = Card.parse(card_encrypted)
             cards.append(card)
-        self.hands_manager.give_specific_hand(name_player, cards)
+        self.players_manager.give_specific_hand(name_player, cards)
         return self
 
     def determine_player_with_better_hand(self):
-        self.winners = self.hands_manager.get_players_with_best_hands()   
+        self.winners = self.players_manager.get_players_with_best_hands()   
         return self
 
     def is_this_players_can_be_a_winner(self, players_name):

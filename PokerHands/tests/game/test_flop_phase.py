@@ -10,7 +10,7 @@ from PokerHands.detector.three_cards_detector import ThreeCardsDetector
 from PokerHands.detector.two_pairs_detector import TwoPairsDetector
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
 from PokerHands.game.flop_phase import FlopPhase
-from PokerHands.player.player_manager import HandsManager
+from PokerHands.player.players_manager import PlayersManager
 from PokerHands.hand import Hand
 from PokerHands.manipulating_cards import ManipulatingCards
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
@@ -159,25 +159,25 @@ class CompareHandsAfterFlopDriver():
         quinte_flush_detector = QuinteFlushDetector(manipulating_cards, quinte_detector)
         hand = Hand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
         self.multi_draw_cards = multi_draw_cards
-        self.hand_manager = HandsManager(hand, self.multi_draw_cards)
+        self.players_manager = PlayersManager(hand, self.multi_draw_cards)
         self.winners = []
 
     def add_player(self, player_name):
-        self.hand_manager.add_player(player_name)
+        self.players_manager.add_player(player_name)
         return self
 
     def add_players(self, players_name): 
         for player_name in players_name:
-            self.hand_manager.add_player(player_name)
+            self.players_manager.add_player(player_name)
         return self
 
     def add_card_before_flop(self, card_crypted, player_name):
         card = Card.parse(card_crypted)
-        self.hand_manager.add_cards_to_players(player_name, card)
+        self.players_manager.add_cards_to_players(player_name, card)
         return self
 
     def launch_phase_and_get_best_players(self):
-        flop_phase = FlopPhase(self.hand_manager, self.multi_draw_cards)
+        flop_phase = FlopPhase(self.players_manager, self.multi_draw_cards)
         self.winners = flop_phase.launch_phase_and_get_best_players()
         return self
 
