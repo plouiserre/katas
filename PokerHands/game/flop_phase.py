@@ -6,8 +6,8 @@ class FlopPhase(Phase) :
 
     def launch_phase_and_get_best_players(self): 
         self.__draw_flop()
-        best_players = self.hand_manager.get_players_with_best_hands()
-        return best_players   
+        result = self.hand_manager.get_players_with_best_hands()
+        return result   
 
     def __draw_flop(self):
         flop = []

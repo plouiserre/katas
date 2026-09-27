@@ -1,4 +1,8 @@
-from PokerHands.card import Card
+from PokerHands.AllFigures.PairFigure import PairFigure
+from PokerHands.AllFigures.FlushFigure import FlushFigure
+from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
+from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
+from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.detector.four_cards_detector import FourCardsDetector
 from PokerHands.detector.flush_detector import FlushDetector
 from PokerHands.detector.full_detector import FullDetector
@@ -13,9 +17,8 @@ from PokerHands.game.flop_phase import FlopPhase
 from PokerHands.player.players_manager import PlayersManager
 from PokerHands.hand import Hand
 from PokerHands.manipulating_cards import ManipulatingCards
+from PokerHands.tests.assert_helper import is_this_two_figure_are_equal
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
-
-
 
 def test_launch_flop_phase_with_two_players_randomly():
     (CompareHandsAfterFlopDriver(MultiDrawCards())
@@ -38,7 +41,8 @@ def test_launch_flop_phase_with_two_players_and_steve_wins():
         .add_card_before_flop("6♠", "Steve")
         .add_card_before_flop("A♣", "Natacha")
         .launch_phase_and_get_best_players()
-        .is_this_players_can_be_a_winner(["Steve"]))  
+        .is_this_players_can_be_a_winner(["Steve"])
+        .is_this_best_figure(FlushFigure(CardColor.SPADES, CardValue.ACE)))  
 
 def test_launch_flop_phase_with_two_players_and_natacha_wins(): 
     fake_cards = ["A♠", "Q♥", "8♣"]
@@ -50,7 +54,8 @@ def test_launch_flop_phase_with_two_players_and_natacha_wins():
                     .add_card_before_flop("6♠", "Steve")
                     .add_card_before_flop("A♣", "Natacha")
                     .launch_phase_and_get_best_players()
-                    .is_this_players_can_be_a_winner(["Natacha"]))
+                    .is_this_players_can_be_a_winner(["Natacha"])
+                    .is_this_best_figure(ThreeOfKindFigure(CardValue.ACE, CardValue.QUEEN))) 
 
 def test_launch_flop_phase_with_two_players_win(): 
     fake_cards = ["K♠","Q♥", "8♣"]
@@ -62,7 +67,8 @@ def test_launch_flop_phase_with_two_players_win():
                     .add_card_before_flop("A♦", "Steve")
                     .add_card_before_flop("A♣", "Natacha")
                     .launch_phase_and_get_best_players()
-                    .is_this_players_can_be_a_winner(["Steve","Natacha"]))  
+                    .is_this_players_can_be_a_winner(["Steve","Natacha"])
+                    .is_this_best_figure(PairFigure(CardValue.ACE, CardValue.KING))) 
 
 def test_launch_flop_phase_with_ten_players_randomly():
     (CompareHandsAfterFlopDriver(MultiDrawCards())
@@ -115,7 +121,8 @@ def test_launch_flop_phase_with_ten_players_and_steve_wins():
         .add_card_before_flop("9♥", "Steven")
         .add_card_before_flop("8♠", "Wanda")
         .launch_phase_and_get_best_players()
-        .is_this_players_can_be_a_winner(["Steve"]))
+        .is_this_players_can_be_a_winner(["Steve"])
+        .is_this_best_figure(TwoPairFigure(CardValue.ACE, CardValue.FOUR, CardValue.SIX)))
 
 def test_launch_flop_phase_with_ten_players_and_bruce_and_tchalla_win():
     fake_cards = ["10♥", "6♦", "4♠"]
@@ -142,7 +149,8 @@ def test_launch_flop_phase_with_ten_players_and_bruce_and_tchalla_win():
             .add_card_before_flop("9♥", "Steven")
             .add_card_before_flop("8♠", "Wanda")
             .launch_phase_and_get_best_players()
-            .is_this_players_can_be_a_winner(["Bruce", "T'Challa"]))
+            .is_this_players_can_be_a_winner(["Bruce", "T'Challa"])
+            .is_this_best_figure(PairFigure(CardValue.TEN, CardValue.SEVEN))) 
 
 class CompareHandsAfterFlopDriver():
     def __init__(self, multi_draw_cards):
@@ -178,7 +186,7 @@ class CompareHandsAfterFlopDriver():
 
     def launch_phase_and_get_best_players(self):
         flop_phase = FlopPhase(self.players_manager, self.multi_draw_cards)
-        self.winners = flop_phase.launch_phase_and_get_best_players()
+        self.result = flop_phase.launch_phase_and_get_best_players()
         return self
 
     def is_this_players_can_be_a_winner(self, players_name):
@@ -186,10 +194,15 @@ class CompareHandsAfterFlopDriver():
             for player_name in players_name : 
                 if "_" in player_name : 
                     all_players = player_name.split("_")
-                    is_winner = all_players == self.winners
+                    is_winner = all_players == self.result.winners
                 else : 
-                    is_winner = player_name in self.winners
+                    is_winner = player_name in self.result.winners
                 if is_winner == True: 
                     break
             assert (is_winner == True)
-            return self 
+            return self     
+
+    def is_this_best_figure(self, figure): 
+        is_equal =  is_this_two_figure_are_equal(figure, self.result.best_figure)
+        assert(is_equal == True)
+        return self
