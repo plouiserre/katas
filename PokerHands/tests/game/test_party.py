@@ -1,5 +1,12 @@
+from PokerHands.AllFigures.FullFigure import FullFigure
+from PokerHands.AllFigures.HighCardFigure import HighCardFigure
+from PokerHands.AllFigures.QuinteFigure import QuinteFigure
+from PokerHands.AllFigures.QuinteFlushFigure import QuinteFlushFigure
+from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
+from PokerHands.card import CardValue, CardColor
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
 from PokerHands.game.party import Party, PhasePoker
+from PokerHands.tests.assert_helper import is_this_two_figure_are_equal
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
 def test_launch_random_party_with_two_players():
@@ -17,10 +24,10 @@ def test_launch_determine_party_with_two_players():
     (PartyDriver(FakeMultiDrawCards(fake_cards))
                 .add_players(["Steve", "Natacha"])
                 .launch_party()
-                .is_this_players_can_be_a_winner(["Steve"], PhasePoker.DRAW)
-                .is_this_players_can_be_a_winner(["Steve_Natacha"], PhasePoker.FLOP)
-                .is_this_players_can_be_a_winner(["Natacha"], PhasePoker.TURN)
-                .is_this_players_can_be_a_winner(["Steve"], PhasePoker.RIVER)
+                .is_this_players_can_be_a_winner_with_best_figure(["Steve"], PhasePoker.DRAW, HighCardFigure(CardValue.KING))
+                .is_this_players_can_be_a_winner_with_best_figure(["Steve_Natacha"], PhasePoker.FLOP, HighCardFigure(CardValue.ACE))
+                .is_this_players_can_be_a_winner_with_best_figure(["Natacha"], PhasePoker.TURN, QuinteFigure(CardValue.QUEEN))
+                .is_this_players_can_be_a_winner_with_best_figure(["Steve"], PhasePoker.RIVER, QuinteFigure(CardValue.ACE))
         )
 
 def test_launch_random_party_with_ten_players(): 
@@ -38,10 +45,10 @@ def test_launch_determine_party_with_ten_players():
     (PartyDriver(FakeMultiDrawCards(fake_cards))
                 .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
                 .launch_party()
-                .is_this_players_can_be_a_winner(["Thor"], PhasePoker.DRAW)
-                .is_this_players_can_be_a_winner(["T'Challa"], PhasePoker.FLOP)
-                .is_this_players_can_be_a_winner(["T'Challa"], PhasePoker.TURN)
-                .is_this_players_can_be_a_winner(["Clint"], PhasePoker.RIVER)
+                .is_this_players_can_be_a_winner_with_best_figure(["Thor"], PhasePoker.DRAW, HighCardFigure(CardValue.ACE))
+                .is_this_players_can_be_a_winner_with_best_figure(["T'Challa"], PhasePoker.FLOP, FullFigure(CardValue.SEVEN, CardValue.TEN))
+                .is_this_players_can_be_a_winner_with_best_figure(["T'Challa"], PhasePoker.TURN, FullFigure(CardValue.SEVEN, CardValue.TEN))
+                .is_this_players_can_be_a_winner_with_best_figure(["Clint"], PhasePoker.RIVER, QuinteFlushFigure(CardValue.QUEEN, CardColor.DIAMONDS))
         )
 
 class PartyDriver: 
@@ -56,19 +63,30 @@ class PartyDriver:
         return self
 
     def launch_party(self):
-        self.winners = self.party.launch_party()
+        self.result = self.party.launch_party()
         return self
 
+    def is_this_players_can_be_a_winner_with_best_figure(self, players_name, phase, figure):
+        phase = self.result[phase]
+        is_winner = self.__is_winner(players_name, phase.winners)
+        is_best_figure =  is_this_two_figure_are_equal(figure, phase.best_figure)
+        assert (is_winner == True and is_best_figure == True)
+        return self 
+
     def is_this_players_can_be_a_winner(self, players_name, phase):
-        winners_phase = self.winners[phase]
+        phase = self.result[phase]
+        is_winner = self.__is_winner(players_name, phase.winners)
+        assert (is_winner == True)
+        return self 
+
+    def __is_winner(self, players_name, winners):
         is_winner = False
         for player_name in players_name : 
             if "_" in player_name : 
                 all_players = player_name.split("_")
-                is_winner = all_players == winners_phase
+                is_winner = all_players == winners
             else : 
-                is_winner = player_name in winners_phase
+                is_winner = player_name in winners
             if is_winner == True: 
                 break
-        assert (is_winner == True)
-        return self 
+        return is_winner    

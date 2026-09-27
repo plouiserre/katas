@@ -4,6 +4,7 @@ from PokerHands.AllFigures.PairFigure import PairFigure
 from PokerHands.exception.PlayerDoNotHaveCompleteHandException import PlayerDoNotHaveCompleteHandException
 from PokerHands.exception.TooManyPlayerException import TooManyPlayerException
 from PokerHands.hand import Hand
+from PokerHands.player.comparaison_result import ComparaisonResult
 from PokerHands.winner import Winner
 
 class CompareHand: 
@@ -19,7 +20,8 @@ class CompareHand:
         self.__determinate_hand_for_each_player()      
         best_hand = self.__determinate_best_hand_from_all_players()
         best_players = self.__get_all_players_with_best_hand(best_hand)
-        return best_players 
+        result = ComparaisonResult.Create(best_players, best_hand)
+        return result 
 
     def __check_all_players_have_all_their_cards(self): 
         for player_name in self.players : 

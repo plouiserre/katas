@@ -17,9 +17,9 @@ while True :
 
 party.add_players(players)
 
-winners = party.launch_party()
+results = party.launch_party()
 
-for phase in winners : 
+for phase in results : 
     delimeter = " " 
-    winner_str = delimeter.join(winners[phase])
+    winner_str = delimeter.join(results[phase].winners)
     print("the winner for this phase "+phase.name+" is "+winner_str)

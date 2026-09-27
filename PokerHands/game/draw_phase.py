@@ -6,8 +6,8 @@ class DrawPhase :
     def launch_phase_and_get_best_players(self):
         self.__add_all_players()
         self.__each_players_draw_cards_two_times()
-        best_players = self.hands_manager.get_players_with_best_hands()
-        return best_players
+        result = self.hands_manager.get_players_with_best_hands()
+        return result
     
     def __add_all_players(self):
         for player in self.players : 

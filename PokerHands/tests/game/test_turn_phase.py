@@ -1,4 +1,8 @@
-from PokerHands.card import Card
+from PokerHands.AllFigures.FourOfKindFigure import FourOfKindFigure
+from PokerHands.AllFigures.FullFigure import FullFigure
+from PokerHands.AllFigures.HighCardFigure import HighCardFigure
+from PokerHands.AllFigures.PairFigure import PairFigure
+from PokerHands.card import Card, CardValue
 from PokerHands.detector.four_cards_detector import FourCardsDetector
 from PokerHands.detector.flush_detector import FlushDetector
 from PokerHands.detector.full_detector import FullDetector
@@ -9,10 +13,11 @@ from PokerHands.detector.quinte_detector import QuinteDetector
 from PokerHands.detector.three_cards_detector import ThreeCardsDetector
 from PokerHands.detector.two_pairs_detector import TwoPairsDetector
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
-from PokerHands.player.player_manager import HandsManager
+from PokerHands.player.players_manager import PlayersManager
 from PokerHands.game.turn_phase import TurnPhase
 from PokerHands.hand import Hand
 from PokerHands.manipulating_cards import ManipulatingCards
+from PokerHands.tests.assert_helper import is_this_two_figure_are_equal
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
 def test_launch_turn_phase_with_two_players_randomly():
@@ -43,6 +48,7 @@ def test_launch_turn_phase_with_two_players_and_steve_wins():
         .add_card_flop_phase("A♠")
         .launch_phase_and_get_best_players()
         .is_this_players_can_be_a_winner(["Steve"])
+        .is_this_best_figure(FourOfKindFigure(CardValue.TWO, CardValue.ACE))
     )
 
 def test_launch_turn_phase_with_two_players_and_natacha_wins():
@@ -59,6 +65,7 @@ def test_launch_turn_phase_with_two_players_and_natacha_wins():
         .add_card_flop_phase("A♠")
         .launch_phase_and_get_best_players()
         .is_this_players_can_be_a_winner(["Natacha"])
+        .is_this_best_figure(FullFigure(CardValue.TWO, CardValue.ACE))
     )
 
 def test_launch_turn_phase_with_two_players_win():
@@ -75,6 +82,7 @@ def test_launch_turn_phase_with_two_players_win():
         .add_card_flop_phase("6♠")
         .launch_phase_and_get_best_players()
         .is_this_players_can_be_a_winner(["Steve_Natacha"])
+        .is_this_best_figure(HighCardFigure(CardValue.ACE))
     )
 
 def test_launch_turn_phase_with_ten_players_randomly():
@@ -138,7 +146,8 @@ def test_launch_turn_phase_with_ten_players_and_wanda_win():
         .add_card_flop_phase("8♦")
         .add_card_flop_phase("4♠")
         .launch_phase_and_get_best_players()
-        .is_this_players_can_be_a_winner(["Wanda"]))
+        .is_this_players_can_be_a_winner(["Wanda"])
+        .is_this_best_figure(FullFigure(CardValue.EIGHT, CardValue.FIVE)))
 
 def test_launch_turn_phase_with_ten_players_and_tony_and_clint_win():
     fake_cards = ["Q♦"]
@@ -168,7 +177,8 @@ def test_launch_turn_phase_with_ten_players_and_tony_and_clint_win():
         .add_card_flop_phase("6♦")
         .add_card_flop_phase("4♠")
         .launch_phase_and_get_best_players()
-        .is_this_players_can_be_a_winner(["Tony_Clint"]))
+        .is_this_players_can_be_a_winner(["Tony_Clint"])
+        .is_this_best_figure(PairFigure(CardValue.QUEEN, CardValue.TEN)))
 
 class TurnPhaseDriver():
     def __init__(self, multi_draw_cards):
@@ -185,32 +195,32 @@ class TurnPhaseDriver():
         quinte_flush_detector = QuinteFlushDetector(manipulating_cards, quinte_detector)
         hand = Hand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
         self.multi_draw_cards = multi_draw_cards
-        self.hand_manager = HandsManager(hand, self.multi_draw_cards)
+        self.players_manager = PlayersManager(hand, self.multi_draw_cards)
         self.winners = []
 
     def add_player(self, player_name):
-        self.hand_manager.add_player(player_name)
+        self.players_manager.add_player(player_name)
         return self 
 
     def add_players(self, players_name): 
             for player_name in players_name:
-                self.hand_manager.add_player(player_name)
+                self.players_manager.add_player(player_name)
             return self
 
     def add_card_before_flop_phase(self, card_crypted, player_name):
         card = Card.parse(card_crypted)
-        self.hand_manager.add_cards_to_players(player_name, card)
+        self.players_manager.add_cards_to_players(player_name, card)
         return self
 
     def add_card_flop_phase(self, card_crypted):
         card = Card.parse(card_crypted)
-        for player_name in self.hand_manager.get_all_players() : 
-            self.hand_manager.add_cards_to_players(player_name, card)
+        for player_name in self.players_manager.get_all_players() : 
+            self.players_manager.add_cards_to_players(player_name, card)
         return self
 
     def launch_phase_and_get_best_players(self):        
-        turn_phase = TurnPhase(self.hand_manager, self.multi_draw_cards)
-        self.winners = turn_phase.launch_phase_and_get_best_players()
+        turn_phase = TurnPhase(self.players_manager, self.multi_draw_cards)
+        self.result = turn_phase.launch_phase_and_get_best_players()
         return self
 
     def is_this_players_can_be_a_winner(self, players_name):
@@ -218,10 +228,15 @@ class TurnPhaseDriver():
         for player_name in players_name : 
             if "_" in player_name : 
                 all_players = player_name.split("_")
-                is_winner = all_players == self.winners
+                is_winner = all_players == self.result.winners
             else : 
-                is_winner = player_name in self.winners
+                is_winner = player_name in self.result.winners
             if is_winner == True: 
                 break
         assert (is_winner == True)
-        return self 
+        return self  
+
+    def is_this_best_figure(self, figure): 
+        is_equal =  is_this_two_figure_are_equal(figure, self.result.best_figure)
+        assert(is_equal == True)
+        return self

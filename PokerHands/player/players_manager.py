@@ -1,6 +1,6 @@
 from PokerHands.player.compare_hand import CompareHand
 
-class HandsManager : 
+class PlayersManager : 
     def __init__(self, hand, multi_draw_cards):
         self.players = {}
         self.hand = hand
@@ -14,7 +14,6 @@ class HandsManager :
             self.players[name_player].append(new_card)
             return self
     
-    #TODO study if it is necessary
     def give_specific_hand(self, name_player, cards): 
         self.players[name_player] = cards
         return self
