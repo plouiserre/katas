@@ -25,7 +25,7 @@ class PhasePoker(Enum) :
 class Party : 
     def __init__(self, multi_draw_cards):
         self.multi_draw_cards = multi_draw_cards
-        self.winners = {}
+        self.result = {}
         self.players = []
 
     def add_players(self, players_name): 
@@ -34,11 +34,11 @@ class Party :
 
     def launch_party(self): 
         self.__init_all_players_and_phases()
-        self.winners[PhasePoker.DRAW] = self.draw_phase.launch_phase_and_get_best_players()
-        self.winners[PhasePoker.FLOP] = self.flop_phase.launch_phase_and_get_best_players()
-        self.winners[PhasePoker.TURN]  = self.turn_phase.launch_phase_and_get_best_players()
-        self.winners[PhasePoker.RIVER] = self.river_phase.launch_phase_and_get_best_players()
-        return self.winners
+        self.result[PhasePoker.DRAW] = self.draw_phase.launch_phase_and_get_best_players()
+        self.result[PhasePoker.FLOP] = self.flop_phase.launch_phase_and_get_best_players()
+        self.result[PhasePoker.TURN]  = self.turn_phase.launch_phase_and_get_best_players()
+        self.result[PhasePoker.RIVER] = self.river_phase.launch_phase_and_get_best_players()
+        return self.result
 
     def __init_all_players_and_phases(self):
         manipulating_cards = ManipulatingCards()
