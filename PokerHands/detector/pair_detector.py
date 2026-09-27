@@ -10,8 +10,8 @@ class PairDetector :
     def find_pair(self, hand: Iterator[Card]) -> PairFigure:
         cards_group_by_value = self.manipulating_cards.count_cards(hand)
         is_one_pair = False
-        value_pair = CardValue.TWO
-        high_value_outside_one_pair = CardValue.TWO
+        value_pair = CardValue.UNDEFINED
+        high_value_outside_one_pair = CardValue.UNDEFINED
         for card in cards_group_by_value : 
             number_cards = cards_group_by_value[card]
             if number_cards == 2 : 
