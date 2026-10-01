@@ -1,9 +1,7 @@
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
-from PokerHands.game.party import Party
 from PokerHands.multiple_game import MultipleGame
 
 multi_draw_cards = MultiDrawCards()
-party = Party(multi_draw_cards)
 multiple_game = MultipleGame()
 
 

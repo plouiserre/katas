@@ -1,11 +1,11 @@
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
-from PokerHands.game.party import Party, PhasePoker
+from PokerHands.game.game import Game
 
 class MultipleGame : 
     def __init__(self):
         self.players = []
         self.number = 0
-        self.party_results = []
+        self.game_results = []
 
     def add_player(self, player_name): 
         self.players.append(player_name)
@@ -18,8 +18,8 @@ class MultipleGame :
     def launch_multiple_game(self): 
         for _ in range(self.number):
             multi_draw_cards = MultiDrawCards()
-            party = Party(multi_draw_cards)
-            party.add_players(self.players)
-            party_result = party.launch_party()
-            self.party_results.append(party_result)
-        return self.party_results
+            game = Game(multi_draw_cards)
+            game.add_players(self.players)
+            game_result = game.launch_game()
+            self.game_results.append(game_result)
+        return self.game_results

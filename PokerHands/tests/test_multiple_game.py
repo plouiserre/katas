@@ -1,5 +1,5 @@
 from PokerHands.multiple_game import MultipleGame
-from PokerHands.game.party import Party, PhasePoker
+from PokerHands.game.game import PhasePoker
 
 def test_launch_100_games(): 
     (MultipleGameDriver()
@@ -22,7 +22,7 @@ def test_launch_100_games():
 class MultipleGameDriver(): 
     def __init__(self):
         self.multiple_game = MultipleGame()
-        self.party_results = []
+        self.game_results = []
         self.number = 0
 
     def add_player(self, player_name): 
@@ -35,17 +35,17 @@ class MultipleGameDriver():
         return self
 
     def launch_multiple_game(self): 
-        self.party_results = self.multiple_game.launch_multiple_game()
+        self.game_results = self.multiple_game.launch_multiple_game()
         return self
 
     def confirm_all_games_are_launch(self): 
-        assert(len(self.party_results) == self.number)
+        assert(len(self.game_results) == self.number)
         return self
 
     def confirm_all_games_are_complete(self): 
-        for party_result in self.party_results : 
-            assert((PhasePoker.DRAW in party_result) == True)
-            assert((PhasePoker.FLOP in party_result) == True)
-            assert((PhasePoker.TURN in party_result) == True)
-            assert((PhasePoker.RIVER in party_result) == True)
+        for game_result in self.game_results : 
+            assert((PhasePoker.DRAW in game_result) == True)
+            assert((PhasePoker.FLOP in game_result) == True)
+            assert((PhasePoker.TURN in game_result) == True)
+            assert((PhasePoker.RIVER in game_result) == True)
         return self
