@@ -36,7 +36,6 @@ def test_launch_turn_phase_with_two_players_randomly():
                     .launch_phase_and_get_best_players()
                     .is_this_players_can_be_a_winner(["Steve", "Natacha"]))
 
-#Test bidon le temps de fixer le bug
 def test_launch_turn_phase_with_two_players_and_steve_wins():
     false_cards = ["2♣"]
     (TurnPhaseDriver(FakeMultiDrawCards(false_cards))
@@ -53,7 +52,7 @@ def test_launch_turn_phase_with_two_players_and_steve_wins():
         .is_this_players_can_be_a_winner(["Steve"])
         .is_this_best_figure(FourOfKindFigure(CardValue.TWO, CardValue.ACE))
         .is_this_hand("Steve", FourOfKindFigure(CardValue.TWO, CardValue.ACE))
-        .is_this_hand("Natacha", ThreeOfKindFigure(CardValue.TWO, CardValue.TWO)))
+        .is_this_hand("Natacha", FullFigure(CardValue.TWO, CardValue.ACE)))
     
 
 def test_launch_turn_phase_with_two_players_and_natacha_wins():
