@@ -1,5 +1,6 @@
-from PokerHands.AllFigures.PairFigure import PairFigure
 from PokerHands.AllFigures.FlushFigure import FlushFigure
+from PokerHands.AllFigures.HighCardFigure import HighCardFigure
+from PokerHands.AllFigures.PairFigure import PairFigure
 from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 from PokerHands.card import Card, CardColor, CardValue
@@ -42,7 +43,9 @@ def test_launch_flop_phase_with_two_players_and_steve_wins():
         .add_card_before_flop("A♣", "Natacha")
         .launch_phase_and_get_best_players()
         .is_this_players_can_be_a_winner(["Steve"])
-        .is_this_best_figure(FlushFigure(CardColor.SPADES, CardValue.ACE)))  
+        .is_this_best_figure(FlushFigure(CardColor.SPADES, CardValue.ACE))
+        .is_this_hand("Steve", FlushFigure(CardColor.SPADES, CardValue.ACE))
+        .is_this_hand("Natacha", ThreeOfKindFigure(CardValue.ACE, CardValue.QUEEN)))  
 
 def test_launch_flop_phase_with_two_players_and_natacha_wins(): 
     fake_cards = ["A♠", "Q♥", "8♣"]
@@ -55,7 +58,9 @@ def test_launch_flop_phase_with_two_players_and_natacha_wins():
                     .add_card_before_flop("A♣", "Natacha")
                     .launch_phase_and_get_best_players()
                     .is_this_players_can_be_a_winner(["Natacha"])
-                    .is_this_best_figure(ThreeOfKindFigure(CardValue.ACE, CardValue.QUEEN))) 
+                    .is_this_best_figure(ThreeOfKindFigure(CardValue.ACE, CardValue.QUEEN))
+                    .is_this_hand("Steve", HighCardFigure(CardValue.ACE))
+                    .is_this_hand("Natacha", ThreeOfKindFigure(CardValue.ACE, CardValue.QUEEN))) 
 
 def test_launch_flop_phase_with_two_players_win(): 
     fake_cards = ["K♠","Q♥", "8♣"]
@@ -68,7 +73,9 @@ def test_launch_flop_phase_with_two_players_win():
                     .add_card_before_flop("A♣", "Natacha")
                     .launch_phase_and_get_best_players()
                     .is_this_players_can_be_a_winner(["Steve","Natacha"])
-                    .is_this_best_figure(PairFigure(CardValue.ACE, CardValue.KING))) 
+                    .is_this_best_figure(PairFigure(CardValue.ACE, CardValue.KING))
+                    .is_this_hand("Steve", PairFigure(CardValue.ACE, CardValue.KING))
+                    .is_this_hand("Natacha", PairFigure(CardValue.ACE, CardValue.KING))) 
 
 def test_launch_flop_phase_with_ten_players_randomly():
     (CompareHandsAfterFlopDriver(MultiDrawCards())
@@ -122,7 +129,17 @@ def test_launch_flop_phase_with_ten_players_and_steve_wins():
         .add_card_before_flop("8♠", "Wanda")
         .launch_phase_and_get_best_players()
         .is_this_players_can_be_a_winner(["Steve"])
-        .is_this_best_figure(TwoPairFigure(CardValue.ACE, CardValue.FOUR, CardValue.SIX)))
+        .is_this_best_figure(TwoPairFigure(CardValue.ACE, CardValue.FOUR, CardValue.SIX))
+        .is_this_hand("Steve", TwoPairFigure(CardValue.ACE, CardValue.FOUR, CardValue.SIX))
+        .is_this_hand("Natacha", HighCardFigure(CardValue.ACE))
+        .is_this_hand("Tony", HighCardFigure(CardValue.ACE))
+        .is_this_hand("Thor", PairFigure(CardValue.ACE, CardValue.JACK))
+        .is_this_hand("Bruce", HighCardFigure(CardValue.ACE))
+        .is_this_hand("Clint", HighCardFigure(CardValue.ACE))
+        .is_this_hand("Carol", HighCardFigure(CardValue.ACE))
+        .is_this_hand("T'Challa", HighCardFigure(CardValue.ACE))
+        .is_this_hand("Steven", PairFigure(CardValue.SIX, CardValue.ACE))
+        .is_this_hand("Wanda", HighCardFigure(CardValue.ACE)))
 
 def test_launch_flop_phase_with_ten_players_and_bruce_and_tchalla_win():
     fake_cards = ["10♥", "6♦", "4♠"]
@@ -150,7 +167,17 @@ def test_launch_flop_phase_with_ten_players_and_bruce_and_tchalla_win():
             .add_card_before_flop("8♠", "Wanda")
             .launch_phase_and_get_best_players()
             .is_this_players_can_be_a_winner(["Bruce", "T'Challa"])
-            .is_this_best_figure(PairFigure(CardValue.TEN, CardValue.SEVEN))) 
+            .is_this_best_figure(PairFigure(CardValue.TEN, CardValue.SEVEN))
+            .is_this_hand("Steve", PairFigure(CardValue.FOUR, CardValue.ACE))
+            .is_this_hand("Natacha", HighCardFigure(CardValue.KING))
+            .is_this_hand("Tony", HighCardFigure(CardValue.QUEEN))
+            .is_this_hand("Thor", HighCardFigure(CardValue.ACE))
+            .is_this_hand("Bruce", PairFigure(CardValue.TEN, CardValue.SEVEN))
+            .is_this_hand("Clint", HighCardFigure(CardValue.QUEEN))
+            .is_this_hand("Carol", HighCardFigure(CardValue.JACK))
+            .is_this_hand("T'Challa", PairFigure(CardValue.TEN, CardValue.SEVEN))
+            .is_this_hand("Steven", PairFigure(CardValue.SIX, CardValue.TEN))
+            .is_this_hand("Wanda", HighCardFigure(CardValue.TEN))) 
 
 class CompareHandsAfterFlopDriver():
     def __init__(self, multi_draw_cards):
@@ -205,4 +232,10 @@ class CompareHandsAfterFlopDriver():
     def is_this_best_figure(self, figure): 
         is_equal =  is_this_two_figure_are_equal(figure, self.result.best_figure)
         assert(is_equal == True)
+        return self
+
+    def is_this_hand(self, player_name, figure_expected): 
+        figure_calculated = self.result.hands_by_player[player_name]
+        is_right = is_this_two_figure_are_equal(figure_expected, figure_calculated) 
+        assert(is_right == True)
         return self

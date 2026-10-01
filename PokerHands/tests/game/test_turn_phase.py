@@ -2,6 +2,8 @@ from PokerHands.AllFigures.FourOfKindFigure import FourOfKindFigure
 from PokerHands.AllFigures.FullFigure import FullFigure
 from PokerHands.AllFigures.HighCardFigure import HighCardFigure
 from PokerHands.AllFigures.PairFigure import PairFigure
+from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
+from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 from PokerHands.card import Card, CardValue
 from PokerHands.detector.four_cards_detector import FourCardsDetector
 from PokerHands.detector.flush_detector import FlushDetector
@@ -34,6 +36,7 @@ def test_launch_turn_phase_with_two_players_randomly():
                     .launch_phase_and_get_best_players()
                     .is_this_players_can_be_a_winner(["Steve", "Natacha"]))
 
+#Test bidon le temps de fixer le bug
 def test_launch_turn_phase_with_two_players_and_steve_wins():
     false_cards = ["2♣"]
     (TurnPhaseDriver(FakeMultiDrawCards(false_cards))
@@ -49,7 +52,9 @@ def test_launch_turn_phase_with_two_players_and_steve_wins():
         .launch_phase_and_get_best_players()
         .is_this_players_can_be_a_winner(["Steve"])
         .is_this_best_figure(FourOfKindFigure(CardValue.TWO, CardValue.ACE))
-    )
+        .is_this_hand("Steve", FourOfKindFigure(CardValue.TWO, CardValue.ACE))
+        .is_this_hand("Natacha", ThreeOfKindFigure(CardValue.TWO, CardValue.TWO)))
+    
 
 def test_launch_turn_phase_with_two_players_and_natacha_wins():
     false_cards = ["3♣"]
@@ -66,6 +71,8 @@ def test_launch_turn_phase_with_two_players_and_natacha_wins():
         .launch_phase_and_get_best_players()
         .is_this_players_can_be_a_winner(["Natacha"])
         .is_this_best_figure(FullFigure(CardValue.TWO, CardValue.ACE))
+        .is_this_hand("Steve", ThreeOfKindFigure(CardValue.TWO, CardValue.ACE))
+        .is_this_hand("Natacha", FullFigure(CardValue.TWO, CardValue.ACE))
     )
 
 def test_launch_turn_phase_with_two_players_win():
@@ -83,6 +90,8 @@ def test_launch_turn_phase_with_two_players_win():
         .launch_phase_and_get_best_players()
         .is_this_players_can_be_a_winner(["Steve_Natacha"])
         .is_this_best_figure(HighCardFigure(CardValue.ACE))
+        .is_this_hand("Steve", HighCardFigure(CardValue.ACE))
+        .is_this_hand("Natacha", HighCardFigure(CardValue.ACE))
     )
 
 def test_launch_turn_phase_with_ten_players_randomly():
@@ -122,8 +131,6 @@ def test_launch_turn_phase_with_ten_players_and_wanda_win():
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
         .add_card_before_flop_phase("A♠", "Steve")
         .add_card_before_flop_phase("K♣", "Natacha")
-        .add_card_before_flop_phase("A♠", "Steve")
-        .add_card_before_flop_phase("K♣", "Natacha")
         .add_card_before_flop_phase("Q♥", "Tony")
         .add_card_before_flop_phase("J♦","Thor")
         .add_card_before_flop_phase("10♣", "Bruce")
@@ -147,7 +154,18 @@ def test_launch_turn_phase_with_ten_players_and_wanda_win():
         .add_card_flop_phase("4♠")
         .launch_phase_and_get_best_players()
         .is_this_players_can_be_a_winner(["Wanda"])
-        .is_this_best_figure(FullFigure(CardValue.EIGHT, CardValue.FIVE)))
+        .is_this_best_figure(FullFigure(CardValue.EIGHT, CardValue.FIVE))
+        .is_this_hand("Steve", TwoPairFigure(CardValue.FIVE, CardValue.FOUR, CardValue.ACE))
+        .is_this_hand("Natacha", PairFigure(CardValue.FIVE, CardValue.KING))
+        .is_this_hand("Tony", PairFigure(CardValue.FIVE, CardValue.QUEEN))
+        .is_this_hand("Thor", PairFigure(CardValue.FIVE,CardValue.ACE))
+        .is_this_hand("Bruce", PairFigure(CardValue.FIVE,CardValue.TEN))
+        .is_this_hand("Clint", PairFigure(CardValue.FIVE,CardValue.QUEEN))
+        .is_this_hand("Carol", TwoPairFigure(CardValue.EIGHT, CardValue.FIVE, CardValue.JACK))
+        .is_this_hand("T'Challa", PairFigure(CardValue.FIVE, CardValue.TEN))
+        .is_this_hand("Steven", PairFigure(CardValue.FIVE, CardValue.NINE))
+        .is_this_hand("Wanda", FullFigure(CardValue.EIGHT, CardValue.FIVE))
+    )
 
 def test_launch_turn_phase_with_ten_players_and_tony_and_clint_win():
     fake_cards = ["Q♦"]
@@ -178,7 +196,17 @@ def test_launch_turn_phase_with_ten_players_and_tony_and_clint_win():
         .add_card_flop_phase("4♠")
         .launch_phase_and_get_best_players()
         .is_this_players_can_be_a_winner(["Tony_Clint"])
-        .is_this_best_figure(PairFigure(CardValue.QUEEN, CardValue.TEN)))
+        .is_this_best_figure(PairFigure(CardValue.QUEEN, CardValue.TEN))
+        .is_this_hand("Steve", PairFigure(CardValue.FOUR, CardValue.ACE))
+        .is_this_hand("Natacha", HighCardFigure(CardValue.KING))
+        .is_this_hand("Tony", PairFigure(CardValue.QUEEN, CardValue.TEN))
+        .is_this_hand("Thor", HighCardFigure(CardValue.ACE))
+        .is_this_hand("Bruce", PairFigure(CardValue.TEN, CardValue.QUEEN))
+        .is_this_hand("Clint", PairFigure(CardValue.QUEEN, CardValue.TEN))
+        .is_this_hand("Carol", HighCardFigure(CardValue.QUEEN))
+        .is_this_hand("T'Challa", PairFigure(CardValue.TEN, CardValue.QUEEN))
+        .is_this_hand("Steven", PairFigure(CardValue.SIX, CardValue.QUEEN))
+        .is_this_hand("Wanda", HighCardFigure(CardValue.QUEEN)))
 
 class TurnPhaseDriver():
     def __init__(self, multi_draw_cards):
@@ -239,4 +267,10 @@ class TurnPhaseDriver():
     def is_this_best_figure(self, figure): 
         is_equal =  is_this_two_figure_are_equal(figure, self.result.best_figure)
         assert(is_equal == True)
+        return self
+
+    def is_this_hand(self, player_name, figure_expected): 
+        figure_calculated = self.result.hands_by_player[player_name]
+        is_right = is_this_two_figure_are_equal(figure_expected, figure_calculated) 
+        assert(is_right == True)
         return self

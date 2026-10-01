@@ -8,16 +8,14 @@ from PokerHands.player.comparaison_result import ComparaisonResult
 from PokerHands.winner import Winner
 
 class CompareHand: 
-    def __init__(self, players, hand):
+    def __init__(self, players, hands_by_player):
         self.players = players
-        self.hand = hand
-        self.hands_by_player = {}     
+        self.hands_by_player = hands_by_player   
 
     def get_players_with_best_hands(self):
         self.__check_all_players_have_all_their_cards()
         self.__check_not_too_many_players()
         best_players = [] 
-        self.__determinate_hand_for_each_player()      
         best_hand = self.__determinate_best_hand_from_all_players()
         best_players = self.__get_all_players_with_best_hand(best_hand)
         result = ComparaisonResult.Create(best_players, best_hand)
@@ -31,12 +29,6 @@ class CompareHand:
     def __check_not_too_many_players(self): 
         if len(self.players) > 10 : 
             raise TooManyPlayerException("You cannot have more than ten players for a game.")
-        
-    def __determinate_hand_for_each_player(self):
-        for player_name in self.players : 
-            player = self.players[player_name]
-            hand = self.hand.determinate_high_figure(player) 
-            self.hands_by_player[player_name] = hand
 
     def __determinate_best_hand_from_all_players(self):
         best_hand = None

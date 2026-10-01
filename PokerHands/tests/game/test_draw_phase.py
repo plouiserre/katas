@@ -33,7 +33,9 @@ def test_launch_draw_phase_with_two_players_and_steve_wins():
         .add_players(["Steve","Natacha"])    
         .launch_draw_phase_and_compare_players_hand()
         .is_this_players_can_be_a_winner(["Steve"])
-        .is_this_best_figure(HighCardFigure(CardValue.KING)))
+        .is_this_best_figure(HighCardFigure(CardValue.KING))
+        .is_this_hand("Steve", HighCardFigure(CardValue.KING))
+        .is_this_hand("Natacha", HighCardFigure(CardValue.QUEEN)))
 
 def test_launch_draw_phase_with_two_players_and_natacha_wins(): 
     fake_cards = ["10♣","Q♥","J♦","7♠"]
@@ -41,7 +43,9 @@ def test_launch_draw_phase_with_two_players_and_natacha_wins():
             .add_players(["Steve","Natacha"])                                 
             .launch_draw_phase_and_compare_players_hand()
             .is_this_players_can_be_a_winner(["Natacha"])
-            .is_this_best_figure(HighCardFigure(CardValue.QUEEN)))
+            .is_this_best_figure(HighCardFigure(CardValue.QUEEN))
+            .is_this_hand("Steve", HighCardFigure(CardValue.JACK))
+            .is_this_hand("Natacha", HighCardFigure(CardValue.QUEEN)))
     
 def test_launch_draw_phase_with_two_players_and_steve_and_natacha_win(): 
     fake_cards = ["Q♣","Q♥","Q♦","Q♠"]
@@ -49,7 +53,9 @@ def test_launch_draw_phase_with_two_players_and_steve_and_natacha_win():
         .add_players(["Steve","Natacha"])    
         .launch_draw_phase_and_compare_players_hand()
         .is_this_players_can_be_a_winner(["Steve_Natacha"])
-        .is_this_best_figure(PairFigure(CardValue.QUEEN, CardValue.UNDEFINED)))
+        .is_this_best_figure(PairFigure(CardValue.QUEEN, CardValue.UNDEFINED))
+        .is_this_hand("Steve", PairFigure(CardValue.QUEEN, CardValue.UNDEFINED))
+        .is_this_hand("Natacha", PairFigure(CardValue.QUEEN, CardValue.UNDEFINED)))
 
 def test_launch_draw_phase_with_six_players_randomly(): 
     (DrawAndComparePlayersHandDriver(MultiDrawCards())
@@ -63,7 +69,13 @@ def test_launch_draw_phase_with_six_players_and_steve_wins():
             .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])                                                                                                                        
             .launch_draw_phase_and_compare_players_hand()
             .is_this_players_can_be_a_winner(["Steve"])
-            .is_this_best_figure(HighCardFigure(CardValue.KING)))
+            .is_this_best_figure(HighCardFigure(CardValue.KING))
+            .is_this_hand("Steve", HighCardFigure(CardValue.KING))
+            .is_this_hand("Natacha", HighCardFigure(CardValue.QUEEN))
+            .is_this_hand("Tony", HighCardFigure(CardValue.JACK))
+            .is_this_hand("Thor", HighCardFigure(CardValue.TEN))
+            .is_this_hand("Bruce", HighCardFigure(CardValue.NINE))
+            .is_this_hand("Clint", HighCardFigure(CardValue.EIGHT)))
 
 def test_launch_draw_phase_with_six_players_and_tony_wins():
     fake_cards = ["7♣", "J♣", "Q♥", "10♥", "9♣", "8♥", "6♦", "10♦", "J♠", "9♠", "8♦", "7♠"]
@@ -71,7 +83,13 @@ def test_launch_draw_phase_with_six_players_and_tony_wins():
             .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])                                                                                                                      
             .launch_draw_phase_and_compare_players_hand()
             .is_this_players_can_be_a_winner(["Tony"])
-            .is_this_best_figure(HighCardFigure(CardValue.QUEEN)))
+            .is_this_best_figure(HighCardFigure(CardValue.QUEEN))
+            .is_this_hand("Steve", HighCardFigure(CardValue.SEVEN))
+            .is_this_hand("Natacha", HighCardFigure(CardValue.JACK))
+            .is_this_hand("Tony", HighCardFigure(CardValue.QUEEN))
+            .is_this_hand("Thor", HighCardFigure(CardValue.TEN))
+            .is_this_hand("Bruce", HighCardFigure(CardValue.NINE))
+            .is_this_hand("Clint", HighCardFigure(CardValue.EIGHT)))
 
 def test_launch_draw_phase_with_six_players_and_clint_wins():
     fake_cards = ["7♣", "6♥", "J♣", "10♥", "9♣", "A♥", "6♦", "5♠", "10♦", "9♠", "8♦", "A♠"]
@@ -79,7 +97,13 @@ def test_launch_draw_phase_with_six_players_and_clint_wins():
             .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])
             .launch_draw_phase_and_compare_players_hand()
             .is_this_players_can_be_a_winner(["Clint"])
-        .is_this_best_figure(PairFigure(CardValue.ACE, CardValue.UNDEFINED)))
+            .is_this_best_figure(PairFigure(CardValue.ACE, CardValue.UNDEFINED))
+            .is_this_hand("Steve", HighCardFigure(CardValue.SEVEN))
+            .is_this_hand("Natacha", HighCardFigure(CardValue.SIX))
+            .is_this_hand("Tony", HighCardFigure(CardValue.JACK))
+            .is_this_hand("Thor", HighCardFigure(CardValue.TEN))
+            .is_this_hand("Bruce", HighCardFigure(CardValue.NINE))
+            .is_this_hand("Clint", PairFigure(CardValue.ACE, CardValue.UNDEFINED)))
 
 def test_launch_draw_phase_with_six_players_and_natacha_and_bruce_win(): 
     fake_cards = ["7♣", "K♥", "J♣", "10♥", "K♣", "2♥", "6♦", "Q♠", "10♦", "9♠", "Q♦", "4♠"]
@@ -87,7 +111,13 @@ def test_launch_draw_phase_with_six_players_and_natacha_and_bruce_win():
             .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])
             .launch_draw_phase_and_compare_players_hand()
             .is_this_players_can_be_a_winner(["Natacha_Bruce"])
-            .is_this_best_figure(HighCardFigure(CardValue.KING)))
+            .is_this_best_figure(HighCardFigure(CardValue.KING))
+            .is_this_hand("Steve", HighCardFigure(CardValue.SEVEN))
+            .is_this_hand("Natacha", HighCardFigure(CardValue.KING))
+            .is_this_hand("Tony", HighCardFigure(CardValue.JACK))
+            .is_this_hand("Thor", HighCardFigure(CardValue.TEN))
+            .is_this_hand("Bruce", HighCardFigure(CardValue.KING))
+            .is_this_hand("Clint", HighCardFigure(CardValue.FOUR)))
 
 def test_launch_draw_phase_with_ten_players_randomly(): 
     (DrawAndComparePlayersHandDriver(MultiDrawCards())
@@ -101,7 +131,17 @@ def test_launch_draw_phase_with_ten_players_and_carol_wins():
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
         .launch_draw_phase_and_compare_players_hand()
         .is_this_players_can_be_a_winner(["Carol"])
-        .is_this_best_figure(PairFigure(CardValue.ACE, CardValue.UNDEFINED)))
+        .is_this_best_figure(PairFigure(CardValue.ACE, CardValue.UNDEFINED))
+        .is_this_hand("Steve", HighCardFigure(CardValue.SEVEN))
+        .is_this_hand("Natacha", HighCardFigure(CardValue.KING))
+        .is_this_hand("Tony", HighCardFigure(CardValue.JACK))
+        .is_this_hand("Thor", HighCardFigure(CardValue.TEN))
+        .is_this_hand("Bruce", HighCardFigure(CardValue.KING))
+        .is_this_hand("Clint", HighCardFigure(CardValue.FOUR))
+        .is_this_hand("Carol",PairFigure(CardValue.ACE, CardValue.UNDEFINED ))
+        .is_this_hand("T'Challa", HighCardFigure(CardValue.ACE))
+        .is_this_hand("Steven", HighCardFigure(CardValue.FOUR))
+        .is_this_hand("Wanda", PairFigure(CardValue.KING, CardValue.UNDEFINED)))
 
 def test_launch_draw_phase_with_eleven_players_and_the_game_fails(): 
     with pytest.raises(TooManyPlayerException) :
@@ -154,3 +194,9 @@ class DrawAndComparePlayersHandDriver():
         is_equal =  is_this_two_figure_are_equal(figure, self.result.best_figure)
         assert(is_equal == True)
         return self
+
+    def is_this_hand(self, player_name, figure_expected): 
+            figure_calculated = self.result.hands_by_player[player_name]
+            is_right = is_this_two_figure_are_equal(figure_expected, figure_calculated) 
+            assert(is_right == True)
+            return self
