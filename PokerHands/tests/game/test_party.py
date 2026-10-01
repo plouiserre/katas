@@ -2,7 +2,6 @@ from PokerHands.AllFigures.FullFigure import FullFigure
 from PokerHands.AllFigures.HighCardFigure import HighCardFigure
 from PokerHands.AllFigures.QuinteFigure import QuinteFigure
 from PokerHands.AllFigures.QuinteFlushFigure import QuinteFlushFigure
-from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from PokerHands.card import CardValue, CardColor
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
 from PokerHands.game.party import Party, PhasePoker
