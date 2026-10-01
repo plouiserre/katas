@@ -54,7 +54,7 @@ def test_launch_river_phase_with_two_players_and_steve_wins():
         .is_this_players_can_be_a_winner(["Steve"])
         .is_this_best_figure(FourOfKindFigure(CardValue.TWO, CardValue.ACE))
         .is_this_hand("Steve", FourOfKindFigure(CardValue.TWO, CardValue.ACE))
-        .is_this_hand("Natacha", ThreeOfKindFigure(CardValue.TWO, CardValue.KING)))
+        .is_this_hand("Natacha", FullFigure(CardValue.TWO, CardValue.ACE)))
 
 def test_launch_river_phase_with_two_players_and_natacha_wins():
   false_cards = ["5♥"]
@@ -156,7 +156,7 @@ def test_launch_river_phase_with_ten_players_and_wanda_win():
         .launch_river_phase_and_gest_best_players()
         .is_this_players_can_be_a_winner(["Wanda"])
         .is_this_best_figure(FourOfKindFigure(CardValue.EIGHT, CardValue.FIVE))        
-        .is_this_hand("Steve", ThreeOfKindFigure(CardValue.EIGHT, CardValue.ACE))
+        .is_this_hand("Steve", FullFigure(CardValue.FOUR, CardValue.EIGHT))
         .is_this_hand("Natacha", ThreeOfKindFigure(CardValue.EIGHT, CardValue.KING))
         .is_this_hand("Tony", ThreeOfKindFigure(CardValue.EIGHT, CardValue.QUEEN))
         .is_this_hand("Thor", ThreeOfKindFigure(CardValue.EIGHT, CardValue.ACE))

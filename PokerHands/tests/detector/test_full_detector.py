@@ -12,6 +12,10 @@ def test_find_full_ten_two_times_nine_three_times():
     hand = [Card(CardValue.TEN, CardColor.DIAMONDS), Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.DIAMONDS), Card(CardValue.NINE, CardColor.DIAMONDS)]
     assert(find_full(hand) == FullFigure(CardValue.TEN, CardValue.NINE))
 
+def test_find_full_with_seven_cards_with_queen_two_times_ace_three_times_and_six():
+    hand = [Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.SPADES), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.ACE, CardColor.SPADES), Card(CardValue.ACE, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.HEARTS)]
+    assert(find_full(hand) == FullFigure(CardValue.QUEEN, CardValue.ACE))
+
 def test_find_full_randomize():
     all_cards_values = get_all_values()
     two_times_cards = get_random_card(all_cards_values)
