@@ -235,7 +235,7 @@ class CompareHandsAfterFlopDriver():
         return self
 
     def is_this_hand(self, player_name, figure_expected): 
-                figure_calculated = self.result.hands_by_player[player_name]
-                is_right = is_this_two_figure_are_equal(figure_expected, figure_calculated) 
-                assert(is_right == True)
-                return self
+        figure_calculated = self.result.hands_by_player[player_name]
+        is_right = is_this_two_figure_are_equal(figure_expected, figure_calculated) 
+        assert(is_right == True)
+        return self
