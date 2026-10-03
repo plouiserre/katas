@@ -2,68 +2,67 @@ from PokerHands.AllFigures.FullFigure import FullFigure
 from PokerHands.AllFigures.HighCardFigure import HighCardFigure
 from PokerHands.AllFigures.QuinteFigure import QuinteFigure
 from PokerHands.AllFigures.QuinteFlushFigure import QuinteFlushFigure
-from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from PokerHands.card import CardValue, CardColor
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
-from PokerHands.game.party import Party, PhasePoker
+from PokerHands.game.game import Game, PhasePoker
 from PokerHands.tests.assert_helper import is_this_two_figure_are_equal
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
-def test_launch_random_party_with_two_players():
-    (PartyDriver(MultiDrawCards())
+def test_launch_random_game_with_two_players():
+    (GameDriver(MultiDrawCards())
             .add_players(["Steve", "Natacha"])
-            .launch_party()
+            .launch_game()
             .is_this_players_can_be_a_winner(["Steve", "Natacha"], PhasePoker.DRAW)
             .is_this_players_can_be_a_winner(["Steve", "Natacha"], PhasePoker.FLOP)
             .is_this_players_can_be_a_winner(["Steve", "Natacha"], PhasePoker.TURN)
             .is_this_players_can_be_a_winner(["Steve", "Natacha"], PhasePoker.RIVER)
     )
 
-def test_launch_determine_party_with_two_players(): 
+def test_launch_determine_game_with_two_players(): 
     fake_cards = ["K♣", "Q♠", "Q♥", "J♦", "A♣", "10♠", "9♥", "8♦", "J♣"]
-    (PartyDriver(FakeMultiDrawCards(fake_cards))
+    (GameDriver(FakeMultiDrawCards(fake_cards))
                 .add_players(["Steve", "Natacha"])
-                .launch_party()
+                .launch_game()
                 .is_this_players_can_be_a_winner_with_best_figure(["Steve"], PhasePoker.DRAW, HighCardFigure(CardValue.KING))
                 .is_this_players_can_be_a_winner_with_best_figure(["Steve_Natacha"], PhasePoker.FLOP, HighCardFigure(CardValue.ACE))
                 .is_this_players_can_be_a_winner_with_best_figure(["Natacha"], PhasePoker.TURN, QuinteFigure(CardValue.QUEEN))
                 .is_this_players_can_be_a_winner_with_best_figure(["Steve"], PhasePoker.RIVER, QuinteFigure(CardValue.ACE))
         )
 
-def test_launch_random_party_with_ten_players(): 
-    (PartyDriver(MultiDrawCards())
+def test_launch_random_game_with_ten_players(): 
+    (GameDriver(MultiDrawCards())
                 .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
-                .launch_party()
+                .launch_game()
                 .is_this_players_can_be_a_winner(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"], PhasePoker.DRAW)
                 .is_this_players_can_be_a_winner(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"], PhasePoker.FLOP)
                 .is_this_players_can_be_a_winner(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"], PhasePoker.TURN)
                 .is_this_players_can_be_a_winner(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"], PhasePoker.RIVER)
         )
 
-def test_launch_determine_party_with_ten_players(): 
+def test_launch_determine_game_with_ten_players(): 
     fake_cards = ["A♣", "K♠", "Q♥", "J♦", "10♣", "9♦", "8♥", "7♦", "6♣", "5♠", "4♥", "3♦", "2♣", "A♠", "K♥", "Q♦", "J♣", "10♠", "9♥", "8♥", "10♦", "10♥", "7♠", "J♦", "8♦"]
-    (PartyDriver(FakeMultiDrawCards(fake_cards))
+    (GameDriver(FakeMultiDrawCards(fake_cards))
                 .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
-                .launch_party()
+                .launch_game()
                 .is_this_players_can_be_a_winner_with_best_figure(["Thor"], PhasePoker.DRAW, HighCardFigure(CardValue.ACE))
                 .is_this_players_can_be_a_winner_with_best_figure(["T'Challa"], PhasePoker.FLOP, FullFigure(CardValue.SEVEN, CardValue.TEN))
                 .is_this_players_can_be_a_winner_with_best_figure(["T'Challa"], PhasePoker.TURN, FullFigure(CardValue.SEVEN, CardValue.TEN))
                 .is_this_players_can_be_a_winner_with_best_figure(["Clint"], PhasePoker.RIVER, QuinteFlushFigure(CardValue.QUEEN, CardColor.DIAMONDS))
         )
 
-class PartyDriver: 
+class GameDriver: 
     def __init__(self, multi_draw_cards):
-        self.party = Party(multi_draw_cards)
+        self.game = Game(multi_draw_cards)
                 
         self.players = []
         self.winners = {}
 
     def add_players(self, players_name):
-        self.party.add_players(players_name)
+        self.game.add_players(players_name)
         return self
 
-    def launch_party(self):
-        self.result = self.party.launch_party()
+    def launch_game(self):
+        self.result = self.game.launch_game()
         return self
 
     def is_this_players_can_be_a_winner_with_best_figure(self, players_name, phase, figure):

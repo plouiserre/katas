@@ -1,25 +1,34 @@
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
-from PokerHands.game.party import Party
+from PokerHands.multiple_game import MultipleGame
 
 multi_draw_cards = MultiDrawCards()
-party = Party(multi_draw_cards)
+multiple_game = MultipleGame()
 
 
 players = []
+number = 0
 
 print("Who are the players?")
 while True : 
     raw = input("> ")
     if raw == "stop" :
         break
-    else : 
-        players.append(raw)
+    else :         
+        multiple_game.add_player(raw)
 
-party.add_players(players)
+print("How many games will be launch?")
+raw = input("> ")
+number = int(raw)
 
-results = party.launch_party()
+multiple_game.define_how_many_game_will_be_launching(number)
 
-for phase in results : 
-    delimeter = " " 
-    winner_str = delimeter.join(results[phase].winners)
-    print("the winner for this phase "+phase.name+" is "+winner_str)
+results_multiple_game = multiple_game.launch_multiple_game()
+
+number = 1
+for result_game in results_multiple_game : 
+    print("Game "+str(number))
+    for phase in result_game : 
+        delimeter = " " 
+        winner_str = delimeter.join(result_game[phase].winners)
+        print("the winner for this phase "+phase.name+" is "+winner_str)
+    number += 1
