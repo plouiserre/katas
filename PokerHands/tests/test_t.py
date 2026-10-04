@@ -33,7 +33,8 @@ class Driver :
         self.percentage_presence_figure_everywhere = {}
         self.percentage_winner_players_river = {}
         self.percentage_winner_players_everywhere = {}
-        self.percentage_winning_figure_river = {}                          
+        self.percentage_winning_figure_river = {}    
+        self.percentage_winning_figure_everywhere = {}
 
     def add_players(self, players_name): 
         for player_name in players_name : 
@@ -45,13 +46,13 @@ class Driver :
         self.games_results.append(game_result)
         return self
 
-    #6 - calculer le % de win de chaque figure dans chaque phase
     def calculate_percentages(self):
         self.__calculate_percentage_presence_all_figures_in_river()
         self.__calculate_percenge_presence_all_figures_everywhere()
         self.__calculate_percentage_players_win_in_river()
         self.__calculate_percentage_players_win_everywhere()
         self.__calculate_percentage_win_all_figure_in_river()
+        self.__calculate_percentage_win_all_figure_everywhere()
         return self
 
     #1 - calculer le % de chaque figure dans la river 
@@ -133,6 +134,21 @@ class Driver :
                     figure_winning_river[type_figure] += 1
         for type_figure in figure_winning_river : 
             self.percentage_winning_figure_river[type_figure] = figure_winning_river[type_figure]/total_game
+
+    #6 - calculer le % de win de chaque figure dans chaque phase
+    def __calculate_percentage_win_all_figure_everywhere(self):
+            figure_winning_everywhere = {}
+            total_game = 0
+            for game_result in self.games_results : 
+                for phase in game_result : 
+                    total_game += 1
+                    figure_winner = game_result[phase].best_figure
+                    type_figure = type(figure_winner).__name__
+                    if (type_figure in figure_winning_everywhere) == False : 
+                        figure_winning_everywhere[type_figure] = 0
+                    figure_winning_everywhere[type_figure] += 1
+            for type_figure in figure_winning_everywhere : 
+                self.percentage_winning_figure_everywhere[type_figure] = figure_winning_everywhere[type_figure]/total_game            
 
     def __convert_game_result_crypted(self, game_result_crypted): 
         phases_crypted = game_result_crypted.split("|")
@@ -278,39 +294,16 @@ class Driver :
         all_percentages_crypted = percentages_to_validate_crypted.split("_")
         for percentage_crypted in all_percentages_crypted : 
             data_percentage_crypted = percentage_crypted.split(":")
-            name_figure = ""
-            if data_percentage_crypted[0] == "PA": 
-                name_figure = PairFigure.__name__
-            elif data_percentage_crypted[0] == "HI":
-                name_figure = HighCardFigure.__name__
-            elif data_percentage_crypted[0] == "TK":
-                name_figure = ThreeOfKindFigure.__name__
-            elif data_percentage_crypted[0] == "QF":
-                name_figure = QuinteFlushFigure.__name__
-            elif data_percentage_crypted[0] == "FU":
-                name_figure = FullFigure.__name__
+            name_figure = self.__get_name_figure(data_percentage_crypted[0])
             data_percentage_calculated = str(self.percentage_presence_figure_river[name_figure])
             data_percentage_expected = data_percentage_crypted[1]
             assert(data_percentage_calculated == data_percentage_expected)
-
            
     def __validate_percentage_figure_present_everywhere(self, percentages_to_validate_crypted):
         all_percentages_crypted = percentages_to_validate_crypted.split("_")
         for percentage_crypted in all_percentages_crypted : 
             data_percentage_crypted = percentage_crypted.split(":")
-            name_figure = ""
-            if data_percentage_crypted[0] == "PA": 
-                name_figure = PairFigure.__name__
-            elif data_percentage_crypted[0] == "HI":
-                name_figure = HighCardFigure.__name__
-            elif data_percentage_crypted[0] == "TK":
-                name_figure = ThreeOfKindFigure.__name__
-            elif data_percentage_crypted[0] == "QF":
-                name_figure = QuinteFlushFigure.__name__
-            elif data_percentage_crypted[0] == "FU":
-                name_figure = FullFigure.__name__
-            elif data_percentage_crypted[0] == "2P":
-                name_figure = TwoPairFigure.__name__
+            name_figure = self.__get_name_figure(data_percentage_crypted[0])
             data_percentage_calculated = str(self.percentage_presence_figure_everywhere[name_figure])
             data_percentage_expected = data_percentage_crypted[1]
             assert(data_percentage_calculated == data_percentage_expected)
@@ -333,8 +326,37 @@ class Driver :
             percentage_expected = data_percentage_crypted[1]
             assert(percentage_expected == percentage_calculated)
 
-    def __validate_percentage_figure_winner_river(self, percentage_to_validate_crypted):
-        assert(1 == 2)
+    def __validate_percentage_figure_winner_river(self, percentages_to_validate_crypted):
+        all_percentages_crypted = percentages_to_validate_crypted.split("_")
+        for percentage_crypted in all_percentages_crypted : 
+            data_percentage_crypted = percentage_crypted.split(":")
+            name_figure = self.__get_name_figure(data_percentage_crypted[0])
+            percentage_expected = data_percentage_crypted[1]
+            percentage_calculated = str(self.percentage_winning_figure_river[name_figure])
+            assert(percentage_expected == percentage_calculated)
+        
 
-    def __validate_percentage_figure_winner_everywhere(self, percentage_to_validate_crypted):
-        assert(1 == 2)
+    def __validate_percentage_figure_winner_everywhere(self, percentages_to_validate_crypted):
+        all_percentages_crypted = percentages_to_validate_crypted.split("_")
+        for percentage_crypted in all_percentages_crypted : 
+            data_percentage_crypted = percentage_crypted.split(":")
+            name_figure = self.__get_name_figure(data_percentage_crypted[0])
+            percentage_expected = data_percentage_crypted[1]
+            percentage_calculated = str(self.percentage_winning_figure_everywhere[name_figure])
+            assert(percentage_expected == percentage_calculated)
+
+    def __get_name_figure(self, percentage_crypted_name): 
+        name_figure = ""
+        if percentage_crypted_name == "PA": 
+            name_figure = PairFigure.__name__
+        elif percentage_crypted_name == "HI":
+            name_figure = HighCardFigure.__name__
+        elif percentage_crypted_name == "TK":
+            name_figure = ThreeOfKindFigure.__name__
+        elif percentage_crypted_name == "QF":
+            name_figure = QuinteFlushFigure.__name__
+        elif percentage_crypted_name == "FU":
+            name_figure = FullFigure.__name__
+        elif percentage_crypted_name == "2P":
+            name_figure = TwoPairFigure.__name__
+        return name_figure
