@@ -1,7 +1,8 @@
 from PokerHands.game.game import PhasePoker
 from PokerHands.player.comparaison_result import ComparaisonResult
 from PokerHands.player.player_result import PlayerResult
-from PokerHands.tests.dsl.dsl_common import get_figure, get_player
+from PokerHands.tests.dsl.dsl_figure import get_figure
+from PokerHands.tests.dsl.dsl_player import get_player
 
 def convert_game_result_crypted(game_result_crypted, players): 
         phases_crypted = game_result_crypted.split("|")

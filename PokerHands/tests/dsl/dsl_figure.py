@@ -6,16 +6,6 @@ from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 from PokerHands.card import CardColor, CardValue
 
-#TODO separate all code in differents files
-def get_player(players, first_letter): 
-        player_name = ""
-        for player in players : 
-            first_letter_player = player[0:1]
-            if first_letter == first_letter_player : 
-                player_name = player
-                break
-        return player_name
-
 def get_figure(initial_figure, other_letters): 
     if initial_figure == "PA":
         return __get_pair_figure(other_letters)
@@ -86,3 +76,19 @@ def __get_card(card_letters):
 def __get_color(color_letters): 
     if color_letters == "S":
         return CardColor.SPADES
+
+def get_name_figure_from_initial(initial_figure): 
+        name_figure = ""
+        if initial_figure == "PA": 
+            name_figure = PairFigure.__name__
+        elif initial_figure == "HI":
+            name_figure = HighCardFigure.__name__
+        elif initial_figure == "TK":
+            name_figure = ThreeOfKindFigure.__name__
+        elif initial_figure == "QF":
+            name_figure = QuinteFlushFigure.__name__
+        elif initial_figure == "FU":
+            name_figure = FullFigure.__name__
+        elif initial_figure == "2P":
+            name_figure = TwoPairFigure.__name__
+        return name_figure
