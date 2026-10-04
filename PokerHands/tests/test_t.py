@@ -8,6 +8,7 @@ from PokerHands.card import CardColor, CardValue
 from PokerHands.game.game import PhasePoker
 from PokerHands.player.comparaison_result import ComparaisonResult
 from PokerHands.player.player_result import PlayerResult
+from PokerHands.tests.dsl.dsl_game_result import convert_game_result_crypted
 
 def test_1():
     (Driver()
@@ -42,7 +43,7 @@ class Driver :
         return self 
     
     def add_game_result(self, game_result_crypted):
-        game_result = self.__convert_game_result_crypted(game_result_crypted)
+        game_result = convert_game_result_crypted(game_result_crypted, self.players)
         self.games_results.append(game_result)
         return self
 
