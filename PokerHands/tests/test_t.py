@@ -16,14 +16,21 @@ def test_1():
      .add_game_result("DRAW_PAA_J:HIA-M:HIQ-O:PAA-S:HI7_W:O|FLOP_PAAK_J:PAKA-M:PAQK-O:PAAK-S:HIK_W:O|TURN_TKQK_J:PAKA-M:TKQK-O:PAAK-S:HIK_W:M|RIVER_TKQK_J:PAKA-M:TKQK-O:PAAK-S:HIK_W:M")
      .add_game_result("DRAW_HIA_J:HIA-M:HIQ-O:HIA-S:HI7_W:O|FLOP_PAKA_J:PAKA-M:PAQK-O:HIA-S:HIK_W:J|TURN_PAKA_J:PAKA-M:PAQK-O:HIA-S:HIK_W:J|RIVER_PAKA_J:PAKA-M:PAQK-O:HIA-S:HIK_W:J")     
      .add_game_result("DRAW_PAA_J:HIA-M:HIQ-O:PAA-S:HI7_W:O|FLOP_TKA6_J:PAAK-M:HIA-O:TKA6-S:HIA_W:O|TURN_TKA6_J:PAAK-M:PAQA-O:TKA6-S:HIA_W:O|RIVER_QF7S_J:PAKA-M:TKQK-O:PAAK-S:QF7S_W:S")     
-     .add_game_result("DRAW_PAA_J:HIA-M:HIQ-O:PAA-S:HI7_W:O|FLOP_PAAK_J:PAKA-M:HIA-O:PAAK-S:HIA_W:O|TURN_TKAK_J:2PAK6-M:HIA-O:TKAK-S:HIA_W:O|RIVER_FUKA_J:FUAK-M:PAKA-O:FUKA-S:PAKA_W:O"))
-    assert(1 == 2)
+     .add_game_result("DRAW_PAA_J:HIA-M:HIQ-O:PAA-S:HI7_W:O|FLOP_PAAK_J:PAKA-M:HIA-O:PAAK-S:HIA_W:O|TURN_TKAK_J:2PAK6-M:HIA-O:TKAK-S:HIA_W:O|RIVER_FUKA_J:FUAK-M:PAKA-O:FUKA-S:PAKA_W:O")
+     .calculate_percentages()
+     .validate_percentage("PRR|PA:0.5_HI:0.25_TK:0.1_QF:0.05_FU:0.1")
+     .validate_percentage("PRE|PA:0.39_HI:0.49_TK:0.07_QF:0.01_FU:0.02_2P:0.01")
+     .validate_percentage("WNR|J:0.2_M:0.2_O:0.4_S:0.2")
+     .validate_percentage("WNE|J:0.15_M:0.1_O:0.7_S:0.05")
+     .validate_percentage("WFR|PA:0.4_TK:0.2_QF:0.2_FU:0.2")
+     .validate_percentage("WFE|PA:0.6_TK:0.25_QF:0.05_FU:0.05_HI:0.05"))
 
 
 class Driver : 
     def __init__(self):
         self.players = []
-        self.games_results = []        
+        self.games_results = []
+        self.percentage_winning_figure_river = {}                        
 
     def add_players(self, players_name): 
         for player_name in players_name : 
@@ -35,10 +42,26 @@ class Driver :
         self.games_results.append(game_result)
         return self
 
-    def calculate_percentage(self):
-        return self
-
-    def confirm_percentage(self):
+    #1 - calculer le % de chaque figure dans la river 
+    #2 - calculer le % de chaque figure dans chaque phase
+    #3 - calculer le % de win pour chaque joueur dans la river 
+    #4 - calculer le % de win pour chaque joueur en tout
+    #5 - calculer le % de win de chaque figure dans la river 
+    #6 - calculer le % de win de chaque figure dans chaque phase
+    def calculate_percentages(self):
+        figure_winning_river = {}
+        total_game = 0
+        for game_result in self.games_results : 
+            total_game += 1
+            for phase in game_result : 
+                if phase == PhasePoker.RIVER : 
+                    figure_winner = game_result[phase].best_figure
+                    type_figure = type(figure_winner).__name__
+                    if (type_figure in figure_winning_river) == False : 
+                        figure_winning_river[type_figure] = 0
+                    figure_winning_river[type_figure] += 1
+        for type_figure in figure_winning_river : 
+            self.percentage_winning_figure_river[type_figure] = figure_winning_river[type_figure]/total_game
         return self
 
     def __convert_game_result_crypted(self, game_result_crypted): 
@@ -164,3 +187,39 @@ class Driver :
     def __get_color(self, color_letters): 
         if color_letters == "S":
             return CardColor.SPADES
+
+    def validate_percentage(self, datas_crypted):
+        all_datas = datas_crypted.split("|")
+        if all_datas[0] == "PRR":
+            self.__validate_percentage_figure_present_river(all_datas[1])
+        elif all_datas[0] == "PRE": 
+            self.__validate_percentage_figure_present_everywhere(all_datas[1])
+        elif all_datas[0] == "WNR":
+            self.__validate_percentage_winner_player_river(all_datas[1])
+        elif all_datas[0] == "WNE":
+            self.__validate_percentage_winner_player_everywhere(all_datas[1])
+        elif all_datas[0] == "WFR":
+            self.__validate_percentage_figure_winner_river(all_datas[1])
+        elif all_datas[0] == "WFE":
+            self.__validate_percentage_figure_winner_everywhere(all_datas[1])
+        return self
+
+
+    # PA:0.5_HI:0.25_TK:0.1_QF:0.05_FU:0.1
+    def __validate_percentage_figure_present_river(self, percentages_to_validate_crypted):        
+        assert(1 == 2)
+
+    def __validate_percentage_figure_present_everywhere(self, percentage_to_validate_crypted):
+        assert(1 == 2)
+
+    def __validate_percentage_winner_player_river(self, percentage_to_validate_crypted):
+        assert(1 == 2)
+
+    def __validate_percentage_winner_player_everywhere(self, percentage_to_validate_crypted):
+        assert(1 == 2)
+
+    def __validate_percentage_figure_winner_river(self, percentage_to_validate_crypted):
+        assert(1 == 2)
+
+    def __validate_percentage_figure_winner_everywhere(self, percentage_to_validate_crypted):
+        assert(1 == 2)
