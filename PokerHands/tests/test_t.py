@@ -1,5 +1,7 @@
-from PokerHands.game.game import PhasePoker
 from PokerHands.statistiques.poker_statistiques import PokerStatistiques
+from PokerHands.statistiques.statistiques_presence_figures import StatistiquesPresenceFigures
+from PokerHands.statistiques.statistiques_win_figures import StatistiquesWinFigures
+from PokerHands.statistiques.statistiques_winners_players import StatistiquesWinnerPlayers
 from PokerHands.tests.dsl.dsl_game_result import convert_game_result_crypted
 from PokerHands.tests.dsl.dsl_figure import get_name_figure_from_initial
 from PokerHands.tests.dsl.dsl_player import get_player
@@ -37,7 +39,7 @@ class Driver :
         return self
 
     def calculate_percentages(self):
-        statistiques = PokerStatistiques(self.games_results)
+        statistiques = PokerStatistiques(StatistiquesPresenceFigures(self.games_results), StatistiquesWinnerPlayers(self.games_results), StatistiquesWinFigures(self.games_results))
         self.statistiques_result = statistiques.calculate_all_statistiques()
         return self
 
