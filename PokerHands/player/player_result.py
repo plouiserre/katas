@@ -5,5 +5,5 @@ class PlayerResult :
         self.hands_by_player = hands_by_player
 
     @staticmethod
-    def create_player_result(self, comparaison_result, hands_by_player) :
+    def create_player_result(comparaison_result, hands_by_player) :
         return PlayerResult(comparaison_result.winners, comparaison_result.best_figure, hands_by_player)
