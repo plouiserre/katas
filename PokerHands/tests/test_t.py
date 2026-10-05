@@ -46,70 +46,30 @@ class Driver :
     def validate_percentage(self, datas_crypted):
         all_datas = datas_crypted.split("|")
         if all_datas[0] == "PRR":
-            self.__validate_percentage_figure_present_river(all_datas[1])
+            self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_presence_figure_river, "figure name")
         elif all_datas[0] == "PRE": 
-            self.__validate_percentage_figure_present_everywhere(all_datas[1])
+            self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_presence_figure_everywhere, "figure name")
         elif all_datas[0] == "WNR":
-            self.__validate_percentage_winner_player_river(all_datas[1])
+            self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_winner_players_river, "player")
         elif all_datas[0] == "WNE":
-            self.__validate_percentage_winner_player_everywhere(all_datas[1])
+            self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_winner_players_everywhere, "player")
         elif all_datas[0] == "WFR":
-            self.__validate_percentage_figure_winner_river(all_datas[1])
+            self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_winning_figure_river, "figure name")
         elif all_datas[0] == "WFE":
-            self.__validate_percentage_figure_winner_everywhere(all_datas[1])
+            self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_winning_figure_everywhere, "figure name")
         return self
 
-    def __validate_percentage_figure_present_river(self, percentages_to_validate_crypted):
-        all_percentages_crypted = percentages_to_validate_crypted.split("_")
+    def __validate_all_percentages_calculated(self, percentages_to_validate_crypted, statistiques_calculated, type_key):
+        all_percentages_crypted = percentages_to_validate_crypted.split("_")        
         for percentage_crypted in all_percentages_crypted : 
             data_percentage_crypted = percentage_crypted.split(":")
-            name_figure = get_name_figure_from_initial(data_percentage_crypted[0])
-            data_percentage_calculated = str(self.statistiques_result.percentage_presence_figure_river[name_figure])
-            data_percentage_expected = data_percentage_crypted[1]
-            assert(data_percentage_calculated == data_percentage_expected)
-           
-    def __validate_percentage_figure_present_everywhere(self, percentages_to_validate_crypted):
-        all_percentages_crypted = percentages_to_validate_crypted.split("_")
-        for percentage_crypted in all_percentages_crypted : 
-            data_percentage_crypted = percentage_crypted.split(":")
-            name_figure = get_name_figure_from_initial(data_percentage_crypted[0])
-            data_percentage_calculated = str(self.statistiques_result.percentage_presence_figure_everywhere[name_figure])
+            key_statistics_calculated = self.__get_key_statistics_calculated(type_key, data_percentage_crypted[0])
+            data_percentage_calculated = str(statistiques_calculated[key_statistics_calculated])
             data_percentage_expected = data_percentage_crypted[1]
             assert(data_percentage_calculated == data_percentage_expected)
 
-    def __validate_percentage_winner_player_river(self, percentages_to_validate_crypted):
-        all_percentages_crypted = percentages_to_validate_crypted.split("_")
-        for percentage_crypted in all_percentages_crypted : 
-            data_percentage_crypted = percentage_crypted.split(":")
-            player_name = get_player(self.players, data_percentage_crypted[0])
-            percentage_calculated = str(self.statistiques_result.percentage_winner_players_river[player_name])
-            percentage_expected = data_percentage_crypted[1]
-            assert(percentage_expected == percentage_calculated)
-
-    def __validate_percentage_winner_player_everywhere(self, percentages_to_validate_crypted):        
-        all_percentages_crypted = percentages_to_validate_crypted.split("_")
-        for percentage_crypted in all_percentages_crypted : 
-            data_percentage_crypted = percentage_crypted.split(":")
-            player_name = get_player(self.players, data_percentage_crypted[0])
-            percentage_calculated = str(self.statistiques_result.percentage_winner_players_everywhere[player_name])
-            percentage_expected = data_percentage_crypted[1]
-            assert(percentage_expected == percentage_calculated)
-
-    def __validate_percentage_figure_winner_river(self, percentages_to_validate_crypted):
-        all_percentages_crypted = percentages_to_validate_crypted.split("_")
-        for percentage_crypted in all_percentages_crypted : 
-            data_percentage_crypted = percentage_crypted.split(":")
-            name_figure = get_name_figure_from_initial(data_percentage_crypted[0])
-            percentage_expected = data_percentage_crypted[1]
-            percentage_calculated = str(self.statistiques_result.percentage_winning_figure_river[name_figure])
-            assert(percentage_expected == percentage_calculated)
-        
-
-    def __validate_percentage_figure_winner_everywhere(self, percentages_to_validate_crypted):
-        all_percentages_crypted = percentages_to_validate_crypted.split("_")
-        for percentage_crypted in all_percentages_crypted : 
-            data_percentage_crypted = percentage_crypted.split(":")
-            name_figure = get_name_figure_from_initial(data_percentage_crypted[0])
-            percentage_expected = data_percentage_crypted[1]
-            percentage_calculated = str(self.statistiques_result.percentage_winning_figure_everywhere[name_figure])
-            assert(percentage_expected == percentage_calculated)   
+    def __get_key_statistics_calculated(self, type_key, key_percentage_crypted): 
+        if type_key == "figure name":
+            return get_name_figure_from_initial(key_percentage_crypted)
+        else :
+            return get_player(self.players, key_percentage_crypted)
