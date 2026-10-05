@@ -1,3 +1,4 @@
+from PokerHands.display.display_launch_game import display_winner_each_parties, insert_players, launch_multiple_parties
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
 from PokerHands.multiple_game import MultipleGame
 from PokerHands.statistiques.poker_statistiques import PokerStatistiques
@@ -12,31 +13,11 @@ multiple_game = MultipleGame()
 players = []
 number = 0
 
-print("Who are the players?")
-while True : 
-    raw = input("> ")
-    if raw == "stop" :
-        break
-    else :         
-        multiple_game.add_player(raw)
+insert_players(multiple_game)
 
-print("How many games will be launch?")
-raw = input("> ")
-number = int(raw)
+results_multiple_game = launch_multiple_parties(multiple_game)
 
-multiple_game.define_how_many_game_will_be_launching(number)
-
-results_multiple_game = multiple_game.launch_multiple_game()
-
-number = 1
-for result_game in results_multiple_game : 
-    print("Game "+str(number))
-    for phase in result_game : 
-        delimeter = " " 
-        winner_str = delimeter.join(result_game[phase].winners)
-        print("the winner for this phase "+phase.name+" is "+winner_str)
-    number += 1
-
+display_winner_each_parties(results_multiple_game)
 
 statistiques_presence_figures =  StatistiquesPresenceFigures(results_multiple_game)
 statistiques_winners_players = StatistiquesWinnerPlayers(results_multiple_game)
