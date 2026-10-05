@@ -6,8 +6,8 @@ from PokerHands.tests.dsl.dsl_game_result import convert_game_result_crypted
 from PokerHands.tests.dsl.dsl_figure import get_name_figure_from_initial
 from PokerHands.tests.dsl.dsl_player import get_player
 
-def test_1():
-    (Driver()
+def test_calculate_poker_satistiques():
+    (StatistiquesDriver()
      .add_players(["Jean-Jacques Goldman", "Mylène Farmer", "Omar Sy", "Sophie Marceau"])
      .add_game_result("DRAW_PAA_J:HIK-M:HIQ-O:PAA-S:HI7_W:O|FLOP_PAA5_J:HIK-M:HIQ-O:PAA5-S:HI7_W:O|TURN_PAAK_J:PAKQ-M:HIK-O:PAAK-S:HIK_W:O|RIVER_PAAK_J:PAKQ-M:HIK-O:PAAK-S:HIK_W:O")
      .add_game_result("DRAW_PAA_J:HIA-M:HIQ-O:PAA-S:HI7_W:O|FLOP_PAAK_J:PAKA-M:PAQK-O:PAAK-S:HIK_W:O|TURN_TKQK_J:PAKA-M:TKQK-O:PAAK-S:HIK_W:M|RIVER_TKQK_J:PAKA-M:TKQK-O:PAAK-S:HIK_W:M")
@@ -22,7 +22,7 @@ def test_1():
      .validate_percentage("WFR|PA:0.4_TK:0.2_QF:0.2_FU:0.2")
      .validate_percentage("WFE|PA:0.6_TK:0.25_QF:0.05_FU:0.05_HI:0.05"))
 
-class Driver : 
+class StatistiquesDriver : 
     def __init__(self):
         self.players = []
         self.games_results = []

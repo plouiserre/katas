@@ -10,12 +10,12 @@ class StatistiquesWinFigures:
         percentage_winning_figure_river = {}
         self.total_game = 0
         for game_result in self.games_results : 
-            self.__count_winner_during_game_river_phase(game_result)
+            self.__count_figure_winner_during_river_phase(game_result)
         for type_figure in self.figure_winning_river_phase : 
             percentage_winning_figure_river[type_figure] = self.figure_winning_river_phase[type_figure]/self.total_game
         return percentage_winning_figure_river
 
-    def __count_winner_during_game_river_phase(self, game):
+    def __count_figure_winner_during_river_phase(self, game):
         for phase in game : 
             if phase == PhasePoker.RIVER : 
                 self.__count_this_players_figure(game[phase], self.figure_winning_river_phase)
@@ -24,12 +24,12 @@ class StatistiquesWinFigures:
         self.total_game = 0
         percentage_winning_figure_everywhere = {}
         for game_result in self.games_results :             
-            self.__count_winner_during_game_every_phase(game_result)
+            self.__count_figure_winner_during_this_phase(game_result)
         for type_figure in self.figure_winning_every_where : 
             percentage_winning_figure_everywhere[type_figure] = self.figure_winning_every_where[type_figure]/self.total_game
         return percentage_winning_figure_everywhere
 
-    def __count_winner_during_game_every_phase(self, game):
+    def __count_figure_winner_during_this_phase(self, game):
         for phase in game : 
             self.__count_this_players_figure(game[phase], self.figure_winning_every_where)
 
