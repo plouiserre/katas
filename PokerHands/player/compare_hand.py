@@ -1,7 +1,6 @@
 from PokerHands.AllFigures.Figure import Figure
 from PokerHands.AllFigures.HighCardFigure import HighCardFigure
 from PokerHands.AllFigures.PairFigure import PairFigure
-from PokerHands.exception.PlayerDoNotHaveCompleteHandException import PlayerDoNotHaveCompleteHandException
 from PokerHands.exception.TooManyPlayerException import TooManyPlayerException
 from PokerHands.hand import Hand
 from PokerHands.player.comparaison_result import ComparaisonResult
@@ -13,18 +12,12 @@ class CompareHand:
         self.hands_by_player = hands_by_player   
 
     def get_players_with_best_hands(self):
-        self.__check_all_players_have_all_their_cards()
         self.__check_not_too_many_players()
         best_players = [] 
         best_hand = self.__determinate_best_hand_from_all_players()
         best_players = self.__get_all_players_with_best_hand(best_hand)
         result = ComparaisonResult.Create(best_players, best_hand)
         return result 
-
-    def __check_all_players_have_all_their_cards(self): 
-        for player_name in self.players : 
-            if len(self.players[player_name]) < 2: 
-                raise PlayerDoNotHaveCompleteHandException(player_name+" do not have his/hers 2 cards ")
                 
     def __check_not_too_many_players(self): 
         if len(self.players) > 10 : 
