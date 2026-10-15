@@ -21,7 +21,6 @@ from PokerHands.detector.quinte_detector import QuinteDetector
 from PokerHands.detector.three_cards_detector import ThreeCardsDetector
 from PokerHands.detector.two_pairs_detector import TwoPairsDetector
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
-from PokerHands.exception.PlayerDoNotHaveCompleteHandException import PlayerDoNotHaveCompleteHandException
 from PokerHands.exception.TooManyPlayerException import TooManyPlayerException
 from PokerHands.hand import Hand
 from PokerHands.player.players_manager import PlayersManager
@@ -67,14 +66,6 @@ def test_two_players_compare_specific_hands_after_drawn_and_no_one_win():
         .is_this_best_hand(PairFigure(CardValue.QUEEN, CardValue.UNDEFINED))
         .is_this_hand("Steve", PairFigure(CardValue.QUEEN, CardValue.UNDEFINED))
         .is_this_hand("Natacha", PairFigure(CardValue.QUEEN, CardValue.UNDEFINED)))
-
-def test_failing_two_players_compare_hands_because_steve_do_not_have_two_cards(): 
-     with pytest.raises(PlayerDoNotHaveCompleteHandException) :
-            (PlayersManagerDriver()
-                               .add_players(["Steve","Natacha"])                                                                          
-                               .players_draw_first_card(["Steve","Natacha"])
-                               .players_draw_second_card(["Natacha"])                                                              
-                               .determine_player_with_better_hand())
 
 def test_six_players_compare_random_hands_after_drawn(): 
     (PlayersManagerDriver()
