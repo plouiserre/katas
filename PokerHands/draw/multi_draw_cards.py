@@ -14,6 +14,10 @@ class MultiDrawCards:
         self.all_cards_picks.append(card_pick)
         return card_pick
 
+    def remove_one_card(self, card_to_remove):
+        if card_to_remove in self.deck_cards : 
+             self.deck_cards.remove(card_to_remove)
+
     def get_all_cards_draw(self):
          return self.all_cards_picks
 

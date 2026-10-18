@@ -30,6 +30,7 @@ class PlayersManager :
 
     def add_cards_to_players(self, player_name, card):
         self.players[player_name].append(card)
+        self.multi_draw_cards.remove_one_card(card)
 
     def get_all_players(self): 
         return self.players
