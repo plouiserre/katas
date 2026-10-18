@@ -9,7 +9,7 @@ class MultiDrawCards:
         self.all_cards_picks = []
 
     def draw_one_card(self):
-        card_pick =  self.draw_card.pick_one(self.deck_cards)
+        card_pick = self.draw_card.pick_one(self.deck_cards)
         self.deck_cards.remove(card_pick)
         self.all_cards_picks.append(card_pick)
         return card_pick

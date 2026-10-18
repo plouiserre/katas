@@ -33,3 +33,7 @@ class PlayersManager :
 
     def get_all_players(self): 
         return self.players
+
+    def burn_one_card(self): 
+        card_burn = self.multi_draw_cards.draw_one_card()
+        return card_burn

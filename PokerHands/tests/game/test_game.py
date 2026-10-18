@@ -19,7 +19,7 @@ def test_launch_random_game_with_two_players():
     )
 
 def test_launch_determine_game_with_two_players(): 
-    fake_cards = ["K♣", "Q♠", "Q♥", "J♦", "A♣", "10♠", "9♥", "8♦", "J♣"]
+    fake_cards = ["K♣", "Q♠", "Q♥", "J♦", "3♠","A♣", "10♠", "9♥", "3♥","8♦","K♥", "J♣"]
     (GameDriver(FakeMultiDrawCards(fake_cards))
                 .add_players(["Steve", "Natacha"])
                 .launch_game()
@@ -40,7 +40,7 @@ def test_launch_random_game_with_ten_players():
         )
 
 def test_launch_determine_game_with_ten_players(): 
-    fake_cards = ["A♣", "K♠", "Q♥", "J♦", "10♣", "9♦", "8♥", "7♦", "6♣", "5♠", "4♥", "3♦", "2♣", "A♠", "K♥", "Q♦", "J♣", "10♠", "9♥", "8♥", "10♦", "10♥", "7♠", "J♦", "8♦"]
+    fake_cards = ["A♣", "K♠", "Q♥", "J♦", "10♣", "9♦", "8♥", "7♦", "6♣", "5♠", "4♥", "3♦", "2♣", "A♠", "K♥", "Q♦", "J♣", "10♠", "9♥", "8♥", "9♠","10♦", "10♥", "7♠", "8♠","J♦", "3♠","8♦"]
     (GameDriver(FakeMultiDrawCards(fake_cards))
                 .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
                 .launch_game()

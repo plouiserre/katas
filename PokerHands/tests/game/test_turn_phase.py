@@ -4,7 +4,7 @@ from PokerHands.AllFigures.HighCardFigure import HighCardFigure
 from PokerHands.AllFigures.PairFigure import PairFigure
 from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
-from PokerHands.card import Card, CardValue
+from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.detector.four_cards_detector import FourCardsDetector
 from PokerHands.detector.flush_detector import FlushDetector
 from PokerHands.detector.full_detector import FullDetector
@@ -34,10 +34,12 @@ def test_launch_turn_phase_with_two_players_randomly():
                     .add_card_flop_phase("2♦")
                     .add_card_flop_phase("A♠")
                     .launch_phase_and_get_best_players()
-                    .is_this_players_can_be_a_winner(["Steve", "Natacha"]))
+                    .is_this_players_can_be_a_winner(["Steve", "Natacha"])
+                    .is_one_card_burned()
+                    .all_cards_are_differents())
 
 def test_launch_turn_phase_with_two_players_and_steve_wins():
-    false_cards = ["2♣"]
+    false_cards = ["3♠","2♣"]
     (TurnPhaseDriver(FakeMultiDrawCards(false_cards))
         .add_player("Steve")
         .add_player("Natacha")
@@ -52,11 +54,13 @@ def test_launch_turn_phase_with_two_players_and_steve_wins():
         .is_this_players_can_be_a_winner(["Steve"])
         .is_this_best_figure(FourOfKindFigure(CardValue.TWO, CardValue.ACE))
         .is_this_hand("Steve", FourOfKindFigure(CardValue.TWO, CardValue.ACE))
-        .is_this_hand("Natacha", FullFigure(CardValue.TWO, CardValue.ACE)))
+        .is_this_hand("Natacha", FullFigure(CardValue.TWO, CardValue.ACE))
+        .is_one_card_burned()
+        .all_cards_are_differents())
     
 
 def test_launch_turn_phase_with_two_players_and_natacha_wins():
-    false_cards = ["3♣"]
+    false_cards = ["3♠","3♣"]
     (TurnPhaseDriver(FakeMultiDrawCards(false_cards))
         .add_player("Steve")
         .add_player("Natacha")
@@ -72,10 +76,12 @@ def test_launch_turn_phase_with_two_players_and_natacha_wins():
         .is_this_best_figure(FullFigure(CardValue.TWO, CardValue.ACE))
         .is_this_hand("Steve", ThreeOfKindFigure(CardValue.TWO, CardValue.ACE))
         .is_this_hand("Natacha", FullFigure(CardValue.TWO, CardValue.ACE))
+        .is_one_card_burned()
+        .all_cards_are_differents()
     )
 
 def test_launch_turn_phase_with_two_players_win():
-    false_cards = ["3♣"]
+    false_cards = ["3♠","3♣"]
     (TurnPhaseDriver(FakeMultiDrawCards(false_cards))
         .add_player("Steve")
         .add_player("Natacha")
@@ -90,7 +96,9 @@ def test_launch_turn_phase_with_two_players_win():
         .is_this_players_can_be_a_winner(["Steve_Natacha"])
         .is_this_best_figure(HighCardFigure(CardValue.ACE))
         .is_this_hand("Steve", HighCardFigure(CardValue.ACE))
-        .is_this_hand("Natacha", HighCardFigure(CardValue.ACE))
+        .is_this_hand("Natacha", HighCardFigure(CardValue.ACE))        
+        .is_one_card_burned()        
+        .all_cards_are_differents()
     )
 
 def test_launch_turn_phase_with_ten_players_randomly():
@@ -122,10 +130,12 @@ def test_launch_turn_phase_with_ten_players_randomly():
         .add_card_flop_phase("J♦")
         .add_card_flop_phase("6♠")
         .launch_phase_and_get_best_players()
-        .is_this_players_can_be_a_winner(["Steve", "Natacha", "Tony", "Thor", "Bruce", "Clint", "Carol", "T'Challa", "Steven", "Peter", "Wanda" ]))
+        .is_this_players_can_be_a_winner(["Steve", "Natacha", "Tony", "Thor", "Bruce", "Clint", "Carol", "T'Challa", "Steven", "Peter", "Wanda" ])
+        .is_one_card_burned()
+        .all_cards_are_differents())
 
 def test_launch_turn_phase_with_ten_players_and_wanda_win():
-    fake_cards = ["5♠"]
+    fake_cards = ["3♥","5♠"]
     (TurnPhaseDriver(FakeMultiDrawCards(fake_cards))
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
         .add_card_before_flop_phase("A♠", "Steve")
@@ -164,10 +174,12 @@ def test_launch_turn_phase_with_ten_players_and_wanda_win():
         .is_this_hand("T'Challa", PairFigure(CardValue.FIVE, CardValue.TEN))
         .is_this_hand("Steven", PairFigure(CardValue.FIVE, CardValue.NINE))
         .is_this_hand("Wanda", FullFigure(CardValue.EIGHT, CardValue.FIVE))
+        .is_one_card_burned()
+        .all_cards_are_differents()
     )
 
 def test_launch_turn_phase_with_ten_players_and_tony_and_clint_win():
-    fake_cards = ["Q♦"]
+    fake_cards = ["3♥","Q♦"]
     (TurnPhaseDriver(FakeMultiDrawCards(fake_cards))
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
         .add_card_before_flop_phase("A♠", "Steve")
@@ -205,7 +217,9 @@ def test_launch_turn_phase_with_ten_players_and_tony_and_clint_win():
         .is_this_hand("Carol", HighCardFigure(CardValue.QUEEN))
         .is_this_hand("T'Challa", PairFigure(CardValue.TEN, CardValue.QUEEN))
         .is_this_hand("Steven", PairFigure(CardValue.SIX, CardValue.QUEEN))
-        .is_this_hand("Wanda", HighCardFigure(CardValue.QUEEN)))
+        .is_this_hand("Wanda", HighCardFigure(CardValue.QUEEN))
+        .is_one_card_burned()
+        .all_cards_are_differents())
 
 class TurnPhaseDriver():
     def __init__(self, multi_draw_cards):
@@ -224,6 +238,7 @@ class TurnPhaseDriver():
         self.multi_draw_cards = multi_draw_cards
         self.players_manager = PlayersManager(hand, self.multi_draw_cards)
         self.winners = []
+        self.turn_phase = None
 
     def add_player(self, player_name):
         self.players_manager.add_player(player_name)
@@ -246,8 +261,8 @@ class TurnPhaseDriver():
         return self
 
     def launch_phase_and_get_best_players(self):        
-        turn_phase = TurnPhase(self.players_manager, self.multi_draw_cards)
-        self.result = turn_phase.launch_phase_and_get_best_players()
+        self.turn_phase = TurnPhase(self.players_manager, self.multi_draw_cards)
+        self.result = self.turn_phase.launch_phase_and_get_best_players()
         return self
 
     def is_this_players_can_be_a_winner(self, players_name):
@@ -272,4 +287,16 @@ class TurnPhaseDriver():
         figure_calculated = self.result.hands_by_player[player_name]
         is_right = is_this_two_figure_are_equal(figure_expected, figure_calculated) 
         assert(is_right == True)
+        return self
+
+    def is_one_card_burned(self): 
+        assert(self.turn_phase.card_burn != Card(CardValue.UNDEFINED, CardColor.UNDEFINED))
+        return self
+
+    def all_cards_are_differents(self): 
+        all_cards = []
+        all_cards.append(self.turn_phase.card_turned)
+        all_cards.append(self.turn_phase.card_burn)
+        all_cards_drawn_unique = set(all_cards)
+        assert(len(all_cards) == len(all_cards_drawn_unique))
         return self
