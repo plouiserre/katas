@@ -8,3 +8,6 @@ class FakeMultiDrawCards():
         card_choose_fake = self.fake_cards.pop(0)
         card_choose = Card.parse(card_choose_fake)
         return card_choose
+
+    def remove_one_card(self, card):
+        pass

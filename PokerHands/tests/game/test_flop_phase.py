@@ -35,7 +35,7 @@ def test_launch_flop_phase_with_two_players_randomly():
         .all_cards_are_differents())     
 
 def test_launch_flop_phase_with_two_players_and_steve_wins(): 
-    fake_cards = ["A♥","A♠", "Q♠", "8♠"]
+    fake_cards = ["K♥","A♠", "Q♠", "8♠"]
     (CompareHandsAfterFlopDriver(FakeMultiDrawCards(fake_cards))
         .add_player("Steve")
         .add_player("Natacha")
@@ -118,7 +118,7 @@ def test_launch_flop_phase_with_ten_players_randomly():
         .all_cards_are_differents())
 
 def test_launch_flop_phase_with_ten_players_and_steve_wins():
-    fake_cards = ["3♠","A♥", "6♦", "4♠"]
+    fake_cards = ["3♥","A♥", "6♦", "4♠"]
     (CompareHandsAfterFlopDriver(FakeMultiDrawCards(fake_cards))
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
         .add_card_before_flop("A♠", "Steve")
@@ -159,7 +159,7 @@ def test_launch_flop_phase_with_ten_players_and_steve_wins():
         .all_cards_are_differents())
 
 def test_launch_flop_phase_with_ten_players_and_bruce_and_tchalla_win():
-    fake_cards = ["3♠","10♥", "6♦", "4♠"]
+    fake_cards = ["3♥","10♥", "6♦", "4♠"]
     (CompareHandsAfterFlopDriver(FakeMultiDrawCards(fake_cards))
             .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
             .add_card_before_flop("A♠", "Steve")
@@ -215,6 +215,7 @@ class CompareHandsAfterFlopDriver():
         hand = Hand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
         self.multi_draw_cards = multi_draw_cards
         self.players_manager = PlayersManager(hand, self.multi_draw_cards)
+        self.cards_given_players = []
         self.winners = []
         self.flop_phase = None
 
@@ -230,6 +231,7 @@ class CompareHandsAfterFlopDriver():
     def add_card_before_flop(self, card_crypted, player_name):
         card = Card.parse(card_crypted)
         self.players_manager.add_cards_to_players(player_name, card)
+        self.cards_given_players.append(card)
         return self
 
     def launch_phase_and_get_best_players(self):
@@ -271,6 +273,8 @@ class CompareHandsAfterFlopDriver():
 
     def all_cards_are_differents(self): 
         all_cards = []
+        for card_player in self.cards_given_players : 
+            all_cards.append(card_player)
         for flop_card in self.flop_phase.cards_returned : 
             all_cards.append(flop_card)
         all_cards.append(self.flop_phase.card_burn)
