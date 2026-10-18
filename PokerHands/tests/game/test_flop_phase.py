@@ -30,10 +30,12 @@ def test_launch_flop_phase_with_two_players_randomly():
         .add_card_before_flop("6♠", "Steve")
         .add_card_before_flop("A♣", "Natacha")
         .launch_phase_and_get_best_players()
-        .is_this_players_can_be_a_winner(["Steve", "Natacha"]))     
+        .is_this_players_can_be_a_winner(["Steve", "Natacha"])
+        .is_one_cards_burned()
+        .all_cards_are_differents())     
 
 def test_launch_flop_phase_with_two_players_and_steve_wins(): 
-    fake_cards = ["A♠", "Q♠", "8♠"]
+    fake_cards = ["A♥","A♠", "Q♠", "8♠"]
     (CompareHandsAfterFlopDriver(FakeMultiDrawCards(fake_cards))
         .add_player("Steve")
         .add_player("Natacha")
@@ -45,10 +47,13 @@ def test_launch_flop_phase_with_two_players_and_steve_wins():
         .is_this_players_can_be_a_winner(["Steve"])
         .is_this_best_figure(FlushFigure(CardColor.SPADES, CardValue.ACE))
         .is_this_hand("Steve", FlushFigure(CardColor.SPADES, CardValue.ACE))
-        .is_this_hand("Natacha", ThreeOfKindFigure(CardValue.ACE, CardValue.QUEEN)))  
+        .is_this_hand("Natacha", ThreeOfKindFigure(CardValue.ACE, CardValue.QUEEN))
+        .is_three_cards_flopped()
+        .is_one_cards_burned()        
+        .all_cards_are_differents())  
 
 def test_launch_flop_phase_with_two_players_and_natacha_wins(): 
-    fake_cards = ["A♠", "Q♥", "8♣"]
+    fake_cards = ["3♠","A♠", "Q♥", "8♣"]
     (CompareHandsAfterFlopDriver(FakeMultiDrawCards(fake_cards))
                     .add_player("Steve")
                     .add_player("Natacha")
@@ -60,10 +65,13 @@ def test_launch_flop_phase_with_two_players_and_natacha_wins():
                     .is_this_players_can_be_a_winner(["Natacha"])
                     .is_this_best_figure(ThreeOfKindFigure(CardValue.ACE, CardValue.QUEEN))
                     .is_this_hand("Steve", HighCardFigure(CardValue.ACE))
-                    .is_this_hand("Natacha", ThreeOfKindFigure(CardValue.ACE, CardValue.QUEEN))) 
+                    .is_this_hand("Natacha", ThreeOfKindFigure(CardValue.ACE, CardValue.QUEEN))
+                    .is_three_cards_flopped()
+                    .is_one_cards_burned()
+                    .all_cards_are_differents()) 
 
 def test_launch_flop_phase_with_two_players_win(): 
-    fake_cards = ["K♠","Q♥", "8♣"]
+    fake_cards = ["3♠","K♠","Q♥", "8♣"]
     (CompareHandsAfterFlopDriver(FakeMultiDrawCards(fake_cards))
                     .add_player("Steve")
                     .add_player("Natacha")
@@ -75,7 +83,10 @@ def test_launch_flop_phase_with_two_players_win():
                     .is_this_players_can_be_a_winner(["Steve","Natacha"])
                     .is_this_best_figure(PairFigure(CardValue.ACE, CardValue.KING))
                     .is_this_hand("Steve", PairFigure(CardValue.ACE, CardValue.KING))
-                    .is_this_hand("Natacha", PairFigure(CardValue.ACE, CardValue.KING))) 
+                    .is_this_hand("Natacha", PairFigure(CardValue.ACE, CardValue.KING))                    
+                    .is_three_cards_flopped()
+                    .is_one_cards_burned()
+                    .all_cards_are_differents()) 
 
 def test_launch_flop_phase_with_ten_players_randomly():
     (CompareHandsAfterFlopDriver(MultiDrawCards())
@@ -101,10 +112,13 @@ def test_launch_flop_phase_with_ten_players_randomly():
         .add_card_before_flop("9♥", "Steven")
         .add_card_before_flop("8♠", "Wanda")
         .launch_phase_and_get_best_players()
-        .is_this_players_can_be_a_winner(["Steve", "Natacha", "Tony", "Thor", "Bruce", "Clint", "Carol", "T'Challa", "Steven", "Wanda"]))
+        .is_this_players_can_be_a_winner(["Steve", "Natacha", "Tony", "Thor", "Bruce", "Clint", "Carol", "T'Challa", "Steven", "Wanda"])
+        .is_three_cards_flopped()
+        .is_one_cards_burned()
+        .all_cards_are_differents())
 
 def test_launch_flop_phase_with_ten_players_and_steve_wins():
-    fake_cards = ["A♥", "6♦", "4♠"]
+    fake_cards = ["3♠","A♥", "6♦", "4♠"]
     (CompareHandsAfterFlopDriver(FakeMultiDrawCards(fake_cards))
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
         .add_card_before_flop("A♠", "Steve")
@@ -139,10 +153,13 @@ def test_launch_flop_phase_with_ten_players_and_steve_wins():
         .is_this_hand("Carol", HighCardFigure(CardValue.ACE))
         .is_this_hand("T'Challa", HighCardFigure(CardValue.ACE))
         .is_this_hand("Steven", PairFigure(CardValue.SIX, CardValue.ACE))
-        .is_this_hand("Wanda", HighCardFigure(CardValue.ACE)))
+        .is_this_hand("Wanda", HighCardFigure(CardValue.ACE))
+        .is_three_cards_flopped()
+        .is_one_cards_burned()        
+        .all_cards_are_differents())
 
 def test_launch_flop_phase_with_ten_players_and_bruce_and_tchalla_win():
-    fake_cards = ["10♥", "6♦", "4♠"]
+    fake_cards = ["3♠","10♥", "6♦", "4♠"]
     (CompareHandsAfterFlopDriver(FakeMultiDrawCards(fake_cards))
             .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
             .add_card_before_flop("A♠", "Steve")
@@ -177,7 +194,10 @@ def test_launch_flop_phase_with_ten_players_and_bruce_and_tchalla_win():
             .is_this_hand("Carol", HighCardFigure(CardValue.JACK))
             .is_this_hand("T'Challa", PairFigure(CardValue.TEN, CardValue.SEVEN))
             .is_this_hand("Steven", PairFigure(CardValue.SIX, CardValue.TEN))
-            .is_this_hand("Wanda", HighCardFigure(CardValue.TEN))) 
+            .is_this_hand("Wanda", HighCardFigure(CardValue.TEN))
+            .is_three_cards_flopped()
+            .is_one_cards_burned()
+            .all_cards_are_differents()) 
 
 class CompareHandsAfterFlopDriver():
     def __init__(self, multi_draw_cards):
@@ -196,6 +216,7 @@ class CompareHandsAfterFlopDriver():
         self.multi_draw_cards = multi_draw_cards
         self.players_manager = PlayersManager(hand, self.multi_draw_cards)
         self.winners = []
+        self.flop_phase = None
 
     def add_player(self, player_name):
         self.players_manager.add_player(player_name)
@@ -212,8 +233,8 @@ class CompareHandsAfterFlopDriver():
         return self
 
     def launch_phase_and_get_best_players(self):
-        flop_phase = FlopPhase(self.players_manager, self.multi_draw_cards)
-        self.result = flop_phase.launch_phase_and_get_best_players()
+        self.flop_phase = FlopPhase(self.players_manager, self.multi_draw_cards)
+        self.result = self.flop_phase.launch_phase_and_get_best_players()
         return self
 
     def is_this_players_can_be_a_winner(self, players_name):
@@ -239,3 +260,19 @@ class CompareHandsAfterFlopDriver():
         is_right = is_this_two_figure_are_equal(figure_expected, figure_calculated) 
         assert(is_right == True)
         return self
+
+    def is_three_cards_flopped(self): 
+        assert(len(self.flop_phase.cards_returned) == 3)
+        return self
+
+    def is_one_cards_burned(self): 
+        assert(self.flop_phase.card_burn != Card(CardValue.UNDEFINED, CardColor.UNDEFINED))
+        return self
+
+    def all_cards_are_differents(self): 
+        all_cards = []
+        for flop_card in self.flop_phase.cards_returned : 
+            all_cards.append(flop_card)
+        all_cards.append(self.flop_phase.card_burn)
+        all_cards_drawn_unique = set(all_cards)
+        assert(len(all_cards) == len(all_cards_drawn_unique))

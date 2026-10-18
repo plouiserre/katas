@@ -4,7 +4,7 @@ from PokerHands.AllFigures.HighCardFigure import HighCardFigure
 from PokerHands.AllFigures.PairFigure import PairFigure
 from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
-from PokerHands.card import Card, CardValue
+from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.manipulating_cards import ManipulatingCards
 from PokerHands.detector.four_cards_detector import FourCardsDetector
 from PokerHands.detector.flush_detector import FlushDetector
@@ -35,10 +35,11 @@ def test_launch_river_phase_with_two_players_randomly():
             .add_card_flop_phase("A♠")
             .add_card_turn_phase("K♥")
             .launch_river_phase_and_gest_best_players()
-            .is_this_players_can_be_a_winner(["Steve", "Natacha"]))
+            .is_this_players_can_be_a_winner(["Steve", "Natacha"])
+            .is_one_card_burned())
     
 def test_launch_river_phase_with_two_players_and_steve_wins():
-    false_cards = ["2♣"]
+    false_cards = ["3♠","2♣"]
     (RiverPhaseDriver(FakeMultiDrawCards(false_cards))
         .add_player("Steve")
         .add_player("Natacha")
@@ -54,10 +55,11 @@ def test_launch_river_phase_with_two_players_and_steve_wins():
         .is_this_players_can_be_a_winner(["Steve"])
         .is_this_best_figure(FourOfKindFigure(CardValue.TWO, CardValue.ACE))
         .is_this_hand("Steve", FourOfKindFigure(CardValue.TWO, CardValue.ACE))
-        .is_this_hand("Natacha", FullFigure(CardValue.TWO, CardValue.ACE)))
+        .is_this_hand("Natacha", FullFigure(CardValue.TWO, CardValue.ACE))
+        .is_one_card_burned())
 
 def test_launch_river_phase_with_two_players_and_natacha_wins():
-  false_cards = ["5♥"]
+  false_cards = ["3♠","5♥"]
   (RiverPhaseDriver(FakeMultiDrawCards(false_cards))
            .add_player("Steve")
            .add_player("Natacha")
@@ -73,10 +75,11 @@ def test_launch_river_phase_with_two_players_and_natacha_wins():
            .is_this_players_can_be_a_winner(["Natacha"])
            .is_this_best_figure(FullFigure(CardValue.TWO, CardValue.ACE))
            .is_this_hand("Steve", ThreeOfKindFigure(CardValue.TWO, CardValue.ACE))
-           .is_this_hand("Natacha", FullFigure(CardValue.TWO, CardValue.ACE)))
+           .is_this_hand("Natacha", FullFigure(CardValue.TWO, CardValue.ACE))           
+           .is_one_card_burned())
 
 def test_launch_river_phase_with_two_players_win():
-    false_cards = ["J♠"]
+    false_cards = ["3♠","J♠"]
     (RiverPhaseDriver(FakeMultiDrawCards(false_cards))
         .add_player("Steve")
         .add_player("Natacha")
@@ -92,7 +95,8 @@ def test_launch_river_phase_with_two_players_win():
         .is_this_players_can_be_a_winner(["Steve_Natacha"])
         .is_this_best_figure(PairFigure(CardValue.JACK, CardValue.ACE))
         .is_this_hand("Steve", PairFigure(CardValue.JACK, CardValue.ACE))
-        .is_this_hand("Natacha", PairFigure(CardValue.JACK, CardValue.ACE))
+        .is_this_hand("Natacha", PairFigure(CardValue.JACK, CardValue.ACE))        
+        .is_one_card_burned()
     )
 
 def test_launch_river_phase_with_ten_players_randomly():
@@ -123,10 +127,11 @@ def test_launch_river_phase_with_ten_players_randomly():
         .add_card_flop_phase("6♠")
         .add_card_turn_phase("7♣")
         .launch_river_phase_and_gest_best_players()
-        .is_this_players_can_be_a_winner(["Steve", "Natacha", "Tony", "Thor", "Bruce", "Clint", "Carol", "T'Challa", "Steven", "Peter", "Wanda" ]))        
+        .is_this_players_can_be_a_winner(["Steve", "Natacha", "Tony", "Thor", "Bruce", "Clint", "Carol", "T'Challa", "Steven", "Peter", "Wanda" ])        
+        .is_one_card_burned())        
     
 def test_launch_river_phase_with_ten_players_and_wanda_win():
-    fake_cards = ["8♦"]
+    fake_cards = ["3♠","8♦"]
     (RiverPhaseDriver(FakeMultiDrawCards(fake_cards))
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
         .add_card_draw("A♠", "Steve")
@@ -165,10 +170,11 @@ def test_launch_river_phase_with_ten_players_and_wanda_win():
         .is_this_hand("Carol", ThreeOfKindFigure(CardValue.EIGHT, CardValue.JACK))
         .is_this_hand("T'Challa", ThreeOfKindFigure(CardValue.EIGHT, CardValue.TEN))
         .is_this_hand("Steven", ThreeOfKindFigure(CardValue.EIGHT, CardValue.NINE))
-        .is_this_hand("Wanda", FourOfKindFigure(CardValue.EIGHT, CardValue.FIVE)))
+        .is_this_hand("Wanda", FourOfKindFigure(CardValue.EIGHT, CardValue.FIVE))
+        .is_one_card_burned())
 
 def test_launch_river_phase_with_ten_players_and_tony_and_clint_win():
-    fake_cards = ["Q♣"]
+    fake_cards = ["3♠","Q♣"]
     (RiverPhaseDriver(FakeMultiDrawCards(fake_cards))
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
         .add_card_draw("A♠", "Steve")
@@ -207,7 +213,8 @@ def test_launch_river_phase_with_ten_players_and_tony_and_clint_win():
         .is_this_hand("Carol", PairFigure(CardValue.QUEEN, CardValue.JACK))
         .is_this_hand("T'Challa", TwoPairFigure(CardValue.QUEEN, CardValue.TEN, CardValue.SEVEN))
         .is_this_hand("Steven", TwoPairFigure( CardValue.QUEEN, CardValue.SIX, CardValue.TEN))
-        .is_this_hand("Wanda", PairFigure(CardValue.QUEEN, CardValue.TEN)))
+        .is_this_hand("Wanda", PairFigure(CardValue.QUEEN, CardValue.TEN))
+        .is_one_card_burned())
     
 class RiverPhaseDriver():
     def __init__(self, multi_draw_cards):
@@ -226,6 +233,7 @@ class RiverPhaseDriver():
         self.players_manager = PlayersManager(hand, self.multi_draw_cards)
         self.players = {}
         self.winners = []
+        self.river = None
 
     def add_player(self, player_name):
         self.players_manager.add_player(player_name)
@@ -254,8 +262,8 @@ class RiverPhaseDriver():
         return self
 
     def launch_river_phase_and_gest_best_players(self):
-        river_phase = RiverPhase(self.players_manager, self.multi_draw_cards)
-        self.result = river_phase.launch_phase_and_get_best_players()
+        self.river_phase = RiverPhase(self.players_manager, self.multi_draw_cards)
+        self.result = self.river_phase.launch_phase_and_get_best_players()
         return self
 
     def is_this_players_can_be_a_winner(self, players_name):
@@ -280,4 +288,16 @@ class RiverPhaseDriver():
         figure_calculated = self.result.hands_by_player[player_name]
         is_right = is_this_two_figure_are_equal(figure_expected, figure_calculated) 
         assert(is_right == True)
+        return self
+
+    def is_one_card_burned(self): 
+        assert(self.river_phase.card_burn != Card(CardValue.UNDEFINED, CardColor.UNDEFINED))
+        return self
+
+    def all_cards_are_differents(self): 
+        all_cards = []
+        all_cards.append(self.river_phase.card_turned)
+        all_cards.append(self.river_phase.card_burn)
+        all_cards_drawn_unique = set(all_cards)
+        assert(len(all_cards) == len(all_cards_drawn_unique))
         return self
