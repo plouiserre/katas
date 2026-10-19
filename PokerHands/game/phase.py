@@ -10,7 +10,7 @@ class Phase(ABC):
     @abstractmethod
     def launch_phase_and_get_best_players(self):
         self.__draw_turn()
-        result = self.player_manager.get_players_with_best_hands()
+        result = self.player_manager.get_players_with_best_poker_hands()
         return result   
     
     def burn_one_card(self):

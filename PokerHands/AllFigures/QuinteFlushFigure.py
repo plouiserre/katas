@@ -9,10 +9,10 @@ class QuinteFlushFigure :
     color : CardColor
     points : ClassVar[int] = 90
 
-    def compare_with_other_quinte_flush_hands(self, other_hand: type[Self]) -> Winner:
-        if self.value < other_hand.value :
+    def compare_with_other_quinte_flush_poker_hands(self, other_poker_hand: type[Self]) -> Winner:
+        if self.value < other_poker_hand.value :
             return Winner.SECOND_POKER_HAND
-        elif other_hand.value < self.value :
+        elif other_poker_hand.value < self.value :
             return Winner.FIRST_POKER_HAND
         else : 
             return Winner.UNDETERMINATED            

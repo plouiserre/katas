@@ -9,7 +9,7 @@ class FlopPhase(Phase) :
     def launch_phase_and_get_best_players(self): 
         self.card_burn = super().burn_one_card()
         self.__draw_flop()
-        result = self.player_manager.get_players_with_best_hands()
+        result = self.player_manager.get_players_with_best_poker_hands()
         return result   
 
     def __draw_flop(self):

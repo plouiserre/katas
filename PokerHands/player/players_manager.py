@@ -16,16 +16,16 @@ class PlayersManager :
             self.players[name_player].append(new_card)
             return self
     
-    def give_specific_hand(self, name_player, cards): 
+    def give_specific_poker_hand(self, name_player, cards): 
         self.players[name_player] = cards
         return self
 
-    def get_players_with_best_hands(self):
-        identify_hand = IdentifyHand(self.poker_hand, self.players)
-        hands_by_player = identify_hand.determinate_hands()
-        compare_hand = CompareHand(self.players, hands_by_player)
-        compare_results = compare_hand.get_players_with_best_hands()
-        players_results = PlayerResult(compare_results.winners, compare_results.best_figure, hands_by_player)
+    def get_players_with_best_poker_hands(self):
+        identify_poker_hand = IdentifyHand(self.poker_hand, self.players)
+        poker_hands_by_player = identify_poker_hand.determinate_poker_hands()
+        compare_poker_hand = CompareHand(self.players, poker_hands_by_player)
+        compare_results = compare_poker_hand.get_players_with_best_poker_hands()
+        players_results = PlayerResult(compare_results.winners, compare_results.best_figure, poker_hands_by_player)
         return players_results
 
     def add_cards_to_players(self, player_name, card):

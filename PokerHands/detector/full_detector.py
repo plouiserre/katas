@@ -11,9 +11,9 @@ class FullDetector :
         self.all_cards_three_times = []
         self.all_cards_two_times = []
 
-    def find_full(self, hand: Iterator[Card]) -> FullFigure: 
+    def find_full(self, poker_hand: Iterator[Card]) -> FullFigure: 
         self.__init_count_cards()
-        cards_group_by_value = self.manipulating_cards.count_cards(hand)
+        cards_group_by_value = self.manipulating_cards.count_cards(poker_hand)
         for card in cards_group_by_value :
             number_cards = cards_group_by_value[card]
             if number_cards == 3 : 

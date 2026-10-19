@@ -9,7 +9,7 @@ class CompareHand:
         self.poker_hands_by_player = poker_hands_by_player   
         self.compare_same_type_poker_hand = CompareSameTypeHand()
 
-    def get_players_with_best_hands(self):
+    def get_players_with_best_poker_hands(self):
         self.__check_not_too_many_players()
         best_players = [] 
         best_poker_hand = self.__determinate_best_poker_hand_from_all_players()
@@ -28,8 +28,8 @@ class CompareHand:
             if best_poker_hand == None : 
                 best_poker_hand = poker_hand
                 continue
-            hands_to_compare = [poker_hand, best_poker_hand]
-            winner = self.__determinate_winner(hands_to_compare)
+            poker_hands_to_compare = [poker_hand, best_poker_hand]
+            winner = self.__determinate_winner(poker_hands_to_compare)
             if winner == Winner.FIRST_POKER_HAND :
                 best_poker_hand = poker_hand
         return best_poker_hand
@@ -42,7 +42,7 @@ class CompareHand:
             elif SECOND_POKER_HAND.points < FIRST_POKER_HAND.points : 
                 return Winner.FIRST_POKER_HAND
             else : 
-                return self.compare_same_type_poker_hand.compare_hands(FIRST_POKER_HAND, SECOND_POKER_HAND)    
+                return self.compare_same_type_poker_hand.compare_poker_hands(FIRST_POKER_HAND, SECOND_POKER_HAND)    
     
     
     def __get_all_players_with_best_poker_hand(self, best_poker_hand):
