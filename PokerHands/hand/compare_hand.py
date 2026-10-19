@@ -1,13 +1,13 @@
 from PokerHands.exception.TooManyPlayerException import TooManyPlayerException
 from PokerHands.hand.comparaison_result import ComparaisonResult
-from PokerHands.hand.compare_same_type_hand import CompareSameTypeHand
+from PokerHands.hand.compare_same_type_poker_hand import CompareSameTypePokerHand
 from PokerHands.winner import Winner
 
 class CompareHand: 
     def __init__(self, players, poker_hands_by_player):
         self.players = players
         self.poker_hands_by_player = poker_hands_by_player   
-        self.compare_same_type_poker_hand = CompareSameTypeHand()
+        self.compare_same_type_poker_hand = CompareSameTypePokerHand()
 
     def get_players_with_best_poker_hands(self):
         self.__check_not_too_many_players()

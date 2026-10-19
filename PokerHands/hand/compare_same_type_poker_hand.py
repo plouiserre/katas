@@ -9,8 +9,7 @@ from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 from PokerHands.winner import Winner
 
-#TODO rename this
-class CompareSameTypeHand: 
+class CompareSameTypePokerHand: 
     def __init__(self):
         pass
 

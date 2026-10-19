@@ -1,5 +1,5 @@
 from PokerHands.hand.compare_hand import CompareHand
-from PokerHands.hand.identify_hand import IdentifyHand
+from PokerHands.hand.identify_poker_hand import IdentifyPokerHand
 from PokerHands.hand.hand_result import HandResult
 
 class Hand : 
@@ -21,7 +21,7 @@ class Hand :
         return self
 
     def get_players_with_best_poker_hands(self):
-        identify_poker_hand = IdentifyHand(self.poker_hand, self.players)
+        identify_poker_hand = IdentifyPokerHand(self.poker_hand, self.players)
         poker_hands_by_player = identify_poker_hand.determinate_poker_hands()
         compare_poker_hand = CompareHand(self.players, poker_hands_by_player)
         compare_results = compare_poker_hand.get_players_with_best_poker_hands()

@@ -1,5 +1,4 @@
-#TODO rename this
-class IdentifyHand : 
+class IdentifyPokerHand : 
     def __init__(self, poker_hand, players):
         self.poker_hand = poker_hand
         self.players = players
