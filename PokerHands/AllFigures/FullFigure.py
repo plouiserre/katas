@@ -11,13 +11,13 @@ class FullFigure :
 
     def compare_with_other_full_figure_hands(self, other_hand: type[Self]) -> Winner:
         if self.three_times < other_hand.three_times : 
-            return Winner.SECOND_HAND
+            return Winner.SECOND_POKER_HAND
         elif other_hand.three_times < self.three_times : 
-            return Winner.FIRST_HAND
+            return Winner.FIRST_POKER_HAND
         else : 
             if self.two_times < other_hand.two_times : 
-                return Winner.SECOND_HAND
+                return Winner.SECOND_POKER_HAND
             elif other_hand.two_times < self.two_times: 
-                return Winner.FIRST_HAND
+                return Winner.FIRST_POKER_HAND
             else : 
                 return Winner.EQUALITY

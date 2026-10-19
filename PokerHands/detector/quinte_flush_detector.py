@@ -31,10 +31,10 @@ class QuinteFlushDetector :
         else :
             return None    
 
-    def __get_all_cards_compatible_with_quinte_flush(self, hand):
+    def __get_all_cards_compatible_with_quinte_flush(self, poker_hand):
         all_cards_in_quinte = []
         card_mini = self.quinte_figure.value - 4
-        for card in hand : 
+        for card in poker_hand : 
             if card.value >= card_mini and card.color == self.card_color : 
                 all_cards_in_quinte.append(card)
         if len(all_cards_in_quinte) < 5 : 
@@ -42,9 +42,9 @@ class QuinteFlushDetector :
         else : 
             return all_cards_in_quinte
 
-    def __get_majority_color(self, hand):
+    def __get_majority_color(self, poker_hand):
         all_cards_colors = {}
-        for card in hand : 
+        for card in poker_hand : 
             if card.color in all_cards_colors : 
                 all_cards_colors[card.color] += 1
             else : 

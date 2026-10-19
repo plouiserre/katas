@@ -22,7 +22,7 @@ from PokerHands.detector.three_cards_detector import ThreeCardsDetector
 from PokerHands.detector.two_pairs_detector import TwoPairsDetector
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
 from PokerHands.exception.TooManyPlayerException import TooManyPlayerException
-from PokerHands.hand import Hand
+from PokerHands.hand import PokerHand
 from PokerHands.player.players_manager import PlayersManager
 from PokerHands.tests.assert_helper import is_this_two_figure_are_equal
 
@@ -42,8 +42,8 @@ def test_two_players_compare_specific_hands_after_drawn_and_steve_win():
         .determine_player_with_better_hand()                                   
         .is_this_players_can_be_a_winner(["Steve"])
         .is_this_best_hand(HighCardFigure(CardValue.KING))
-        .is_this_hand("Steve", HighCardFigure(CardValue.KING))
-        .is_this_hand("Natacha", HighCardFigure(CardValue.QUEEN)))
+        .is_this_poker_hand("Steve", HighCardFigure(CardValue.KING))
+        .is_this_poker_hand("Natacha", HighCardFigure(CardValue.QUEEN)))
 
 def test_two_players_compare_specific_hands_after_drawn_and_natacha_win(): 
     (PlayersManagerDriver()
@@ -53,8 +53,8 @@ def test_two_players_compare_specific_hands_after_drawn_and_natacha_win():
             .determine_player_with_better_hand()
             .is_this_players_can_be_a_winner(["Natacha"])
             .is_this_best_hand(HighCardFigure(CardValue.QUEEN))
-            .is_this_hand("Steve", HighCardFigure(CardValue.JACK))
-            .is_this_hand("Natacha", HighCardFigure(CardValue.QUEEN)))  
+            .is_this_poker_hand("Steve", HighCardFigure(CardValue.JACK))
+            .is_this_poker_hand("Natacha", HighCardFigure(CardValue.QUEEN)))  
 
 def test_two_players_compare_specific_hands_after_drawn_and_no_one_win(): 
     (PlayersManagerDriver()
@@ -64,8 +64,8 @@ def test_two_players_compare_specific_hands_after_drawn_and_no_one_win():
         .determine_player_with_better_hand()
         .is_this_players_can_be_a_winner(["Steve_Natacha"])
         .is_this_best_hand(PairFigure(CardValue.QUEEN, CardValue.UNDEFINED))
-        .is_this_hand("Steve", PairFigure(CardValue.QUEEN, CardValue.UNDEFINED))
-        .is_this_hand("Natacha", PairFigure(CardValue.QUEEN, CardValue.UNDEFINED)))
+        .is_this_poker_hand("Steve", PairFigure(CardValue.QUEEN, CardValue.UNDEFINED))
+        .is_this_poker_hand("Natacha", PairFigure(CardValue.QUEEN, CardValue.UNDEFINED)))
 
 def test_six_players_compare_random_hands_after_drawn(): 
     (PlayersManagerDriver()
@@ -87,12 +87,12 @@ def test_six_players_compare_specific_hands_after_drawn_and_steve_win():
         .determine_player_with_better_hand()
         .is_this_players_can_be_a_winner(["Steve"])
         .is_this_best_hand(HighCardFigure(CardValue.KING))
-        .is_this_hand("Steve", HighCardFigure(CardValue.KING))
-        .is_this_hand("Natacha", HighCardFigure(CardValue.QUEEN))
-        .is_this_hand("Tony", HighCardFigure(CardValue.JACK))
-        .is_this_hand("Thor", HighCardFigure(CardValue.TEN))
-        .is_this_hand("Bruce", HighCardFigure(CardValue.NINE))
-        .is_this_hand("Clint", HighCardFigure(CardValue.EIGHT)))
+        .is_this_poker_hand("Steve", HighCardFigure(CardValue.KING))
+        .is_this_poker_hand("Natacha", HighCardFigure(CardValue.QUEEN))
+        .is_this_poker_hand("Tony", HighCardFigure(CardValue.JACK))
+        .is_this_poker_hand("Thor", HighCardFigure(CardValue.TEN))
+        .is_this_poker_hand("Bruce", HighCardFigure(CardValue.NINE))
+        .is_this_poker_hand("Clint", HighCardFigure(CardValue.EIGHT)))
 
 def test_six_players_compare_specific_hands_after_drawn_and_tony_win():
     (PlayersManagerDriver()
@@ -106,12 +106,12 @@ def test_six_players_compare_specific_hands_after_drawn_and_tony_win():
         .determine_player_with_better_hand()
         .is_this_players_can_be_a_winner(["Tony"])
         .is_this_best_hand(HighCardFigure(CardValue.QUEEN))
-        .is_this_hand("Steve", HighCardFigure(CardValue.SEVEN))
-        .is_this_hand("Natacha", HighCardFigure(CardValue.JACK))
-        .is_this_hand("Tony", HighCardFigure(CardValue.QUEEN))
-        .is_this_hand("Thor", HighCardFigure(CardValue.TEN))
-        .is_this_hand("Bruce", HighCardFigure(CardValue.NINE))
-        .is_this_hand("Clint", HighCardFigure(CardValue.EIGHT)))
+        .is_this_poker_hand("Steve", HighCardFigure(CardValue.SEVEN))
+        .is_this_poker_hand("Natacha", HighCardFigure(CardValue.JACK))
+        .is_this_poker_hand("Tony", HighCardFigure(CardValue.QUEEN))
+        .is_this_poker_hand("Thor", HighCardFigure(CardValue.TEN))
+        .is_this_poker_hand("Bruce", HighCardFigure(CardValue.NINE))
+        .is_this_poker_hand("Clint", HighCardFigure(CardValue.EIGHT)))
 
 def test_six_players_compare_specific_hands_after_drawn_and_clint_win():
     (PlayersManagerDriver()
@@ -125,12 +125,12 @@ def test_six_players_compare_specific_hands_after_drawn_and_clint_win():
         .determine_player_with_better_hand()
         .is_this_players_can_be_a_winner(["Clint"])
         .is_this_best_hand(PairFigure(CardValue.ACE, CardValue.UNDEFINED ))
-        .is_this_hand("Steve", HighCardFigure(CardValue.SEVEN))
-        .is_this_hand("Natacha", HighCardFigure(CardValue.SIX))
-        .is_this_hand("Tony", HighCardFigure(CardValue.JACK))
-        .is_this_hand("Thor", HighCardFigure(CardValue.TEN))
-        .is_this_hand("Bruce", HighCardFigure(CardValue.NINE))
-        .is_this_hand("Clint", PairFigure(CardValue.ACE, CardValue.UNDEFINED)))
+        .is_this_poker_hand("Steve", HighCardFigure(CardValue.SEVEN))
+        .is_this_poker_hand("Natacha", HighCardFigure(CardValue.SIX))
+        .is_this_poker_hand("Tony", HighCardFigure(CardValue.JACK))
+        .is_this_poker_hand("Thor", HighCardFigure(CardValue.TEN))
+        .is_this_poker_hand("Bruce", HighCardFigure(CardValue.NINE))
+        .is_this_poker_hand("Clint", PairFigure(CardValue.ACE, CardValue.UNDEFINED)))
 
 def test_six_players_compare_specific_hands_after_drawn_and_natacha_and_bruce_win(): 
     (PlayersManagerDriver()
@@ -144,12 +144,12 @@ def test_six_players_compare_specific_hands_after_drawn_and_natacha_and_bruce_wi
         .determine_player_with_better_hand()
         .is_this_players_can_be_a_winner(["Natacha", "Bruce"])        
         .is_this_best_hand(HighCardFigure(CardValue.KING))
-        .is_this_hand("Steve", HighCardFigure(CardValue.SEVEN))
-        .is_this_hand("Natacha", HighCardFigure(CardValue.KING))
-        .is_this_hand("Tony", HighCardFigure(CardValue.JACK))
-        .is_this_hand("Thor", HighCardFigure(CardValue.TEN))
-        .is_this_hand("Bruce", HighCardFigure(CardValue.KING))
-        .is_this_hand("Clint", HighCardFigure(CardValue.FOUR)))
+        .is_this_poker_hand("Steve", HighCardFigure(CardValue.SEVEN))
+        .is_this_poker_hand("Natacha", HighCardFigure(CardValue.KING))
+        .is_this_poker_hand("Tony", HighCardFigure(CardValue.JACK))
+        .is_this_poker_hand("Thor", HighCardFigure(CardValue.TEN))
+        .is_this_poker_hand("Bruce", HighCardFigure(CardValue.KING))
+        .is_this_poker_hand("Clint", HighCardFigure(CardValue.FOUR)))
 
 def test_ten_players_compare_random_hands_after_drawn(): 
         (PlayersManagerDriver()
@@ -176,16 +176,16 @@ def test_six_players_compare_specific_hands_after_drawn_and_wanda_win():
         .determine_player_with_better_hand()
         .is_this_players_can_be_a_winner(["Carol"])    
         .is_this_best_hand(PairFigure(CardValue.ACE, CardValue.UNDEFINED ))
-        .is_this_hand("Steve", HighCardFigure(CardValue.SEVEN))
-        .is_this_hand("Natacha", HighCardFigure(CardValue.KING))
-        .is_this_hand("Tony", HighCardFigure(CardValue.JACK))
-        .is_this_hand("Thor", HighCardFigure(CardValue.TEN))
-        .is_this_hand("Bruce", HighCardFigure(CardValue.KING))
-        .is_this_hand("Clint", HighCardFigure(CardValue.FOUR))
-        .is_this_hand("Carol",PairFigure(CardValue.ACE, CardValue.UNDEFINED ))
-        .is_this_hand("T'Challa", HighCardFigure(CardValue.ACE))
-        .is_this_hand("Steven", HighCardFigure(CardValue.FOUR))
-        .is_this_hand("Wanda", PairFigure(CardValue.KING, CardValue.UNDEFINED)))
+        .is_this_poker_hand("Steve", HighCardFigure(CardValue.SEVEN))
+        .is_this_poker_hand("Natacha", HighCardFigure(CardValue.KING))
+        .is_this_poker_hand("Tony", HighCardFigure(CardValue.JACK))
+        .is_this_poker_hand("Thor", HighCardFigure(CardValue.TEN))
+        .is_this_poker_hand("Bruce", HighCardFigure(CardValue.KING))
+        .is_this_poker_hand("Clint", HighCardFigure(CardValue.FOUR))
+        .is_this_poker_hand("Carol",PairFigure(CardValue.ACE, CardValue.UNDEFINED ))
+        .is_this_poker_hand("T'Challa", HighCardFigure(CardValue.ACE))
+        .is_this_poker_hand("Steven", HighCardFigure(CardValue.FOUR))
+        .is_this_poker_hand("Wanda", PairFigure(CardValue.KING, CardValue.UNDEFINED)))
 
 def test_failing_because_more_ten_players(): 
     with pytest.raises(TooManyPlayerException) :
@@ -234,10 +234,10 @@ class PlayersManagerDriver():
         full_detector = FullDetector(manipulating_cards)
         four_cards_detector = FourCardsDetector(manipulating_cards)
         quinte_flush_detector = QuinteFlushDetector(manipulating_cards, quinte_detector)
-        hand = Hand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
+        poker_hand = PokerHand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
         self.players = {}
         multi_draw_cards = MultiDrawCards()
-        self.players_manager = PlayersManager(hand, multi_draw_cards)
+        self.players_manager = PlayersManager(poker_hand, multi_draw_cards)
         self.result = None
         
     def add_players(self, name_players):
@@ -290,7 +290,7 @@ class PlayersManagerDriver():
         assert(is_good_hand == True)
         return self
     
-    def is_this_hand(self, player_name, figure_expected): 
+    def is_this_poker_hand(self, player_name, figure_expected): 
         figure_calculated = self.result.hands_by_player[player_name]
         is_right = is_this_two_figure_are_equal(figure_expected, figure_calculated) 
         assert(is_right == True)

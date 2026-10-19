@@ -14,21 +14,21 @@ class TwoPairFigure:
         high_first_pair = self.__get_high_pair(self)
         high_second_pair = self.__get_high_pair(other_hand)
         if high_first_pair < high_second_pair : 
-            return Winner.SECOND_HAND
+            return Winner.SECOND_POKER_HAND
         elif high_second_pair < high_first_pair : 
-            return Winner.FIRST_HAND
+            return Winner.FIRST_POKER_HAND
         else : 
             lower_first_pair = self.__get_lower_pair(self)
             lower_second_pair = self.__get_lower_pair(other_hand)
             if lower_first_pair < lower_second_pair :
-                return Winner.SECOND_HAND
+                return Winner.SECOND_POKER_HAND
             elif lower_second_pair < lower_first_pair :
-                return Winner.FIRST_HAND
+                return Winner.FIRST_POKER_HAND
             else : 
                 if self.high_value_rest_of_cards < other_hand.high_value_rest_of_cards :
-                    return Winner.SECOND_HAND
+                    return Winner.SECOND_POKER_HAND
                 elif other_hand.high_value_rest_of_cards < self.high_value_rest_of_cards : 
-                    return Winner.FIRST_HAND
+                    return Winner.FIRST_POKER_HAND
                 else : 
                     return Winner.EQUALITY
                 

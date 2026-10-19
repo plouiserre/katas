@@ -11,8 +11,8 @@ class QuinteFlushFigure :
 
     def compare_with_other_quinte_flush_hands(self, other_hand: type[Self]) -> Winner:
         if self.value < other_hand.value :
-            return Winner.SECOND_HAND
+            return Winner.SECOND_POKER_HAND
         elif other_hand.value < self.value :
-            return Winner.FIRST_HAND
+            return Winner.FIRST_POKER_HAND
         else : 
             return Winner.UNDETERMINATED            

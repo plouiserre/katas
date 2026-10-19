@@ -11,13 +11,13 @@ class ThreeOfKindFigure :
 
     def compare_with_other_three_of_kinds_hands(self, other_hand: type[Self]) -> Winner:
         if self.value < other_hand.value :
-            return Winner.SECOND_HAND
+            return Winner.SECOND_POKER_HAND
         elif other_hand.value < self.value : 
-            return Winner.FIRST_HAND
+            return Winner.FIRST_POKER_HAND
         else : 
             if self.high_value_rest_of_cards < other_hand.high_value_rest_of_cards : 
-                return Winner.SECOND_HAND 
+                return Winner.SECOND_POKER_HAND 
             elif other_hand.high_value_rest_of_cards < self.high_value_rest_of_cards : 
-                return Winner.FIRST_HAND
+                return Winner.FIRST_POKER_HAND
             else : 
                 return Winner.EQUALITY

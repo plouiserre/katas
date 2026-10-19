@@ -4,51 +4,51 @@ from PokerHands.player.compare_same_type_hand import CompareSameTypeHand
 from PokerHands.winner import Winner
 
 class CompareHand: 
-    def __init__(self, players, hands_by_player):
+    def __init__(self, players, poker_hands_by_player):
         self.players = players
-        self.hands_by_player = hands_by_player   
-        self.compare_same_type_hand = CompareSameTypeHand()
+        self.poker_hands_by_player = poker_hands_by_player   
+        self.compare_same_type_poker_hand = CompareSameTypeHand()
 
     def get_players_with_best_hands(self):
         self.__check_not_too_many_players()
         best_players = [] 
-        best_hand = self.__determinate_best_hand_from_all_players()
-        best_players = self.__get_all_players_with_best_hand(best_hand)
-        result = ComparaisonResult.Create(best_players, best_hand)
+        best_poker_hand = self.__determinate_best_poker_hand_from_all_players()
+        best_players = self.__get_all_players_with_best_poker_hand(best_poker_hand)
+        result = ComparaisonResult.Create(best_players, best_poker_hand)
         return result 
                 
     def __check_not_too_many_players(self): 
         if len(self.players) > 10 : 
             raise TooManyPlayerException("You cannot have more than ten players for a game.")
 
-    def __determinate_best_hand_from_all_players(self):
-        best_hand = None
-        for player_name in self.hands_by_player : 
-            hand = self.hands_by_player[player_name]
-            if best_hand == None : 
-                best_hand = hand
+    def __determinate_best_poker_hand_from_all_players(self):
+        best_poker_hand = None
+        for player_name in self.poker_hands_by_player : 
+            poker_hand = self.poker_hands_by_player[player_name]
+            if best_poker_hand == None : 
+                best_poker_hand = poker_hand
                 continue
-            hands_to_compare = [hand, best_hand]
+            hands_to_compare = [poker_hand, best_poker_hand]
             winner = self.__determinate_winner(hands_to_compare)
-            if winner == Winner.FIRST_HAND :
-                best_hand = hand
-        return best_hand
+            if winner == Winner.FIRST_POKER_HAND :
+                best_poker_hand = poker_hand
+        return best_poker_hand
 
-    def __determinate_winner(self, hands ): 
-            first_hand = hands[0]
-            second_hand = hands[1]
-            if first_hand.points < second_hand.points : 
-                return Winner.SECOND_HAND
-            elif second_hand.points < first_hand.points : 
-                return Winner.FIRST_HAND
+    def __determinate_winner(self, poker_hands ): 
+            FIRST_POKER_HAND = poker_hands[0]
+            SECOND_POKER_HAND = poker_hands[1]
+            if FIRST_POKER_HAND.points < SECOND_POKER_HAND.points : 
+                return Winner.SECOND_POKER_HAND
+            elif SECOND_POKER_HAND.points < FIRST_POKER_HAND.points : 
+                return Winner.FIRST_POKER_HAND
             else : 
-                return self.compare_same_type_hand.compare_hands(first_hand, second_hand)    
+                return self.compare_same_type_poker_hand.compare_hands(FIRST_POKER_HAND, SECOND_POKER_HAND)    
     
     
-    def __get_all_players_with_best_hand(self, best_hand):
+    def __get_all_players_with_best_poker_hand(self, best_poker_hand):
         best_players = []
-        for player_name in self.hands_by_player : 
-            hand = self.hands_by_player[player_name] 
-            if best_hand == hand : 
+        for player_name in self.poker_hands_by_player : 
+            poker_hand = self.poker_hands_by_player[player_name] 
+            if best_poker_hand == poker_hand : 
                 best_players.append(player_name)
         return best_players
