@@ -11,7 +11,7 @@ from PokerHands.detector.three_cards_detector import ThreeCardsDetector
 from PokerHands.detector.two_pairs_detector import TwoPairsDetector
 from PokerHands.game.draw_phase import DrawPhase
 from PokerHands.game.flop_phase import FlopPhase
-from PokerHands.hand import PokerHand
+from PokerHands.poker_hand import PokerHand
 from PokerHands.player.players_manager import PlayersManager
 from PokerHands.game.river_phase import RiverPhase
 from PokerHands.game.turn_phase import TurnPhase

@@ -22,7 +22,7 @@ from PokerHands.detector.three_cards_detector import ThreeCardsDetector
 from PokerHands.detector.two_pairs_detector import TwoPairsDetector
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
 from PokerHands.exception.TooManyPlayerException import TooManyPlayerException
-from PokerHands.hand import PokerHand
+from PokerHands.poker_hand import PokerHand
 from PokerHands.player.players_manager import PlayersManager
 from PokerHands.tests.assert_helper import is_this_two_figure_are_equal
 

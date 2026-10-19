@@ -17,7 +17,7 @@ from PokerHands.detector.two_pairs_detector import TwoPairsDetector
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
 from PokerHands.player.players_manager import PlayersManager
 from PokerHands.game.turn_phase import TurnPhase
-from PokerHands.hand import PokerHand
+from PokerHands.poker_hand import PokerHand
 from PokerHands.manipulating_cards import ManipulatingCards
 from PokerHands.tests.assert_helper import is_this_two_figure_are_equal
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
