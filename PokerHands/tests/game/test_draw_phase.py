@@ -17,7 +17,7 @@ from PokerHands.draw.multi_draw_cards import MultiDrawCards
 from PokerHands.exception.TooManyPlayerException import TooManyPlayerException
 from PokerHands.poker_hand import PokerHand
 from PokerHands.game.draw_phase import DrawPhase
-from PokerHands.player.players_manager import PlayersManager
+from PokerHands.hand.hand import Hand
 from PokerHands.tests.assert_helper import is_this_two_figure_are_equal
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
@@ -164,7 +164,7 @@ class DrawAndComparePlayersPokerHandDriver():
         poker_hand = PokerHand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
         self.players = {}
         self.multi_draw_cards = multidrawcards
-        self.players_manager = PlayersManager(poker_hand, self.multi_draw_cards)
+        self.hand = Hand(poker_hand, self.multi_draw_cards)
         self.result = None
         
     def add_players(self, name_players):
@@ -173,7 +173,7 @@ class DrawAndComparePlayersPokerHandDriver():
         return self
 
     def launch_draw_phase_and_compare_players_hand(self):
-        self.draw_phase = DrawPhase(self.players, self.players_manager)
+        self.draw_phase = DrawPhase(self.players, self.hand)
         self.result =  self.draw_phase.launch_phase_and_get_best_players()
         return self
 

@@ -1,6 +1,6 @@
 from PokerHands.game.game import PhasePoker
-from PokerHands.player.comparaison_result import ComparaisonResult
-from PokerHands.player.player_result import PlayerResult
+from PokerHands.hand.comparaison_result import ComparaisonResult
+from PokerHands.hand.player_result import PlayerResult
 from PokerHands.tests.dsl.dsl_figure import get_figure
 from PokerHands.tests.dsl.dsl_player import get_player
 

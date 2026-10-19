@@ -1,8 +1,8 @@
-from PokerHands.player.compare_hand import CompareHand
-from PokerHands.player.identify_hand import IdentifyHand
-from PokerHands.player.player_result import PlayerResult
+from PokerHands.hand.compare_hand import CompareHand
+from PokerHands.hand.identify_hand import IdentifyHand
+from PokerHands.hand.player_result import PlayerResult
 
-class PlayersManager : 
+class Hand : 
     def __init__(self, poker_hand, multi_draw_cards):
         self.players = {}
         self.poker_hand = poker_hand

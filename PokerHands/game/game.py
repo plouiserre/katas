@@ -12,7 +12,7 @@ from PokerHands.detector.two_pairs_detector import TwoPairsDetector
 from PokerHands.game.draw_phase import DrawPhase
 from PokerHands.game.flop_phase import FlopPhase
 from PokerHands.poker_hand import PokerHand
-from PokerHands.player.players_manager import PlayersManager
+from PokerHands.hand.hand import Hand
 from PokerHands.game.river_phase import RiverPhase
 from PokerHands.game.turn_phase import TurnPhase
 
@@ -52,8 +52,8 @@ class Game :
         four_cards_detector = FourCardsDetector(manipulating_cards)
         quinte_flush_detector = QuinteFlushDetector(manipulating_cards, quinte_detector)
         poker_hand = PokerHand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
-        players_manager = PlayersManager(poker_hand, self.multi_draw_cards)
-        self.draw_phase = DrawPhase(self.players, players_manager)
-        self.flop_phase = FlopPhase(players_manager, self.multi_draw_cards)
-        self.turn_phase = TurnPhase(players_manager, self.multi_draw_cards)
-        self.river_phase = RiverPhase(players_manager, self.multi_draw_cards)        
+        hand = Hand(poker_hand, self.multi_draw_cards)
+        self.draw_phase = DrawPhase(self.players, hand)
+        self.flop_phase = FlopPhase(hand, self.multi_draw_cards)
+        self.turn_phase = TurnPhase(hand, self.multi_draw_cards)
+        self.river_phase = RiverPhase(hand, self.multi_draw_cards)        
