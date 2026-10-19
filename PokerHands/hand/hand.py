@@ -1,6 +1,6 @@
 from PokerHands.hand.compare_hand import CompareHand
 from PokerHands.hand.identify_hand import IdentifyHand
-from PokerHands.hand.player_result import PlayerResult
+from PokerHands.hand.hand_result import HandResult
 
 class Hand : 
     def __init__(self, poker_hand, multi_draw_cards):
@@ -25,7 +25,7 @@ class Hand :
         poker_hands_by_player = identify_poker_hand.determinate_poker_hands()
         compare_poker_hand = CompareHand(self.players, poker_hands_by_player)
         compare_results = compare_poker_hand.get_players_with_best_poker_hands()
-        players_results = PlayerResult(compare_results.winners, compare_results.best_figure, poker_hands_by_player)
+        players_results = HandResult(compare_results.winners, compare_results.best_figure, poker_hands_by_player)
         return players_results
 
     def add_cards_to_players(self, player_name, card):

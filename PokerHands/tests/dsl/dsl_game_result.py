@@ -1,6 +1,6 @@
 from PokerHands.game.game import PhasePoker
 from PokerHands.hand.comparaison_result import ComparaisonResult
-from PokerHands.hand.player_result import PlayerResult
+from PokerHands.hand.hand_result import HandResult
 from PokerHands.tests.dsl.dsl_figure import get_figure
 from PokerHands.tests.dsl.dsl_player import get_player
 
@@ -14,7 +14,7 @@ def convert_game_result_crypted(game_result_crypted, players):
             poker_hands = __get_all_poker_hands(part_phases[2], players)
             winners = [__get_winners(part_phases[3], players)]
             comparaison_result = ComparaisonResult.Create(winners, best_poker_hand)
-            player_result = PlayerResult.create_player_result(comparaison_result, poker_hands)
+            player_result = HandResult.create_player_result(comparaison_result, poker_hands)
             phases[phase_name] = player_result
         return phases
 
