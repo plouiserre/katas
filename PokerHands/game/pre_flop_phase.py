@@ -1,4 +1,4 @@
-class DrawPhase :
+class PreFlopPhase :
     def __init__(self, players, hand):
         self.players = players
         self.hand = hand
