@@ -15,8 +15,8 @@ from PokerHands.detector.three_cards_detector import ThreeCardsDetector
 from PokerHands.detector.two_pairs_detector import TwoPairsDetector
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
 from PokerHands.game.flop_phase import FlopPhase
-from PokerHands.player.players_manager import PlayersManager
-from PokerHands.hand import Hand
+from PokerHands.hand.hand import Hand
+from PokerHands.poker_hand import PokerHand
 from PokerHands.manipulating_cards import ManipulatingCards
 from PokerHands.tests.assert_helper import is_this_two_figure_are_equal
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
@@ -46,8 +46,8 @@ def test_launch_flop_phase_with_two_players_and_steve_wins():
         .launch_phase_and_get_best_players()
         .is_this_players_can_be_a_winner(["Steve"])
         .is_this_best_figure(FlushFigure(CardColor.SPADES, CardValue.ACE))
-        .is_this_hand("Steve", FlushFigure(CardColor.SPADES, CardValue.ACE))
-        .is_this_hand("Natacha", ThreeOfKindFigure(CardValue.ACE, CardValue.QUEEN))
+        .is_this_poker_hand("Steve", FlushFigure(CardColor.SPADES, CardValue.ACE))
+        .is_this_poker_hand("Natacha", ThreeOfKindFigure(CardValue.ACE, CardValue.QUEEN))
         .is_three_cards_flopped()
         .is_one_cards_burned()        
         .all_cards_are_differents())  
@@ -64,8 +64,8 @@ def test_launch_flop_phase_with_two_players_and_natacha_wins():
                     .launch_phase_and_get_best_players()
                     .is_this_players_can_be_a_winner(["Natacha"])
                     .is_this_best_figure(ThreeOfKindFigure(CardValue.ACE, CardValue.QUEEN))
-                    .is_this_hand("Steve", HighCardFigure(CardValue.ACE))
-                    .is_this_hand("Natacha", ThreeOfKindFigure(CardValue.ACE, CardValue.QUEEN))
+                    .is_this_poker_hand("Steve", HighCardFigure(CardValue.ACE))
+                    .is_this_poker_hand("Natacha", ThreeOfKindFigure(CardValue.ACE, CardValue.QUEEN))
                     .is_three_cards_flopped()
                     .is_one_cards_burned()
                     .all_cards_are_differents()) 
@@ -82,8 +82,8 @@ def test_launch_flop_phase_with_two_players_win():
                     .launch_phase_and_get_best_players()
                     .is_this_players_can_be_a_winner(["Steve","Natacha"])
                     .is_this_best_figure(PairFigure(CardValue.ACE, CardValue.KING))
-                    .is_this_hand("Steve", PairFigure(CardValue.ACE, CardValue.KING))
-                    .is_this_hand("Natacha", PairFigure(CardValue.ACE, CardValue.KING))                    
+                    .is_this_poker_hand("Steve", PairFigure(CardValue.ACE, CardValue.KING))
+                    .is_this_poker_hand("Natacha", PairFigure(CardValue.ACE, CardValue.KING))                    
                     .is_three_cards_flopped()
                     .is_one_cards_burned()
                     .all_cards_are_differents()) 
@@ -144,16 +144,16 @@ def test_launch_flop_phase_with_ten_players_and_steve_wins():
         .launch_phase_and_get_best_players()
         .is_this_players_can_be_a_winner(["Steve"])
         .is_this_best_figure(TwoPairFigure(CardValue.ACE, CardValue.FOUR, CardValue.SIX))
-        .is_this_hand("Steve", TwoPairFigure(CardValue.ACE, CardValue.FOUR, CardValue.SIX))
-        .is_this_hand("Natacha", HighCardFigure(CardValue.ACE))
-        .is_this_hand("Tony", HighCardFigure(CardValue.ACE))
-        .is_this_hand("Thor", PairFigure(CardValue.ACE, CardValue.JACK))
-        .is_this_hand("Bruce", HighCardFigure(CardValue.ACE))
-        .is_this_hand("Clint", HighCardFigure(CardValue.ACE))
-        .is_this_hand("Carol", HighCardFigure(CardValue.ACE))
-        .is_this_hand("T'Challa", HighCardFigure(CardValue.ACE))
-        .is_this_hand("Steven", PairFigure(CardValue.SIX, CardValue.ACE))
-        .is_this_hand("Wanda", HighCardFigure(CardValue.ACE))
+        .is_this_poker_hand("Steve", TwoPairFigure(CardValue.ACE, CardValue.FOUR, CardValue.SIX))
+        .is_this_poker_hand("Natacha", HighCardFigure(CardValue.ACE))
+        .is_this_poker_hand("Tony", HighCardFigure(CardValue.ACE))
+        .is_this_poker_hand("Thor", PairFigure(CardValue.ACE, CardValue.JACK))
+        .is_this_poker_hand("Bruce", HighCardFigure(CardValue.ACE))
+        .is_this_poker_hand("Clint", HighCardFigure(CardValue.ACE))
+        .is_this_poker_hand("Carol", HighCardFigure(CardValue.ACE))
+        .is_this_poker_hand("T'Challa", HighCardFigure(CardValue.ACE))
+        .is_this_poker_hand("Steven", PairFigure(CardValue.SIX, CardValue.ACE))
+        .is_this_poker_hand("Wanda", HighCardFigure(CardValue.ACE))
         .is_three_cards_flopped()
         .is_one_cards_burned()        
         .all_cards_are_differents())
@@ -185,16 +185,16 @@ def test_launch_flop_phase_with_ten_players_and_bruce_and_tchalla_win():
             .launch_phase_and_get_best_players()
             .is_this_players_can_be_a_winner(["Bruce", "T'Challa"])
             .is_this_best_figure(PairFigure(CardValue.TEN, CardValue.SEVEN))
-            .is_this_hand("Steve", PairFigure(CardValue.FOUR, CardValue.ACE))
-            .is_this_hand("Natacha", HighCardFigure(CardValue.KING))
-            .is_this_hand("Tony", HighCardFigure(CardValue.QUEEN))
-            .is_this_hand("Thor", HighCardFigure(CardValue.ACE))
-            .is_this_hand("Bruce", PairFigure(CardValue.TEN, CardValue.SEVEN))
-            .is_this_hand("Clint", HighCardFigure(CardValue.QUEEN))
-            .is_this_hand("Carol", HighCardFigure(CardValue.JACK))
-            .is_this_hand("T'Challa", PairFigure(CardValue.TEN, CardValue.SEVEN))
-            .is_this_hand("Steven", PairFigure(CardValue.SIX, CardValue.TEN))
-            .is_this_hand("Wanda", HighCardFigure(CardValue.TEN))
+            .is_this_poker_hand("Steve", PairFigure(CardValue.FOUR, CardValue.ACE))
+            .is_this_poker_hand("Natacha", HighCardFigure(CardValue.KING))
+            .is_this_poker_hand("Tony", HighCardFigure(CardValue.QUEEN))
+            .is_this_poker_hand("Thor", HighCardFigure(CardValue.ACE))
+            .is_this_poker_hand("Bruce", PairFigure(CardValue.TEN, CardValue.SEVEN))
+            .is_this_poker_hand("Clint", HighCardFigure(CardValue.QUEEN))
+            .is_this_poker_hand("Carol", HighCardFigure(CardValue.JACK))
+            .is_this_poker_hand("T'Challa", PairFigure(CardValue.TEN, CardValue.SEVEN))
+            .is_this_poker_hand("Steven", PairFigure(CardValue.SIX, CardValue.TEN))
+            .is_this_poker_hand("Wanda", HighCardFigure(CardValue.TEN))
             .is_three_cards_flopped()
             .is_one_cards_burned()
             .all_cards_are_differents()) 
@@ -212,30 +212,30 @@ class CompareHandsAfterFlopDriver():
         full_detector = FullDetector(manipulating_cards)
         four_cards_detector = FourCardsDetector(manipulating_cards)
         quinte_flush_detector = QuinteFlushDetector(manipulating_cards, quinte_detector)
-        hand = Hand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
+        poker_hand = PokerHand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
         self.multi_draw_cards = multi_draw_cards
-        self.players_manager = PlayersManager(hand, self.multi_draw_cards)
+        self.hand = Hand(poker_hand, self.multi_draw_cards)
         self.cards_given_players = []
         self.winners = []
         self.flop_phase = None
 
     def add_player(self, player_name):
-        self.players_manager.add_player(player_name)
+        self.hand.add_player(player_name)
         return self
 
     def add_players(self, players_name): 
         for player_name in players_name:
-            self.players_manager.add_player(player_name)
+            self.hand.add_player(player_name)
         return self
 
     def add_card_before_flop(self, card_crypted, player_name):
         card = Card.parse(card_crypted)
-        self.players_manager.add_cards_to_players(player_name, card)
+        self.hand.add_cards_to_players(player_name, card)
         self.cards_given_players.append(card)
         return self
 
     def launch_phase_and_get_best_players(self):
-        self.flop_phase = FlopPhase(self.players_manager, self.multi_draw_cards)
+        self.flop_phase = FlopPhase(self.hand, self.multi_draw_cards)
         self.result = self.flop_phase.launch_phase_and_get_best_players()
         return self
 
@@ -257,8 +257,8 @@ class CompareHandsAfterFlopDriver():
         assert(is_equal == True)
         return self
 
-    def is_this_hand(self, player_name, figure_expected): 
-        figure_calculated = self.result.hands_by_player[player_name]
+    def is_this_poker_hand(self, player_name, figure_expected): 
+        figure_calculated = self.result.poker_hands_by_player[player_name]
         is_right = is_this_two_figure_are_equal(figure_expected, figure_calculated) 
         assert(is_right == True)
         return self

@@ -36,9 +36,9 @@ class StatistiquesPresenceFigures:
                 self.__count_all_figures_presences(game)
 
     def __count_all_figures_presences(self, game):
-        for player_name in game.hands_by_player : 
+        for player_name in game.poker_hands_by_player : 
             self.total_figure += 1
-            figure = game.hands_by_player[player_name]
+            figure = game.poker_hands_by_player[player_name]
             type_figure = type(figure).__name__
             if (type_figure in self.figures_present) == False : 
                 self.figures_present[type_figure] = 0

@@ -15,141 +15,141 @@ from PokerHands.detector.three_cards_detector import ThreeCardsDetector
 from PokerHands.detector.two_pairs_detector import TwoPairsDetector
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
 from PokerHands.exception.TooManyPlayerException import TooManyPlayerException
-from PokerHands.hand import Hand
-from PokerHands.game.draw_phase import DrawPhase
-from PokerHands.player.players_manager import PlayersManager
+from PokerHands.poker_hand import PokerHand
+from PokerHands.game.pre_flop_phase import PreFlopPhase
+from PokerHands.hand.hand import Hand
 from PokerHands.tests.assert_helper import is_this_two_figure_are_equal
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
-def test_launch_draw_phase_with_two_players_randomly(): 
-    (DrawAndComparePlayersHandDriver(MultiDrawCards())
+def test_launch_pre_flop_phase_with_two_players_randomly(): 
+    (DrawAndComparePlayersPokerHandDriver(MultiDrawCards())
         .add_players(["Steve","Natacha"])    
-        .launch_draw_phase_and_compare_players_hand()
+        .launch_pre_flop_phase_and_compare_players_hand()
         .is_this_players_can_be_a_winner(["Steve", "Natacha", "Steve_Natacha"]))
     
-def test_launch_draw_phase_with_two_players_and_steve_wins(): 
+def test_launch_pre_flop_phase_with_two_players_and_steve_wins(): 
     fake_cards = ["K♣","Q♥","Q♦","7♠"]
-    (DrawAndComparePlayersHandDriver(FakeMultiDrawCards(fake_cards))
+    (DrawAndComparePlayersPokerHandDriver(FakeMultiDrawCards(fake_cards))
         .add_players(["Steve","Natacha"])    
-        .launch_draw_phase_and_compare_players_hand()
+        .launch_pre_flop_phase_and_compare_players_hand()
         .is_this_players_can_be_a_winner(["Steve"])
         .is_this_best_figure(HighCardFigure(CardValue.KING))
-        .is_this_hand("Steve", HighCardFigure(CardValue.KING))
-        .is_this_hand("Natacha", HighCardFigure(CardValue.QUEEN)))
+        .is_this_poker_hand("Steve", HighCardFigure(CardValue.KING))
+        .is_this_poker_hand("Natacha", HighCardFigure(CardValue.QUEEN)))
 
-def test_launch_draw_phase_with_two_players_and_natacha_wins(): 
+def test_launch_pre_flop_phase_with_two_players_and_natacha_wins(): 
     fake_cards = ["10♣","Q♥","J♦","7♠"]
-    (DrawAndComparePlayersHandDriver(FakeMultiDrawCards(fake_cards))
+    (DrawAndComparePlayersPokerHandDriver(FakeMultiDrawCards(fake_cards))
             .add_players(["Steve","Natacha"])                                 
-            .launch_draw_phase_and_compare_players_hand()
+            .launch_pre_flop_phase_and_compare_players_hand()
             .is_this_players_can_be_a_winner(["Natacha"])
             .is_this_best_figure(HighCardFigure(CardValue.QUEEN))
-            .is_this_hand("Steve", HighCardFigure(CardValue.JACK))
-            .is_this_hand("Natacha", HighCardFigure(CardValue.QUEEN)))
+            .is_this_poker_hand("Steve", HighCardFigure(CardValue.JACK))
+            .is_this_poker_hand("Natacha", HighCardFigure(CardValue.QUEEN)))
     
-def test_launch_draw_phase_with_two_players_and_steve_and_natacha_win(): 
+def test_launch_pre_flop_phase_with_two_players_and_steve_and_natacha_win(): 
     fake_cards = ["Q♣","Q♥","Q♦","Q♠"]
-    (DrawAndComparePlayersHandDriver(FakeMultiDrawCards(fake_cards))
+    (DrawAndComparePlayersPokerHandDriver(FakeMultiDrawCards(fake_cards))
         .add_players(["Steve","Natacha"])    
-        .launch_draw_phase_and_compare_players_hand()
+        .launch_pre_flop_phase_and_compare_players_hand()
         .is_this_players_can_be_a_winner(["Steve_Natacha"])
         .is_this_best_figure(PairFigure(CardValue.QUEEN, CardValue.UNDEFINED))
-        .is_this_hand("Steve", PairFigure(CardValue.QUEEN, CardValue.UNDEFINED))
-        .is_this_hand("Natacha", PairFigure(CardValue.QUEEN, CardValue.UNDEFINED)))
+        .is_this_poker_hand("Steve", PairFigure(CardValue.QUEEN, CardValue.UNDEFINED))
+        .is_this_poker_hand("Natacha", PairFigure(CardValue.QUEEN, CardValue.UNDEFINED)))
 
-def test_launch_draw_phase_with_six_players_randomly(): 
-    (DrawAndComparePlayersHandDriver(MultiDrawCards())
+def test_launch_pre_flop_phase_with_six_players_randomly(): 
+    (DrawAndComparePlayersPokerHandDriver(MultiDrawCards())
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])                                                                          
-        .launch_draw_phase_and_compare_players_hand()
+        .launch_pre_flop_phase_and_compare_players_hand()
         .is_this_players_can_be_a_winner(["Steve", "Natacha", "Tony", "Thor", "Bruce", "Clint"]))
 
-def test_launch_draw_phase_with_six_players_and_steve_wins():
+def test_launch_pre_flop_phase_with_six_players_and_steve_wins():
     fake_cards = ["K♣", "Q♥", "J♣", "10♥",  "9♣", "8♥", "Q♦", "J♠", "10♦", "9♠", "8♦", "7♠"]
-    (DrawAndComparePlayersHandDriver(FakeMultiDrawCards(fake_cards))
+    (DrawAndComparePlayersPokerHandDriver(FakeMultiDrawCards(fake_cards))
             .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])                                                                                                                        
-            .launch_draw_phase_and_compare_players_hand()
+            .launch_pre_flop_phase_and_compare_players_hand()
             .is_this_players_can_be_a_winner(["Steve"])
             .is_this_best_figure(HighCardFigure(CardValue.KING))
-            .is_this_hand("Steve", HighCardFigure(CardValue.KING))
-            .is_this_hand("Natacha", HighCardFigure(CardValue.QUEEN))
-            .is_this_hand("Tony", HighCardFigure(CardValue.JACK))
-            .is_this_hand("Thor", HighCardFigure(CardValue.TEN))
-            .is_this_hand("Bruce", HighCardFigure(CardValue.NINE))
-            .is_this_hand("Clint", HighCardFigure(CardValue.EIGHT)))
+            .is_this_poker_hand("Steve", HighCardFigure(CardValue.KING))
+            .is_this_poker_hand("Natacha", HighCardFigure(CardValue.QUEEN))
+            .is_this_poker_hand("Tony", HighCardFigure(CardValue.JACK))
+            .is_this_poker_hand("Thor", HighCardFigure(CardValue.TEN))
+            .is_this_poker_hand("Bruce", HighCardFigure(CardValue.NINE))
+            .is_this_poker_hand("Clint", HighCardFigure(CardValue.EIGHT)))
 
-def test_launch_draw_phase_with_six_players_and_tony_wins():
+def test_launch_pre_flop_phase_with_six_players_and_tony_wins():
     fake_cards = ["7♣", "J♣", "Q♥", "10♥", "9♣", "8♥", "6♦", "10♦", "J♠", "9♠", "8♦", "7♠"]
-    (DrawAndComparePlayersHandDriver(FakeMultiDrawCards(fake_cards))
+    (DrawAndComparePlayersPokerHandDriver(FakeMultiDrawCards(fake_cards))
             .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])                                                                                                                      
-            .launch_draw_phase_and_compare_players_hand()
+            .launch_pre_flop_phase_and_compare_players_hand()
             .is_this_players_can_be_a_winner(["Tony"])
             .is_this_best_figure(HighCardFigure(CardValue.QUEEN))
-            .is_this_hand("Steve", HighCardFigure(CardValue.SEVEN))
-            .is_this_hand("Natacha", HighCardFigure(CardValue.JACK))
-            .is_this_hand("Tony", HighCardFigure(CardValue.QUEEN))
-            .is_this_hand("Thor", HighCardFigure(CardValue.TEN))
-            .is_this_hand("Bruce", HighCardFigure(CardValue.NINE))
-            .is_this_hand("Clint", HighCardFigure(CardValue.EIGHT)))
+            .is_this_poker_hand("Steve", HighCardFigure(CardValue.SEVEN))
+            .is_this_poker_hand("Natacha", HighCardFigure(CardValue.JACK))
+            .is_this_poker_hand("Tony", HighCardFigure(CardValue.QUEEN))
+            .is_this_poker_hand("Thor", HighCardFigure(CardValue.TEN))
+            .is_this_poker_hand("Bruce", HighCardFigure(CardValue.NINE))
+            .is_this_poker_hand("Clint", HighCardFigure(CardValue.EIGHT)))
 
-def test_launch_draw_phase_with_six_players_and_clint_wins():
+def test_launch_pre_flop_phase_with_six_players_and_clint_wins():
     fake_cards = ["7♣", "6♥", "J♣", "10♥", "9♣", "A♥", "6♦", "5♠", "10♦", "9♠", "8♦", "A♠"]
-    (DrawAndComparePlayersHandDriver(FakeMultiDrawCards(fake_cards))
+    (DrawAndComparePlayersPokerHandDriver(FakeMultiDrawCards(fake_cards))
             .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])
-            .launch_draw_phase_and_compare_players_hand()
+            .launch_pre_flop_phase_and_compare_players_hand()
             .is_this_players_can_be_a_winner(["Clint"])
             .is_this_best_figure(PairFigure(CardValue.ACE, CardValue.UNDEFINED))
-            .is_this_hand("Steve", HighCardFigure(CardValue.SEVEN))
-            .is_this_hand("Natacha", HighCardFigure(CardValue.SIX))
-            .is_this_hand("Tony", HighCardFigure(CardValue.JACK))
-            .is_this_hand("Thor", HighCardFigure(CardValue.TEN))
-            .is_this_hand("Bruce", HighCardFigure(CardValue.NINE))
-            .is_this_hand("Clint", PairFigure(CardValue.ACE, CardValue.UNDEFINED)))
+            .is_this_poker_hand("Steve", HighCardFigure(CardValue.SEVEN))
+            .is_this_poker_hand("Natacha", HighCardFigure(CardValue.SIX))
+            .is_this_poker_hand("Tony", HighCardFigure(CardValue.JACK))
+            .is_this_poker_hand("Thor", HighCardFigure(CardValue.TEN))
+            .is_this_poker_hand("Bruce", HighCardFigure(CardValue.NINE))
+            .is_this_poker_hand("Clint", PairFigure(CardValue.ACE, CardValue.UNDEFINED)))
 
-def test_launch_draw_phase_with_six_players_and_natacha_and_bruce_win(): 
+def test_launch_pre_flop_phase_with_six_players_and_natacha_and_bruce_win(): 
     fake_cards = ["7♣", "K♥", "J♣", "10♥", "K♣", "2♥", "6♦", "Q♠", "10♦", "9♠", "Q♦", "4♠"]
-    (DrawAndComparePlayersHandDriver(FakeMultiDrawCards(fake_cards))
+    (DrawAndComparePlayersPokerHandDriver(FakeMultiDrawCards(fake_cards))
             .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint"])
-            .launch_draw_phase_and_compare_players_hand()
+            .launch_pre_flop_phase_and_compare_players_hand()
             .is_this_players_can_be_a_winner(["Natacha_Bruce"])
             .is_this_best_figure(HighCardFigure(CardValue.KING))
-            .is_this_hand("Steve", HighCardFigure(CardValue.SEVEN))
-            .is_this_hand("Natacha", HighCardFigure(CardValue.KING))
-            .is_this_hand("Tony", HighCardFigure(CardValue.JACK))
-            .is_this_hand("Thor", HighCardFigure(CardValue.TEN))
-            .is_this_hand("Bruce", HighCardFigure(CardValue.KING))
-            .is_this_hand("Clint", HighCardFigure(CardValue.FOUR)))
+            .is_this_poker_hand("Steve", HighCardFigure(CardValue.SEVEN))
+            .is_this_poker_hand("Natacha", HighCardFigure(CardValue.KING))
+            .is_this_poker_hand("Tony", HighCardFigure(CardValue.JACK))
+            .is_this_poker_hand("Thor", HighCardFigure(CardValue.TEN))
+            .is_this_poker_hand("Bruce", HighCardFigure(CardValue.KING))
+            .is_this_poker_hand("Clint", HighCardFigure(CardValue.FOUR)))
 
-def test_launch_draw_phase_with_ten_players_randomly(): 
-    (DrawAndComparePlayersHandDriver(MultiDrawCards())
+def test_launch_pre_flop_phase_with_ten_players_randomly(): 
+    (DrawAndComparePlayersPokerHandDriver(MultiDrawCards())
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
-        .launch_draw_phase_and_compare_players_hand()
+        .launch_pre_flop_phase_and_compare_players_hand()
         .is_this_players_can_be_a_winner(["Steve", "Natacha", "Tony", "Thor", "Bruce", "Clint", "Carol", "T'Challa", "Steven", "Peter", "Wanda"]))
 
-def test_launch_draw_phase_with_ten_players_and_carol_wins():
+def test_launch_pre_flop_phase_with_ten_players_and_carol_wins():
     fake_cards = ["7♣", "K♥", "J♣", "10♥", "K♣", "2♥", "A♥", "A♦", "3♠", "K♠", "6♦", "Q♠", "10♦", "9♠", "Q♦", "4♠","A♠", "Q♠", "4♣", "K♦"] 
-    (DrawAndComparePlayersHandDriver(FakeMultiDrawCards(fake_cards))
+    (DrawAndComparePlayersPokerHandDriver(FakeMultiDrawCards(fake_cards))
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
-        .launch_draw_phase_and_compare_players_hand()
+        .launch_pre_flop_phase_and_compare_players_hand()
         .is_this_players_can_be_a_winner(["Carol"])
         .is_this_best_figure(PairFigure(CardValue.ACE, CardValue.UNDEFINED))
-        .is_this_hand("Steve", HighCardFigure(CardValue.SEVEN))
-        .is_this_hand("Natacha", HighCardFigure(CardValue.KING))
-        .is_this_hand("Tony", HighCardFigure(CardValue.JACK))
-        .is_this_hand("Thor", HighCardFigure(CardValue.TEN))
-        .is_this_hand("Bruce", HighCardFigure(CardValue.KING))
-        .is_this_hand("Clint", HighCardFigure(CardValue.FOUR))
-        .is_this_hand("Carol",PairFigure(CardValue.ACE, CardValue.UNDEFINED ))
-        .is_this_hand("T'Challa", HighCardFigure(CardValue.ACE))
-        .is_this_hand("Steven", HighCardFigure(CardValue.FOUR))
-        .is_this_hand("Wanda", PairFigure(CardValue.KING, CardValue.UNDEFINED)))
+        .is_this_poker_hand("Steve", HighCardFigure(CardValue.SEVEN))
+        .is_this_poker_hand("Natacha", HighCardFigure(CardValue.KING))
+        .is_this_poker_hand("Tony", HighCardFigure(CardValue.JACK))
+        .is_this_poker_hand("Thor", HighCardFigure(CardValue.TEN))
+        .is_this_poker_hand("Bruce", HighCardFigure(CardValue.KING))
+        .is_this_poker_hand("Clint", HighCardFigure(CardValue.FOUR))
+        .is_this_poker_hand("Carol",PairFigure(CardValue.ACE, CardValue.UNDEFINED ))
+        .is_this_poker_hand("T'Challa", HighCardFigure(CardValue.ACE))
+        .is_this_poker_hand("Steven", HighCardFigure(CardValue.FOUR))
+        .is_this_poker_hand("Wanda", PairFigure(CardValue.KING, CardValue.UNDEFINED)))
 
-def test_launch_draw_phase_with_eleven_players_and_the_game_fails(): 
+def test_launch_pre_flop_phase_with_eleven_players_and_the_game_fails(): 
     with pytest.raises(TooManyPlayerException) :
-        (DrawAndComparePlayersHandDriver(MultiDrawCards())
+        (DrawAndComparePlayersPokerHandDriver(MultiDrawCards())
                 .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Peter","Wanda"])
-                .launch_draw_phase_and_compare_players_hand())
+                .launch_pre_flop_phase_and_compare_players_hand())
 
-class DrawAndComparePlayersHandDriver():
+class DrawAndComparePlayersPokerHandDriver():
     def __init__(self, multidrawcards):
         manipulating_cards = ManipulatingCards()
         high_card_detector = HighCardDetector()
@@ -161,10 +161,10 @@ class DrawAndComparePlayersHandDriver():
         full_detector = FullDetector(manipulating_cards)
         four_cards_detector = FourCardsDetector(manipulating_cards)
         quinte_flush_detector = QuinteFlushDetector(manipulating_cards, quinte_detector)
-        hand = Hand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
+        poker_hand = PokerHand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
         self.players = {}
         self.multi_draw_cards = multidrawcards
-        self.players_manager = PlayersManager(hand, self.multi_draw_cards)
+        self.hand = Hand(poker_hand, self.multi_draw_cards)
         self.result = None
         
     def add_players(self, name_players):
@@ -172,9 +172,9 @@ class DrawAndComparePlayersHandDriver():
             self.players[name_player] = []
         return self
 
-    def launch_draw_phase_and_compare_players_hand(self):
-        self.draw_phase = DrawPhase(self.players, self.players_manager)
-        self.result =  self.draw_phase.launch_phase_and_get_best_players()
+    def launch_pre_flop_phase_and_compare_players_hand(self):
+        self.pre_flop_phase = PreFlopPhase(self.players, self.hand)
+        self.result =  self.pre_flop_phase.launch_phase_and_get_best_players()
         return self
 
     def is_this_players_can_be_a_winner(self, players_name):
@@ -195,8 +195,8 @@ class DrawAndComparePlayersHandDriver():
         assert(is_equal == True)
         return self
 
-    def is_this_hand(self, player_name, figure_expected): 
-            figure_calculated = self.result.hands_by_player[player_name]
+    def is_this_poker_hand(self, player_name, figure_expected): 
+            figure_calculated = self.result.poker_hands_by_player[player_name]
             is_right = is_this_two_figure_are_equal(figure_expected, figure_calculated) 
             assert(is_right == True)
             return self

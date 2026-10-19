@@ -103,23 +103,23 @@ def test_sorted_5_cards_without_no_doublon_from_7_cards_with_many_doublons():
 
 class ManipulatingCardDriver(): 
     def __init__(self):
-        self.hand = []
-        self.hands_ordered = []
+        self.poker_hand = []
+        self.poker_hands_ordered = []
         self.counting_card = {}
         self.manipulating_cards = ManipulatingCards() 
 
     def add_all_cards_crypted(self, all_cards_crypted):
         for card_crypted in all_cards_crypted : 
             card = Card.parse(card_crypted)
-            self.hand.append(card)
+            self.poker_hand.append(card)
         return self
 
     def count_card(self):
-        self.counting_card =  self.manipulating_cards.count_cards(self.hand)
+        self.counting_card =  self.manipulating_cards.count_cards(self.poker_hand)
         return self
 
     def sorted_card(self, sorted_limit, sorted_type): 
-        self.hands_ordered = self.manipulating_cards.sorted_card(self.hand, sorted_limit, sorted_type)
+        self.poker_hands_ordered = self.manipulating_cards.sorted_card(self.poker_hand, sorted_limit, sorted_type)
         return self
 
     def is_valid_number_card(self, card_value_crypted, number):
@@ -139,14 +139,14 @@ class ManipulatingCardDriver():
             card = Card.parse(card_crypted)
             ordered_expected.append(card)
         is_valid = False 
-        for hand_ordered in self.hands_ordered :
+        for poker_hand_ordered in self.poker_hands_ordered :
             is_valid_ordered = True
             for idx, card_expected in enumerate(ordered_expected):
-                card = hand_ordered[int(idx)]
+                card = poker_hand_ordered[int(idx)]
                 is_valid_ordered = card.value == card_expected.value and card.color == card_expected.color
                 if is_valid_ordered == False :
                     break
-            if is_valid_ordered and len(ordered_expected_crypted) == len(hand_ordered): 
+            if is_valid_ordered and len(ordered_expected_crypted) == len(poker_hand_ordered): 
                 is_valid = True
         assert(is_valid)
         return self

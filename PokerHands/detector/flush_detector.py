@@ -7,17 +7,17 @@ class FlushDetector :
     def __init__(self):
         pass
 
-    def find_flush(self, hand : Iterator[Card]) -> FlushFigure:
-        if len(hand) == 5 :
-            return self.__analyse_hand_when_the_player_have_five_cards(hand)
+    def find_flush(self, poker_hand : Iterator[Card]) -> FlushFigure:
+        if len(poker_hand) == 5 :
+            return self.__analyse_poker_hand_when_the_player_have_five_cards(poker_hand)
         else : 
             return None
 
-    def __analyse_hand_when_the_player_have_five_cards(self, hand : Iterator[Card]) -> FlushFigure:
+    def __analyse_poker_hand_when_the_player_have_five_cards(self, poker_hand : Iterator[Card]) -> FlushFigure:
         is_flush = True
         last_color = CardColor.UNDEFINED
         high_card_value = CardValue.TWO
-        for card in hand : 
+        for card in poker_hand : 
             if last_color == CardColor.UNDEFINED : 
                 last_color = card.color 
             elif last_color != card.color : 

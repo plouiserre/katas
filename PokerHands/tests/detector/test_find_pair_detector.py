@@ -2,15 +2,15 @@ from PokerHands.AllFigures.PairFigure import PairFigure
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.manipulating_cards import ManipulatingCards
 from PokerHands.detector.pair_detector import PairDetector
-from PokerHands.tests.random_cards import add_cards, get_all_values, get_high_card_complete, get_random_card_complete, get_shuffle_hand, remove_cards
+from PokerHands.tests.random_cards import add_cards, get_all_values, get_high_card_complete, get_random_card_complete, get_shuffle_poker_hand, remove_cards
 
 def test_find_pair_queen(): 
-    hand =  [Card(CardValue.QUEEN, CardColor.CLUBS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
-    assert(_find_pair(hand)==PairFigure(CardValue.QUEEN, CardValue.SEVEN))
+    poker_hand =  [Card(CardValue.QUEEN, CardColor.CLUBS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(_find_pair(poker_hand)==PairFigure(CardValue.QUEEN, CardValue.SEVEN))
 
 def test_find_pair_ace(): 
-    hand =  [Card(CardValue.ACE, CardColor.CLUBS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
-    assert(_find_pair(hand)==PairFigure(CardValue.ACE, CardValue.SEVEN))
+    poker_hand =  [Card(CardValue.ACE, CardColor.CLUBS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(_find_pair(poker_hand)==PairFigure(CardValue.ACE, CardValue.SEVEN))
 
 def test_find_pair_random(): 
     all_cards_values = get_all_values()
@@ -27,11 +27,11 @@ def test_find_pair_random():
         add_cards(all_cards_values, [CardValue.FOUR])
     fourth_card = get_random_card_complete(all_cards_values)
     fifth_card = get_random_card_complete(all_cards_values)
-    hand = [pair_card, pair_card, high_card, fourth_card, fifth_card]
-    get_shuffle_hand(hand)
-    assert(_find_pair(hand)==PairFigure(pair_card.value, high_card.value))   
+    poker_hand = [pair_card, pair_card, high_card, fourth_card, fifth_card]
+    get_shuffle_poker_hand(poker_hand)
+    assert(_find_pair(poker_hand)==PairFigure(pair_card.value, high_card.value))   
                     
-def _find_pair(hand):
+def _find_pair(poker_hand):
     manipulating_cards = ManipulatingCards()
     pair_detector = PairDetector(manipulating_cards)
-    return pair_detector.find_pair(hand)
+    return pair_detector.find_pair(poker_hand)

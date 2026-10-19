@@ -8,12 +8,12 @@ class QuinteFigure:
     value : CardValue
     points : ClassVar[int] = 50
 
-    def compare_with_other_quinte_hand(self, other_hand: type[Self]) -> Winner:
-        if self.value < other_hand.value : 
-            return Winner.SECOND_HAND 
-        elif other_hand.value < self.value : 
-            return Winner.FIRST_HAND
-        elif self.value == other_hand.value :
+    def compare_with_other_quinte_poker_hand(self, other_poker_hand: type[Self]) -> Winner:
+        if self.value < other_poker_hand.value : 
+            return Winner.SECOND_POKER_HAND 
+        elif other_poker_hand.value < self.value : 
+            return Winner.FIRST_POKER_HAND
+        elif self.value == other_poker_hand.value :
             return Winner.EQUALITY
         else : 
             return Winner.UNDETERMINATED

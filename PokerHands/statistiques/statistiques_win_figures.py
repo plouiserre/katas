@@ -33,9 +33,9 @@ class StatistiquesWinFigures:
         for phase in game : 
             self.__count_this_players_figure(game[phase], self.figure_winning_every_where)
 
-    def __count_this_players_figure(self, hand_player, all_figures):
+    def __count_this_players_figure(self, poker_hand_player, all_figures):
         self.total_game += 1
-        figure_winner = hand_player.best_figure
+        figure_winner = poker_hand_player.best_figure
         type_figure = type(figure_winner).__name__
         if (type_figure in all_figures) == False : 
             all_figures[type_figure] = 0
