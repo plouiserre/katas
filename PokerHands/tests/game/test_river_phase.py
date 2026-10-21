@@ -240,9 +240,9 @@ class RiverPhaseDriver():
         return self
     
     def add_players(self, players_name): 
-                for player_name in players_name:
-                    self.hand.add_player(player_name)
-                return self 
+        for player_name in players_name:
+            self.hand.add_player(player_name)
+        return self 
 
     def add_card_draw(self, card_encrypted, player_name):
         card = Card.parse(card_encrypted)
