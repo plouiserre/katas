@@ -4,7 +4,7 @@ from PokerHands.hand.table import Table
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
 #TODO one test everything random without burn and add cards from board
-def test_1():
+def test_manage_table_with_four_player_with_random_and_only_in_preflop_phase():
     (TableDriver(MultiDrawCards() )
             .add_player("Steve")
             .add_player("Natacha")
@@ -29,7 +29,7 @@ def test_1():
             .valid_all_cards_draw_are_unique())
 
 #TODO one test everything determinist without burn and add cards from board
-def test_2():
+def test_manage_table_with_four_player_with_determinist_and_only_in_preflop_phase():
     fake_cards = ["K♣","Q♥","Q♦","J♠", "J♣","10♥","10♦","9♠"]
     (TableDriver(FakeMultiDrawCards(fake_cards) )
             .add_player("Steve")
@@ -59,7 +59,7 @@ def test_2():
             .valid_all_cards_draw_are_unique())   
     
 #TODO one test everything random 
-def test_3():
+def test_manage_table_with_four_player_with_random_and_only_in_all_phases():
     (TableDriver(MultiDrawCards() )
                 .add_player("Steve")
                 .add_player("Natacha")
@@ -93,7 +93,7 @@ def test_3():
                 .valid_all_cards_draw_are_unique())
 
 #TODO one test everything determinist 
-def test_4():
+def test_manage_table_with_four_player_with_no_random_and_only_in_all_phases():
     false_cards = ["K♣","Q♥","Q♦","J♠", "J♣","10♥","10♦","9♠", "9♣", "8♥", "8♦", "7♠", "6♣", "6♥", "5♦", "5♠"]
     (TableDriver(FakeMultiDrawCards(false_cards) )
                 .add_player("Steve")
