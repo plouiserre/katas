@@ -4,9 +4,7 @@ from PokerHands.AllFigures.PairFigure import PairFigure
 from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 from PokerHands.card import Card, CardColor, CardValue
-from PokerHands.hand.compare_hand import CompareHand
-from PokerHands.hand.identify_poker_hand import IdentifyPokerHand
-from PokerHands.hand.hand_result import HandResult
+from PokerHands.game.showdown_phase import ShowdownPhase
 from PokerHands.hand.table import Table
 from PokerHands.manipulating_cards import ManipulatingCards
 from PokerHands.detector.four_cards_detector import FourCardsDetector
@@ -195,11 +193,8 @@ class ShowdownPhaseDriver:
             return self
 
     def launch_showdown_phase_and_identify_winner(self):
-        identify_poker_hand = IdentifyPokerHand(self.poker_hand, self.table.players)
-        poker_hands_by_player = identify_poker_hand.determinate_poker_hands()
-        compare_poker_hand = CompareHand(self.table.players, poker_hands_by_player)
-        compare_results = compare_poker_hand.get_players_with_best_poker_hands()
-        self.players_results = HandResult(compare_results.winners, compare_results.best_figure, poker_hands_by_player)
+        showdown_phase = ShowdownPhase(self.poker_hand, self.table)
+        self.hand_results = showdown_phase.analyze_pokers_hand_and_calculate_hand_results()
         return self
 
     def is_this_players_can_be_a_winner(self, players_name):
@@ -207,21 +202,21 @@ class ShowdownPhaseDriver:
             for player_name in players_name : 
                 if "_" in player_name : 
                     all_players = player_name.split("_")
-                    is_winner = all_players == self.players_results.winners
+                    is_winner = all_players == self.hand_results.winners
                 else : 
-                    is_winner = player_name in self.players_results.winners
+                    is_winner = player_name in self.hand_results.winners
                 if is_winner == True: 
                     break
             assert (is_winner == True)
             return self 
     
     def is_this_best_figure(self, figure): 
-        is_equal =  is_this_two_figure_are_equal(figure, self.players_results.best_figure)
+        is_equal =  is_this_two_figure_are_equal(figure, self.hand_results.best_figure)
         assert(is_equal == True)
         return self
 
     def is_this_poker_hand(self, player_name, figure_expected): 
-        figure_calculated = self.players_results.poker_hands_by_player[player_name]
+        figure_calculated = self.hand_results.poker_hands_by_player[player_name]
         is_right = is_this_two_figure_are_equal(figure_expected, figure_calculated) 
         assert(is_right == True)
         return self
