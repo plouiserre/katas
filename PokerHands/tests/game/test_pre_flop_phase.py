@@ -26,7 +26,7 @@ def test_launch_pre_flop_phase_with_two_players_and_check_preflop_data():
         .is_this_players_have_this_card("Steve", [Card(CardValue.KING, CardColor.CLUBS), Card(CardValue.QUEEN, CardColor.DIAMONDS)])
         .is_this_players_have_this_card("Natacha", [Card(CardValue.QUEEN, CardColor.HEARTS), Card(CardValue.SEVEN, CardColor.SPADES)]))
 
-def test_launch_pre_flop_phase_with_ten_players_and_carol_wins():
+def test_launch_pre_flop_phase_with_ten_players_and_check_preflop_data():
     fake_cards = ["7♣", "K♥", "J♣", "10♥", "K♣", "2♥", "A♥", "A♦", "3♠", "K♠", "6♦", "Q♠", "10♦", "9♠", "Q♦", "4♠","A♠", "Q♣", "4♣", "K♦"] 
     (DrawAndComparePlayersPokerHandDriver(FakeMultiDrawCards(fake_cards))
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
@@ -67,7 +67,7 @@ class DrawAndComparePlayersPokerHandDriver():
 
     def launch_pre_flop_phase_and_get_preflop_datas(self):
         self.pre_flop_phase = PreFlopPhase(self.players, self.table)
-        self.preflop_data =  self.pre_flop_phase.launch_phase_and_get_best_players()
+        self.preflop_data =  self.pre_flop_phase.launch_phase_and_get_all_pre_flop_datas()
         return self
 
     def is_this_players_have_this_card(self, player_name, cards_expected): 

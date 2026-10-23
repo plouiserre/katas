@@ -1,14 +1,14 @@
-from PokerHands.game.game_result.pre_flop_phase_result import PreFlopPhaseResult
+from PokerHands.game.game_result.pre_flop_result import PreFlopResult
 
 class PreFlopPhase :
     def __init__(self, players, table):
         self.players = players
         self.table = table
         
-    def launch_phase_and_get_best_players(self):
+    def launch_phase_and_get_all_pre_flop_datas(self):
         self.__add_all_players()
         self.__each_players_draw_cards_two_times()
-        pre_flop_result = PreFlopPhaseResult.create(self.table.players)
+        pre_flop_result = PreFlopResult.create(self.table.players)
         return pre_flop_result
     
     def __add_all_players(self):

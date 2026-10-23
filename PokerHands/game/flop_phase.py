@@ -1,26 +1,21 @@
-from PokerHands.game.phase import Phase
+from PokerHands.game.game_result.flop_result import FlopResult
 
-class FlopPhase(Phase) : 
-    def __init__(self, player_manager, multi_draw_cards):
-        super().__init__(player_manager, multi_draw_cards)
+class FlopPhase() : 
+    def __init__(self, table):
+        self.table = table
         self.card_burn = None
-        self.cards_returned = []
+        self.flop_cards = []
 
-    def launch_phase_and_get_best_players(self): 
-        self.card_burn = super().burn_one_card()
+    def launch_phase_and_get_all_flop_datas(self): 
+        self.__burn_one_card()
         self.__draw_flop()
-        result = self.player_manager.get_players_with_best_poker_hands()
-        return result   
+        flop_result = FlopResult.create(self.table.players, self.flop_cards, self.card_burn)
+        return flop_result   
 
     def __draw_flop(self):
-        flop = []
-        i = 0
-        while i < 3 :
-            new_card = self.multi_draw_cards.draw_one_card()
-            self.cards_returned.append(new_card)
-            flop.append(new_card)
-            i += 1
-        for player_name in self.player_manager.get_all_players() : 
-            for card in flop :                 
-                self.player_manager.add_cards_to_players(player_name, card)
+        self.flop_cards = self.table.deal_flop()
+        self.table.affect_boards_cards_to_players(self.flop_cards)
         return self
+
+    def __burn_one_card(self): 
+        self.card_burn = self.table.burn_one_card()
