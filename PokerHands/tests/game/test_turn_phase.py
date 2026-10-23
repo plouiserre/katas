@@ -142,7 +142,7 @@ class TurnPhaseDriver():
     def all_cards_are_differents(self): 
         all_cards = []
         all_cards.append(self.turn_datas.burn_card)
-        all_cards.append(self.turn_phase.turn_card)
+        all_cards.append(self.turn_datas.turn_card)
         all_cards_drawn_unique = set(all_cards)
         assert(len(all_cards) == len(all_cards_drawn_unique))
         return self

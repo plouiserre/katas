@@ -19,285 +19,172 @@ from PokerHands.draw.multi_draw_cards import MultiDrawCards
 from PokerHands.hand.hand import Hand
 from PokerHands.game.river_phase import RiverPhase
 from PokerHands.poker_hand import PokerHand
+from PokerHands.hand.table import Table
 from PokerHands.tests.assert_helper import is_this_two_figure_are_equal
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
 def test_launch_river_phase_with_two_players_randomly():
     (RiverPhaseDriver(MultiDrawCards())
-            .add_player("Steve")
-            .add_player("Natacha")
-            .add_card_draw("2♠", "Steve")
-            .add_card_draw("A♥", "Natacha")
-            .add_card_draw("6♠", "Steve")
-            .add_card_draw("A♣", "Natacha")
-            .add_card_flop_phase("2♥")
-            .add_card_flop_phase("2♦")
-            .add_card_flop_phase("A♠")
-            .add_card_turn_phase("K♥")
-            .launch_river_phase_and_gest_best_players()
-            .is_this_players_can_be_a_winner(["Steve", "Natacha"])
-            .is_one_card_burned())
-    
-def test_launch_river_phase_with_two_players_and_steve_wins():
-    false_cards = ["3♠","2♣"]
-    (RiverPhaseDriver(FakeMultiDrawCards(false_cards))
         .add_player("Steve")
         .add_player("Natacha")
-        .add_card_draw("2♠", "Steve")
-        .add_card_draw("A♥", "Natacha")
-        .add_card_draw("6♠", "Steve")
-        .add_card_draw("A♣", "Natacha")
+        .add_card_before_flop_phase("2♠", "Steve")
+        .add_card_before_flop_phase("A♥", "Natacha")
+        .add_card_before_flop_phase("6♠", "Steve")
+        .add_card_before_flop_phase("A♣", "Natacha")
+        .burn_one_card("K♦")
         .add_card_flop_phase("2♥")
         .add_card_flop_phase("2♦")
         .add_card_flop_phase("A♠")
-        .add_card_turn_phase("K♥")
-        .launch_river_phase_and_gest_best_players()
-        .is_this_players_can_be_a_winner(["Steve"])
-        .is_this_best_figure(FourOfKindFigure(CardValue.TWO, CardValue.ACE))
-        .is_this_poker_hand("Steve", FourOfKindFigure(CardValue.TWO, CardValue.ACE))
-        .is_this_poker_hand("Natacha", FullFigure(CardValue.TWO, CardValue.ACE))
-        .is_one_card_burned())
+        .burn_one_card("7♦")
+        .add_card_turn_phase("A♠")
+        .launch_phase_and_get_river_datas()
+        .all_cards_are_differents()
+        .is_three_cards_burned()
+        .is_this_players_have_seven_cards_dealed("Steve")
+        .is_this_players_have_seven_cards_dealed("Natacha"))
 
-def test_launch_river_phase_with_two_players_and_natacha_wins():
-  false_cards = ["3♠","5♥"]
-  (RiverPhaseDriver(FakeMultiDrawCards(false_cards))
-           .add_player("Steve")
-           .add_player("Natacha")
-           .add_card_draw("2♠", "Steve")
-           .add_card_draw("A♥", "Natacha")
-           .add_card_draw("6♠", "Steve")
-           .add_card_draw("A♣", "Natacha")
-           .add_card_flop_phase("2♥")
-           .add_card_flop_phase("2♦")
-           .add_card_flop_phase("A♠")
-           .add_card_turn_phase("Q♦")
-           .launch_river_phase_and_gest_best_players()
-           .is_this_players_can_be_a_winner(["Natacha"])
-           .is_this_best_figure(FullFigure(CardValue.TWO, CardValue.ACE))
-           .is_this_poker_hand("Steve", ThreeOfKindFigure(CardValue.TWO, CardValue.ACE))
-           .is_this_poker_hand("Natacha", FullFigure(CardValue.TWO, CardValue.ACE))           
-           .is_one_card_burned())
-
-def test_launch_river_phase_with_two_players_win():
-    false_cards = ["3♠","J♠"]
+def test_launch_turn_phase_with_two_players_and_analyse_turn_datas():
+    false_cards = ["8♥","9♣"]
     (RiverPhaseDriver(FakeMultiDrawCards(false_cards))
         .add_player("Steve")
         .add_player("Natacha")
-        .add_card_draw("2♠", "Steve")
-        .add_card_draw("2♥", "Natacha")
-        .add_card_draw("A♦", "Steve")
-        .add_card_draw("A♣", "Natacha")
-        .add_card_flop_phase("4♥")
-        .add_card_flop_phase("J♦")
-        .add_card_flop_phase("6♠")
-        .add_card_turn_phase("5♥")
-        .launch_river_phase_and_gest_best_players()
-        .is_this_players_can_be_a_winner(["Steve_Natacha"])
-        .is_this_best_figure(PairFigure(CardValue.JACK, CardValue.ACE))
-        .is_this_poker_hand("Steve", PairFigure(CardValue.JACK, CardValue.ACE))
-        .is_this_poker_hand("Natacha", PairFigure(CardValue.JACK, CardValue.ACE))        
-        .is_one_card_burned()
-    )
+        .add_card_before_flop_phase("2♠", "Steve")
+        .add_card_before_flop_phase("A♥", "Natacha")
+        .add_card_before_flop_phase("6♠", "Steve")
+        .add_card_before_flop_phase("A♣", "Natacha")
+        .burn_one_card("K♦")                            
+        .add_card_flop_phase("2♥")
+        .add_card_flop_phase("2♦")
+        .add_card_flop_phase("A♠")
+        .burn_one_card("3♠")
+        .add_card_turn_phase("2♣")
+        .launch_phase_and_get_river_datas()
+        .all_cards_are_differents()
+        .is_three_cards_burned()
+        .is_this_players_have_seven_cards_dealed("Steve")
+        .is_this_players_have_seven_cards_dealed("Natacha")
+        .is_this_players_have_this_card("Steve", [Card(CardValue.TWO, CardColor.SPADES), Card(CardValue.SIX, CardColor.SPADES),Card(CardValue.TWO, CardColor.HEARTS), Card(CardValue.TWO, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.SPADES), Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.NINE, CardColor.CLUBS)])
+        .is_this_players_have_this_card("Natacha", [Card(CardValue.ACE, CardColor.HEARTS), Card(CardValue.ACE, CardColor.CLUBS),Card(CardValue.TWO, CardColor.HEARTS), Card(CardValue.TWO, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.SPADES), Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.NINE, CardColor.CLUBS)]))
 
-def test_launch_river_phase_with_ten_players_randomly():
-    (RiverPhaseDriver(MultiDrawCards())
-        .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
-        .add_card_draw("A♠", "Steve")
-        .add_card_draw("K♣", "Natacha")
-        .add_card_draw("Q♥", "Tony")
-        .add_card_draw("J♦","Thor")
-        .add_card_draw("10♣", "Bruce")
-        .add_card_draw("9♦", "Clint")
-        .add_card_draw("8♥", "Carol")
-        .add_card_draw("7♠", "T'Challa")
-        .add_card_draw("6♣", "Steven")
-        .add_card_draw("5♦", "Wanda")
-        .add_card_draw("4♥", "Steve")
-        .add_card_draw("3♠", "Natacha")
-        .add_card_draw("2♣","Tony")
-        .add_card_draw("A♦", "Thor")
-        .add_card_draw("K♥", "Bruce")
-        .add_card_draw("Q♠", "Clint")
-        .add_card_draw("J♣", "Carol")
-        .add_card_draw("10♦", "T'Challa")
-        .add_card_draw("9♥", "Steven")
-        .add_card_draw("8♠", "Wanda")
-        .add_card_flop_phase("4♥")
-        .add_card_flop_phase("J♦")
-        .add_card_flop_phase("6♠")
-        .add_card_turn_phase("7♣")
-        .launch_river_phase_and_gest_best_players()
-        .is_this_players_can_be_a_winner(["Steve", "Natacha", "Tony", "Thor", "Bruce", "Clint", "Carol", "T'Challa", "Steven", "Peter", "Wanda" ])        
-        .is_one_card_burned())        
-    
-def test_launch_river_phase_with_ten_players_and_wanda_win():
-    fake_cards = ["3♠","8♦"]
+def test_launch_turn_phase_with_ten_players_and_analyse_turn_datas():
+    fake_cards = ["10♥","J♠"]
     (RiverPhaseDriver(FakeMultiDrawCards(fake_cards))
         .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
-        .add_card_draw("A♠", "Steve")
-        .add_card_draw("K♣", "Natacha")
-        .add_card_draw("Q♥", "Tony")
-        .add_card_draw("J♦","Thor")
-        .add_card_draw("10♣", "Bruce")
-        .add_card_draw("9♦", "Clint")
-        .add_card_draw("6♥", "Carol")
-        .add_card_draw("7♠", "T'Challa")
-        .add_card_draw("6♣", "Steven")
-        .add_card_draw("5♦", "Wanda")
-        .add_card_draw("4♥", "Steve")
-        .add_card_draw("3♠", "Natacha")
-        .add_card_draw("2♣","Tony")
-        .add_card_draw("A♦", "Thor")
-        .add_card_draw("7♥", "Bruce")
-        .add_card_draw("Q♠", "Clint")
-        .add_card_draw("J♣", "Carol")
-        .add_card_draw("10♦", "T'Challa")
-        .add_card_draw("9♥", "Steven")
-        .add_card_draw("8♠", "Wanda")               
+        .add_card_before_flop_phase("A♠", "Steve")
+        .add_card_before_flop_phase("K♣", "Natacha")
+        .add_card_before_flop_phase("Q♥", "Tony")
+        .add_card_before_flop_phase("J♦","Thor")
+        .add_card_before_flop_phase("10♣", "Bruce")
+        .add_card_before_flop_phase("9♦", "Clint")
+        .add_card_before_flop_phase("8♥", "Carol")
+        .add_card_before_flop_phase("7♠", "T'Challa")
+        .add_card_before_flop_phase("6♣", "Steven")
+        .add_card_before_flop_phase("5♦", "Wanda")
+        .add_card_before_flop_phase("4♥", "Steve")
+        .add_card_before_flop_phase("3♠", "Natacha")
+        .add_card_before_flop_phase("2♣","Tony")
+        .add_card_before_flop_phase("A♦", "Thor")
+        .add_card_before_flop_phase("7♥", "Bruce")
+        .add_card_before_flop_phase("Q♠", "Clint")
+        .add_card_before_flop_phase("J♣", "Carol")
+        .add_card_before_flop_phase("10♦", "T'Challa")
+        .add_card_before_flop_phase("9♥", "Steven")
+        .add_card_before_flop_phase("8♠", "Wanda")               
         .add_card_flop_phase("5♥")
-        .add_card_flop_phase("8♥")
+        .add_card_flop_phase("8♦")
         .add_card_flop_phase("4♠")
-        .add_card_flop_phase("8♠")
-        .launch_river_phase_and_gest_best_players()
-        .is_this_players_can_be_a_winner(["Wanda"])
-        .is_this_best_figure(FourOfKindFigure(CardValue.EIGHT, CardValue.FIVE))        
-        .is_this_poker_hand("Steve", FullFigure(CardValue.FOUR, CardValue.EIGHT))
-        .is_this_poker_hand("Natacha", ThreeOfKindFigure(CardValue.EIGHT, CardValue.KING))
-        .is_this_poker_hand("Tony", ThreeOfKindFigure(CardValue.EIGHT, CardValue.QUEEN))
-        .is_this_poker_hand("Thor", ThreeOfKindFigure(CardValue.EIGHT, CardValue.ACE))
-        .is_this_poker_hand("Bruce", ThreeOfKindFigure(CardValue.EIGHT, CardValue.TEN))
-        .is_this_poker_hand("Clint", ThreeOfKindFigure(CardValue.EIGHT, CardValue.QUEEN))
-        .is_this_poker_hand("Carol", ThreeOfKindFigure(CardValue.EIGHT, CardValue.JACK))
-        .is_this_poker_hand("T'Challa", ThreeOfKindFigure(CardValue.EIGHT, CardValue.TEN))
-        .is_this_poker_hand("Steven", ThreeOfKindFigure(CardValue.EIGHT, CardValue.NINE))
-        .is_this_poker_hand("Wanda", FourOfKindFigure(CardValue.EIGHT, CardValue.FIVE))
-        .is_one_card_burned())
+        .burn_one_card("3♥")
+        .add_card_turn_phase("5♠")
+        .launch_phase_and_get_river_datas()
+        .all_cards_are_differents()
+        .is_three_cards_burned()
+        .is_this_players_have_seven_cards_dealed("Steve")
+        .is_this_players_have_seven_cards_dealed("Natacha")
+        .is_this_players_have_seven_cards_dealed("Tony")
+        .is_this_players_have_seven_cards_dealed("Thor")
+        .is_this_players_have_seven_cards_dealed("Bruce")
+        .is_this_players_have_seven_cards_dealed("Clint")
+        .is_this_players_have_seven_cards_dealed("Carol")
+        .is_this_players_have_seven_cards_dealed("T'Challa")
+        .is_this_players_have_seven_cards_dealed("Steven")                                                                    
+        .is_this_players_have_this_card("Steve", [Card(CardValue.ACE, CardColor.SPADES), Card(CardValue.FOUR, CardColor.HEARTS),Card(CardValue.FIVE, CardColor.HEARTS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.SPADES), Card(CardValue.FIVE, CardColor.SPADES), Card(CardValue.JACK, CardColor.SPADES)])
+        .is_this_players_have_this_card("Natacha", [Card(CardValue.KING, CardColor.CLUBS), Card(CardValue.THREE, CardColor.SPADES),Card(CardValue.FIVE, CardColor.HEARTS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.SPADES), Card(CardValue.FIVE, CardColor.SPADES), Card(CardValue.JACK, CardColor.SPADES)])
+        .is_this_players_have_this_card("Tony", [Card(CardValue.QUEEN, CardColor.HEARTS), Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.FIVE, CardColor.HEARTS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.SPADES), Card(CardValue.FIVE, CardColor.SPADES), Card(CardValue.JACK, CardColor.SPADES)])
+        .is_this_players_have_this_card("Thor", [Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.DIAMONDS),Card(CardValue.FIVE, CardColor.HEARTS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.SPADES), Card(CardValue.FIVE, CardColor.SPADES), Card(CardValue.JACK, CardColor.SPADES)])
+        .is_this_players_have_this_card("Bruce", [Card(CardValue.TEN, CardColor.CLUBS), Card(CardValue.SEVEN, CardColor.HEARTS),Card(CardValue.FIVE, CardColor.HEARTS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.SPADES), Card(CardValue.FIVE, CardColor.SPADES), Card(CardValue.JACK, CardColor.SPADES)])
+        .is_this_players_have_this_card("Clint", [Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.SPADES),Card(CardValue.FIVE, CardColor.HEARTS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.SPADES), Card(CardValue.FIVE, CardColor.SPADES), Card(CardValue.JACK, CardColor.SPADES)])
+        .is_this_players_have_this_card("Carol", [Card(CardValue.EIGHT, CardColor.HEARTS), Card(CardValue.JACK, CardColor.CLUBS),Card(CardValue.FIVE, CardColor.HEARTS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.SPADES), Card(CardValue.FIVE, CardColor.SPADES), Card(CardValue.JACK, CardColor.SPADES)])
+        .is_this_players_have_this_card("T'Challa", [Card(CardValue.SEVEN, CardColor.SPADES), Card(CardValue.TEN, CardColor.DIAMONDS),Card(CardValue.FIVE, CardColor.HEARTS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.SPADES), Card(CardValue.FIVE, CardColor.SPADES), Card(CardValue.JACK, CardColor.SPADES)])
+        .is_this_players_have_this_card("Steven", [Card(CardValue.SIX, CardColor.CLUBS), Card(CardValue.NINE, CardColor.HEARTS),Card(CardValue.FIVE, CardColor.HEARTS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.SPADES), Card(CardValue.FIVE, CardColor.SPADES), Card(CardValue.JACK, CardColor.SPADES)])
+        .is_this_players_have_this_card("Wanda", [Card(CardValue.FIVE, CardColor.DIAMONDS), Card(CardValue.EIGHT, CardColor.SPADES),Card(CardValue.FIVE, CardColor.HEARTS), Card(CardValue.EIGHT, CardColor.DIAMONDS), Card(CardValue.FOUR, CardColor.SPADES), Card(CardValue.FIVE, CardColor.SPADES), Card(CardValue.JACK, CardColor.SPADES)]))
 
-def test_launch_river_phase_with_ten_players_and_tony_and_clint_win():
-    fake_cards = ["3♠","Q♣"]
-    (RiverPhaseDriver(FakeMultiDrawCards(fake_cards))
-        .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
-        .add_card_draw("A♠", "Steve")
-        .add_card_draw("K♣", "Natacha")
-        .add_card_draw("Q♥", "Tony")
-        .add_card_draw("J♦","Thor")
-        .add_card_draw("10♣", "Bruce")
-        .add_card_draw("9♦", "Clint")
-        .add_card_draw("8♥", "Carol")
-        .add_card_draw("7♠", "T'Challa")
-        .add_card_draw("6♣", "Steven")
-        .add_card_draw("5♦", "Wanda")
-        .add_card_draw("4♥", "Steve")
-        .add_card_draw("3♠", "Natacha")
-        .add_card_draw("2♣","Tony")
-        .add_card_draw("A♦", "Thor")
-        .add_card_draw("7♥", "Bruce")
-        .add_card_draw("Q♠", "Clint")
-        .add_card_draw("J♣", "Carol")
-        .add_card_draw("10♦", "T'Challa")
-        .add_card_draw("9♥", "Steven")
-        .add_card_draw("8♠", "Wanda")                   
-        .add_card_flop_phase("10♥")
-        .add_card_flop_phase("6♦")
-        .add_card_flop_phase("4♠")
-        .add_card_turn_phase("Q♦")
-        .launch_river_phase_and_gest_best_players()
-        .is_this_players_can_be_a_winner(["Tony_Clint"])
-        .is_this_best_figure(ThreeOfKindFigure(CardValue.QUEEN, CardValue.TEN))
-        .is_this_poker_hand("Steve", TwoPairFigure(CardValue.QUEEN, CardValue.FOUR, CardValue.ACE))
-        .is_this_poker_hand("Natacha", PairFigure(CardValue.QUEEN,CardValue.KING))
-        .is_this_poker_hand("Tony", ThreeOfKindFigure(CardValue.QUEEN, CardValue.TEN))
-        .is_this_poker_hand("Thor", PairFigure(CardValue.QUEEN,CardValue.ACE))
-        .is_this_poker_hand("Bruce", TwoPairFigure(CardValue.QUEEN, CardValue.TEN, CardValue.SEVEN))
-        .is_this_poker_hand("Clint", ThreeOfKindFigure(CardValue.QUEEN, CardValue.TEN))
-        .is_this_poker_hand("Carol", PairFigure(CardValue.QUEEN, CardValue.JACK))
-        .is_this_poker_hand("T'Challa", TwoPairFigure(CardValue.QUEEN, CardValue.TEN, CardValue.SEVEN))
-        .is_this_poker_hand("Steven", TwoPairFigure( CardValue.QUEEN, CardValue.SIX, CardValue.TEN))
-        .is_this_poker_hand("Wanda", PairFigure(CardValue.QUEEN, CardValue.TEN))
-        .is_one_card_burned())
     
 class RiverPhaseDriver():
     def __init__(self, multi_draw_cards):
-        manipulating_cards = ManipulatingCards()
-        high_card_detector = HighCardDetector()
-        pair_detector = PairDetector(manipulating_cards)
-        two_pairs_detector = TwoPairsDetector(manipulating_cards)
-        three_cards_detector = ThreeCardsDetector(manipulating_cards)
-        quinte_detector = QuinteDetector(manipulating_cards)
-        flush_detector = FlushDetector()
-        full_detector = FullDetector(manipulating_cards)
-        four_cards_detector = FourCardsDetector(manipulating_cards)
-        quinte_flush_detector = QuinteFlushDetector(manipulating_cards, quinte_detector)
-        poker_hand = PokerHand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
-        self.multi_draw_cards = multi_draw_cards
-        self.hand = Hand(poker_hand, self.multi_draw_cards)
-        self.players = {}
-        self.winners = []
-        self.river = None
+        self.table = Table(multi_draw_cards)
+        self.river_phase = None
+        self.burn_cards = []
 
     def add_player(self, player_name):
-        self.hand.add_player(player_name)
+        self.table.add_player(player_name)
         return self
     
     def add_players(self, players_name): 
         for player_name in players_name:
-            self.hand.add_player(player_name)
+            self.table.add_player(player_name)
         return self 
-
-    def add_card_draw(self, card_encrypted, player_name):
-        card = Card.parse(card_encrypted)
-        self.hand.add_cards_to_players(player_name, card)
+    
+    def burn_one_card(self, card_crypted):
+        card = Card.parse(card_crypted)
+        self.burn_cards.append(card)
         return self
 
-    def add_card_flop_phase(self, card_encrypted):
-        card = Card.parse(card_encrypted)
-        for player_name in self.hand.get_all_players():
-            self.hand.add_cards_to_players(player_name, card)
+    def add_card_before_flop_phase(self, card_crypted, player_name):
+        card = Card.parse(card_crypted)
+        self.table.affect_card_to_player(player_name, card)
+        return self
+
+    def add_card_flop_phase(self, card_crypted):
+        card = Card.parse(card_crypted)
+        for player_name in self.table.players : 
+            self.table.affect_card_to_player(player_name, card)
         return self
 
     def add_card_turn_phase(self, card_encrypted):
         card = Card.parse(card_encrypted)
-        for player_name in self.hand.get_all_players():
-            self.hand.add_cards_to_players(player_name, card)
+        for player_name in self.table.players:
+            self.table.affect_card_to_player(player_name, card)
         return self
 
-    def launch_river_phase_and_gest_best_players(self):
-        self.river_phase = RiverPhase(self.hand, self.multi_draw_cards)
-        self.result = self.river_phase.launch_phase_and_get_best_players()
+    def launch_phase_and_get_river_datas(self):
+        self.river_phase = RiverPhase(self.table)
+        self.river_datas = self.river_phase.launch_phase_and_get_all_river_datas()
         return self
 
-    def is_this_players_can_be_a_winner(self, players_name):
-        is_winner = False
-        for player_name in players_name : 
-            if "_" in player_name : 
-                all_players = player_name.split("_")
-                is_winner = all_players == self.result.winners
-            else : 
-                is_winner = player_name in self.result.winners
-            if is_winner == True: 
-                break
-        assert (is_winner == True)
-        return self 
-
-    def is_this_best_figure(self, figure): 
-        is_equal =  is_this_two_figure_are_equal(figure, self.result.best_figure)
-        assert(is_equal == True)
+    def is_three_cards_burned(self): 
+        self.burn_cards.append(self.river_phase.card_burn)
+        for burn_card in self.burn_cards : 
+            assert(burn_card != Card(CardValue.UNDEFINED, CardColor.UNDEFINED))
         return self
 
-    def is_this_poker_hand(self, player_name, figure_expected): 
-        figure_calculated = self.result.poker_hands_by_player[player_name]
-        is_right = is_this_two_figure_are_equal(figure_expected, figure_calculated) 
-        assert(is_right == True)
-        return self
-
-    def is_one_card_burned(self): 
-        assert(self.river_phase.card_burn != Card(CardValue.UNDEFINED, CardColor.UNDEFINED))
+    def is_this_players_have_seven_cards_dealed(self, player_name): 
+        assert (len(self.river_datas.players[player_name]) == 7)
         return self
 
     def all_cards_are_differents(self): 
         all_cards = []
-        all_cards.append(self.river_phase.card_turned)
-        all_cards.append(self.river_phase.card_burn)
+        all_cards.append(self.river_datas.river_card)
+        all_cards.append(self.river_datas.burn_card)
         all_cards_drawn_unique = set(all_cards)
         assert(len(all_cards) == len(all_cards_drawn_unique))
         return self
+
+    def is_this_players_have_this_card(self, player_name, cards_expected): 
+        is_ok = True
+        for idx, card_expected in enumerate(cards_expected):
+            card = self.river_datas.players[player_name][idx]
+            if card.value != card_expected.value or card.color != card_expected.color : 
+                is_ok = False
+                break
+        assert(is_ok == True)
+        return self    
