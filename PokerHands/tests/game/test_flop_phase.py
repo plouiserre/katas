@@ -1,25 +1,7 @@
-from PokerHands.AllFigures.FlushFigure import FlushFigure
-from PokerHands.AllFigures.HighCardFigure import HighCardFigure
-from PokerHands.AllFigures.PairFigure import PairFigure
-from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
-from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 from PokerHands.card import Card, CardColor, CardValue
-from PokerHands.detector.four_cards_detector import FourCardsDetector
-from PokerHands.detector.flush_detector import FlushDetector
-from PokerHands.detector.full_detector import FullDetector
-from PokerHands.detector.high_card_detector import HighCardDetector
-from PokerHands.detector.pair_detector import PairDetector
-from PokerHands.detector.quinte_flush_detector import QuinteFlushDetector
-from PokerHands.detector.quinte_detector import QuinteDetector
-from PokerHands.detector.three_cards_detector import ThreeCardsDetector
-from PokerHands.detector.two_pairs_detector import TwoPairsDetector
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
 from PokerHands.game.flop_phase import FlopPhase
-from PokerHands.hand.hand import Hand
-from PokerHands.poker_hand import PokerHand
-from PokerHands.manipulating_cards import ManipulatingCards
 from PokerHands.hand.table import Table
-from PokerHands.tests.assert_helper import is_this_two_figure_are_equal
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
 def test_launch_flop_phase_with_two_players_randomly():
@@ -37,7 +19,7 @@ def test_launch_flop_phase_with_two_players_randomly():
         .is_this_players_have_five_cards_dealed("Steve")
         .is_this_players_have_five_cards_dealed("Natacha"))     
 
-def test_launch_flop_phase_with_two_players_and_steve_wins_and_evaluate_flop_datas(): 
+def test_launch_flop_phase_with_two_players_and_evaluate_flop_datas(): 
     fake_cards = ["K♥","A♠", "Q♠", "8♠"]
     (CompareHandsAfterFlopDriver(FakeMultiDrawCards(fake_cards))
         .add_player("Steve")
@@ -108,10 +90,9 @@ def test_launch_flop_phase_with_ten_players_and_steve_wins():
 
 class CompareHandsAfterFlopDriver():
     def __init__(self, multi_draw_cards):
-        self.players = []
         self.multi_draw_cards = multi_draw_cards
         self.table = Table(self.multi_draw_cards)
-        self.flop_data = None
+        self.flop_datas = None
 
     def add_player(self, player_name):
         self.table.add_player(player_name)
@@ -129,15 +110,15 @@ class CompareHandsAfterFlopDriver():
 
     def launch_phase_and_get_flop_datas(self):
         self.flop_phase = FlopPhase(self.table)
-        self.flop_data = self.flop_phase.launch_phase_and_get_all_flop_datas()
+        self.flop_datas = self.flop_phase.launch_phase_and_get_all_flop_datas()
         return self  
 
     def is_three_cards_flopped(self): 
-        assert(len(self.flop_data.flop_cards) == 3)
+        assert(len(self.flop_datas.flop_cards) == 3)
         return self
 
     def is_one_card_burned(self): 
-        assert(self.flop_data.burn_card != Card(CardValue.UNDEFINED, CardColor.UNDEFINED))
+        assert(self.flop_datas.burn_card != Card(CardValue.UNDEFINED, CardColor.UNDEFINED))
         return self
 
     def all_cards_are_differents(self): 
@@ -151,13 +132,13 @@ class CompareHandsAfterFlopDriver():
         assert(len(all_cards) == len(all_cards_drawn_unique))
 
     def is_this_players_have_five_cards_dealed(self, player_name): 
-        assert (len(self.flop_data.players[player_name]) == 5)
+        assert (len(self.flop_datas.players[player_name]) == 5)
         return self    
 
     def is_this_players_have_this_card(self, player_name, cards_expected): 
         is_ok = True
         for idx, card_expected in enumerate(cards_expected):
-            card = self.flop_data.players[player_name][idx]
+            card = self.flop_datas.players[player_name][idx]
             if card.value != card_expected.value or card.color != card_expected.color : 
                 is_ok = False
                 break
@@ -166,9 +147,9 @@ class CompareHandsAfterFlopDriver():
 
     def are_all_cards_dealed_unique(self):
         all_cards = []
-        for card in self.flop_data.flop_cards : 
+        for card in self.flop_datas.flop_cards : 
                 all_cards.append(card)
-        all_cards.append(self.flop_data.burn_card)
+        all_cards.append(self.flop_datas.burn_card)
         cards_draw_unique_element = set(all_cards)
         assert (len(all_cards) == len(cards_draw_unique_element))
         return self

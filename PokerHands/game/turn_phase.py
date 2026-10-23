@@ -1,11 +1,15 @@
-from PokerHands.game.phase import Phase
+from PokerHands.game.game_result.turn_result import TurnResult
 
-class TurnPhase(Phase) : 
-    def __init__(self, hand_manager, multi_draw_cards):
-        super().__init__(hand_manager, multi_draw_cards)
+class TurnPhase() : 
+    def __init__(self, table):
+        self.table = table
         self.card_burn = None
+        self.turn_card = None
 
-    def launch_phase_and_get_best_players(self):
-        self.card_burn = super().burn_one_card()
-        return super().launch_phase_and_get_best_players()
+    def launch_phase_and_get_all_turn_datas(self):
+        self.card_burn = self.table.burn_one_card()
+        self.turn_card = self.table.deal_turn()
+        self.table.affect_boards_cards_to_players([self.turn_card])
+        turn_result = TurnResult.create(self.table.players, self.turn_card, self.card_burn)
+        return turn_result
                 
