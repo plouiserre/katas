@@ -36,6 +36,9 @@ class Table :
         river_card = self.multi_draw_cards.draw_one_card()
         return river_card
 
+    def affect_card_to_player(self, player_name, card):
+        self.players[player_name].append(card)
+
     def affect_boards_cards_to_players(self, all_cards):
         for player_name in self.players: 
             for card in all_cards : 
