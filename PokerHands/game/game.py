@@ -9,10 +9,12 @@ from PokerHands.detector.quinte_flush_detector import QuinteFlushDetector
 from PokerHands.detector.quinte_detector import QuinteDetector
 from PokerHands.detector.three_cards_detector import ThreeCardsDetector
 from PokerHands.detector.two_pairs_detector import TwoPairsDetector
-from PokerHands.game.pre_flop_phase import PreFlopPhase
+from PokerHands.draw.multi_draw_cards import MultiDrawCards
 from PokerHands.game.flop_phase import FlopPhase
+from PokerHands.game.pre_flop_phase import PreFlopPhase
+from PokerHands.game.showdown_phase import ShowdownPhase
 from PokerHands.poker_hand import PokerHand
-from PokerHands.hand.hand import Hand
+from PokerHands.hand.table import Table
 from PokerHands.game.river_phase import RiverPhase
 from PokerHands.game.turn_phase import TurnPhase
 
@@ -25,8 +27,11 @@ class PhasePoker(Enum) :
 class Game : 
     def __init__(self, multi_draw_cards):
         self.multi_draw_cards = multi_draw_cards
-        self.result = {}
         self.players = []
+        self.pre_flop_data = None
+        self.flop_phase_data = None
+        self.turn_phase_data = None
+        self.river_phase_data = None
 
     def add_players(self, players_name): 
         for player_name in players_name : 
@@ -34,11 +39,12 @@ class Game :
 
     def launch_game(self): 
         self.__init_all_players_and_phases()
-        self.result[PhasePoker.DRAW] = self.pre_flop_phase.launch_phase_and_get_best_players()
-        self.result[PhasePoker.FLOP] = self.flop_phase.launch_phase_and_get_best_players()
-        self.result[PhasePoker.TURN]  = self.turn_phase.launch_phase_and_get_best_players()
-        self.result[PhasePoker.RIVER] = self.river_phase.launch_phase_and_get_best_players()
-        return self.result
+        self.pre_flop_data = self.pre_flop_phase.launch_phase_and_get_all_pre_flop_datas()
+        self.flop_phase_data = self.flop_phase.launch_phase_and_get_all_flop_datas()
+        self.turn_phase_data = self.turn_phase.launch_phase_and_get_all_turn_datas()
+        self.river_phase_data  = self.river_phase.launch_phase_and_get_all_river_datas()
+        hand_result = self.show_down_phase.analyze_pokers_hand_and_calculate_hand_results()
+        return hand_result
 
     def __init_all_players_and_phases(self):
         manipulating_cards = ManipulatingCards()
@@ -52,8 +58,10 @@ class Game :
         four_cards_detector = FourCardsDetector(manipulating_cards)
         quinte_flush_detector = QuinteFlushDetector(manipulating_cards, quinte_detector)
         poker_hand = PokerHand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
-        hand = Hand(poker_hand, self.multi_draw_cards)
-        self.pre_flop_phase = PreFlopPhase(self.players, hand)
-        self.flop_phase = FlopPhase(hand, self.multi_draw_cards)
-        self.turn_phase = TurnPhase(hand, self.multi_draw_cards)
-        self.river_phase = RiverPhase(hand, self.multi_draw_cards)        
+        table = Table(self.multi_draw_cards)
+        self.pre_flop_phase = PreFlopPhase(self.players, table)
+        self.flop_phase = FlopPhase(table)
+        self.turn_phase = TurnPhase(table)
+        self.river_phase = RiverPhase(table)  
+        poker_hand = PokerHand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
+        self.show_down_phase = ShowdownPhase(poker_hand, table)      
