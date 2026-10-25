@@ -47,11 +47,11 @@ class StatistiquesDriver :
         elif all_datas[0] == "PRE": 
             self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_presence_figure_everywhere, "figure name")
         elif all_datas[0] == "WNR":
-            self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_winner_players_river, "player")
+            self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_winner_players_showdown, "player")
         elif all_datas[0] == "WNE":
             self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_winner_players_everywhere, "player")
         elif all_datas[0] == "WFR":
-            self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_winning_figure_river, "figure name")
+            self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_winning_figure_showdown, "figure name")
         elif all_datas[0] == "WFE":
             self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_winning_figure_everywhere, "figure name")
         return self
