@@ -25,7 +25,7 @@ class PhasePoker(Enum) :
     RIVER = 4
     SHOWDOWN = 5
 
-class Game : 
+class Hand : 
     def __init__(self, multi_draw_cards):
         self.multi_draw_cards = multi_draw_cards
         self.players = []
@@ -38,7 +38,7 @@ class Game :
         for player_name in players_name : 
             self.players.append(player_name)
 
-    def launch_game(self): 
+    def launch_hand(self): 
         self.__init_all_players_and_phases()
         self.pre_flop_data = self.pre_flop_phase.launch_phase_and_get_all_pre_flop_datas()
         self.flop_phase_data = self.flop_phase.launch_phase_and_get_all_flop_datas()

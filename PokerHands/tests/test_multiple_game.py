@@ -1,6 +1,4 @@
 from PokerHands.multiple_game import MultipleGame
-from PokerHands.hand.hand import PhasePoker
-
 def test_launch_100_games(): 
     (MultipleGameDriver()
      .add_player("Steve")
@@ -13,8 +11,8 @@ def test_launch_100_games():
      .add_player("T'Challa")
      .add_player("Steven")
      .add_player("Wanda")
-     .define_how_many_game_will_be_launching(100)
-     .launch_multiple_game()
+     .define_how_many_hand_will_be_launching(100)
+     .launch_multiple_hand()
      .confirm_all_games_are_launch()
      .confirm_all_games_are_analyzed())
 
@@ -29,13 +27,13 @@ class MultipleGameDriver():
         self.multiple_game.add_player(player_name)
         return self
 
-    def define_how_many_game_will_be_launching(self, number):
+    def define_how_many_hand_will_be_launching(self, number):
         self.number = number
-        self.multiple_game.define_how_many_game_will_be_launching(number)
+        self.multiple_game.define_how_many_hand_will_be_launching(number)
         return self
 
-    def launch_multiple_game(self): 
-        self.game_results = self.multiple_game.launch_multiple_game()
+    def launch_multiple_hand(self): 
+        self.game_results = self.multiple_game.launch_multiple_hand()
         return self
 
     def confirm_all_games_are_launch(self): 

@@ -24,9 +24,9 @@ print("How many games will be launch?")
 raw = input("> ")
 number = int(raw)
 
-multiple_game.define_how_many_game_will_be_launching(number)
+multiple_game.define_how_many_hand_will_be_launching(number)
 
-results_multiple_game = multiple_game.launch_multiple_game()
+results_multiple_game = multiple_game.launch_multiple_hand()
     
 
 statistiques_presence_figures =  StatistiquesPresenceFigures(results_multiple_game)
