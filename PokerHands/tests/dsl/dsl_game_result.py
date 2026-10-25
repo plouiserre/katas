@@ -4,7 +4,6 @@ from PokerHands.tests.dsl.dsl_figure import get_figure
 from PokerHands.tests.dsl.dsl_player import get_player
 
 def convert_game_result_crypted(game_result_crypted, players): 
-        phases = {}
         all_crypted_results = game_result_crypted.split("_")
         best_poker_hand = __get_best_poker_hand(all_crypted_results[0])
         poker_hands = __get_all_poker_hands(all_crypted_results[1], players)
