@@ -16,7 +16,7 @@ def test_launch_100_games():
      .define_how_many_game_will_be_launching(100)
      .launch_multiple_game()
      .confirm_all_games_are_launch()
-     .confirm_all_games_are_complete())
+     .confirm_all_games_are_analyzed())
 
 
 class MultipleGameDriver(): 
@@ -42,10 +42,9 @@ class MultipleGameDriver():
         assert(len(self.game_results) == self.number)
         return self
 
-    def confirm_all_games_are_complete(self): 
+    def confirm_all_games_are_analyzed(self): 
         for game_result in self.game_results : 
-            assert((PhasePoker.DRAW in game_result) == True)
-            assert((PhasePoker.FLOP in game_result) == True)
-            assert((PhasePoker.TURN in game_result) == True)
-            assert((PhasePoker.RIVER in game_result) == True)
+            assert((len(game_result.winners)> 0) == True)
+            assert((len(game_result.poker_hands_by_player)> 0) == True)
+            assert((game_result.best_figure != "None") == True)
         return self

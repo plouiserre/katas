@@ -4,36 +4,18 @@ class StatistiquesPresenceFigures:
     def __init__(self, games_results):
         self.games_results = games_results
     
-    def calculate_percentage_presence_all_figures_in_river(self):
+    def calculate_percentage_presence_all_figures_in_showdown(self):
         self.figures_present = {}
-        percentage_presence_figure_river = {}        
+        percentage_presence_figure_showdown = {}        
         self.total_figure = 0
-        self.__count_all_figures_in_each_river_phase()
+        self.__count_all_figures_in_each_showdown_phase()
         for type_figure in self.figures_present : 
-            percentage_presence_figure_river[type_figure] = self.figures_present[type_figure]/self.total_figure                    
-        return percentage_presence_figure_river
+            percentage_presence_figure_showdown[type_figure] = self.figures_present[type_figure]/self.total_figure                    
+        return percentage_presence_figure_showdown
 
-    def __count_all_figures_in_each_river_phase(self):
-        for game_result in self.games_results : 
-            for phase in game_result : 
-                if phase == PhasePoker.RIVER: 
-                    game = game_result[phase]
-                    self.__count_all_figures_presences(game)
-
-    def calculate_percenge_presence_all_figures_everywhere(self):
-        self.figures_present = {}
-        percentage_presence_figure_everywhere = {}
-        self.total_figure = 0
-        self.__count_all_figures_in_each_phase()
-        for type_figure in self.figures_present : 
-            percentage_presence_figure_everywhere[type_figure] = self.figures_present[type_figure]/self.total_figure
-        return percentage_presence_figure_everywhere
-
-    def __count_all_figures_in_each_phase(self):
-        for game_result in self.games_results : 
-            for phase in game_result :                 
-                game = game_result[phase]
-                self.__count_all_figures_presences(game)
+    def __count_all_figures_in_each_showdown_phase(self):
+        for game in self.games_results : 
+            self.__count_all_figures_presences(game)
 
     def __count_all_figures_presences(self, game):
         for player_name in game.poker_hands_by_player : 

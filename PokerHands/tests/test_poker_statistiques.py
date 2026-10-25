@@ -9,19 +9,16 @@ from PokerHands.tests.dsl.dsl_player import get_player
 def test_calculate_poker_satistiques():
     (StatistiquesDriver()
      .add_players(["Jean-Jacques Goldman", "Mylène Farmer", "Omar Sy", "Sophie Marceau"])
-     .add_game_result("DRAW_PAA_J:HIK-M:HIQ-O:PAA-S:HI7_W:O|FLOP_PAA5_J:HIK-M:HIQ-O:PAA5-S:HI7_W:O|TURN_PAAK_J:PAKQ-M:HIK-O:PAAK-S:HIK_W:O|RIVER_PAAK_J:PAKQ-M:HIK-O:PAAK-S:HIK_W:O")
-     .add_game_result("DRAW_PAA_J:HIA-M:HIQ-O:PAA-S:HI7_W:O|FLOP_PAAK_J:PAKA-M:PAQK-O:PAAK-S:HIK_W:O|TURN_TKQK_J:PAKA-M:TKQK-O:PAAK-S:HIK_W:M|RIVER_TKQK_J:PAKA-M:TKQK-O:PAAK-S:HIK_W:M")
-     .add_game_result("DRAW_HIA_J:HIA-M:HIQ-O:HIA-S:HI7_W:O|FLOP_PAKA_J:PAKA-M:PAQK-O:HIA-S:HIK_W:J|TURN_PAKA_J:PAKA-M:PAQK-O:HIA-S:HIK_W:J|RIVER_PAKA_J:PAKA-M:PAQK-O:HIA-S:HIK_W:J")     
-     .add_game_result("DRAW_PAA_J:HIA-M:HIQ-O:PAA-S:HI7_W:O|FLOP_TKA6_J:PAAK-M:HIA-O:TKA6-S:HIA_W:O|TURN_TKA6_J:PAAK-M:PAQA-O:TKA6-S:HIA_W:O|RIVER_QF7S_J:PAKA-M:TKQK-O:PAAK-S:QF7S_W:S")     
-     .add_game_result("DRAW_PAA_J:HIA-M:HIQ-O:PAA-S:HI7_W:O|FLOP_PAAK_J:PAKA-M:HIA-O:PAAK-S:HIA_W:O|TURN_TKAK_J:2PAK6-M:HIA-O:TKAK-S:HIA_W:O|RIVER_FUKA_J:FUAK-M:PAKA-O:FUKA-S:PAKA_W:O")
+     .add_game_result("PAAK_J:PAKQ-M:HIK-O:PAAK-S:HIK_W:O")
+     .add_game_result("TKQK_J:PAKA-M:TKQK-O:PAAK-S:HIK_W:M")
+     .add_game_result("PAKA_J:PAKA-M:PAQK-O:HIA-S:HIK_W:J")     
+     .add_game_result("QF7S_J:PAKA-M:TKQK-O:PAAK-S:QF7S_W:S")     
+     .add_game_result("FUKA_J:FUAK-M:PAKA-O:FUKA-S:PAKA_W:O")
      .calculate_percentages()
-     .validate_percentage("PRR|PA:0.5_HI:0.25_TK:0.1_QF:0.05_FU:0.1")
-     .validate_percentage("PRE|PA:0.3875_HI:0.4875_TK:0.075_QF:0.0125_FU:0.025_2P:0.0125")
-     .validate_percentage("WNR|J:0.2_M:0.2_O:0.4_S:0.2")
-     .validate_percentage("WNE|J:0.15_M:0.1_O:0.7_S:0.05")
-     .validate_percentage("WFR|PA:0.4_TK:0.2_QF:0.2_FU:0.2")
-     .validate_percentage("WFE|PA:0.6_TK:0.25_QF:0.05_FU:0.05_HI:0.05"))
-
+     .validate_percentage("PRS|PA:0.5_HI:0.25_TK:0.1_QF:0.05_FU:0.1")
+     .validate_percentage("WNS|J:0.2_M:0.2_O:0.4_S:0.2")
+     .validate_percentage("WFS|PA:0.4_TK:0.2_QF:0.2_FU:0.2"))
+     
 class StatistiquesDriver : 
     def __init__(self):
         self.players = []
@@ -50,11 +47,11 @@ class StatistiquesDriver :
         elif all_datas[0] == "PRE": 
             self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_presence_figure_everywhere, "figure name")
         elif all_datas[0] == "WNR":
-            self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_winner_players_river, "player")
+            self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_winner_players_showdown, "player")
         elif all_datas[0] == "WNE":
             self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_winner_players_everywhere, "player")
         elif all_datas[0] == "WFR":
-            self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_winning_figure_river, "figure name")
+            self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_winning_figure_showdown, "figure name")
         elif all_datas[0] == "WFE":
             self.__validate_all_percentages_calculated(all_datas[1], self.statistiques_result.percentage_winning_figure_everywhere, "figure name")
         return self

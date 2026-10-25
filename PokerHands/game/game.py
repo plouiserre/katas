@@ -23,6 +23,7 @@ class PhasePoker(Enum) :
     FLOP = 2
     TURN = 3
     RIVER = 4
+    SHOWDOWN = 5
 
 class Game : 
     def __init__(self, multi_draw_cards):
