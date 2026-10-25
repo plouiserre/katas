@@ -1,5 +1,5 @@
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
-from PokerHands.game.game import Game
+from PokerHands.hand.hand import Game
 
 class MultipleGame : 
     def __init__(self):

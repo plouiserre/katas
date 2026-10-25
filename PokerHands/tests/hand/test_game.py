@@ -4,7 +4,7 @@ from PokerHands.AllFigures.QuinteFigure import QuinteFigure
 from PokerHands.AllFigures.QuinteFlushFigure import QuinteFlushFigure
 from PokerHands.card import Card, CardValue, CardColor
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
-from PokerHands.game.game import Game, PhasePoker
+from PokerHands.hand.hand import Game, PhasePoker
 from PokerHands.tests.assert_helper import is_this_two_figure_are_equal
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
 

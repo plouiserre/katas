@@ -1,4 +1,4 @@
-from PokerHands.game.game import PhasePoker
+from PokerHands.hand.hand import PhasePoker
 
 class StatistiquesWinFigures: 
     def __init__(self, games_results):

@@ -1,5 +1,5 @@
 from PokerHands.multiple_game import MultipleGame
-from PokerHands.game.game import PhasePoker
+from PokerHands.hand.hand import PhasePoker
 
 def test_launch_100_games(): 
     (MultipleGameDriver()
