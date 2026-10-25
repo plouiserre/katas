@@ -1,32 +1,17 @@
-from PokerHands.game.game import PhasePoker
 from PokerHands.hand.comparaison_result import ComparaisonResult
 from PokerHands.hand.hand_result import HandResult
 from PokerHands.tests.dsl.dsl_figure import get_figure
 from PokerHands.tests.dsl.dsl_player import get_player
 
 def convert_game_result_crypted(game_result_crypted, players): 
-        phases_crypted = game_result_crypted.split("|")
         phases = {}
-        for phase_crypted in phases_crypted : 
-            part_phases = phase_crypted.split("_")
-            phase_name = __get_phase_part(part_phases[0])
-            best_poker_hand = __get_best_poker_hand(part_phases[1])
-            poker_hands = __get_all_poker_hands(part_phases[2], players)
-            winners = [__get_winners(part_phases[3], players)]
-            comparaison_result = ComparaisonResult.Create(winners, best_poker_hand)
-            player_result = HandResult.create_player_result(comparaison_result, poker_hands)
-            phases[phase_name] = player_result
-        return phases
-
-def __get_phase_part(phase_name_str) : 
-        if phase_name_str == "DRAW": 
-            return PhasePoker.DRAW
-        elif phase_name_str == "FLOP": 
-            return PhasePoker.FLOP
-        elif phase_name_str == "TURN":
-            return PhasePoker.TURN
-        elif phase_name_str == "RIVER":
-            return PhasePoker.RIVER
+        all_crypted_results = game_result_crypted.split("_")
+        best_poker_hand = __get_best_poker_hand(all_crypted_results[0])
+        poker_hands = __get_all_poker_hands(all_crypted_results[1], players)
+        winners = [__get_winners(all_crypted_results[2], players)]
+        comparaison_result = ComparaisonResult.Create(winners, best_poker_hand)
+        player_result = HandResult.create_player_result(comparaison_result, poker_hands)
+        return player_result
 
 def __get_best_poker_hand(best_poker_hand_str):
     two_first_letters = best_poker_hand_str[0:2]
