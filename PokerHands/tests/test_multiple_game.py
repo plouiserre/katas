@@ -20,7 +20,7 @@ def test_launch_100_games():
 class MultipleGameDriver(): 
     def __init__(self):
         self.multiple_game = MultipleGame()
-        self.game_results = []
+        self.hand_results = []
         self.number = 0
 
     def add_player(self, player_name): 
@@ -33,16 +33,16 @@ class MultipleGameDriver():
         return self
 
     def launch_multiple_hand(self): 
-        self.game_results = self.multiple_game.launch_multiple_hand()
+        self.hand_results = self.multiple_game.launch_multiple_hand()
         return self
 
     def confirm_all_games_are_launch(self): 
-        assert(len(self.game_results) == self.number)
+        assert(len(self.hand_results) == self.number)
         return self
 
     def confirm_all_games_are_analyzed(self): 
-        for game_result in self.game_results : 
-            assert((len(game_result.winners)> 0) == True)
-            assert((len(game_result.poker_hands_by_player)> 0) == True)
-            assert((game_result.best_figure != "None") == True)
+        for hand_result in self.hand_results : 
+            assert((len(hand_result.winners)> 0) == True)
+            assert((len(hand_result.poker_hands_by_player)> 0) == True)
+            assert((hand_result.best_figure != "None") == True)
         return self
