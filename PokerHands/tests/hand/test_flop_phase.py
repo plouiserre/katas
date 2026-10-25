@@ -1,7 +1,7 @@
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
-from PokerHands.game.flop_phase import FlopPhase
-from PokerHands.hand.table import Table
+from PokerHands.hand.flop_phase import FlopPhase
+from PokerHands.table.table import Table
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
 def test_launch_flop_phase_with_two_players_randomly():

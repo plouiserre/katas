@@ -1,4 +1,4 @@
-from PokerHands.hand.comparaison_result import ComparaisonResult
+from PokerHands.table.comparaison_result import ComparaisonResult
 from PokerHands.hand.hand_result import HandResult
 from PokerHands.tests.dsl.dsl_figure import get_figure
 from PokerHands.tests.dsl.dsl_player import get_player

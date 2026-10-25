@@ -151,18 +151,18 @@ def test_cannot_find_quinte_from_7_contains_double():
 
 class QuinteDetectorDriver : 
     def __init__(self):
-        self.hand = []
+        self.poker_hand = []
         self.quinte_figure = None
 
     def add_card_in_poker_hand(self, card_crypted):
         card = Card.parse(card_crypted)
-        self.hand.append(card)
+        self.poker_hand.append(card)
         return self
 
     def calculate_poker_hand(self):
         manipulating_cards = ManipulatingCards()
         quinte_detector = QuinteDetector(manipulating_cards)
-        self.quinte_figure = quinte_detector.find_quinte(self.hand)
+        self.quinte_figure = quinte_detector.find_quinte(self.poker_hand)
         return self
 
     def is_valid_quinte_figure(self, card_value_crypted):

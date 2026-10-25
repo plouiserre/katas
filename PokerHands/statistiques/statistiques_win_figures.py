@@ -1,5 +1,3 @@
-from PokerHands.game.game import PhasePoker
-
 class StatistiquesWinFigures: 
     def __init__(self, games_results):
         self.games_results = games_results
