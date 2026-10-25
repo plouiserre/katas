@@ -1,6 +1,6 @@
 from PokerHands.exception.TooManyPlayerException import TooManyPlayerException
-from PokerHands.hand.comparaison_result import ComparaisonResult
-from PokerHands.hand.compare_same_type_poker_hand import CompareSameTypePokerHand
+from PokerHands.table.comparaison_result import ComparaisonResult
+from PokerHands.table.compare_same_type_poker_hand import CompareSameTypePokerHand
 from PokerHands.winner import Winner
 
 class CompareHand: 

@@ -14,7 +14,7 @@ from PokerHands.game.flop_phase import FlopPhase
 from PokerHands.game.pre_flop_phase import PreFlopPhase
 from PokerHands.game.showdown_phase import ShowdownPhase
 from PokerHands.poker_hand import PokerHand
-from PokerHands.hand.table import Table
+from PokerHands.table.table import Table
 from PokerHands.game.river_phase import RiverPhase
 from PokerHands.game.turn_phase import TurnPhase
 

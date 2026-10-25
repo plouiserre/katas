@@ -1,6 +1,6 @@
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
-from PokerHands.hand.table import Table
+from PokerHands.table.table import Table
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
 #TODO one test everything random without burn and add cards from board

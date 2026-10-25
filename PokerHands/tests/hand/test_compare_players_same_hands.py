@@ -7,7 +7,7 @@ from PokerHands.AllFigures.QuinteFlushFigure import QuinteFlushFigure
 from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 from PokerHands.card import CardColor, CardValue
-from PokerHands.hand.compare_hand import CompareHand
+from PokerHands.table.compare_hand import CompareHand
 
 def test_compare_two_hand_with_high_card_figure_and_natacha_wins():
     (Driver()

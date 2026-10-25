@@ -5,7 +5,7 @@ from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.game.showdown_phase import ShowdownPhase
-from PokerHands.hand.table import Table
+from PokerHands.table.table import Table
 from PokerHands.manipulating_cards import ManipulatingCards
 from PokerHands.detector.four_cards_detector import FourCardsDetector
 from PokerHands.detector.flush_detector import FlushDetector

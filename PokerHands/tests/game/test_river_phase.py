@@ -1,25 +1,7 @@
-from PokerHands.AllFigures.FourOfKindFigure import FourOfKindFigure
-from PokerHands.AllFigures.FullFigure import FullFigure
-from PokerHands.AllFigures.HighCardFigure import HighCardFigure
-from PokerHands.AllFigures.PairFigure import PairFigure
-from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
-from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 from PokerHands.card import Card, CardColor, CardValue
-from PokerHands.manipulating_cards import ManipulatingCards
-from PokerHands.detector.four_cards_detector import FourCardsDetector
-from PokerHands.detector.flush_detector import FlushDetector
-from PokerHands.detector.full_detector import FullDetector
-from PokerHands.detector.high_card_detector import HighCardDetector
-from PokerHands.detector.pair_detector import PairDetector
-from PokerHands.detector.quinte_flush_detector import QuinteFlushDetector
-from PokerHands.detector.quinte_detector import QuinteDetector
-from PokerHands.detector.three_cards_detector import ThreeCardsDetector
-from PokerHands.detector.two_pairs_detector import TwoPairsDetector
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
-from PokerHands.hand.hand import Hand
 from PokerHands.game.river_phase import RiverPhase
-from PokerHands.poker_hand import PokerHand
-from PokerHands.hand.table import Table
+from PokerHands.table.table import Table
 from PokerHands.tests.assert_helper import is_this_two_figure_are_equal
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
