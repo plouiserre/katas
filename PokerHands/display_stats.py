@@ -53,3 +53,10 @@ def __display_percentage_figure_winning(stats_all_figures):
     for figure in stats_all_figures : 
         percentage = str(round(stats_all_figures[figure]*100, 2))
         print(figure+" wins "+percentage+"%")
+
+def display_percentage_winning_fight_figure(stats_results):
+    print("----------------winning of fight of each figures----------------")
+    stats_all_figures = stats_results.percentage_fight_figure_showdown
+    for figure in stats_all_figures : 
+            percentage = str(round(stats_all_figures[figure]*100, 2))
+            print(figure+" wins "+percentage+"% of his fights")

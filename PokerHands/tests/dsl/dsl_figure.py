@@ -1,3 +1,4 @@
+from PokerHands.AllFigures.FourOfKindFigure import FourOfKindFigure
 from PokerHands.AllFigures.FullFigure import FullFigure
 from PokerHands.AllFigures.HighCardFigure import HighCardFigure
 from PokerHands.AllFigures.PairFigure import PairFigure
@@ -19,6 +20,8 @@ def get_figure(initial_figure, other_letters):
         return __get_two_pair_figure(other_letters)
     elif initial_figure == "FU": 
         return __get_full_figure(other_letters)
+    elif initial_figure == "FO":
+        return __get_four_of_kind_figure(other_letters)
 
 def __get_pair_figure(pair_letters):
         high_card_pair = CardValue.UNDEFINED
@@ -57,6 +60,11 @@ def __get_full_figure(full_figure_letters):
     three_times_cards = __get_card(full_figure_letters[1:2])
     return FullFigure(two_times_cards, three_times_cards)
 
+def __get_four_of_kind_figure(four_of_kind_letters):
+    four_of_kind_card = __get_card(four_of_kind_letters[0:1])
+    high_card = __get_card(four_of_kind_letters[1:2])
+    return FourOfKindFigure(four_of_kind_card, high_card)
+
 def __get_card(card_letters): 
     if card_letters == "A":
         return CardValue.ACE
@@ -91,4 +99,6 @@ def get_name_figure_from_initial(initial_figure):
             name_figure = FullFigure.__name__
         elif initial_figure == "2P":
             name_figure = TwoPairFigure.__name__
+        elif initial_figure == "FO":
+            name_figure = FourOfKindFigure.__name__
         return name_figure

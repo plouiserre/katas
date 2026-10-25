@@ -1,14 +1,14 @@
 class StatistiquesWinFigures: 
-    def __init__(self, games_results):
-        self.games_results = games_results
+    def __init__(self, hand_results):
+        self.hand_results = hand_results
         self.figure_winning_every_where = {}
         self.figure_winning_showdown_phase = {}
         
     def calculate_percentage_win_all_figure_in_showdown(self):
         percentage_winning_figure_showdown = {}
         self.total_game = 0
-        for game_result in self.games_results : 
-            self.__count_figure_winner_during_showdown_phase(game_result)
+        for hand_result in self.hand_results : 
+            self.__count_figure_winner_during_showdown_phase(hand_result)
         for type_figure in self.figure_winning_showdown_phase : 
             percentage_winning_figure_showdown[type_figure] = self.figure_winning_showdown_phase[type_figure]/self.total_game
         return percentage_winning_figure_showdown
