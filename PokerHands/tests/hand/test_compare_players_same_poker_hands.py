@@ -7,7 +7,7 @@ from PokerHands.AllFigures.QuinteFlushFigure import QuinteFlushFigure
 from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 from PokerHands.card import CardColor, CardValue
-from PokerHands.table.compare_poker_hand import CompareHand
+from PokerHands.table.compare_poker_hand import ComparePokerHand
 
 def test_compare_two_poker_hand_with_high_card_figure_and_natacha_wins():
     (Driver()
@@ -232,7 +232,7 @@ class Driver():
         return self
 
     def determinate_winners(self):
-        compare_hand = CompareHand(self.players, self.poker_poker_hand_players) 
+        compare_hand = ComparePokerHand(self.players, self.poker_poker_hand_players) 
         self.result = compare_hand.get_players_with_best_poker_hands()
         return self
 

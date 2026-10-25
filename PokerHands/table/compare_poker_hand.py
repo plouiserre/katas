@@ -3,7 +3,7 @@ from PokerHands.table.comparaison_result import ComparaisonResult
 from PokerHands.table.compare_same_type_poker_hand import CompareSameTypePokerHand
 from PokerHands.winner import Winner
 
-class CompareHand: 
+class ComparePokerHand: 
     def __init__(self, players, poker_hands_by_player):
         self.players = players
         self.poker_hands_by_player = poker_hands_by_player   
