@@ -1,4 +1,4 @@
-from PokerHands.game.game_result.flop_result import FlopResult
+from PokerHands.game.phase_result.flop_result import FlopResult
 
 class FlopPhase() : 
     def __init__(self, table):

@@ -1,4 +1,4 @@
-from PokerHands.game.game_result.turn_result import TurnResult
+from PokerHands.game.phase_result.turn_result import TurnResult
 
 class TurnPhase() : 
     def __init__(self, table):
