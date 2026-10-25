@@ -7,9 +7,9 @@ from PokerHands.AllFigures.QuinteFlushFigure import QuinteFlushFigure
 from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 from PokerHands.card import CardColor, CardValue
-from PokerHands.table.compare_hand import CompareHand
+from PokerHands.table.compare_poker_hand import CompareHand
 
-def test_compare_two_hand_with_high_card_figure_and_natacha_wins():
+def test_compare_two_poker_hand_with_high_card_figure_and_natacha_wins():
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -18,7 +18,7 @@ def test_compare_two_hand_with_high_card_figure_and_natacha_wins():
         .determinate_winners()
         .check_winner_name("Natacha"))
 
-def test_compare_two_hand_with_pair_figure_and_steve_wins():
+def test_compare_two_poker_hand_with_pair_figure_and_steve_wins():
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -27,7 +27,7 @@ def test_compare_two_hand_with_pair_figure_and_steve_wins():
         .determinate_winners()
         .check_winner_name("Steve"))
 
-def test_compare_two_hand_with_pair_figure_and_natacha_wins():
+def test_compare_two_poker_hand_with_pair_figure_and_natacha_wins():
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -36,7 +36,7 @@ def test_compare_two_hand_with_pair_figure_and_natacha_wins():
         .determinate_winners()
         .check_winner_name("Natacha"))
 
-def test_compare_two_hand_with_two_pair_figure_with_differents_pairs_and_steve_wins():
+def test_compare_two_poker_hand_with_two_pair_figure_with_differents_pairs_and_steve_wins():
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -45,7 +45,7 @@ def test_compare_two_hand_with_two_pair_figure_with_differents_pairs_and_steve_w
         .determinate_winners()
         .check_winner_name("Steve"))
 
-def test_compare_two_hand_with_two_pair_figure_with_differents_pairs_and_natacha_wins():
+def test_compare_two_poker_hand_with_two_pair_figure_with_differents_pairs_and_natacha_wins():
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -54,7 +54,7 @@ def test_compare_two_hand_with_two_pair_figure_with_differents_pairs_and_natacha
         .determinate_winners()
         .check_winner_name("Natacha"))
 
-def test_compare_two_hand_with_two_pair_figure_with_same_first_pair_and_steve_wins():
+def test_compare_two_poker_hand_with_two_pair_figure_with_same_first_pair_and_steve_wins():
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -63,7 +63,7 @@ def test_compare_two_hand_with_two_pair_figure_with_same_first_pair_and_steve_wi
         .determinate_winners()
         .check_winner_name("Steve"))
 
-def test_compare_two_hand_with_two_pair_figure_with_same_first_pair_and_natacha_wins():
+def test_compare_two_poker_hand_with_two_pair_figure_with_same_first_pair_and_natacha_wins():
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -72,7 +72,7 @@ def test_compare_two_hand_with_two_pair_figure_with_same_first_pair_and_natacha_
         .determinate_winners()
         .check_winner_name("Natacha"))
 
-def test_compare_two_hand_with_two_pair_figure_with_same_pairs_and_steve_wins():
+def test_compare_two_poker_hand_with_two_pair_figure_with_same_pairs_and_steve_wins():
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -81,7 +81,7 @@ def test_compare_two_hand_with_two_pair_figure_with_same_pairs_and_steve_wins():
         .determinate_winners()
         .check_winner_name("Steve"))
 
-def test_compare_two_hand_with_two_pair_figure_with_same_pairs_and_natacha_wins():
+def test_compare_two_poker_hand_with_two_pair_figure_with_same_pairs_and_natacha_wins():
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -90,7 +90,7 @@ def test_compare_two_hand_with_two_pair_figure_with_same_pairs_and_natacha_wins(
         .determinate_winners()
         .check_winner_name("Natacha"))
 
-def test_compare_two_hand_with_three_of_kinds_figure_and_steve_wins():
+def test_compare_two_poker_hand_with_three_of_kinds_figure_and_steve_wins():
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -99,7 +99,7 @@ def test_compare_two_hand_with_three_of_kinds_figure_and_steve_wins():
         .determinate_winners()
         .check_winner_name("Steve"))
 
-def test_compare_two_hand_with_three_of_kinds_figure_and_natacha_wins():
+def test_compare_two_poker_hand_with_three_of_kinds_figure_and_natacha_wins():
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -108,7 +108,7 @@ def test_compare_two_hand_with_three_of_kinds_figure_and_natacha_wins():
         .determinate_winners()
         .check_winner_name("Natacha"))
 
-def test_compare_two_hand_with_three_of_kinds_figure_with_same_three_cards_and_steve_wins():
+def test_compare_two_poker_hand_with_three_of_kinds_figure_with_same_three_cards_and_steve_wins():
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -117,7 +117,7 @@ def test_compare_two_hand_with_three_of_kinds_figure_with_same_three_cards_and_s
         .determinate_winners()
         .check_winner_name("Steve"))
 
-def test_compare_two_hand_with_three_of_kinds_figure_with_same_three_cards_and_natacha_wins():
+def test_compare_two_poker_hand_with_three_of_kinds_figure_with_same_three_cards_and_natacha_wins():
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -126,7 +126,7 @@ def test_compare_two_hand_with_three_of_kinds_figure_with_same_three_cards_and_n
         .determinate_winners()
         .check_winner_name("Natacha"))
 
-def test_compare_two_hand_with_quinte_and_steve_wins():
+def test_compare_two_poker_hand_with_quinte_and_steve_wins():
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -135,7 +135,7 @@ def test_compare_two_hand_with_quinte_and_steve_wins():
         .determinate_winners()
         .check_winner_name("Steve"))
 
-def test_compare_two_hand_with_quinte_and_natacha_wins():
+def test_compare_two_poker_hand_with_quinte_and_natacha_wins():
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -144,7 +144,7 @@ def test_compare_two_hand_with_quinte_and_natacha_wins():
         .determinate_winners()
         .check_winner_name("Natacha"))
 
-def test_compare_two_hand_with_flush_and_steve_wins(): 
+def test_compare_two_poker_hand_with_flush_and_steve_wins(): 
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -153,7 +153,7 @@ def test_compare_two_hand_with_flush_and_steve_wins():
         .determinate_winners()
         .check_winner_name("Steve"))
 
-def test_compare_two_hand_with_flush_and_natacha_wins(): 
+def test_compare_two_poker_hand_with_flush_and_natacha_wins(): 
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -162,7 +162,7 @@ def test_compare_two_hand_with_flush_and_natacha_wins():
         .determinate_winners()
         .check_winner_name("Natacha"))
 
-def test_compare_two_hand_with_four_of_a_kind_and_steve_wins(): 
+def test_compare_two_poker_hand_with_four_of_a_kind_and_steve_wins(): 
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -171,7 +171,7 @@ def test_compare_two_hand_with_four_of_a_kind_and_steve_wins():
         .determinate_winners()
         .check_winner_name("Steve"))
 
-def test_compare_two_hand_with_four_of_a_kind_and_natacha_wins(): 
+def test_compare_two_poker_hand_with_four_of_a_kind_and_natacha_wins(): 
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -180,7 +180,7 @@ def test_compare_two_hand_with_four_of_a_kind_and_natacha_wins():
         .determinate_winners()
         .check_winner_name("Natacha"))
 
-def test_compare_two_hand_with_four_of_a_kind_with_same_four_cards_and_steve_wins(): 
+def test_compare_two_poker_hand_with_four_of_a_kind_with_same_four_cards_and_steve_wins(): 
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -189,7 +189,7 @@ def test_compare_two_hand_with_four_of_a_kind_with_same_four_cards_and_steve_win
         .determinate_winners()
         .check_winner_name("Steve"))
 
-def test_compare_two_hand_with_four_of_a_kind_with_same_four_cards_and_natacha_wins(): 
+def test_compare_two_poker_hand_with_four_of_a_kind_with_same_four_cards_and_natacha_wins(): 
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -198,7 +198,7 @@ def test_compare_two_hand_with_four_of_a_kind_with_same_four_cards_and_natacha_w
         .determinate_winners()
         .check_winner_name("Natacha"))
 
-def test_compare_two_hand_with_quinte_flush_and_steve_wins(): 
+def test_compare_two_poker_hand_with_quinte_flush_and_steve_wins(): 
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -207,7 +207,7 @@ def test_compare_two_hand_with_quinte_flush_and_steve_wins():
         .determinate_winners()
         .check_winner_name("Steve"))
 
-def test_compare_two_hand_with_quinte_flush_and_natacha_wins(): 
+def test_compare_two_poker_hand_with_quinte_flush_and_natacha_wins(): 
     (Driver()
         .add_player("Steve")
         .add_player("Natacha")
@@ -219,7 +219,7 @@ def test_compare_two_hand_with_quinte_flush_and_natacha_wins():
 class Driver(): 
     def __init__(self):
         self.players = []
-        self.poker_hand_players = {}
+        self.poker_poker_hand_players = {}
         self.result = None
         self.winner = ""
 
@@ -228,11 +228,11 @@ class Driver():
         return self
 
     def add_poker_hand(self, name_player, hand): 
-        self.poker_hand_players[name_player] = hand
+        self.poker_poker_hand_players[name_player] = hand
         return self
 
     def determinate_winners(self):
-        compare_hand = CompareHand(self.players, self.poker_hand_players) 
+        compare_hand = CompareHand(self.players, self.poker_poker_hand_players) 
         self.result = compare_hand.get_players_with_best_poker_hands()
         return self
 

@@ -1,4 +1,4 @@
-from PokerHands.table.compare_hand import CompareHand
+from PokerHands.table.compare_poker_hand import CompareHand
 from PokerHands.table.identify_poker_hand import IdentifyPokerHand
 from PokerHands.table.hand_result import HandResult
 
