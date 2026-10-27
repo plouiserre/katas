@@ -44,8 +44,8 @@ class Round :
         self.flop_phase_data = self.flop_phase.launch_phase_and_get_all_flop_datas()
         self.turn_phase_data = self.turn_phase.launch_phase_and_get_all_turn_datas()
         self.river_phase_data  = self.river_phase.launch_phase_and_get_all_river_datas()
-        hand_result = self.show_down_phase.analyze_pokers_hand_and_calculate_hand_results()
-        return hand_result
+        round_result = self.show_down_phase.analyze_pokers_hand_and_calculate_hand_results()
+        return round_result
 
     def __init_all_players_and_phases(self):
         manipulating_cards = ManipulatingCards()

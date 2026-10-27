@@ -219,7 +219,7 @@ def test_compare_two_poker_hand_with_quinte_flush_and_natacha_wins():
 class Driver(): 
     def __init__(self):
         self.players = []
-        self.poker_poker_hand_players = {}
+        self.poker_hand_players = {}
         self.result = None
         self.winner = ""
 
@@ -227,12 +227,12 @@ class Driver():
         self.players.append(name_player)
         return self
 
-    def add_poker_hand(self, name_player, hand): 
-        self.poker_poker_hand_players[name_player] = hand
+    def add_poker_hand(self, name_player, round): 
+        self.poker_hand_players[name_player] = round
         return self
 
     def determinate_winners(self):
-        compare_hand = ComparePokerHand(self.players, self.poker_poker_hand_players) 
+        compare_hand = ComparePokerHand(self.players, self.poker_hand_players) 
         self.result = compare_hand.get_players_with_best_poker_hands()
         return self
 

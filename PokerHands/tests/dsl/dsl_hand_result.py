@@ -1,15 +1,15 @@
 from PokerHands.table.comparaison_result import ComparaisonResult
-from PokerHands.round.hand_result import HandResult
+from PokerHands.round.round_result import RoundResult
 from PokerHands.tests.dsl.dsl_figure import get_figure
 from PokerHands.tests.dsl.dsl_player import get_player
 
-def convert_hand_result_crypted(hand_result_crypted, players): 
-        all_crypted_results = hand_result_crypted.split("_")
+def convert_hand_result_crypted(round_result_crypted, players): 
+        all_crypted_results = round_result_crypted.split("_")
         best_poker_hand = __get_best_poker_hand(all_crypted_results[0])
         poker_hands = __get_all_poker_hands(all_crypted_results[1], players)
         winners = [__get_winners(all_crypted_results[2], players)]
         comparaison_result = ComparaisonResult.Create(winners, best_poker_hand)
-        player_result = HandResult.create_player_result(comparaison_result, poker_hands)
+        player_result = RoundResult.create_player_result(comparaison_result, poker_hands)
         return player_result
 
 def __get_best_poker_hand(best_poker_hand_str):

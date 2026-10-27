@@ -52,9 +52,9 @@ class StatistiquesDriver :
             self.players.append(player_name)
         return self 
     
-    def add_hand_result(self, hand_result_crypted):
-        hand_result = convert_hand_result_crypted(hand_result_crypted, self.players)
-        self.games_results.append(hand_result)
+    def add_hand_result(self,round_result_crypted):
+        round_result = convert_hand_result_crypted(round_result_crypted, self.players)
+        self.games_results.append(round_result)
         return self
 
     def calculate_percentages(self):
