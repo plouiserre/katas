@@ -1,4 +1,4 @@
-from PokerHands.hand.phase_result.river_result import RiverResult
+from PokerHands.round.phase_result.river_result import RiverResult
 class RiverPhase(): 
     def __init__(self, table):
         self.table = table

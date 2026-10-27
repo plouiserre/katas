@@ -1,4 +1,4 @@
-from PokerHands.hand.phase_result.pre_flop_result import PreFlopResult
+from PokerHands.round.phase_result.pre_flop_result import PreFlopResult
 
 class PreFlopPhase :
     def __init__(self, players, table):

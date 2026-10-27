@@ -1,6 +1,6 @@
 from PokerHands.table.compare_poker_hand import ComparePokerHand
 from PokerHands.table.identify_poker_hand import IdentifyPokerHand
-from PokerHands.hand.hand_result import HandResult
+from PokerHands.round.hand_result import HandResult
 
 class ShowdownPhase :
     def __init__(self, poker_hand, table):

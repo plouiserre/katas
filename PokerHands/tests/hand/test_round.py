@@ -4,7 +4,7 @@ from PokerHands.AllFigures.QuinteFigure import QuinteFigure
 from PokerHands.AllFigures.QuinteFlushFigure import QuinteFlushFigure
 from PokerHands.card import Card, CardValue, CardColor
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
-from PokerHands.hand.hand import Hand
+from PokerHands.round.round import Round
 from PokerHands.tests.assert_helper import is_this_two_figure_are_equal
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
@@ -56,31 +56,31 @@ def test_launch_determine_game_with_ten_players():
 
 class GameDriver: 
     def __init__(self, multi_draw_cards):
-        self.hand = Hand(multi_draw_cards)                
+        self.round = Round(multi_draw_cards)                
         self.players = []
         self.burn_cards = []
 
     def add_players(self, players_name):
-        self.hand.add_players(players_name)
+        self.round.add_players(players_name)
         return self
 
     def launch_hand(self):
-        self.result = self.hand.launch_hand()
+        self.result = self.round.launch_hand()
         return self
 
     def all_cards_are_differents(self): 
             all_cards = []
-            for player in self.hand.pre_flop_data.players : 
-                all_cards_dealed = self.hand.pre_flop_data.players[player][0:2]
+            for player in self.round.pre_flop_data.players : 
+                all_cards_dealed = self.round.pre_flop_data.players[player][0:2]
                 for card in all_cards_dealed: 
                     all_cards.append(card)
-            all_cards.append(self.hand.flop_phase_data.burn_card)
-            for card in self.hand.flop_phase_data.flop_cards: 
+            all_cards.append(self.round.flop_phase_data.burn_card)
+            for card in self.round.flop_phase_data.flop_cards: 
                 all_cards.append(card)
-            all_cards.append(self.hand.turn_phase_data.burn_card)
-            all_cards.append(self.hand.turn_phase_data.turn_card)
-            all_cards.append(self.hand.river_phase_data.burn_card)
-            all_cards.append(self.hand.river_phase_data.river_card)
+            all_cards.append(self.round.turn_phase_data.burn_card)
+            all_cards.append(self.round.turn_phase_data.turn_card)
+            all_cards.append(self.round.river_phase_data.burn_card)
+            all_cards.append(self.round.river_phase_data.river_card)
             all_cards_drawn_unique = set(all_cards)
             assert(len(all_cards) == len(all_cards_drawn_unique))
             return self
@@ -92,15 +92,15 @@ class GameDriver:
         return self 
 
     def is_three_cards_burned(self): 
-        self.burn_cards.append(self.hand.flop_phase_data.burn_card)        
-        self.burn_cards.append(self.hand.turn_phase_data.burn_card)
-        self.burn_cards.append(self.hand.river_phase_data.burn_card)
+        self.burn_cards.append(self.round.flop_phase_data.burn_card)        
+        self.burn_cards.append(self.round.turn_phase_data.burn_card)
+        self.burn_cards.append(self.round.river_phase_data.burn_card)
         for burn_card in self.burn_cards : 
             assert(burn_card != Card(CardValue.UNDEFINED, CardColor.UNDEFINED))
         return self    
 
     def is_this_players_have_seven_cards_dealed(self, player_name): 
-        assert (len(self.hand.river_phase_data.players[player_name]) == 7)
+        assert (len(self.round.river_phase_data.players[player_name]) == 7)
         return self
 
     def is_this_players_can_be_a_winner(self, players_name):

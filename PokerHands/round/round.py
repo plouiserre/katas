@@ -10,13 +10,13 @@ from PokerHands.detector.quinte_detector import QuinteDetector
 from PokerHands.detector.three_cards_detector import ThreeCardsDetector
 from PokerHands.detector.two_pairs_detector import TwoPairsDetector
 from PokerHands.draw.multi_draw_cards import MultiDrawCards
-from PokerHands.hand.flop_phase import FlopPhase
-from PokerHands.hand.pre_flop_phase import PreFlopPhase
-from PokerHands.hand.showdown_phase import ShowdownPhase
+from PokerHands.round.flop_phase import FlopPhase
+from PokerHands.round.pre_flop_phase import PreFlopPhase
+from PokerHands.round.showdown_phase import ShowdownPhase
 from PokerHands.poker_hand import PokerHand
 from PokerHands.table.table import Table
-from PokerHands.hand.river_phase import RiverPhase
-from PokerHands.hand.turn_phase import TurnPhase
+from PokerHands.round.river_phase import RiverPhase
+from PokerHands.round.turn_phase import TurnPhase
 
 class PhasePoker(Enum) : 
     DRAW = 1
@@ -25,7 +25,7 @@ class PhasePoker(Enum) :
     RIVER = 4
     SHOWDOWN = 5
 
-class Hand : 
+class Round : 
     def __init__(self, multi_draw_cards):
         self.multi_draw_cards = multi_draw_cards
         self.players = []
