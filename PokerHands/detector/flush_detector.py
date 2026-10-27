@@ -9,11 +9,11 @@ class FlushDetector :
 
     def find_flush(self, combination : Iterator[Card]) -> FlushFigure:
         if len(combination) == 5 :
-            return self.__analyse_poker_hand_when_the_player_have_five_cards(combination)
+            return self.__analyse_combination_when_the_player_have_five_cards(combination)
         else : 
             return None
 
-    def __analyse_poker_hand_when_the_player_have_five_cards(self, combination : Iterator[Card]) -> FlushFigure:
+    def __analyse_combination_when_the_player_have_five_cards(self, combination : Iterator[Card]) -> FlushFigure:
         is_flush = True
         last_color = CardColor.UNDEFINED
         high_card_value = CardValue.TWO

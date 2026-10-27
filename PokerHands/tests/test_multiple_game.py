@@ -43,6 +43,6 @@ class MultipleGameDriver():
     def confirm_all_games_are_analyzed(self): 
         for round_result in self.round_results : 
             assert((len(round_result.winners)> 0) == True)
-            assert((len(round_result.poker_hands_by_player)> 0) == True)
+            assert((len(round_result.combination_by_player)> 0) == True)
             assert((round_result.best_figure != "None") == True)
         return self

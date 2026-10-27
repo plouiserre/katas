@@ -9,8 +9,8 @@ class ShowdownPhase :
 
     def analyze_pokers_hand_and_calculate_hand_results(self):
         identify_poker_hand = IdentifyPokerHand(self.combination, self.table.players)
-        poker_hands_by_player = identify_poker_hand.determinate_poker_hands()
-        compare_poker_hand = ComparePokerHand(self.table.players, poker_hands_by_player)
-        compare_results = compare_poker_hand.get_players_with_best_poker_hands()
-        round_result = RoundResult(compare_results.winners, compare_results.best_figure, poker_hands_by_player)
+        combination_by_player = identify_poker_hand.determinate_poker_hands()
+        compare_poker_hand = ComparePokerHand(self.table.players, combination_by_player)
+        compare_results = compare_poker_hand.get_players_with_best_combination()
+        round_result = RoundResult(compare_results.winners, compare_results.best_figure, combination_by_player)
         return round_result

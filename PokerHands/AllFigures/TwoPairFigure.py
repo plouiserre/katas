@@ -10,25 +10,25 @@ class TwoPairFigure:
     high_value_rest_of_cards: CardValue
     points : ClassVar[int] = 30
 
-    def compare_with_other_two_pairs_poker_hands(self, other_poker_hand: type[Self]) -> Winner: 
+    def compare_with_other_two_pairs_poker_hands(self, other_combination: type[Self]) -> Winner: 
         high_first_pair = self.__get_high_pair(self)
-        high_second_pair = self.__get_high_pair(other_poker_hand)
+        high_second_pair = self.__get_high_pair(other_combination)
         if high_first_pair < high_second_pair : 
-            return Winner.SECOND_POKER_HAND
+            return Winner.SECOND_COMBINATION
         elif high_second_pair < high_first_pair : 
-            return Winner.FIRST_POKER_HAND
+            return Winner.FIRST_COMBINATION
         else : 
             lower_first_pair = self.__get_lower_pair(self)
-            lower_second_pair = self.__get_lower_pair(other_poker_hand)
+            lower_second_pair = self.__get_lower_pair(other_combination)
             if lower_first_pair < lower_second_pair :
-                return Winner.SECOND_POKER_HAND
+                return Winner.SECOND_COMBINATION
             elif lower_second_pair < lower_first_pair :
-                return Winner.FIRST_POKER_HAND
+                return Winner.FIRST_COMBINATION
             else : 
-                if self.high_value_rest_of_cards < other_poker_hand.high_value_rest_of_cards :
-                    return Winner.SECOND_POKER_HAND
-                elif other_poker_hand.high_value_rest_of_cards < self.high_value_rest_of_cards : 
-                    return Winner.FIRST_POKER_HAND
+                if self.high_value_rest_of_cards < other_combination.high_value_rest_of_cards :
+                    return Winner.SECOND_COMBINATION
+                elif other_combination.high_value_rest_of_cards < self.high_value_rest_of_cards : 
+                    return Winner.FIRST_COMBINATION
                 else : 
                     return Winner.EQUALITY
                 

@@ -12,18 +12,18 @@ def convert_hand_result_crypted(round_result_crypted, players):
         player_result = RoundResult.create_player_result(comparaison_result, poker_hands)
         return player_result
 
-def __get_best_poker_hand(best_poker_hand_str):
-    two_first_letters = best_poker_hand_str[0:2]
-    figure = get_figure(two_first_letters, best_poker_hand_str[2:len(best_poker_hand_str)])
+def __get_best_poker_hand(best_combination_str):
+    two_first_letters = best_combination_str[0:2]
+    figure = get_figure(two_first_letters, best_combination_str[2:len(best_combination_str)])
     return figure
 
 def __get_all_poker_hands(poker_hands_crypted, players):
     all_poker_hands_crypted = poker_hands_crypted.split("-")
     poker_hands = {}
-    for poker_hand_crypted in all_poker_hands_crypted : 
-        poker_hand_part = poker_hand_crypted.split(":")
-        player_name = get_player(players, poker_hand_part[0])
-        figure = get_figure(poker_hand_part[1][0:2], poker_hand_part[1][2:len(poker_hand_part[1])])
+    for combination_crypted in all_poker_hands_crypted : 
+        combination_part = combination_crypted.split(":")
+        player_name = get_player(players, combination_part[0])
+        figure = get_figure(combination_part[1][0:2], combination_part[1][2:len(combination_part[1])])
         poker_hands[player_name] = figure
     return poker_hands
 

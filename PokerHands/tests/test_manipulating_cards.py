@@ -139,14 +139,14 @@ class ManipulatingCardDriver():
             card = Card.parse(card_crypted)
             ordered_expected.append(card)
         is_valid = False 
-        for poker_hand_ordered in self.poker_hands_ordered :
+        for combination_ordered in self.poker_hands_ordered :
             is_valid_ordered = True
             for idx, card_expected in enumerate(ordered_expected):
-                card = poker_hand_ordered[int(idx)]
+                card = combination_ordered[int(idx)]
                 is_valid_ordered = card.value == card_expected.value and card.color == card_expected.color
                 if is_valid_ordered == False :
                     break
-            if is_valid_ordered and len(ordered_expected_crypted) == len(poker_hand_ordered): 
+            if is_valid_ordered and len(ordered_expected_crypted) == len(combination_ordered): 
                 is_valid = True
         assert(is_valid)
         return self

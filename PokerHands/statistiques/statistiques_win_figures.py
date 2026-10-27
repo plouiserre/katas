@@ -16,9 +16,9 @@ class StatistiquesWinFigures:
     def __count_figure_winner_during_showdown_phase(self, game):
         self.__count_this_players_figure(game, self.figure_winning_showdown_phase)
 
-    def __count_this_players_figure(self, poker_hand_player, all_figures):
+    def __count_this_players_figure(self, combination_player, all_figures):
         self.total_game += 1
-        figure_winner = poker_hand_player.best_figure
+        figure_winner = combination_player.best_figure
         type_figure = type(figure_winner).__name__
         if (type_figure in all_figures) == False : 
             all_figures[type_figure] = 0
