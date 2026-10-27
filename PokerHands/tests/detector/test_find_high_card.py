@@ -1,7 +1,7 @@
 from PokerHands.AllFigures.HighCardFigure import HighCardFigure
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.detector.high_card_detector import HighCardDetector
-from PokerHands.tests.random_cards import add_cards, get_all_values, get_high_card_complete, get_random_card_complete, get_shuffle_poker_hand, remove_cards
+from PokerHands.tests.random_cards import add_cards, get_all_values, get_high_card_complete, get_random_card_complete, get_shuffle_combination, remove_cards
 from typing import List
 
 def test_find_high_card_queen():
@@ -22,7 +22,7 @@ def test_find_high_card_random():
     while len(combination) < 5 : 
         new_card = get_random_card_complete(all_cards_values)
         combination.append(new_card)
-    get_shuffle_poker_hand(combination)
+    get_shuffle_combination(combination)
     assert(__find_high_card(combination)==HighCardFigure(high_card_random.value))
 
 def __find_high_card(combination):

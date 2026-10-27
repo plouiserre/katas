@@ -61,8 +61,8 @@ def get_lower_card_complete(all_cards_values, high_card):
     card_color = get_colors_random_without_remove()
     return Card(card_value, card_color)
 
-def get_shuffle_poker_hand(poker_hands):
-    return random.shuffle(poker_hands)
+def get_shuffle_combination(combinations):
+    return random.shuffle(combinations)
 
 def get_random_card(all_cards_values) : 
     index = random.randint(0, len(all_cards_values) - 1)

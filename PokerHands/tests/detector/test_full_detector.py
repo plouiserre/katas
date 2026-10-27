@@ -2,7 +2,7 @@ from PokerHands.AllFigures.FullFigure import FullFigure
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.manipulating_cards import ManipulatingCards
 from PokerHands.detector.full_detector import FullDetector
-from PokerHands.tests.random_cards import get_all_values, get_random_card, get_shuffle_poker_hand
+from PokerHands.tests.random_cards import get_all_values, get_random_card, get_shuffle_combination
 
 def test_find_full_king_two_times_jack_three_times():
     combination = [Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.JACK, CardColor.DIAMONDS)]
@@ -23,7 +23,7 @@ def test_find_full_randomize():
     combination = [Card(two_times_cards, CardColor.CLUBS), Card(two_times_cards, CardColor.DIAMONDS),
             Card(three_times_cards, CardColor.HEARTS), Card(three_times_cards, CardColor.SPADES),
             Card(three_times_cards, CardColor.CLUBS)]
-    get_shuffle_poker_hand(combination)
+    get_shuffle_combination(combination)
     assert(find_full(combination) == FullFigure(two_times_cards, three_times_cards))
     
 def find_full(combination):

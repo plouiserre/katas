@@ -2,7 +2,7 @@ from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.manipulating_cards import ManipulatingCards
 from PokerHands.detector.three_cards_detector import ThreeCardsDetector
-from PokerHands.tests.random_cards import add_cards, get_all_values, get_high_card_complete, get_lower_card_complete, get_random_card_complete, get_shuffle_poker_hand, remove_cards
+from PokerHands.tests.random_cards import add_cards, get_all_values, get_high_card_complete, get_lower_card_complete, get_random_card_complete, get_shuffle_combination, remove_cards
 
 def test_find_three_of_a_six(): 
     combination =  [Card(CardValue.SIX, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.SIX, CardColor.HEARTS), Card(CardValue.TWO, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]

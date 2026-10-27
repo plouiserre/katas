@@ -2,7 +2,7 @@ from PokerHands.AllFigures.FourOfKindFigure import FourOfKindFigure
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.manipulating_cards import ManipulatingCards
 from PokerHands.detector.four_cards_detector import FourCardsDetector
-from PokerHands.tests.random_cards import get_all_values, get_random_card, get_shuffle_poker_hand
+from PokerHands.tests.random_cards import get_all_values, get_random_card, get_shuffle_combination
 
 def test_find_four_of_king_with_queen_high_cards():
     combination = [Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS)]
@@ -17,7 +17,7 @@ def test_find_four_of_kind_randomize():
     four_times = get_random_card(all_cards_values)
     other_card = get_random_card(all_cards_values)
     combination = [Card(four_times, CardColor.CLUBS), Card(four_times, CardColor.DIAMONDS), Card(four_times, CardColor.HEARTS), Card(four_times, CardColor.SPADES), Card(other_card, CardColor.DIAMONDS)]
-    get_shuffle_poker_hand(combination)
+    get_shuffle_combination(combination)
     assert(__find_four_of_kind(combination) == FourOfKindFigure(four_times, other_card))
     
 def __find_four_of_kind(combination): 

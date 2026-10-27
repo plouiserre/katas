@@ -2,7 +2,7 @@ from PokerHands.AllFigures.PairFigure import PairFigure
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.manipulating_cards import ManipulatingCards
 from PokerHands.detector.pair_detector import PairDetector
-from PokerHands.tests.random_cards import add_cards, get_all_values, get_high_card_complete, get_random_card_complete, get_shuffle_poker_hand, remove_cards
+from PokerHands.tests.random_cards import add_cards, get_all_values, get_high_card_complete, get_random_card_complete, get_shuffle_combination, remove_cards
 
 def test_find_pair_queen(): 
     combination =  [Card(CardValue.QUEEN, CardColor.CLUBS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.SEVEN, CardColor.HEARTS), Card(CardValue.SIX, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
@@ -28,7 +28,7 @@ def test_find_pair_random():
     fourth_card = get_random_card_complete(all_cards_values)
     fifth_card = get_random_card_complete(all_cards_values)
     combination = [pair_card, pair_card, high_card, fourth_card, fifth_card]
-    get_shuffle_poker_hand(combination)
+    get_shuffle_combination(combination)
     assert(_find_pair(combination)==PairFigure(pair_card.value, high_card.value))   
                     
 def _find_pair(combination):

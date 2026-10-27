@@ -1,10 +1,10 @@
-class IdentifyPokerHand : 
+class IdentifyCombination : 
     def __init__(self, combination, players):
         self.combination = combination
         self.players = players
         self.combination_by_player = {} 
 
-    def determinate_poker_hands(self):
+    def determinate_combination(self):
         for player_name in self.players : 
             player = self.players[player_name]
             combination = self.combination.determinate_high_figure(player) 

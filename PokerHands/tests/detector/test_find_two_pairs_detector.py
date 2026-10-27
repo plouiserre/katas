@@ -2,7 +2,7 @@ from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.manipulating_cards import ManipulatingCards
 from PokerHands.detector.two_pairs_detector import TwoPairsDetector
-from PokerHands.tests.random_cards import get_all_values, get_random_card_complete, get_shuffle_poker_hand
+from PokerHands.tests.random_cards import get_all_values, get_random_card_complete, get_shuffle_combination
 
 def test_find_two_pairs_ten_ace(): 
     combination =  [Card(CardValue.ACE, CardColor.CLUBS), Card(CardValue.TEN, CardColor.DIAMONDS), Card(CardValue.NINE, CardColor.HEARTS), Card(CardValue.TEN, CardColor.SPADES), Card(CardValue.ACE, CardColor.SPADES)]
@@ -18,7 +18,7 @@ def test_find_two_pairs_randomise():
     second_pair_card = get_random_card_complete(all_cards_values)
     high_card = get_random_card_complete(all_cards_values)
     combination = [first_pair_card, first_pair_card, second_pair_card, second_pair_card, high_card]
-    get_shuffle_poker_hand(combination)
+    get_shuffle_combination(combination)
     assert(__find_two_pairs(combination)==TwoPairFigure(first_pair_card.value, second_pair_card.value, high_card.value) or __find_two_pairs(combination)==TwoPairFigure(second_pair_card.value, first_pair_card.value, high_card.value))
 
 
