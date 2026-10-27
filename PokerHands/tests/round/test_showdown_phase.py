@@ -4,7 +4,7 @@ from PokerHands.AllFigures.PairFigure import PairFigure
 from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from PokerHands.AllFigures.TwoPairFigure import TwoPairFigure
 from PokerHands.card import Card, CardColor, CardValue
-from PokerHands.hand.showdown_phase import ShowdownPhase
+from PokerHands.round.showdown_phase import ShowdownPhase
 from PokerHands.table.table import Table
 from PokerHands.manipulating_cards import ManipulatingCards
 from PokerHands.detector.four_cards_detector import FourCardsDetector
@@ -16,7 +16,7 @@ from PokerHands.detector.quinte_flush_detector import QuinteFlushDetector
 from PokerHands.detector.quinte_detector import QuinteDetector
 from PokerHands.detector.three_cards_detector import ThreeCardsDetector
 from PokerHands.detector.two_pairs_detector import TwoPairsDetector
-from PokerHands.poker_hand import PokerHand
+from PokerHands.combination import Combination
 from PokerHands.tests.assert_helper import is_this_two_figure_are_equal
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
@@ -40,8 +40,8 @@ def test_launch_showdown_phase_with_two_players_and_find_steve_winning():
         .launch_showdown_phase_and_identify_winner()
         .is_this_players_can_be_a_winner(["Steve"])
         .is_this_best_figure(FourOfKindFigure(CardValue.TWO, CardValue.ACE))
-        .is_this_poker_hand("Steve", FourOfKindFigure(CardValue.TWO, CardValue.ACE))
-        .is_this_poker_hand("Natacha", FullFigure(CardValue.TWO, CardValue.ACE)))
+        .is_this_combination("Steve", FourOfKindFigure(CardValue.TWO, CardValue.ACE))
+        .is_this_combination("Natacha", FullFigure(CardValue.TWO, CardValue.ACE)))
 
 def test_launch_showdown_phase_with_two_players_and_find_steve_and_natacha_winning():
     false_cards = ["2♠", "2♥", "A♦", "A♣", "A♥", "4♥", "J♦", "6♠", "Q♥", "5♥", "3♠","J♠"]
@@ -62,8 +62,8 @@ def test_launch_showdown_phase_with_two_players_and_find_steve_and_natacha_winni
         .launch_showdown_phase_and_identify_winner()
         .is_this_players_can_be_a_winner(["Steve_Natacha"])
         .is_this_best_figure(PairFigure(CardValue.JACK, CardValue.ACE))
-        .is_this_poker_hand("Steve", PairFigure(CardValue.JACK, CardValue.ACE))
-        .is_this_poker_hand("Natacha", PairFigure(CardValue.JACK, CardValue.ACE))        
+        .is_this_combination("Steve", PairFigure(CardValue.JACK, CardValue.ACE))
+        .is_this_combination("Natacha", PairFigure(CardValue.JACK, CardValue.ACE))        
     )     
     
 def test_launch_showdown_phase_with_two_players_and_find_wanda_winning():
@@ -82,16 +82,16 @@ def test_launch_showdown_phase_with_two_players_and_find_wanda_winning():
         .launch_showdown_phase_and_identify_winner()
         .is_this_players_can_be_a_winner(["Wanda"])
         .is_this_best_figure(FourOfKindFigure(CardValue.EIGHT, CardValue.FIVE))        
-        .is_this_poker_hand("Steve", FullFigure(CardValue.FOUR, CardValue.EIGHT))
-        .is_this_poker_hand("Natacha", ThreeOfKindFigure(CardValue.EIGHT, CardValue.KING))
-        .is_this_poker_hand("Tony", ThreeOfKindFigure(CardValue.EIGHT, CardValue.QUEEN))
-        .is_this_poker_hand("Thor", ThreeOfKindFigure(CardValue.EIGHT, CardValue.ACE))
-        .is_this_poker_hand("Bruce", ThreeOfKindFigure(CardValue.EIGHT, CardValue.TEN))
-        .is_this_poker_hand("Clint", ThreeOfKindFigure(CardValue.EIGHT, CardValue.QUEEN))
-        .is_this_poker_hand("Carol", ThreeOfKindFigure(CardValue.EIGHT, CardValue.JACK))
-        .is_this_poker_hand("T'Challa", ThreeOfKindFigure(CardValue.EIGHT, CardValue.TEN))
-        .is_this_poker_hand("Steven", ThreeOfKindFigure(CardValue.EIGHT, CardValue.NINE))
-        .is_this_poker_hand("Wanda", FourOfKindFigure(CardValue.EIGHT, CardValue.FIVE)))
+        .is_this_combination("Steve", FullFigure(CardValue.FOUR, CardValue.EIGHT))
+        .is_this_combination("Natacha", ThreeOfKindFigure(CardValue.EIGHT, CardValue.KING))
+        .is_this_combination("Tony", ThreeOfKindFigure(CardValue.EIGHT, CardValue.QUEEN))
+        .is_this_combination("Thor", ThreeOfKindFigure(CardValue.EIGHT, CardValue.ACE))
+        .is_this_combination("Bruce", ThreeOfKindFigure(CardValue.EIGHT, CardValue.TEN))
+        .is_this_combination("Clint", ThreeOfKindFigure(CardValue.EIGHT, CardValue.QUEEN))
+        .is_this_combination("Carol", ThreeOfKindFigure(CardValue.EIGHT, CardValue.JACK))
+        .is_this_combination("T'Challa", ThreeOfKindFigure(CardValue.EIGHT, CardValue.TEN))
+        .is_this_combination("Steven", ThreeOfKindFigure(CardValue.EIGHT, CardValue.NINE))
+        .is_this_combination("Wanda", FourOfKindFigure(CardValue.EIGHT, CardValue.FIVE)))
 
 def test_launch_river_phase_with_ten_players_and_tony_and_clint_win():
     fake_cards = ["A♠", "K♣", "Q♥", "J♦", "10♣", "9♦", "8♥", "7♠", "6♣", "5♦", "4♥", "3♠", "2♣", "A♦", "7♥", "Q♠", "J♣", "10♦", "9♥", "8♠", "5♥", "10♥" ,"6♦", "4♠", "3♦", "Q♦", "3♠","Q♣"]
@@ -109,16 +109,16 @@ def test_launch_river_phase_with_ten_players_and_tony_and_clint_win():
         .launch_showdown_phase_and_identify_winner()
         .is_this_players_can_be_a_winner(["Tony_Clint"])
         .is_this_best_figure(ThreeOfKindFigure(CardValue.QUEEN, CardValue.TEN))
-        .is_this_poker_hand("Steve", TwoPairFigure(CardValue.QUEEN, CardValue.FOUR, CardValue.ACE))
-        .is_this_poker_hand("Natacha", PairFigure(CardValue.QUEEN,CardValue.KING))
-        .is_this_poker_hand("Tony", ThreeOfKindFigure(CardValue.QUEEN, CardValue.TEN))
-        .is_this_poker_hand("Thor", PairFigure(CardValue.QUEEN,CardValue.ACE))
-        .is_this_poker_hand("Bruce", TwoPairFigure(CardValue.QUEEN, CardValue.TEN, CardValue.SEVEN))
-        .is_this_poker_hand("Clint", ThreeOfKindFigure(CardValue.QUEEN, CardValue.TEN))
-        .is_this_poker_hand("Carol", PairFigure(CardValue.QUEEN, CardValue.JACK))
-        .is_this_poker_hand("T'Challa", TwoPairFigure(CardValue.QUEEN, CardValue.TEN, CardValue.SEVEN))
-        .is_this_poker_hand("Steven", TwoPairFigure( CardValue.QUEEN, CardValue.SIX, CardValue.TEN))
-        .is_this_poker_hand("Wanda", PairFigure(CardValue.QUEEN, CardValue.TEN)))
+        .is_this_combination("Steve", TwoPairFigure(CardValue.QUEEN, CardValue.FOUR, CardValue.ACE))
+        .is_this_combination("Natacha", PairFigure(CardValue.QUEEN,CardValue.KING))
+        .is_this_combination("Tony", ThreeOfKindFigure(CardValue.QUEEN, CardValue.TEN))
+        .is_this_combination("Thor", PairFigure(CardValue.QUEEN,CardValue.ACE))
+        .is_this_combination("Bruce", TwoPairFigure(CardValue.QUEEN, CardValue.TEN, CardValue.SEVEN))
+        .is_this_combination("Clint", ThreeOfKindFigure(CardValue.QUEEN, CardValue.TEN))
+        .is_this_combination("Carol", PairFigure(CardValue.QUEEN, CardValue.JACK))
+        .is_this_combination("T'Challa", TwoPairFigure(CardValue.QUEEN, CardValue.TEN, CardValue.SEVEN))
+        .is_this_combination("Steven", TwoPairFigure( CardValue.QUEEN, CardValue.SIX, CardValue.TEN))
+        .is_this_combination("Wanda", PairFigure(CardValue.QUEEN, CardValue.TEN)))
 
 
 class ShowdownPhaseDriver:
@@ -133,7 +133,7 @@ class ShowdownPhaseDriver:
         full_detector = FullDetector(manipulating_cards)
         four_cards_detector = FourCardsDetector(manipulating_cards)
         quinte_flush_detector = QuinteFlushDetector(manipulating_cards, quinte_detector)
-        self.poker_hand = PokerHand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
+        self.combination = Combination(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
         self.players = {}
         self.table = Table(multi_card_draws)
         self.all_cards = []
@@ -193,7 +193,7 @@ class ShowdownPhaseDriver:
             return self
 
     def launch_showdown_phase_and_identify_winner(self):
-        showdown_phase = ShowdownPhase(self.poker_hand, self.table)
+        showdown_phase = ShowdownPhase(self.combination, self.table)
         self.hand_results = showdown_phase.analyze_pokers_hand_and_calculate_hand_results()
         return self
 
@@ -215,8 +215,8 @@ class ShowdownPhaseDriver:
         assert(is_equal == True)
         return self
 
-    def is_this_poker_hand(self, player_name, figure_expected): 
-        figure_calculated = self.hand_results.poker_hands_by_player[player_name]
+    def is_this_combination(self, player_name, figure_expected): 
+        figure_calculated = self.hand_results.combination_by_player[player_name]
         is_right = is_this_two_figure_are_equal(figure_expected, figure_calculated) 
         assert(is_right == True)
         return self

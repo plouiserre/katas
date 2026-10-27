@@ -2,11 +2,6 @@ class Table :
     def __init__(self, multi_draw_cards):
         self.players = {}
         self.multi_draw_cards = multi_draw_cards
-        self.all_cards = []
-        self.burn_cards = []     
-        self.flop_cards = []
-        self.turn_card = None
-        self.river_card = None
 
     def add_player(self, name_player):
         self.players[name_player] = []

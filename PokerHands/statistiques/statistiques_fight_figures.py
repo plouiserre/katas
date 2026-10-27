@@ -13,20 +13,20 @@ class StatistiquesFightFigures :
 
     def __count_all_presences_for_all_figures(self):
         all_figures_count = []
-        for hand in self.games_results : 
-            for player_name in hand.poker_hands_by_player:
-                poker_hand = hand.poker_hands_by_player[player_name]
-                poker_hand_type = type(poker_hand).__name__
-                if (poker_hand_type in all_figures_count) == False:
-                    all_figures_count.append(poker_hand_type)
-                    if (poker_hand_type in self.presences_figures) == False :
-                        self.presences_figures[poker_hand_type] = 0
-                    self.presences_figures[poker_hand_type] += 1
+        for round in self.games_results : 
+            for player_name in round.combination_by_player:
+                combination = round.combination_by_player[player_name]
+                combination_type = type(combination).__name__
+                if (combination_type in all_figures_count) == False:
+                    all_figures_count.append(combination_type)
+                    if (combination_type in self.presences_figures) == False :
+                        self.presences_figures[combination_type] = 0
+                    self.presences_figures[combination_type] += 1
             all_figures_count = []
 
     def __count_how_many_times_win_each_figure(self): 
-        for hand in self.games_results : 
-            figure_name = type(hand.best_figure).__name__
+        for round in self.games_results : 
+            figure_name = type(round.best_figure).__name__
             if (figure_name in self.winning_figures) == False : 
                 self.winning_figures[figure_name] = 0
             self.winning_figures[figure_name] += 1 

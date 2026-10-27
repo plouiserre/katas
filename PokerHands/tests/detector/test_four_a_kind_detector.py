@@ -2,26 +2,26 @@ from PokerHands.AllFigures.FourOfKindFigure import FourOfKindFigure
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.manipulating_cards import ManipulatingCards
 from PokerHands.detector.four_cards_detector import FourCardsDetector
-from PokerHands.tests.random_cards import get_all_values, get_random_card, get_shuffle_poker_hand
+from PokerHands.tests.random_cards import get_all_values, get_random_card, get_shuffle_combination
 
 def test_find_four_of_king_with_queen_high_cards():
-    poker_hand = [Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS)]
-    assert(__find_four_of_kind(poker_hand) == FourOfKindFigure(CardValue.KING, CardValue.QUEEN))
+    combination = [Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.QUEEN, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.DIAMONDS)]
+    assert(__find_four_of_kind(combination) == FourOfKindFigure(CardValue.KING, CardValue.QUEEN))
 
 def test_find_four_of_ace_with_six_high_cards():
-    poker_hand = [Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.DIAMONDS)]
-    assert(__find_four_of_kind(poker_hand) == FourOfKindFigure(CardValue.ACE, CardValue.SIX))
+    combination = [Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.DIAMONDS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.ACE, CardColor.DIAMONDS)]
+    assert(__find_four_of_kind(combination) == FourOfKindFigure(CardValue.ACE, CardValue.SIX))
 
 def test_find_four_of_kind_randomize():
     all_cards_values = get_all_values()
     four_times = get_random_card(all_cards_values)
     other_card = get_random_card(all_cards_values)
-    poker_hand = [Card(four_times, CardColor.CLUBS), Card(four_times, CardColor.DIAMONDS), Card(four_times, CardColor.HEARTS), Card(four_times, CardColor.SPADES), Card(other_card, CardColor.DIAMONDS)]
-    get_shuffle_poker_hand(poker_hand)
-    assert(__find_four_of_kind(poker_hand) == FourOfKindFigure(four_times, other_card))
+    combination = [Card(four_times, CardColor.CLUBS), Card(four_times, CardColor.DIAMONDS), Card(four_times, CardColor.HEARTS), Card(four_times, CardColor.SPADES), Card(other_card, CardColor.DIAMONDS)]
+    get_shuffle_combination(combination)
+    assert(__find_four_of_kind(combination) == FourOfKindFigure(four_times, other_card))
     
-def __find_four_of_kind(poker_hand): 
+def __find_four_of_kind(combination): 
     manipulating_cards = ManipulatingCards()
     four_cards_detector = FourCardsDetector(manipulating_cards)
-    return four_cards_detector.find_four_cards(poker_hand)
+    return four_cards_detector.find_four_cards(combination)
     

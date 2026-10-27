@@ -11,8 +11,8 @@ def test_launch_100_games():
      .add_player("T'Challa")
      .add_player("Steven")
      .add_player("Wanda")
-     .define_how_many_hand_will_be_launching(100)
-     .launch_multiple_hand()
+     .define_how_many_round_will_be_launching(100)
+     .launch_multiple_round()
      .confirm_all_games_are_launch()
      .confirm_all_games_are_analyzed())
 
@@ -20,29 +20,29 @@ def test_launch_100_games():
 class MultipleGameDriver(): 
     def __init__(self):
         self.multiple_game = MultipleGame()
-        self.hand_results = []
+        self.round_results = []
         self.number = 0
 
     def add_player(self, player_name): 
         self.multiple_game.add_player(player_name)
         return self
 
-    def define_how_many_hand_will_be_launching(self, number):
+    def define_how_many_round_will_be_launching(self, number):
         self.number = number
-        self.multiple_game.define_how_many_hand_will_be_launching(number)
+        self.multiple_game.define_how_many_round_will_be_launching(number)
         return self
 
-    def launch_multiple_hand(self): 
-        self.hand_results = self.multiple_game.launch_multiple_hand()
+    def launch_multiple_round(self): 
+        self.round_results = self.multiple_game.launch_multiple_round()
         return self
 
     def confirm_all_games_are_launch(self): 
-        assert(len(self.hand_results) == self.number)
+        assert(len(self.round_results) == self.number)
         return self
 
     def confirm_all_games_are_analyzed(self): 
-        for hand_result in self.hand_results : 
-            assert((len(hand_result.winners)> 0) == True)
-            assert((len(hand_result.poker_hands_by_player)> 0) == True)
-            assert((hand_result.best_figure != "None") == True)
+        for round_result in self.round_results : 
+            assert((len(round_result.winners)> 0) == True)
+            assert((len(round_result.combination_by_player)> 0) == True)
+            assert((round_result.best_figure != "None") == True)
         return self

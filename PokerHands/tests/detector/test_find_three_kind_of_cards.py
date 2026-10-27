@@ -2,15 +2,15 @@ from PokerHands.AllFigures.ThreeOfKindFigure import ThreeOfKindFigure
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.manipulating_cards import ManipulatingCards
 from PokerHands.detector.three_cards_detector import ThreeCardsDetector
-from PokerHands.tests.random_cards import add_cards, get_all_values, get_high_card_complete, get_lower_card_complete, get_random_card_complete, get_shuffle_poker_hand, remove_cards
+from PokerHands.tests.random_cards import add_cards, get_all_values, get_high_card_complete, get_lower_card_complete, get_random_card_complete, get_shuffle_combination, remove_cards
 
 def test_find_three_of_a_six(): 
-    poker_hand =  [Card(CardValue.SIX, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.SIX, CardColor.HEARTS), Card(CardValue.TWO, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
-    assert(__find_three_cards_of_kind(poker_hand)==ThreeOfKindFigure(CardValue.SIX, CardValue.FOUR))
+    combination =  [Card(CardValue.SIX, CardColor.CLUBS), Card(CardValue.SIX, CardColor.DIAMONDS), Card(CardValue.SIX, CardColor.HEARTS), Card(CardValue.TWO, CardColor.SPADES), Card(CardValue.FOUR, CardColor.SPADES)]
+    assert(__find_three_cards_of_kind(combination)==ThreeOfKindFigure(CardValue.SIX, CardValue.FOUR))
 
 def test_find_three_of_a_king(): 
-    poker_hand =  [Card(CardValue.KING, CardColor.CLUBS), Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES), Card(CardValue.KING, CardColor.SPADES)]
-    assert(__find_three_cards_of_kind(poker_hand)==ThreeOfKindFigure(CardValue.KING, CardValue.QUEEN))
+    combination =  [Card(CardValue.KING, CardColor.CLUBS), Card(CardValue.JACK, CardColor.DIAMONDS), Card(CardValue.KING, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES), Card(CardValue.KING, CardColor.SPADES)]
+    assert(__find_three_cards_of_kind(combination)==ThreeOfKindFigure(CardValue.KING, CardValue.QUEEN))
 
 # def test_find_three_of_kind_randomized(): 
 #     all_cards_values = get_all_values()
@@ -27,7 +27,7 @@ def test_find_three_of_a_king():
 #     get_shuffle_hand(hand)
 #     assert(__find_three_cards_of_kind(hand)==ThreeOfKindFigure(three_of_kinds.value, high_card.value))        
 
-def __find_three_cards_of_kind(poker_hand):
+def __find_three_cards_of_kind(combination):
     manipulating_cards = ManipulatingCards()
     three_cards_detector = ThreeCardsDetector(manipulating_cards)
-    return three_cards_detector.find_three_of_kind(poker_hand)
+    return three_cards_detector.find_three_of_kind(combination)

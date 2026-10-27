@@ -7,8 +7,8 @@ class PairDetector :
     def __init__(self, manipulating_cards):
         self.manipulating_cards = manipulating_cards
 
-    def find_pair(self, poker_hand: Iterator[Card]) -> PairFigure:
-        cards_group_by_value = self.manipulating_cards.count_cards(poker_hand)
+    def find_pair(self, combination: Iterator[Card]) -> PairFigure:
+        cards_group_by_value = self.manipulating_cards.count_cards(combination)
         is_one_pair = False
         value_pair = CardValue.UNDEFINED
         high_value_outside_one_pair = CardValue.UNDEFINED

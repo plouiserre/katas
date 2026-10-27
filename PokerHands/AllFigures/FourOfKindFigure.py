@@ -9,15 +9,15 @@ class FourOfKindFigure :
     high_value_rest_of_cards: CardValue
     points : ClassVar[int] = 80
 
-    def compare_with_other_four_of_kind_poker_hands(self, other_poker_hand: type[Self]) -> Winner:
-        if self.value < other_poker_hand.value : 
-            return Winner.SECOND_POKER_HAND
-        elif other_poker_hand.value < self.value :
-            return Winner.FIRST_POKER_HAND
+    def compare_with_other_four_of_kind_poker_hands(self, other_combination: type[Self]) -> Winner:
+        if self.value < other_combination.value : 
+            return Winner.SECOND_COMBINATION
+        elif other_combination.value < self.value :
+            return Winner.FIRST_COMBINATION
         else : 
-            if self.high_value_rest_of_cards < other_poker_hand.high_value_rest_of_cards : 
-                return Winner.SECOND_POKER_HAND
-            elif other_poker_hand.high_value_rest_of_cards < self.high_value_rest_of_cards : 
-                return Winner.FIRST_POKER_HAND
+            if self.high_value_rest_of_cards < other_combination.high_value_rest_of_cards : 
+                return Winner.SECOND_COMBINATION
+            elif other_combination.high_value_rest_of_cards < self.high_value_rest_of_cards : 
+                return Winner.FIRST_COMBINATION
             else : 
                 return Winner.EQUALITY

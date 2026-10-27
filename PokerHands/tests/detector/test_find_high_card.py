@@ -1,30 +1,30 @@
 from PokerHands.AllFigures.HighCardFigure import HighCardFigure
 from PokerHands.card import Card, CardColor, CardValue
 from PokerHands.detector.high_card_detector import HighCardDetector
-from PokerHands.tests.random_cards import add_cards, get_all_values, get_high_card_complete, get_random_card_complete, get_shuffle_poker_hand, remove_cards
+from PokerHands.tests.random_cards import add_cards, get_all_values, get_high_card_complete, get_random_card_complete, get_shuffle_combination, remove_cards
 from typing import List
 
 def test_find_high_card_queen():
-    poker_hand =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.THREE, CardColor.DIAMONDS),Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES)]
-    assert(__find_high_card(poker_hand)==HighCardFigure(CardValue.QUEEN))
+    combination =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.THREE, CardColor.DIAMONDS),Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.QUEEN, CardColor.SPADES)]
+    assert(__find_high_card(combination)==HighCardFigure(CardValue.QUEEN))
 
 def test_find_high_card_jack():
-    poker_hand =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.THREE, CardColor.DIAMONDS),Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.JACK, CardColor.SPADES)]
-    assert(__find_high_card(poker_hand)==HighCardFigure(CardValue.JACK))
+    combination =  [Card(CardValue.TWO, CardColor.CLUBS), Card(CardValue.THREE, CardColor.DIAMONDS),Card(CardValue.NINE, CardColor.DIAMONDS), Card(CardValue.TEN, CardColor.HEARTS), Card(CardValue.JACK, CardColor.SPADES)]
+    assert(__find_high_card(combination)==HighCardFigure(CardValue.JACK))
 
 def test_find_high_card_random(): 
-    poker_hand : List[Card]= []
+    combination : List[Card]= []
     all_cards_values = get_all_values()
     remove_cards(all_cards_values, [CardValue.THREE, CardValue.FOUR, CardValue.FIVE])
     high_card_random = get_high_card_complete(all_cards_values)
     add_cards(all_cards_values, [CardValue.THREE, CardValue.FOUR, CardValue.FIVE])
-    poker_hand.append(high_card_random)
-    while len(poker_hand) < 5 : 
+    combination.append(high_card_random)
+    while len(combination) < 5 : 
         new_card = get_random_card_complete(all_cards_values)
-        poker_hand.append(new_card)
-    get_shuffle_poker_hand(poker_hand)
-    assert(__find_high_card(poker_hand)==HighCardFigure(high_card_random.value))
+        combination.append(new_card)
+    get_shuffle_combination(combination)
+    assert(__find_high_card(combination)==HighCardFigure(high_card_random.value))
 
-def __find_high_card(poker_hand):
+def __find_high_card(combination):
     _high_card_detector = HighCardDetector()
-    return _high_card_detector.find_high_card(poker_hand)
+    return _high_card_detector.find_high_card(combination)

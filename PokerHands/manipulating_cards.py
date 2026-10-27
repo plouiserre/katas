@@ -8,25 +8,25 @@ class ManipulatingCards :
     def __init__(self):
         pass
 
-    def count_cards(self, poker_hand : Iterator[Card]) -> dict[int, CardValue]:
+    def count_cards(self, combination : Iterator[Card]) -> dict[int, CardValue]:
         counting_cards = {}
-        for card in poker_hand : 
+        for card in combination : 
             if card.value in counting_cards : 
                 counting_cards[card.value] += 1
             else : 
                 counting_cards[card.value] = 1
         return counting_cards
 
-    def sorted_card(self, poker_hand, limit, sorted_type): 
-        poker_hand_sorted_completed = self.__sorted_all_cards(poker_hand, sorted_type)
-        if len(poker_hand_sorted_completed) <= limit : 
-            return [poker_hand_sorted_completed]
+    def sorted_card(self, combination, limit, sorted_type): 
+        combination_sorted_completed = self.__sorted_all_cards(combination, sorted_type)
+        if len(combination_sorted_completed) <= limit : 
+            return [combination_sorted_completed]
         else : 
-            return self.__get_all_combinaisons_carded_sorted(poker_hand_sorted_completed, limit)
+            return self.__get_all_combinaisons_carded_sorted(combination_sorted_completed, limit)
 
-    def __sorted_all_cards(self, poker_hand, sorted_type):
-        all_cards = copy.deepcopy(poker_hand)
-        poker_hand_ordered = []
+    def __sorted_all_cards(self, combination, sorted_type):
+        all_cards = copy.deepcopy(combination)
+        combination_ordered = []
         last_card = Card(CardValue.UNDEFINED, CardColor.UNDEFINED)
         only_doublons = []
         while(len(all_cards) > 0) :
@@ -35,16 +35,16 @@ class ManipulatingCards :
                 only_doublons.append(last_card)
                 only_doublons.append(min_card)
             elif (sorted_type == SortedType.KEEP_ONE_DOUBLON and last_card.value == min_card.value) == False : 
-                poker_hand_ordered.append(min_card)
+                combination_ordered.append(min_card)
             last_card = min_card
             all_cards.remove(min_card)
         if sorted_type == SortedType.ONLY_DOUBLONS :
             return only_doublons
         elif sorted_type == SortedType.NO_DOUBLON :
-            no_doublon_list = self.__delete_all_doublons(poker_hand_ordered, only_doublons)
+            no_doublon_list = self.__delete_all_doublons(combination_ordered, only_doublons)
             return no_doublon_list
         else : 
-            return poker_hand_ordered
+            return combination_ordered
 
     def __delete_all_doublons(self, sorted_list, only_doublons):
         final_list = copy.deepcopy(sorted_list)
@@ -66,16 +66,16 @@ class ManipulatingCards :
                         min_card = card
         return min_card
     
-    def __get_all_combinaisons_carded_sorted(self, poker_hand_sorted_completed, limit):
+    def __get_all_combinaisons_carded_sorted(self, combination_sorted_completed, limit):
         all_sorted_carded = []
         is_limit_breaked = False 
         i = 0
         while is_limit_breaked == False : 
             new_limit = i + limit
-            part_of_carted_sorted = poker_hand_sorted_completed[i :new_limit]
+            part_of_carted_sorted = combination_sorted_completed[i :new_limit]
             all_sorted_carded.append(part_of_carted_sorted)
             i += 1
-            if new_limit == len(poker_hand_sorted_completed):
+            if new_limit == len(combination_sorted_completed):
                 is_limit_breaked = True
         return all_sorted_carded
 

@@ -11,10 +11,10 @@ class QuinteDetector :
         self.is_card_two_present = False
         self.is_card_king_present = False
 
-    def find_quinte(self, poker_hand: Iterator[Card]) -> QuinteFigure:
+    def find_quinte(self, combination: Iterator[Card]) -> QuinteFigure:
         all_quintes_figure = []
-        if len(poker_hand) >= 5 :
-            all_cards_sorted = self.manipulating_cards.sorted_card(poker_hand, 5, SortedType.KEEP_ONE_DOUBLON)            
+        if len(combination) >= 5 :
+            all_cards_sorted = self.manipulating_cards.sorted_card(combination, 5, SortedType.KEEP_ONE_DOUBLON)            
             all_quintes_figure = self.__find_quinte_from_sorted_cards(all_cards_sorted)
             return self.__find_best_quinte(all_quintes_figure)            
         else : 
