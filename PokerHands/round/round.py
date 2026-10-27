@@ -38,7 +38,7 @@ class Round :
         for player_name in players_name : 
             self.players.append(player_name)
 
-    def launch_hand(self): 
+    def launch_round(self): 
         self.__init_all_players_and_phases()
         self.pre_flop_data = self.pre_flop_phase.launch_phase_and_get_all_pre_flop_datas()
         self.flop_phase_data = self.flop_phase.launch_phase_and_get_all_flop_datas()

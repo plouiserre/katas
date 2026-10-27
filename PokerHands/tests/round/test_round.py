@@ -11,7 +11,7 @@ from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
 def test_launch_random_game_with_two_players():
     (GameDriver(MultiDrawCards())
             .add_players(["Steve", "Natacha"])
-            .launch_hand()
+            .launch_round()
             .all_cards_are_differents()
             .is_three_cards_burned()
             .is_this_players_have_seven_cards_dealed("Steve")
@@ -23,7 +23,7 @@ def test_launch_determine_game_with_two_players():
     fake_cards = ["K♣", "Q♠", "Q♥", "J♦", "3♠","A♣", "10♠", "9♥", "3♥","8♦","K♥", "J♣"]
     (GameDriver(FakeMultiDrawCards(fake_cards))
                 .add_players(["Steve", "Natacha"])
-                .launch_hand()
+                .launch_round()
                 .all_cards_are_differents()
                 .is_three_cards_burned()
                 .is_this_players_have_seven_cards_dealed("Steve")
@@ -34,7 +34,7 @@ def test_launch_determine_game_with_two_players():
 def test_launch_random_game_with_ten_players(): 
     (GameDriver(MultiDrawCards())
                 .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
-                .launch_hand()
+                .launch_round()
                 .all_cards_are_differents()
                 .is_three_cards_burned()
                 .is_this_players_have_seven_cards_dealed("Steve")
@@ -46,7 +46,7 @@ def test_launch_determine_game_with_ten_players():
     fake_cards = ["A♣", "K♠", "Q♥", "J♠", "10♣", "9♦", "8♣", "7♦", "6♣", "5♠", "4♥", "3♦", "2♣", "A♠", "K♥", "Q♦", "J♣", "10♠", "9♥", "8♥", "9♠","10♦", "10♥", "7♠", "8♠","J♦", "3♠","8♦"]
     (GameDriver(FakeMultiDrawCards(fake_cards))
                 .add_players(["Steve","Natacha","Tony","Thor","Bruce","Clint","Carol","T'Challa","Steven","Wanda"])
-                .launch_hand()
+                .launch_round()
                 .all_cards_are_differents()
                 .is_three_cards_burned()
                 .is_this_players_have_seven_cards_dealed("Steve")
@@ -64,8 +64,8 @@ class GameDriver:
         self.round.add_players(players_name)
         return self
 
-    def launch_hand(self):
-        self.result = self.round.launch_hand()
+    def launch_round(self):
+        self.result = self.round.launch_round()
         return self
 
     def all_cards_are_differents(self): 

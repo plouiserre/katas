@@ -11,7 +11,7 @@ class MultipleGame :
         self.players.append(player_name)
         return self
 
-    def define_how_many_hand_will_be_launching(self, number):
+    def define_how_many_round_will_be_launching(self, number):
         self.number = number
         return self
 
@@ -20,6 +20,6 @@ class MultipleGame :
             multi_draw_cards = MultiDrawCards()
             round = Round(multi_draw_cards)
             round.add_players(self.players)
-            round_result = round.launch_hand()
+            round_result = round.launch_round()
             self.round_results.append(round_result)
         return self.round_results

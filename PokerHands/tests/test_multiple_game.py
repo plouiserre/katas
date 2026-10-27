@@ -11,7 +11,7 @@ def test_launch_100_games():
      .add_player("T'Challa")
      .add_player("Steven")
      .add_player("Wanda")
-     .define_how_many_hand_will_be_launching(100)
+     .define_how_many_round_will_be_launching(100)
      .launch_multiple_round()
      .confirm_all_games_are_launch()
      .confirm_all_games_are_analyzed())
@@ -27,9 +27,9 @@ class MultipleGameDriver():
         self.multiple_game.add_player(player_name)
         return self
 
-    def define_how_many_hand_will_be_launching(self, number):
+    def define_how_many_round_will_be_launching(self, number):
         self.number = number
-        self.multiple_game.define_how_many_hand_will_be_launching(number)
+        self.multiple_game.define_how_many_round_will_be_launching(number)
         return self
 
     def launch_multiple_round(self): 
