@@ -32,14 +32,14 @@ class TwoPairFigure:
                 else : 
                     return Winner.EQUALITY
                 
-    def __get_high_pair(self, poker_hand) -> Winner: 
-        if poker_hand.first_pair_value < poker_hand.second_pair_value :
-            return poker_hand.second_pair_value
+    def __get_high_pair(self, combination) -> Winner: 
+        if combination.first_pair_value < combination.second_pair_value :
+            return combination.second_pair_value
         else : 
-            return poker_hand.first_pair_value
+            return combination.first_pair_value
         
-    def __get_lower_pair(self, poker_hand) -> Winner: 
-        if poker_hand.first_pair_value < poker_hand.second_pair_value :
-            return poker_hand.first_pair_value
+    def __get_lower_pair(self, combination) -> Winner: 
+        if combination.first_pair_value < combination.second_pair_value :
+            return combination.first_pair_value
         else : 
-            return poker_hand.second_pair_value  
+            return combination.second_pair_value  

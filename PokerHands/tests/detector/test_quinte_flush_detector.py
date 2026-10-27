@@ -206,31 +206,31 @@ def test_find_quinte_flush_random_colors__with_six_value():
     third_card = top_quinte_flush - 2
     fourth_card = top_quinte_flush - 3
     fifth_card = top_quinte_flush - 4
-    poker_hand = [Card(top_quinte_flush, color_value), Card(second_card, color_value), Card(third_card, color_value), Card(fourth_card, color_value), Card(fifth_card, color_value)]
-    get_shuffle_poker_hand(poker_hand)
-    assert(__find_quinte_flush(poker_hand) == QuinteFlushFigure(top_quinte_flush, color_value))
+    combination = [Card(top_quinte_flush, color_value), Card(second_card, color_value), Card(third_card, color_value), Card(fourth_card, color_value), Card(fifth_card, color_value)]
+    get_shuffle_poker_hand(combination)
+    assert(__find_quinte_flush(combination) == QuinteFlushFigure(top_quinte_flush, color_value))
 
-def __find_quinte_flush(poker_hand):
+def __find_quinte_flush(combination):
     manipulating_cards = ManipulatingCards()
     quinte_detector = QuinteDetector(manipulating_cards)
     quinte_flush_detector = QuinteFlushDetector(manipulating_cards, quinte_detector)
-    return quinte_flush_detector.find_quinte_flush(poker_hand)
+    return quinte_flush_detector.find_quinte_flush(combination)
 
 class QuinteFlushDetectorDriver : 
     def __init__(self):
-        self.poker_hand = []
+        self.combination = []
         self.quinte_flush_figure = None
 
     def add_card_in_poker_hand(self, card_crypted):
         card = Card.parse(card_crypted)
-        self.poker_hand.append(card)
+        self.combination.append(card)
         return self
     
     def calculate_poker_hand(self):
         manipulating_cards = ManipulatingCards()
         quinte_detector = QuinteDetector(manipulating_cards)
         quinte_flush_detector = QuinteFlushDetector(manipulating_cards, quinte_detector)
-        self.quinte_flush_figure = quinte_flush_detector.find_quinte_flush(self.poker_hand)
+        self.quinte_flush_figure = quinte_flush_detector.find_quinte_flush(self.combination)
         return self
 
     def is_valid_quinte_flush_figure(self, card_value_crypted, card_color_crypted):

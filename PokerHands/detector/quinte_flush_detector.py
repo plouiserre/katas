@@ -11,12 +11,12 @@ class QuinteFlushDetector :
         self.card_color = CardColor.UNDEFINED
         self.quinte_figure = None
 
-    def find_quinte_flush(self, poker_hand: Iterator[Card]) -> QuinteFlushFigure:
+    def find_quinte_flush(self, combination: Iterator[Card]) -> QuinteFlushFigure:
         is_same_color = True
-        self.quinte_figure = self.quinte_detector.find_quinte(poker_hand)
+        self.quinte_figure = self.quinte_detector.find_quinte(combination)
         if self.quinte_figure != None : 
-            self.card_color = self.__get_majority_color(poker_hand)
-            all_cards_in_quinte = self.__get_all_cards_compatible_with_quinte_flush(poker_hand)
+            self.card_color = self.__get_majority_color(combination)
+            all_cards_in_quinte = self.__get_all_cards_compatible_with_quinte_flush(combination)
             if all_cards_in_quinte == None : 
                 return None
             all_cards_in_quinte_without_doublon = self.manipulating_cards.sorted_card(all_cards_in_quinte, 5, SortedType.NO_DOUBLON)
@@ -31,10 +31,10 @@ class QuinteFlushDetector :
         else :
             return None    
 
-    def __get_all_cards_compatible_with_quinte_flush(self, poker_hand):
+    def __get_all_cards_compatible_with_quinte_flush(self, combination):
         all_cards_in_quinte = []
         card_mini = self.quinte_figure.value - 4
-        for card in poker_hand : 
+        for card in combination : 
             if card.value >= card_mini and card.color == self.card_color : 
                 all_cards_in_quinte.append(card)
         if len(all_cards_in_quinte) < 5 : 
@@ -42,9 +42,9 @@ class QuinteFlushDetector :
         else : 
             return all_cards_in_quinte
 
-    def __get_majority_color(self, poker_hand):
+    def __get_majority_color(self, combination):
         all_cards_colors = {}
-        for card in poker_hand : 
+        for card in combination : 
             if card.color in all_cards_colors : 
                 all_cards_colors[card.color] += 1
             else : 

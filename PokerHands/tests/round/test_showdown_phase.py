@@ -16,7 +16,7 @@ from PokerHands.detector.quinte_flush_detector import QuinteFlushDetector
 from PokerHands.detector.quinte_detector import QuinteDetector
 from PokerHands.detector.three_cards_detector import ThreeCardsDetector
 from PokerHands.detector.two_pairs_detector import TwoPairsDetector
-from PokerHands.poker_hand import PokerHand
+from PokerHands.combination import Combination
 from PokerHands.tests.assert_helper import is_this_two_figure_are_equal
 from PokerHands.tests.fake_multi_draw_cards import FakeMultiDrawCards
 
@@ -133,7 +133,7 @@ class ShowdownPhaseDriver:
         full_detector = FullDetector(manipulating_cards)
         four_cards_detector = FourCardsDetector(manipulating_cards)
         quinte_flush_detector = QuinteFlushDetector(manipulating_cards, quinte_detector)
-        self.poker_hand = PokerHand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
+        self.combination = Combination(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
         self.players = {}
         self.table = Table(multi_card_draws)
         self.all_cards = []
@@ -193,7 +193,7 @@ class ShowdownPhaseDriver:
             return self
 
     def launch_showdown_phase_and_identify_winner(self):
-        showdown_phase = ShowdownPhase(self.poker_hand, self.table)
+        showdown_phase = ShowdownPhase(self.combination, self.table)
         self.hand_results = showdown_phase.analyze_pokers_hand_and_calculate_hand_results()
         return self
 

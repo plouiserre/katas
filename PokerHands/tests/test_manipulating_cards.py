@@ -103,7 +103,7 @@ def test_sorted_5_cards_without_no_doublon_from_7_cards_with_many_doublons():
 
 class ManipulatingCardDriver(): 
     def __init__(self):
-        self.poker_hand = []
+        self.combination = []
         self.poker_hands_ordered = []
         self.counting_card = {}
         self.manipulating_cards = ManipulatingCards() 
@@ -111,15 +111,15 @@ class ManipulatingCardDriver():
     def add_all_cards_crypted(self, all_cards_crypted):
         for card_crypted in all_cards_crypted : 
             card = Card.parse(card_crypted)
-            self.poker_hand.append(card)
+            self.combination.append(card)
         return self
 
     def count_card(self):
-        self.counting_card =  self.manipulating_cards.count_cards(self.poker_hand)
+        self.counting_card =  self.manipulating_cards.count_cards(self.combination)
         return self
 
     def sorted_card(self, sorted_limit, sorted_type): 
-        self.poker_hands_ordered = self.manipulating_cards.sorted_card(self.poker_hand, sorted_limit, sorted_type)
+        self.poker_hands_ordered = self.manipulating_cards.sorted_card(self.combination, sorted_limit, sorted_type)
         return self
 
     def is_valid_number_card(self, card_value_crypted, number):

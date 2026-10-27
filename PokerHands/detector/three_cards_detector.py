@@ -7,8 +7,8 @@ class ThreeCardsDetector:
     def __init__(self, manipulating_cards):
         self.manipulating_cards = manipulating_cards
 
-    def find_three_of_kind(self, poker_hand : Iterator[Card]) -> ThreeOfKindFigure:
-        cards_group_by_value = self.manipulating_cards.count_cards(poker_hand)
+    def find_three_of_kind(self, combination : Iterator[Card]) -> ThreeOfKindFigure:
+        cards_group_by_value = self.manipulating_cards.count_cards(combination)
         is_three_cards = False
         three_of_kind_value = CardValue.TWO
         high_value_outside_three_of_kind = CardValue.TWO

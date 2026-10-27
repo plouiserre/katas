@@ -7,10 +7,10 @@ class FourCardsDetector:
     def __init__(self, manipulating_cards):
         self.manipulating_cards = manipulating_cards 
 
-    def find_four_cards(self,  poker_hand: Iterator[Card]) -> FourOfKindFigure:
+    def find_four_cards(self,  combination: Iterator[Card]) -> FourOfKindFigure:
         self.card_four_times = CardValue.UNDEFINED
         self.high_card_value = CardValue.UNDEFINED   
-        cards_group_by_value = self.manipulating_cards.count_cards(poker_hand)
+        cards_group_by_value = self.manipulating_cards.count_cards(combination)
         for card in cards_group_by_value : 
             number_cards = cards_group_by_value[card]
             if number_cards == 4 :

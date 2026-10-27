@@ -4,12 +4,12 @@ from PokerHands.detector.flush_detector import FlushDetector
 from PokerHands.tests.random_cards import add_cards, get_all_values, get_colors_random, get_high_cards, get_random_card, get_shuffle_poker_hand, remove_cards
 
 def test_find_flush_hearts_by_king():
-    poker_hand = [Card(CardValue.KING, CardColor.HEARTS), Card(CardValue.THREE, CardColor.HEARTS), Card(CardValue.FOUR, CardColor.HEARTS), Card(CardValue.SIX, CardColor.HEARTS), Card(CardValue.FIVE, CardColor.HEARTS)]
-    assert(__find_flush(poker_hand) == FlushFigure(CardColor.HEARTS, CardValue.KING))
+    combination = [Card(CardValue.KING, CardColor.HEARTS), Card(CardValue.THREE, CardColor.HEARTS), Card(CardValue.FOUR, CardColor.HEARTS), Card(CardValue.SIX, CardColor.HEARTS), Card(CardValue.FIVE, CardColor.HEARTS)]
+    assert(__find_flush(combination) == FlushFigure(CardColor.HEARTS, CardValue.KING))
 
 def test_find_flush_clubs_by_queen():
-    poker_hand = [Card(CardValue.SEVEN, CardColor.CLUBS), Card(CardValue.THREE, CardColor.CLUBS), Card(CardValue.FOUR, CardColor.CLUBS), Card(CardValue.QUEEN, CardColor.CLUBS), Card(CardValue.FIVE, CardColor.CLUBS)]
-    assert(__find_flush(poker_hand) == FlushFigure(CardColor.CLUBS, CardValue.QUEEN))
+    combination = [Card(CardValue.SEVEN, CardColor.CLUBS), Card(CardValue.THREE, CardColor.CLUBS), Card(CardValue.FOUR, CardColor.CLUBS), Card(CardValue.QUEEN, CardColor.CLUBS), Card(CardValue.FIVE, CardColor.CLUBS)]
+    assert(__find_flush(combination) == FlushFigure(CardColor.CLUBS, CardValue.QUEEN))
 
 def test_find_flush_randomise(): 
     color_choose = get_colors_random()
@@ -22,13 +22,13 @@ def test_find_flush_randomise():
     fourth_card_value = get_random_card(all_cards_values)
     fifth_card_value = get_random_card(all_cards_values)
     
-    poker_hand = [Card(first_card_value, color_choose), Card(second_card_value, color_choose), 
+    combination = [Card(first_card_value, color_choose), Card(second_card_value, color_choose), 
             Card(third_card_value, color_choose), Card(fourth_card_value, color_choose), 
             Card(fifth_card_value, color_choose)]
-    get_shuffle_poker_hand(poker_hand)
+    get_shuffle_poker_hand(combination)
     
-    assert(__find_flush(poker_hand) == FlushFigure(color_choose, first_card_value))
+    assert(__find_flush(combination) == FlushFigure(color_choose, first_card_value))
     
-def __find_flush(poker_hand) : 
+def __find_flush(combination) : 
     flush_detector = FlushDetector()
-    return flush_detector.find_flush(poker_hand)
+    return flush_detector.find_flush(combination)

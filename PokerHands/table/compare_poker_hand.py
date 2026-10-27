@@ -24,14 +24,14 @@ class ComparePokerHand:
     def __determinate_best_poker_hand_from_all_players(self):
         best_poker_hand = None
         for player_name in self.poker_hands_by_player : 
-            poker_hand = self.poker_hands_by_player[player_name]
+            combination = self.poker_hands_by_player[player_name]
             if best_poker_hand == None : 
-                best_poker_hand = poker_hand
+                best_poker_hand = combination
                 continue
-            poker_hands_to_compare = [poker_hand, best_poker_hand]
+            poker_hands_to_compare = [combination, best_poker_hand]
             winner = self.__determinate_winner(poker_hands_to_compare)
             if winner == Winner.FIRST_POKER_HAND :
-                best_poker_hand = poker_hand
+                best_poker_hand = combination
         return best_poker_hand
 
     def __determinate_winner(self, poker_hands ): 
@@ -48,7 +48,7 @@ class ComparePokerHand:
     def __get_all_players_with_best_poker_hand(self, best_poker_hand):
         best_players = []
         for player_name in self.poker_hands_by_player : 
-            poker_hand = self.poker_hands_by_player[player_name] 
-            if best_poker_hand == poker_hand : 
+            combination = self.poker_hands_by_player[player_name] 
+            if best_poker_hand == combination : 
                 best_players.append(player_name)
         return best_players

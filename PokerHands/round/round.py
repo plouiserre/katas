@@ -13,7 +13,7 @@ from PokerHands.draw.multi_draw_cards import MultiDrawCards
 from PokerHands.round.flop_phase import FlopPhase
 from PokerHands.round.pre_flop_phase import PreFlopPhase
 from PokerHands.round.showdown_phase import ShowdownPhase
-from PokerHands.poker_hand import PokerHand
+from PokerHands.combination import Combination
 from PokerHands.table.table import Table
 from PokerHands.round.river_phase import RiverPhase
 from PokerHands.round.turn_phase import TurnPhase
@@ -58,11 +58,10 @@ class Round :
         full_detector = FullDetector(manipulating_cards)
         four_cards_detector = FourCardsDetector(manipulating_cards)
         quinte_flush_detector = QuinteFlushDetector(manipulating_cards, quinte_detector)
-        poker_hand = PokerHand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
+        combination = Combination(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
         table = Table(self.multi_draw_cards)
         self.pre_flop_phase = PreFlopPhase(self.players, table)
         self.flop_phase = FlopPhase(table)
         self.turn_phase = TurnPhase(table)
         self.river_phase = RiverPhase(table)  
-        poker_hand = PokerHand(high_card_detector, pair_detector, two_pairs_detector, three_cards_detector, quinte_detector, flush_detector, full_detector, four_cards_detector, quinte_flush_detector)
-        self.show_down_phase = ShowdownPhase(poker_hand, table)      
+        self.show_down_phase = ShowdownPhase(combination, table)      

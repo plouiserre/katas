@@ -15,8 +15,8 @@ class StatistiquesFightFigures :
         all_figures_count = []
         for round in self.games_results : 
             for player_name in round.poker_hands_by_player:
-                poker_hand = round.poker_hands_by_player[player_name]
-                poker_hand_type = type(poker_hand).__name__
+                combination = round.poker_hands_by_player[player_name]
+                poker_hand_type = type(combination).__name__
                 if (poker_hand_type in all_figures_count) == False:
                     all_figures_count.append(poker_hand_type)
                     if (poker_hand_type in self.presences_figures) == False :

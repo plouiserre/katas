@@ -8,24 +8,24 @@ class ManipulatingCards :
     def __init__(self):
         pass
 
-    def count_cards(self, poker_hand : Iterator[Card]) -> dict[int, CardValue]:
+    def count_cards(self, combination : Iterator[Card]) -> dict[int, CardValue]:
         counting_cards = {}
-        for card in poker_hand : 
+        for card in combination : 
             if card.value in counting_cards : 
                 counting_cards[card.value] += 1
             else : 
                 counting_cards[card.value] = 1
         return counting_cards
 
-    def sorted_card(self, poker_hand, limit, sorted_type): 
-        poker_hand_sorted_completed = self.__sorted_all_cards(poker_hand, sorted_type)
+    def sorted_card(self, combination, limit, sorted_type): 
+        poker_hand_sorted_completed = self.__sorted_all_cards(combination, sorted_type)
         if len(poker_hand_sorted_completed) <= limit : 
             return [poker_hand_sorted_completed]
         else : 
             return self.__get_all_combinaisons_carded_sorted(poker_hand_sorted_completed, limit)
 
-    def __sorted_all_cards(self, poker_hand, sorted_type):
-        all_cards = copy.deepcopy(poker_hand)
+    def __sorted_all_cards(self, combination, sorted_type):
+        all_cards = copy.deepcopy(combination)
         poker_hand_ordered = []
         last_card = Card(CardValue.UNDEFINED, CardColor.UNDEFINED)
         only_doublons = []
